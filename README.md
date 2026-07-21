@@ -1,10 +1,6 @@
-# Understory — AI Marketing Studio site
+﻿# MOSAIC AI
 
-Draft marketing website for a Pacific Northwest AI-focused marketing agency.
-
-**Structure:** AKQA-inspired work-first homepage (simple case grid, light chrome).  
-**Feel:** Artsy PNW craft — forest palette, serif headlines, restraint.  
-**Focus:** AI as leverage inside brand, campaign, and content systems.
+Marketing website for MOSAIC AI.
 
 ## Run locally
 
@@ -15,6 +11,5 @@ npm run dev
 
 ## Notes
 
-- Studio name **Understory** is a placeholder — swap when you have the real one.
-- Case studies are fictional scaffolding for layout and tone.
+- Case studies are scaffolding for layout and tone.
 - Contact form is front-end only until you connect email/CRM.
