@@ -51,6 +51,12 @@ export const caseStudies: CaseStudy[] = [
       '/work/bass-pro-moose-hall.png',
       '/work/bass-pro-cabelas.png',
     ],
+    tileCollage: [
+      '/work/bass-pro-fishing-center.png',
+      '/work/bass-pro-moose-hall.png',
+      '/work/bass-pro-cabelas.png',
+    ],
+    wide: true,
   },
   {
     id: 'red-robin',
@@ -62,6 +68,15 @@ export const caseStudies: CaseStudy[] = [
     tileBg:
       'radial-gradient(120% 100% at 35% 25%, #6b2a2a 0%, transparent 55%), #1a1010',
     tileImage: '/work/red-robin.png',
+    tileCollage: [
+      '/work/red-robin/drink-specials.png',
+      '/work/red-robin/chicken-bacon-club.png',
+      '/work/red-robin/towering-sliders.png',
+      '/work/red-robin/big-yumm-deals.png',
+      '/work/red-robin/appetizer-platter.png',
+      '/work/red-robin/whiskey-river-wrap.png',
+    ],
+    wide: true,
   },
   {
     id: 'northline',

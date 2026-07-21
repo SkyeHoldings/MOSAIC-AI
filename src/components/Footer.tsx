@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
+import { MosaicLogo } from './MosaicLogo'
 
 export function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-grid">
         <div className="footer-brand">
-          <div className="logo">Understory</div>
           <p>
             An AI marketing studio in the Pacific Northwest. The future,
             carefully made.
@@ -14,8 +14,8 @@ export function Footer() {
 
         <div className="footer-col">
           <h4>Explore</h4>
-          <Link to="/expertise">Expertise</Link>
-          <Link to="/contact">Contact</Link>
+          <a href="/#how-we-work">How we work</a>
+          <a href="/#contact">Contact</a>
         </div>
 
         <div className="footer-col">
@@ -26,8 +26,10 @@ export function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Understory Studio</span>
-        <span>Placeholder name — swap when ready</span>
+        <Link to="/" className="footer-logo" aria-label="MOSAIC home">
+          <MosaicLogo />
+        </Link>
+        <span>© {new Date().getFullYear()} MOSAIC</span>
       </div>
     </footer>
   )

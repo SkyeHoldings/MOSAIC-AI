@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import type { CaseStudy } from '../data/work'
+import { BassProCollage } from './BassProCollage'
 import { PhoneCollage } from './PhoneCollage'
+import { RedRobinCollage } from './RedRobinCollage'
 
 type Props = {
   study: CaseStudy
@@ -36,7 +38,13 @@ export function WorkCard({ study }: Props) {
       aria-hidden="true"
     >
       {hasCollage ? (
-        <PhoneCollage images={study.tileCollage!} />
+        study.id === 'red-robin' ? (
+          <RedRobinCollage />
+        ) : study.id === 'bass-pro-cabelas' ? (
+          <BassProCollage />
+        ) : (
+          <PhoneCollage images={study.tileCollage!} />
+        )
       ) : hasImages ? (
         <div
           className={`work-card__strip work-card__strip--${study.tileImages!.length}`}

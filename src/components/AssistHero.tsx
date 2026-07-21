@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { expertise } from '../data/work'
+import { DigitalEarthCanvas } from './DigitalEarthCanvas'
 
 const industries = [
   { label: 'Luxury & Fashion', href: '/work/gucci' },
@@ -67,9 +68,9 @@ export function AssistHero() {
               <ul id={capabilitiesId} className="assist-dropdown" role="list">
                 {expertise.map((item) => (
                   <li key={item.title}>
-                    <Link to="/expertise" onClick={() => setOpen(null)}>
+                    <a href="#how-we-work" onClick={() => setOpen(null)}>
                       {item.title}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -107,17 +108,7 @@ export function AssistHero() {
       </div>
 
       <div className="assist-hero__visual" aria-hidden="true">
-        <video
-          className="assist-hero__video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        >
-          <source src="/hero-digital-earth.mp4" type="video/mp4" />
-        </video>
-        <div className="assist-hero__scan" />
+        <DigitalEarthCanvas />
       </div>
     </section>
   )

@@ -1,66 +1,46 @@
-import { Link } from 'react-router-dom'
 import { AssistHero } from '../components/AssistHero'
-import { WorkCard } from '../components/WorkCard'
-import { caseStudies, expertise } from '../data/work'
+import { ContactSection } from '../components/ContactSection'
+import { FeatureShowcase } from '../components/FeatureShowcase'
+import { MarketingPillars } from '../components/MarketingPillars'
+import { SafetyBuiltIn } from '../components/SafetyBuiltIn'
+import { ShippedShowcase } from '../components/ShippedShowcase'
 
 export function Home() {
   return (
     <>
       <AssistHero />
 
+      <ShippedShowcase />
+
+      <FeatureShowcase />
+
       <nav className="spotlight" aria-label="Spotlight">
         <div className="spotlight-bar">
           <span className="spotlight-label">Spotlight Services</span>
-          <Link className="spotlight-link" to="/expertise">
+          <a className="spotlight-link" href="#how-we-work">
             Artificial Intelligence
-          </Link>
-          <Link className="spotlight-link" to="/expertise">
+          </a>
+          <a className="spotlight-link" href="#how-we-work">
             Brand Storytelling
-          </Link>
-          <Link className="spotlight-link" to="/expertise">
+          </a>
+          <a className="spotlight-link" href="#how-we-work">
             Growth Strategy
-          </Link>
+          </a>
         </div>
       </nav>
 
-      <section className="work-section" aria-label="Selected work">
-        <div className="work-grid">
-          {caseStudies.map((study) => (
-            <WorkCard key={study.id} study={study} />
-          ))}
-        </div>
+      <MarketingPillars />
+
+      <SafetyBuiltIn />
+
+      <section className="ideas-cta" aria-labelledby="ideas-cta-heading">
+        <h2 id="ideas-cta-heading">Ideas no longer have to wait their turn</h2>
+        <a className="ideas-cta__button" href="#contact">
+          Get started
+        </a>
       </section>
 
-      <section className="statement">
-        <h2>
-          We build brands, campaigns, and content systems with AI — quietly,
-          carefully, and with craft.
-        </h2>
-        <p className="follow-up">
-          Strategy leads. Models accelerate. Taste makes the final call.
-        </p>
-      </section>
-
-      <section aria-label="Expertise">
-        <div className="expertise-list">
-          {expertise.map((item) => (
-            <div key={item.title} className="expertise-row">
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-              <Link className="text-link" to="/expertise">
-                View expertise
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="cta">
-        <h2>The future, faster.</h2>
-        <Link className="text-link" to="/contact">
-          Get in touch
-        </Link>
-      </section>
+      <ContactSection />
     </>
   )
 }
