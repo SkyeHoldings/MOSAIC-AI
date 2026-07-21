@@ -8,6 +8,8 @@ export type CaseStudy = {
   tileBg: string
   /** Optional photo for the work tile (public URL path) */
   tileImage?: string
+  /** Optional multi-photo strip for the work tile */
+  tileImages?: string[]
   /** Optional phone-collage images (AKQA-style featured tile) */
   tileCollage?: string[]
   /** Span full grid width for featured tiles */
@@ -17,10 +19,10 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     id: 'gucci',
-    client: 'Luxury House',
-    title: 'Luxury brand campaign system',
+    client: 'GUCCI',
+    title: 'First adopters of Performance Max',
     summary:
-      'Campaign and brand systems for a luxury house — high-craft visual language with AI-assisted production that still feels couture.',
+      'Campaign and brand systems for GUCCI — high-craft visual language with AI-assisted production that still feels couture.',
     tags: ['Brand', 'Campaign', 'Luxury'],
     tileBg: '#0a0a0a',
     tileCollage: [
@@ -28,10 +30,10 @@ export const caseStudies: CaseStudy[] = [
       '/work/gucci/models-turquoise.png',
       '/work/gucci/ryan-gosling.png',
       '/work/gucci/celestial-bag.png',
-      '/work/gucci/harry-styles.png',
-      '/work/gucci/models-turquoise.png',
-      '/work/gucci/ryan-gosling.png',
-      '/work/gucci/celestial-bag.png',
+      '/work/gucci/pair-sunglasses.png',
+      '/work/gucci/travel-duo.png',
+      '/work/gucci/adidas-collab.png',
+      '/work/gucci/emerald-portrait.png',
     ],
     wide: true,
   },
@@ -44,7 +46,11 @@ export const caseStudies: CaseStudy[] = [
     tags: ['Brand', 'Retail', 'Experience'],
     tileBg:
       'radial-gradient(120% 100% at 30% 20%, #3d5a3a 0%, transparent 55%), radial-gradient(100% 90% at 80% 80%, #1a2a1c 0%, transparent 55%), #121812',
-    tileImage: '/work/bass-pro-cabelas.png',
+    tileImages: [
+      '/work/bass-pro-fishing-center.png',
+      '/work/bass-pro-moose-hall.png',
+      '/work/bass-pro-cabelas.png',
+    ],
   },
   {
     id: 'red-robin',

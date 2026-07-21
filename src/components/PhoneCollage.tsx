@@ -1,15 +1,24 @@
+import { useEffect, useRef, useState } from 'react'
+
 const assets = [
   '/work/gucci/harry-styles.png',
   '/work/gucci/models-turquoise.png',
   '/work/gucci/ryan-gosling.png',
   '/work/gucci/celestial-bag.png',
+  '/work/gucci/pair-sunglasses.png',
+  '/work/gucci/travel-duo.png',
+  '/work/gucci/adidas-collab.png',
+  '/work/gucci/emerald-portrait.png',
 ] as const
 
+type Size = 'tall' | 'mid' | 'short' | 'wide'
+
 type Card =
-  | { kind: 'image'; src: string }
+  | { kind: 'image'; src: string; size: Size }
   | {
       kind: 'product'
       src: string
+      size: Size
       name: string
       price: string
       swatches: string[]
@@ -17,119 +26,138 @@ type Card =
   | {
       kind: 'editorial'
       src: string
+      size: Size
       title: string
       body: string
     }
   | {
       kind: 'search'
       src: string
+      size: Size
       query: string
       ideas: string
     }
   | {
       kind: 'actions'
       src: string
+      size: Size
       actions: string[]
     }
 
-const products = [
-  { name: 'Celestial Bucket Bag', price: '2 450.00', swatches: ['#1a1a1a', '#5c2a2a', '#c4b59a'] },
-  { name: 'Noir Soft Shoulder', price: '1 890.00', swatches: ['#111', '#d9d2c5', '#6b5b4a'] },
-  { name: 'Turquoise Fur Stole', price: '2 100.00', swatches: ['#2f6f6a', '#0d0d0d', '#d9d2c5'] },
-  { name: 'Travel Companion', price: '3 200.00', swatches: ['#111', '#6b5b4a', '#ece7df'] },
-]
-
-/** Four horizontal rows of make-believe shopping posts */
-const rows: Card[][] = [
-  [
-    {
-      kind: 'search',
-      src: assets[1],
-      query: "You're looking for something?",
-      ideas: '280 ideas',
-    },
-    {
-      kind: 'product',
-      src: assets[3],
-      ...products[0],
-    },
-    { kind: 'image', src: assets[0] },
-    {
-      kind: 'editorial',
-      src: assets[2],
-      title: 'This is our best seller this year',
-      body: 'When choosing a go-to everyday piece, focus on effortless function and quiet presence.',
-    },
-    {
-      kind: 'product',
-      src: assets[1],
-      ...products[1],
-    },
-  ],
-  [
-    { kind: 'image', src: assets[2] },
-    {
-      kind: 'product',
-      src: assets[0],
-      ...products[2],
-    },
-    {
-      kind: 'actions',
-      src: assets[3],
-      actions: [
-        'Discover kindred pieces',
-        'Delve into the story',
-        'Curate complete looks',
-        'Set aside for now',
-      ],
-    },
-    { kind: 'image', src: assets[1] },
-    {
-      kind: 'product',
-      src: assets[3],
-      ...products[3],
-    },
-  ],
-  [
-    {
-      kind: 'product',
-      src: assets[1],
-      ...products[0],
-    },
-    { kind: 'image', src: assets[0] },
-    {
-      kind: 'editorial',
-      src: assets[2],
-      title: 'Gifts for her',
-      body: 'Curated pieces with quiet weight — made to be lived in, not just looked at.',
-    },
-    {
-      kind: 'product',
-      src: assets[3],
-      ...products[1],
-    },
-    { kind: 'image', src: assets[1] },
-  ],
-  [
-    { kind: 'image', src: assets[3] },
-    {
-      kind: 'search',
-      src: assets[0],
-      query: "You're looking for something?",
-      ideas: '280 ideas',
-    },
-    {
-      kind: 'product',
-      src: assets[2],
-      ...products[2],
-    },
-    { kind: 'image', src: assets[1] },
-    {
-      kind: 'product',
-      src: assets[0],
-      ...products[3],
-    },
-  ],
+/** Mixed sizes — longer panels + short/wide ones like the reference */
+const cards: Card[] = [
+  {
+    kind: 'search',
+    src: assets[4],
+    size: 'tall',
+    query: "You're looking for something?",
+    ideas: '280 ideas',
+  },
+  {
+    kind: 'product',
+    src: assets[3],
+    size: 'mid',
+    name: 'Celestial Bucket Bag',
+    price: '2 450.00',
+    swatches: ['#1a1a1a', '#5c2a2a', '#c4b59a'],
+  },
+  {
+    kind: 'image',
+    src: assets[5],
+    size: 'wide',
+  },
+  {
+    kind: 'editorial',
+    src: assets[7],
+    size: 'tall',
+    title: 'This is our best seller this year',
+    body: 'When choosing a go-to everyday piece, focus on effortless function and quiet presence.',
+  },
+  {
+    kind: 'product',
+    src: assets[6],
+    size: 'short',
+    name: 'Court Duffel',
+    price: '1 650.00',
+    swatches: ['#6f9476', '#7c3aed', '#eab308'],
+  },
+  {
+    kind: 'image',
+    src: assets[0],
+    size: 'mid',
+  },
+  {
+    kind: 'product',
+    src: assets[4],
+    size: 'tall',
+    name: 'Aviator Blue Lens',
+    price: '520.00',
+    swatches: ['#1e3a8a', '#111', '#c4b59a'],
+  },
+  {
+    kind: 'actions',
+    src: assets[1],
+    size: 'tall',
+    actions: [
+      'Discover kindred pieces',
+      'Delve into the story',
+      'Curate complete looks',
+      'Set aside for now',
+    ],
+  },
+  {
+    kind: 'image',
+    src: assets[2],
+    size: 'short',
+  },
+  {
+    kind: 'product',
+    src: assets[5],
+    size: 'mid',
+    name: 'Travel Companion',
+    price: '3 200.00',
+    swatches: ['#111', '#6b5b4a', '#ece7df'],
+  },
+  {
+    kind: 'product',
+    src: assets[7],
+    size: 'wide',
+    name: 'Emerald Pendant',
+    price: '4 800.00',
+    swatches: ['#064e3b', '#6b21a8', '#7f1d1d'],
+  },
+  {
+    kind: 'image',
+    src: assets[6],
+    size: 'tall',
+  },
+  {
+    kind: 'editorial',
+    src: assets[5],
+    size: 'mid',
+    title: 'Gifts for her',
+    body: 'Curated pieces with quiet weight — made to be lived in, not just looked at.',
+  },
+  {
+    kind: 'product',
+    src: assets[1],
+    size: 'short',
+    name: 'Noir Soft Shoulder',
+    price: '1 890.00',
+    swatches: ['#111', '#d9d2c5', '#6b5b4a'],
+  },
+  {
+    kind: 'image',
+    src: assets[4],
+    size: 'mid',
+  },
+  {
+    kind: 'search',
+    src: assets[7],
+    size: 'short',
+    query: "You're looking for something?",
+    ideas: '280 ideas',
+  },
 ]
 
 function CardContent({ card }: { card: Card }) {
@@ -199,20 +227,41 @@ function CardContent({ card }: { card: Card }) {
   }
 }
 
-/** Four rows of luxury shopping posts on a black field */
+/** Masonry shopping posts — mixed sizes on desktop, snap carousel on mobile */
 export function PhoneCollage(_props: { images: string[] }) {
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [inColor, setInColor] = useState(false)
+
+  useEffect(() => {
+    const node = rootRef.current
+    if (!node) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setInColor(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.25 },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <div className="phone-collage phone-collage--rows" aria-hidden="true">
-      {rows.map((row, rowIndex) => (
-        <div key={rowIndex} className="phone-collage__row">
-          {row.map((card, cardIndex) => (
-            <div
-              key={`${rowIndex}-${cardIndex}`}
-              className={`phone-collage__phone shop-frame shop-frame--${card.kind}`}
-            >
-              <CardContent card={card} />
-            </div>
-          ))}
+    <div
+      ref={rootRef}
+      className={`phone-collage phone-collage--masonry${inColor ? ' is-color' : ''}`}
+      aria-hidden="true"
+    >
+      {cards.map((card, index) => (
+        <div
+          key={`${card.kind}-${index}`}
+          className={`phone-collage__phone shop-frame shop-frame--${card.kind} is-${card.size}`}
+        >
+          <CardContent card={card} />
         </div>
       ))}
     </div>
