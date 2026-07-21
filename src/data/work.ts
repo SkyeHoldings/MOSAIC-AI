@@ -17,10 +17,10 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     id: 'gucci',
-    client: 'GUCCI',
+    client: 'Luxury House',
     title: 'Luxury brand campaign system',
     summary:
-      'Campaign and brand systems for GUCCI — high-craft visual language with AI-assisted production that still feels couture.',
+      'Campaign and brand systems for a luxury house — high-craft visual language with AI-assisted production that still feels couture.',
     tags: ['Brand', 'Campaign', 'Luxury'],
     tileBg: '#0a0a0a',
     tileCollage: [

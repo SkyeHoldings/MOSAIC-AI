@@ -1,36 +1,16 @@
 import { Link } from 'react-router-dom'
+import { AssistHero } from '../components/AssistHero'
 import { WorkCard } from '../components/WorkCard'
 import { caseStudies, expertise } from '../data/work'
 
 export function Home() {
   return (
     <>
-      <section className="hero" aria-label="Showreel">
-        <div className="hero-media">
-          <video
-            className="hero-video"
-            width="100%"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            aria-hidden="true"
-          >
-            <source src="/hero.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div className="hero-caption">
-          <h1>
-            Reshaping what’s possible when imagination leads and automation
-            follows.
-          </h1>
-        </div>
-      </section>
+      <AssistHero />
 
       <nav className="spotlight" aria-label="Spotlight">
         <div className="spotlight-bar">
-          <span className="spotlight-label">Mosaic Spotlight</span>
+          <span className="spotlight-label">Spotlight Services</span>
           <Link className="spotlight-link" to="/expertise">
             Artificial Intelligence
           </Link>
