@@ -8,10 +8,10 @@ type Feature = {
 }
 
 const features: Feature[] = [
-  { id: 'agents', label: 'AI Agents' },
-  { id: 'search', label: 'Brand search' },
-  { id: 'content', label: 'Content studio' },
-  { id: 'growth', label: 'Growth controls' },
+  { id: 'agents', label: 'Client Intake' },
+  { id: 'search', label: 'Market Research' },
+  { id: 'content', label: 'Custom Content' },
+  { id: 'growth', label: 'Growth Strategy' },
 ]
 
 function IconAgents() {
@@ -102,10 +102,10 @@ function AgentsScene() {
       <article className="fx-mock fx-mock--board">
         <header className="fx-mock__head">
           <div>
-            <p className="fx-mock__eyebrow">Live agent board</p>
-            <h3 className="fx-mock__title">Brand Ask Info</h3>
+            <p className="fx-mock__eyebrow">Client intake</p>
+            <h3 className="fx-mock__title">Industry brief</h3>
           </div>
-          <div className="fx-mock__badge">3 agents online</div>
+          <div className="fx-mock__badge">Outdoor retail</div>
         </header>
 
         <div className="fx-board">
@@ -118,47 +118,47 @@ function AgentsScene() {
 
           <div className="fx-board__main">
             <div className="fx-mock__tabs" aria-hidden="true">
-              <span className="is-active">Questions</span>
-              <span>Answers</span>
-              <span>Sources</span>
+              <span className="is-active">Intake</span>
+              <span>Industry</span>
+              <span>Goals</span>
               <span className="fx-mock__plus">+</span>
             </div>
 
             <ul className="fx-mock__list">
               <li>
-                <span className="fx-mock__q">What is our tone of voice for luxury launches?</span>
-                <em>Brand bible</em>
+                <span className="fx-mock__q">What does success look like this quarter?</span>
+                <em>Goals</em>
               </li>
               <li className="is-focus">
-                <span className="fx-mock__q">Where do we keep approved campaign assets?</span>
-                <em>Library</em>
+                <span className="fx-mock__q">Which audiences and markets matter most?</span>
+                <em>Audience</em>
                 <span className="fx-mock__pin" aria-hidden="true" />
               </li>
               <li>
-                <span className="fx-mock__q">How should AI rewrite product copy for DTC?</span>
-                <em>Playbook</em>
+                <span className="fx-mock__q">Where should we prioritize media and creative?</span>
+                <em>Media</em>
               </li>
               <li>
-                <span className="fx-mock__q">What claims are approved for Northline?</span>
-                <em>Legal</em>
+                <span className="fx-mock__q">Any seasonal peaks we should plan around?</span>
+                <em>Calendar</em>
               </li>
               <li>
-                <span className="fx-mock__q">Which hero stills are cleared for Bass Pro?</span>
-                <em>Assets</em>
+                <span className="fx-mock__q">Brand, legal, or claim constraints?</span>
+                <em>Guardrails</em>
               </li>
             </ul>
           </div>
         </div>
       </article>
 
-      <aside className="fx-chat" aria-label="Example agent conversation">
+      <aside className="fx-chat" aria-label="Example intake conversation">
         <div className="fx-chat__row">
           <span className="fx-chat__avatar fx-chat__avatar--user" aria-hidden="true">
             J
           </span>
           <div>
             <strong>Jordan</strong>
-            <p>Where can I pull the approved hero stills for the Bass Pro shoot?</p>
+            <p>Can you tailor this intake for outdoor retail?</p>
           </div>
         </div>
         <div className="fx-chat__row">
@@ -167,10 +167,7 @@ function AgentsScene() {
           </span>
           <div>
             <strong>MOSAIC Agent</strong>
-            <p>
-              Brand Library → Outdoor Retail → Bass Pro / Heroes. I pinned the three
-              approved frames and flagged the rights window.
-            </p>
+            <p>Locked in. Your intake is customized for Outdoor Retail — ready when you are.</p>
           </div>
         </div>
       </aside>
@@ -181,57 +178,78 @@ function AgentsScene() {
 function SearchScene() {
   return (
     <div className="fx-scene fx-scene--search">
-      <article className="fx-mock fx-mock--wide">
+      <article className="fx-mock fx-mock--wide fx-mock--research">
         <header className="fx-mock__head">
           <div>
-            <p className="fx-mock__eyebrow">Connected knowledge</p>
-            <h3 className="fx-mock__title">Enterprise brand search</h3>
+            <p className="fx-mock__eyebrow">Market research</p>
+            <h3 className="fx-mock__title">Signal scan</h3>
           </div>
-          <div className="fx-mock__sources" aria-hidden="true">
-            <span>Notion</span>
-            <span>Drive</span>
-            <span>Slack</span>
+          <div className="fx-research__live" aria-hidden="true">
+            <span className="fx-research__pulse" />
+            Live
           </div>
         </header>
 
-        <div className="fx-searchbar" aria-hidden="true">
+        <div className="fx-searchbar fx-searchbar--scan" aria-hidden="true">
           <span className="fx-searchbar__icon" />
-          <span>Find voice, assets, and claims across connected tools…</span>
+          <span className="fx-searchbar__scanline" />
           <kbd>⌘K</kbd>
         </div>
 
-        <div className="fx-search-layout">
-          <div className="fx-search-results">
-            <div className="fx-result is-hot">
-              <span className="fx-result__source">Notion</span>
-              <strong>GUCCI Performance Max playbook</strong>
-              <p>Launch creative rules, forbidden phrases, and approved CTA set.</p>
-            </div>
-            <div className="fx-result">
-              <span className="fx-result__source">Drive</span>
-              <strong>Red Robin seasonal kit</strong>
-              <p>Q2 social frames + localized restaurant overlays.</p>
-            </div>
-            <div className="fx-result">
-              <span className="fx-result__source">Slack</span>
-              <strong>#brand-legal decision log</strong>
-              <p>Claim approvals for climate-tech messaging, March–June.</p>
+        <div className="fx-research-grid" aria-hidden="true">
+          <div className="fx-research-card fx-research-card--map is-hot">
+            <span className="fx-research-card__label">Demand</span>
+            <div className="fx-research-map">
+              <span className="fx-research-map__node is-a" />
+              <span className="fx-research-map__node is-b" />
+              <span className="fx-research-map__node is-c" />
+              <span className="fx-research-map__node is-d" />
+              <span className="fx-research-map__ring" />
+              <span className="fx-research-map__ring is-delay" />
             </div>
           </div>
 
-          <aside className="fx-search-preview" aria-hidden="true">
-            <p className="fx-mock__eyebrow">Preview</p>
-            <strong>Approved CTA set</strong>
-            <ul>
-              <li>Shop the collection</li>
-              <li>Find a location</li>
-              <li>Book your visit</li>
-            </ul>
-            <div className="fx-search-preview__meta">
-              <span>On-brand</span>
-              <span>Legal cleared</span>
+          <div className="fx-research-card fx-research-card--wave">
+            <span className="fx-research-card__label">Momentum</span>
+            <div className="fx-research-bars">
+              <span style={{ ['--h' as string]: '42%' }} />
+              <span style={{ ['--h' as string]: '68%' }} />
+              <span style={{ ['--h' as string]: '55%' }} />
+              <span style={{ ['--h' as string]: '86%' }} />
+              <span style={{ ['--h' as string]: '74%' }} />
+              <span style={{ ['--h' as string]: '93%' }} />
+              <span style={{ ['--h' as string]: '61%' }} />
             </div>
-          </aside>
+          </div>
+
+          <div className="fx-research-card fx-research-card--radar">
+            <span className="fx-research-card__label">Share</span>
+            <div className="fx-research-radar">
+              <span className="fx-research-radar__sweep" />
+              <span className="fx-research-radar__dot is-1" />
+              <span className="fx-research-radar__dot is-2" />
+              <span className="fx-research-radar__dot is-3" />
+            </div>
+          </div>
+
+          <div className="fx-research-card fx-research-card--spark">
+            <span className="fx-research-card__label">Trend</span>
+            <svg
+              className="fx-research-spark"
+              viewBox="0 0 160 64"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                className="fx-research-spark__fill"
+                d="M0 52 C18 48 28 40 42 38 C58 36 66 46 80 34 C96 20 108 16 124 22 C138 26 148 18 160 12 V64 H0 Z"
+              />
+              <path
+                className="fx-research-spark__line"
+                d="M0 52 C18 48 28 40 42 38 C58 36 66 46 80 34 C96 20 108 16 124 22 C138 26 148 18 160 12"
+              />
+            </svg>
+          </div>
         </div>
       </article>
     </div>

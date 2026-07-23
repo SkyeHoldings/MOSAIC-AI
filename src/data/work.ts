@@ -137,6 +137,42 @@ export const expertise: Expertise[] = [
   },
 ]
 
+export const industries = [
+  'Apartments & Housing',
+  'Automotive',
+  'Banking & Credit Unions',
+  'Beauty, Hair, Nails & Massage',
+  'Construction, Trades & Home Services',
+  'Dentistry',
+  'Education & Schools',
+  'Energy & Industrial',
+  'Engineering & Professional Services',
+  'Fitness & Athletic Training',
+  'Holistic, Naturopathic & Functional Medicine',
+  'Home Care, Hospice & Senior Living',
+  'Insurance & Financial Services',
+  'Legal',
+  'Maternity, Doula & Family Support',
+  'Med Spa, Aesthetics & IV Wellness',
+  'Media, Marketing & Technology',
+  'Medical — Primary & Specialty Care',
+  'Mental & Behavioral Health',
+  'Mortgage & Lending',
+  'Nonprofits, Charities & Community',
+  'Nutrition & Weight Management',
+  'Orthodontics',
+  'Physical Therapy & Sports Medicine',
+  'Prosthetics & Adaptive Medical',
+  'Real Estate Brokerages',
+  'Recreation, Tourism & Attractions',
+  'Restaurants, Food & Beverage',
+  'Retail & Consumer Goods',
+  'Tattoo & Body Art',
+  'Telecom',
+  'Title & Escrow',
+  'Tourism',
+] as const
+
 export function getCaseStudy(id: string) {
   return caseStudies.find((study) => study.id === id)
 }

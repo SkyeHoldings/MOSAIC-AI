@@ -1,42 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { expertise } from '../data/work'
+import { expertise, industries } from '../data/work'
 import { DigitalEarthCanvas } from './DigitalEarthCanvas'
-
-const industries = [
-  'Apartments & Housing',
-  'Automotive',
-  'Banking & Credit Unions',
-  'Beauty, Hair, Nails & Massage',
-  'Construction, Trades & Home Services',
-  'Dentistry',
-  'Education & Schools',
-  'Energy & Industrial',
-  'Engineering & Professional Services',
-  'Fitness & Athletic Training',
-  'Holistic, Naturopathic & Functional Medicine',
-  'Home Care, Hospice & Senior Living',
-  'Insurance & Financial Services',
-  'Legal',
-  'Maternity, Doula & Family Support',
-  'Med Spa, Aesthetics & IV Wellness',
-  'Media, Marketing & Technology',
-  'Medical — Primary & Specialty Care',
-  'Mental & Behavioral Health',
-  'Mortgage & Lending',
-  'Nonprofits, Charities & Community',
-  'Nutrition & Weight Management',
-  'Orthodontics',
-  'Physical Therapy & Sports Medicine',
-  'Prosthetics & Adaptive Medical',
-  'Real Estate Brokerages',
-  'Recreation, Tourism & Attractions',
-  'Restaurants, Food & Beverage',
-  'Retail & Consumer Goods',
-  'Tattoo & Body Art',
-  'Telecom',
-  'Title & Escrow',
-  'Tourism',
-]
 
 type MenuKey = 'capabilities' | 'industries' | null
 
@@ -94,7 +58,10 @@ export function AssistHero() {
               <ul id={capabilitiesId} className="assist-dropdown" role="list">
                 {expertise.map((item) => (
                   <li key={item.title}>
-                    <a href="#how-we-work" onClick={() => setOpen(null)}>
+                    <a
+                      href={`/?capability=${encodeURIComponent(item.title)}#contact`}
+                      onClick={() => setOpen(null)}
+                    >
                       {item.title}
                     </a>
                   </li>
@@ -126,7 +93,10 @@ export function AssistHero() {
               >
                 {industries.map((label) => (
                   <li key={label}>
-                    <a href="#contact" onClick={() => setOpen(null)}>
+                    <a
+                      href={`/?industry=${encodeURIComponent(label)}#contact`}
+                      onClick={() => setOpen(null)}
+                    >
                       {label}
                     </a>
                   </li>
