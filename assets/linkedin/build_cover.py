@@ -14,7 +14,7 @@ OUT = ROOT / "mosaic-linkedin-page-cover-4200x700.png"
 PREVIEW = ROOT / "mosaic-linkedin-page-cover-preview.png"
 ARMATA = ROOT / "fonts" / "Armata-Regular.ttf"
 
-W, H = 4200, 700
+W, H = 1584, 396  # LinkedIn cover (4:1) — shorter than Page 6:1
 SPLIT = int(W * (1.05 / 2.0))
 MINT = (232, 232, 232)
 INK = (17, 17, 17)
@@ -276,27 +276,25 @@ def build() -> Image.Image:
     canvas.paste(right, (SPLIT, 0))
     draw = ImageDraw.Draw(canvas)
 
-    pad_l = int(SPLIT * 0.09)
-    logo_w = 420
+    pad_l = int(SPLIT * 0.08)
+    logo_w = 200
+    logo_word = 22
     h1_font = load_font(
         [str(ARMATA), r"C:\Windows\Fonts\arial.ttf", r"C:\Windows\Fonts\segoeui.ttf"],
-        96,
+        44,
     )
 
     line1, line2 = "Ready to reshape", "your future?"
     l1 = draw.textbbox((0, 0), line1, font=h1_font)
-    l2 = draw.textbbox((0, 0), line2, font=h1_font)
-    h1_line = (l1[3] - l1[1]) + 10
+    h1_line = (l1[3] - l1[1]) + 4
     headline_h = h1_line * 2
 
-    # Vertically center logo + headline as one stack on the left panel
-    logo_word = 44
-    logo_block_h = int(logo_w * (30 / 168) * 1.25) + 16 + logo_word + 8
-    stack_h = logo_block_h + 48 + headline_h
-    stack_top = max(int((H - stack_h) / 2), 48)
+    logo_block_h = int(logo_w * (30 / 168) * 1.25) + 10 + logo_word + 4
+    stack_h = logo_block_h + 22 + headline_h
+    stack_top = max(int((H - stack_h) / 2), 28)
 
     logo_bottom = draw_logo(draw, pad_l, stack_top, logo_w, logo_word)
-    h1_y = logo_bottom + 48
+    h1_y = logo_bottom + 22
     draw.text((pad_l, h1_y), line1, font=h1_font, fill=INK)
     draw.text((pad_l, h1_y + h1_line), line2, font=h1_font, fill=INK)
 
@@ -307,11 +305,21 @@ def main() -> None:
     final = build()
     assert final.size == (W, H)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    final.save(OUT, "PNG", optimize=True)
-    preview = final.resize((1680, 280), Image.Resampling.LANCZOS)
+    # Keep filename clear about LinkedIn-standard size
+    out_png = ROOT / "mosaic-linkedin-cover-1584x396.png"
+    out_jpg = ROOT / "mosaic-linkedin-cover-1584x396.jpg"
+    final.save(out_png, "PNG", optimize=True)
+    final.convert("RGB").save(out_jpg, "JPEG", quality=90, optimize=True, progressive=True)
+    preview = final.resize((1267, 317), Image.Resampling.LANCZOS)
     preview.save(PREVIEW, "PNG", optimize=True)
-    print(f"saved {OUT} {final.size}")
-    print(f"preview {PREVIEW} {preview.size}")
+
+    downloads = Path.home() / "Downloads"
+    for src in (out_png, out_jpg):
+        dest = downloads / src.name
+        dest.write_bytes(src.read_bytes())
+        print(f"downloads {dest} {dest.stat().st_size} {final.size}")
+
+    print(f"saved {out_png} {final.size}")
 
 
 if __name__ == "__main__":
