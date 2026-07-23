@@ -92,9 +92,206 @@ p {
 }
 
 /* ---------- Business card ---------- */
-.business-card-page {
+.bc {
+  --bc-ink: #0d0d0d;
+  --bc-paper: #f7f5f1;
+  --bc-muted: #6a6a6a;
+  --bc-line: rgba(13, 13, 13, 0.12);
   min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 2rem);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(13, 13, 13, 0.08), transparent 55%),
+    linear-gradient(165deg, #eceae6 0%, var(--bc-paper) 42%, #ffffff 100%);
+  color: var(--bc-ink);
+}
+
+.bc__shell {
+  width: min(100%, 26.5rem);
+  overflow: hidden;
   background: #fff;
+  border: 1px solid var(--bc-line);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 24px 60px rgba(13, 13, 13, 0.1);
+  animation: bc-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.bc__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.35rem 1.5rem 1.2rem;
+  background: var(--bc-ink);
+  color: #fff;
+}
+
+.bc__logo {
+  display: inline-flex;
+  color: inherit;
+}
+
+.bc__logo .mosaic-logo {
+  width: 148px;
+  gap: 5px;
+}
+
+.bc__logo .mosaic-barcode {
+  height: 22px;
+}
+
+.bc__logo .mosaic-wordmark {
+  font-size: 11px;
+  letter-spacing: 0.42em;
+}
+
+.bc__body {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.65rem 1.5rem 1.75rem;
+}
+
+.bc__kicker {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bc-muted);
+  animation: bc-fade 700ms ease 80ms both;
+}
+
+.bc__name {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 9vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  animation: bc-fade 700ms ease 120ms both;
+}
+
+.bc__role {
+  margin-top: 0.15rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  color: var(--bc-ink);
+  animation: bc-fade 700ms ease 160ms both;
+}
+
+.bc__role-sep {
+  margin: 0 0.4rem;
+  color: var(--bc-muted);
+}
+
+.bc__tagline {
+  max-width: 22rem;
+  color: var(--bc-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  animation: bc-fade 700ms ease 200ms both;
+}
+
+.bc__primary {
+  margin-top: 1rem;
+  animation: bc-fade 700ms ease 260ms both;
+}
+
+.bc__save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--bc-ink);
+  color: #fff;
+  border: 1px solid var(--bc-ink);
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.bc__save:hover {
+  background: transparent;
+  color: var(--bc-ink);
+}
+
+.bc__actions {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--bc-line);
+  animation: bc-fade 700ms ease 320ms both;
+}
+
+.bc__actions li + li {
+  border-top: 1px solid var(--bc-line);
+}
+
+.bc__action {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.9rem 0.15rem;
+  transition: opacity 150ms ease;
+}
+
+.bc__action:hover {
+  opacity: 0.72;
+}
+
+.bc__action--static {
+  cursor: default;
+}
+
+.bc__action--static:hover {
+  opacity: 1;
+}
+
+.bc__action-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bc-muted);
+}
+
+.bc__action-value {
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+@keyframes bc-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bc-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bc__shell,
+  .bc__kicker,
+  .bc__name,
+  .bc__role,
+  .bc__tagline,
+  .bc__primary,
+  .bc__actions {
+    animation: none;
+  }
 }
 
 /* ---------- Header ---------- */
