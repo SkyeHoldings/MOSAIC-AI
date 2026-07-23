@@ -1,6 +1,5 @@
 import { useEffect, type MouseEvent } from 'react'
 import { MosaicLogo } from '../components/MosaicLogo'
-import vcardHref from '../assets/skye-smith.vcf?url'
 
 type CardProfile = {
   name: string
@@ -16,7 +15,7 @@ type CardProfile = {
 
 /**
  * Edit this profile — empty optional fields are hidden automatically.
- * Keep src/assets/skye-smith.vcf in sync when contact fields change.
+ * Keep public/skye-smith.vcf in sync when contact fields change.
  */
 const CARD: CardProfile = {
   name: 'Skye Smith',
@@ -30,6 +29,8 @@ const CARD: CardProfile = {
   location: "Coeur d'Alene, Idaho",
 }
 
+/** Real static file in /public — required for iOS “Add Contact”. */
+const VCARD_PATH = '/skye-smith.vcf'
 const VCARD_FILENAME = 'Skye-Smith.vcf'
 
 function websiteLabel(url: string) {
@@ -79,14 +80,12 @@ function isAppleMobile() {
 }
 
 async function saveContact(event: MouseEvent<HTMLAnchorElement>) {
-  // iOS: navigate to the real .vcf asset so Safari shows “Add Contact”.
-  if (isAppleMobile()) return
-
   event.preventDefault()
 
   const content = buildVCardContent()
   const file = new File([content], VCARD_FILENAME, { type: 'text/vcard;charset=utf-8' })
 
+  // Mobile share sheet (includes a path to save the .vcf on many phones).
   if (navigator.canShare?.({ files: [file] })) {
     try {
       await navigator.share({
@@ -96,7 +95,22 @@ async function saveContact(event: MouseEvent<HTMLAnchorElement>) {
       })
       return
     } catch {
-      // User cancelled or share failed — fall through to download.
+      // User cancelled or share failed — fall through.
+    }
+  }
+
+  // iOS: open the hosted .vcf when the server actually returns a contact file.
+  if (isAppleMobile()) {
+    try {
+      const res = await fetch(VCARD_PATH, { method: 'GET', cache: 'no-store' })
+      const type = res.headers.get('content-type') || ''
+      const body = await res.text()
+      if (res.ok && body.includes('BEGIN:VCARD') && !type.includes('text/html')) {
+        window.location.assign(VCARD_PATH)
+        return
+      }
+    } catch {
+      // Fall through to blob download.
     }
   }
 
@@ -145,8 +159,9 @@ export function BusinessCard() {
           <div className="bc__primary">
             <a
               className="bc__save"
-              href={vcardHref}
+              href={VCARD_PATH}
               download={VCARD_FILENAME}
+              type="text/vcard"
               onClick={saveContact}
             >
               Save Contact

@@ -6420,8 +6420,8 @@ p {
   flex-shrink: 0;
   display: grid;
   gap: 0.4rem;
-  justify-items: end;
-  text-align: right;
+  justify-items: center;
+  text-align: center;
 }
 
 .os__qr-mark {
@@ -6443,6 +6443,7 @@ p {
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  text-align: center;
   color: var(--os-muted);
 }
 
@@ -6451,6 +6452,7 @@ p {
   margin-top: 0.2rem;
   font-size: 0.9rem;
   letter-spacing: 0.04em;
+  text-align: center;
   color: #fff;
 }
 
@@ -6471,8 +6473,8 @@ p {
   }
 
   .os__qr {
-    justify-items: start;
-    text-align: left;
+    justify-items: center;
+    text-align: center;
   }
 }
 

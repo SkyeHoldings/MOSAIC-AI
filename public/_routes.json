@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/skye-smith.vcf",
+    "/assets/*",
+    "/brands/*",
+    "/partners/*",
+    "/pillars/*",
+    "/work/*",
+    "/favicon.svg",
+    "/icons.svg",
+    "/_headers",
+    "/_redirects"
+  ]
+}
