@@ -1,5 +1,6 @@
 import { useEffect, type MouseEvent } from 'react'
 import { MosaicLogo } from '../components/MosaicLogo'
+import vcardHref from '../assets/skye-smith.vcf?url'
 
 type CardProfile = {
   name: string
@@ -15,7 +16,7 @@ type CardProfile = {
 
 /**
  * Edit this profile — empty optional fields are hidden automatically.
- * Keep public/skye-smith.vcf in sync when contact fields change.
+ * Keep src/assets/skye-smith.vcf in sync when contact fields change.
  */
 const CARD: CardProfile = {
   name: 'Skye Smith',
@@ -29,7 +30,6 @@ const CARD: CardProfile = {
   location: "Coeur d'Alene, Idaho",
 }
 
-const VCARD_PATH = '/skye-smith.vcf'
 const VCARD_FILENAME = 'Skye-Smith.vcf'
 
 function websiteLabel(url: string) {
@@ -72,12 +72,14 @@ function buildVCardContent() {
 }
 
 function isAppleMobile() {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  )
 }
 
 async function saveContact(event: MouseEvent<HTMLAnchorElement>) {
-  // Prefer the hosted .vcf on iOS — Safari opens “Add Contact” reliably.
+  // iOS: navigate to the real .vcf asset so Safari shows “Add Contact”.
   if (isAppleMobile()) return
 
   event.preventDefault()
@@ -143,7 +145,7 @@ export function BusinessCard() {
           <div className="bc__primary">
             <a
               className="bc__save"
-              href={VCARD_PATH}
+              href={vcardHref}
               download={VCARD_FILENAME}
               onClick={saveContact}
             >

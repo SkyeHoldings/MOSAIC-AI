@@ -1,3 +1,7 @@
 /skye-smith.vcf
   Content-Type: text/vcard; charset=utf-8
   Content-Disposition: inline; filename="Skye-Smith.vcf"
+
+/assets/*.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Content-Disposition: inline; filename="Skye-Smith.vcf"

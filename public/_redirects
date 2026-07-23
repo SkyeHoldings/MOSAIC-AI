@@ -1,2 +1,3 @@
-/skye-smith.vcf  /skye-smith.vcf  200
+# Static files (including /assets/* and *.vcf) are served first.
+# This SPA fallback only applies when no matching file exists.
 /*    /index.html   200
