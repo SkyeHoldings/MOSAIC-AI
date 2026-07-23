@@ -242,30 +242,27 @@ def render_digital_panel(width: int, height: int, t: float = 2.4) -> Image.Image
     return out
 
 
-def draw_logo(draw: ImageDraw.ImageDraw, left: int, top: int, width: int, word_size: int) -> int:
-    scale = width / VB_W
-    barcode_h = int(width * (30 / 168) * 1.25)
-    for bx, bw in BARS:
-        x0 = left + int(bx * scale)
-        x1 = left + int((bx + bw) * scale)
-        draw.rectangle([x0, top, x1, top + barcode_h], fill=INK)
-
-    word_font = load_font(
-        [str(ARMATA), r"C:\Windows\Fonts\arial.ttf", r"C:\Windows\Fonts\segoeui.ttf"],
-        word_size,
+def draw_pill(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    x: int,
+    y: int,
+    width: int,
+    height: int,
+    font: ImageFont.FreeTypeFont | ImageFont.ImageFont,
+) -> None:
+    """Black label chip — equal width stack for a clean vertical system."""
+    radius = height // 2
+    draw.rounded_rectangle(
+        [x, y, x + width, y + height],
+        radius=radius,
+        fill=(17, 17, 17, 255),
     )
-    letters = list("MOSAIC")
-    gap_top = top + barcode_h + 16
-    widths = []
-    for ch in letters:
-        b = draw.textbbox((0, 0), ch, font=word_font)
-        widths.append(b[2] - b[0])
-    space = (width - sum(widths)) / (len(letters) - 1)
-    x = float(left)
-    for i, ch in enumerate(letters):
-        draw.text((x, gap_top), ch, font=word_font, fill=INK)
-        x += widths[i] + space
-    return gap_top + word_size + 8
+    bbox = draw.textbbox((0, 0), text, font=font)
+    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    tx = x + (width - tw) / 2
+    ty = y + (height - th) / 2 - 1
+    draw.text((tx, ty), text, font=font, fill=WHITE)
 
 
 def build() -> Image.Image:
@@ -274,30 +271,62 @@ def build() -> Image.Image:
 
     canvas = Image.new("RGB", (W, H), MINT)
     canvas.paste(right, (SPLIT, 0))
-    draw = ImageDraw.Draw(canvas)
 
-    pad_l = int(SPLIT * 0.08)
-    logo_w = 200
-    logo_word = 22
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay, "RGBA")
+
+    pad_l = int(SPLIT * 0.09)
     h1_font = load_font(
         [str(ARMATA), r"C:\Windows\Fonts\arial.ttf", r"C:\Windows\Fonts\segoeui.ttf"],
-        44,
+        42,
+    )
+    pill_font = load_font(
+        [str(ARMATA), r"C:\Windows\Fonts\arial.ttf", r"C:\Windows\Fonts\segoeui.ttf"],
+        15,
     )
 
     line1, line2 = "Ready to reshape", "your future?"
     l1 = draw.textbbox((0, 0), line1, font=h1_font)
-    h1_line = (l1[3] - l1[1]) + 4
+    h1_line = (l1[3] - l1[1]) + 2
+    headline_w = max(
+        draw.textbbox((0, 0), line1, font=h1_font)[2],
+        draw.textbbox((0, 0), line2, font=h1_font)[2],
+    )
     headline_h = h1_line * 2
 
-    logo_block_h = int(logo_w * (30 / 168) * 1.25) + 10 + logo_word + 4
-    stack_h = logo_block_h + 22 + headline_h
-    stack_top = max(int((H - stack_h) / 2), 28)
+    # Equal-width black pills stacked beside the headline
+    pill_labels = ["marketing", "ai"]
+    pill_pad_x, pill_pad_y = 24, 10
+    pill_gap = 10
+    widest = 0
+    tallest = 0
+    for label in pill_labels:
+        bb = draw.textbbox((0, 0), label, font=pill_font)
+        widest = max(widest, bb[2] - bb[0])
+        tallest = max(tallest, bb[3] - bb[1])
+    pill_w = widest + pill_pad_x * 2
+    pill_h = tallest + pill_pad_y * 2
+    stack_h = pill_h * len(pill_labels) + pill_gap * (len(pill_labels) - 1)
 
-    logo_bottom = draw_logo(draw, pad_l, stack_top, logo_w, logo_word)
-    h1_y = logo_bottom + 22
-    draw.text((pad_l, h1_y), line1, font=h1_font, fill=INK)
-    draw.text((pad_l, h1_y + h1_line), line2, font=h1_font, fill=INK)
+    # One tight composition: headline + pills as a centered unit in the left panel
+    gap_between = 36
+    block_w = headline_w + gap_between + pill_w
+    block_h = max(headline_h, stack_h)
+    block_left = int((SPLIT - block_w) / 2)
+    # Bias upward so LinkedIn's profile circle doesn't eat the copy
+    block_top = max(40, int((H - block_h) * 0.32))
 
+    h1_y = block_top + (block_h - headline_h) / 2
+    draw.text((block_left, h1_y), line1, font=h1_font, fill=INK)
+    draw.text((block_left, h1_y + h1_line), line2, font=h1_font, fill=INK)
+
+    pill_x = block_left + headline_w + gap_between
+    pill_y = block_top + (block_h - stack_h) / 2
+    for i, label in enumerate(pill_labels):
+        y = int(pill_y + i * (pill_h + pill_gap))
+        draw_pill(draw, label, int(pill_x), y, pill_w, pill_h, pill_font)
+
+    canvas = Image.alpha_composite(canvas.convert("RGBA"), overlay).convert("RGB")
     return canvas
 
 
