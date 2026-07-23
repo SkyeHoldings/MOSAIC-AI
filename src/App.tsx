@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
+import { BusinessCard } from './pages/BusinessCard'
 import { Home } from './pages/Home'
 import { WorkDetail } from './pages/WorkDetail'
 
@@ -24,20 +25,24 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
+  const isBusinessCardPage = pathname === '/businesscard'
+
   return (
     <div className="site-shell">
       <ScrollToTop />
-      <Header />
-      <main className="site-main">
+      {!isBusinessCardPage && <Header />}
+      <main className={`site-main${isBusinessCardPage ? ' site-main--flush' : ''}`}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/businesscard" element={<BusinessCard />} />
           <Route path="/work/:id" element={<WorkDetail />} />
           <Route path="/expertise" element={<Navigate to={{ pathname: '/', hash: 'how-we-work' }} replace />} />
           <Route path="/contact" element={<Navigate to={{ pathname: '/', hash: 'contact' }} replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      <Footer />
+      {!isBusinessCardPage && <Footer />}
     </div>
   )
 }

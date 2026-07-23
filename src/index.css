@@ -87,6 +87,16 @@ p {
   padding-top: var(--header-h);
 }
 
+.site-main--flush {
+  padding-top: 0;
+}
+
+/* ---------- Business card ---------- */
+.business-card-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
 /* ---------- Header ---------- */
 .site-header {
   position: fixed;
