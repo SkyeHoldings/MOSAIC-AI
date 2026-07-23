@@ -17,12 +17,12 @@ type CardProfile = {
  * Edit this profile — empty optional fields are hidden automatically.
  */
 const CARD: CardProfile = {
-  name: 'Skye',
+  name: 'Skye Smith',
   title: 'Founder',
   organization: 'MOSAIC AI',
   tagline: 'Marketing & AI systems for the Inland Northwest',
   email: 'skye@marketingbymosaic.com',
-  phone: '',
+  phone: '208.819.2549',
   website: 'https://hellomosaic.ai/',
   linkedin: '',
   location: "Coeur d'Alene, Idaho",
@@ -37,13 +37,16 @@ function buildVCard() {
     'BEGIN:VCARD',
     'VERSION:3.0',
     `FN:${CARD.name}`,
-    `N:${CARD.name};;;;`,
+    'N:Smith;Skye;;;',
     `ORG:${CARD.organization}`,
     `TITLE:${CARD.title}`,
     `EMAIL;TYPE=INTERNET,WORK:${CARD.email}`,
   ]
 
-  if (CARD.phone) lines.push(`TEL;TYPE=CELL,VOICE:${CARD.phone}`)
+  if (CARD.phone) {
+    const digits = CARD.phone.replace(/\D/g, '')
+    lines.push(`TEL;TYPE=CELL,VOICE:${digits}`)
+  }
   if (CARD.website) lines.push(`URL:${CARD.website}`)
   if (CARD.linkedin) lines.push(`URL;TYPE=LinkedIn:${CARD.linkedin}`)
   if (CARD.location) lines.push(`ADR;TYPE=WORK:;;${CARD.location};;;;`)
@@ -100,7 +103,7 @@ export function BusinessCard() {
             </li>
             {CARD.phone ? (
               <li>
-                <a className="bc__action" href={`tel:${CARD.phone.replace(/\s+/g, '')}`}>
+                <a className="bc__action" href={`tel:${CARD.phone.replace(/\D/g, '')}`}>
                   <span className="bc__action-label">Phone</span>
                   <span className="bc__action-value">{CARD.phone}</span>
                 </a>
