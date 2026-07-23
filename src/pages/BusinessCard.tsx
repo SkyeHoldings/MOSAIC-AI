@@ -1,10 +1,22 @@
 import { useEffect } from 'react'
 import { MosaicLogo } from '../components/MosaicLogo'
 
+type CardProfile = {
+  name: string
+  title: string
+  organization: string
+  tagline: string
+  email: string
+  phone: string
+  website: string
+  linkedin: string
+  location: string
+}
+
 /**
  * Edit this profile — empty optional fields are hidden automatically.
  */
-const CARD = {
+const CARD: CardProfile = {
   name: 'Skye',
   title: 'Founder',
   organization: 'MOSAIC AI',
@@ -14,7 +26,7 @@ const CARD = {
   website: 'https://hellomosaic.ai/',
   linkedin: '',
   location: "Coeur d'Alene, Idaho",
-} as const
+}
 
 function websiteLabel(url: string) {
   return url.replace(/^https?:\/\//, '').replace(/\/$/, '')
