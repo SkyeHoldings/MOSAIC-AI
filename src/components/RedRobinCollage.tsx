@@ -70,7 +70,7 @@ const cards: Card[] = [
     kind: 'product',
     src: assets.chickenClub,
     name: 'Bacon Club Crispy Chicken',
-    price: '14.99',
+    price: '$14.99',
     mediaFit: 'contain',
   },
   {

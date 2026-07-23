@@ -1,24 +1,23 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { useForm, ValidationError } from '@formspree/react'
 import { useLocation } from 'react-router-dom'
-import { expertise, industries } from '../data/work'
+import { expertise } from '../data/work'
 
 const FORMSPREE_ID =
   (import.meta.env.VITE_FORMSPREE_FORM_ID as string | undefined) || 'xpqvjowe'
 
-type MenuKey = 'capability' | 'industry' | null
+const INTEREST_OPTIONS = [
+  ...expertise.map((item) => item.title),
+  "Don't Know Yet",
+] as const
 
 function readPrefill(search: string) {
   const params = new URLSearchParams(search)
   const capability = params.get('capability')?.trim() ?? ''
-  const industry = params.get('industry')?.trim() ?? ''
 
   return {
-    capability: expertise.some((item) => item.title === capability)
+    capability: (INTEREST_OPTIONS as readonly string[]).includes(capability)
       ? capability
-      : '',
-    industry: (industries as readonly string[]).includes(industry)
-      ? industry
       : '',
   }
 }
@@ -26,28 +25,25 @@ function readPrefill(search: string) {
 export function ContactSection() {
   const [state, handleSubmit] = useForm(FORMSPREE_ID)
   const { search } = useLocation()
-  const [open, setOpen] = useState<MenuKey>(null)
+  const [open, setOpen] = useState(false)
   const [capability, setCapability] = useState('')
-  const [industry, setIndustry] = useState('')
   const menusRef = useRef<HTMLDivElement>(null)
   const capabilityId = useId()
-  const industryId = useId()
 
   useEffect(() => {
     const prefill = readPrefill(search)
     if (prefill.capability) setCapability(prefill.capability)
-    if (prefill.industry) setIndustry(prefill.industry)
   }, [search])
 
   useEffect(() => {
     function onPointerDown(event: MouseEvent) {
       if (!menusRef.current?.contains(event.target as Node)) {
-        setOpen(null)
+        setOpen(false)
       }
     }
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') setOpen(null)
+      if (event.key === 'Escape') setOpen(false)
     }
 
     document.addEventListener('mousedown', onPointerDown)
@@ -125,130 +121,72 @@ export function ContactSection() {
                 Interest
               </span>
               <input type="hidden" name="capability" value={capability} />
-              <input type="hidden" name="industry" value={industry} />
-              <div
-                className="assist-menus contact-selects"
-                ref={menusRef}
-                role="group"
-                aria-labelledby="contact-interest-label"
-              >
-                <div className="assist-menu">
-                  <button
-                    type="button"
-                    className="assist-trigger"
-                    aria-expanded={open === 'capability'}
-                    aria-controls={capabilityId}
-                    aria-haspopup="listbox"
-                    onClick={() =>
-                      setOpen((current) =>
-                        current === 'capability' ? null : 'capability',
-                      )
-                    }
-                  >
-                    <span className="contact-select-value">
-                      {capability || 'Capabilities'}
-                    </span>
-                    <span className="assist-chevron" aria-hidden="true" />
-                  </button>
-                  {open === 'capability' ? (
-                    <ul
-                      id={capabilityId}
-                      className="assist-dropdown"
-                      role="listbox"
-                      aria-label="Capabilities"
+              <div className="contact-actions">
+                <div
+                  className="assist-menus contact-selects"
+                  ref={menusRef}
+                  role="group"
+                  aria-labelledby="contact-interest-label"
+                >
+                  <div className="assist-menu">
+                    <button
+                      type="button"
+                      className="assist-trigger"
+                      aria-expanded={open}
+                      aria-controls={capabilityId}
+                      aria-haspopup="listbox"
+                      onClick={() => setOpen((current) => !current)}
                     >
-                      {expertise.map((item) => (
-                        <li key={item.title} role="option" aria-selected={capability === item.title}>
-                          <button
-                            type="button"
-                            className={
-                              capability === item.title
-                                ? 'assist-option is-selected'
-                                : 'assist-option'
-                            }
-                            onClick={() => {
-                              setCapability(item.title)
-                              setOpen(null)
-                            }}
+                      <span className="contact-select-value">
+                        {capability || 'Capabilities'}
+                      </span>
+                      <span className="assist-chevron" aria-hidden="true" />
+                    </button>
+                    {open ? (
+                      <ul
+                        id={capabilityId}
+                        className="assist-dropdown"
+                        role="listbox"
+                        aria-label="Capabilities"
+                      >
+                        {INTEREST_OPTIONS.map((title) => (
+                          <li
+                            key={title}
+                            role="option"
+                            aria-selected={capability === title}
                           >
-                            {item.title}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
+                            <button
+                              type="button"
+                              className={
+                                capability === title
+                                  ? 'assist-option is-selected'
+                                  : 'assist-option'
+                              }
+                              onClick={() => {
+                                setCapability(title)
+                                setOpen(false)
+                              }}
+                            >
+                              {title}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
                 </div>
 
-                <div className="assist-menu">
-                  <button
-                    type="button"
-                    className="assist-trigger"
-                    aria-expanded={open === 'industry'}
-                    aria-controls={industryId}
-                    aria-haspopup="listbox"
-                    onClick={() =>
-                      setOpen((current) =>
-                        current === 'industry' ? null : 'industry',
-                      )
-                    }
-                  >
-                    <span className="contact-select-value">
-                      {industry || 'Industries'}
-                    </span>
-                    <span className="assist-chevron" aria-hidden="true" />
-                  </button>
-                  {open === 'industry' ? (
-                    <ul
-                      id={industryId}
-                      className="assist-dropdown assist-dropdown--scroll"
-                      role="listbox"
-                      aria-label="Industries"
-                    >
-                      {industries.map((label) => (
-                        <li key={label} role="option" aria-selected={industry === label}>
-                          <button
-                            type="button"
-                            className={
-                              industry === label
-                                ? 'assist-option is-selected'
-                                : 'assist-option'
-                            }
-                            onClick={() => {
-                              setIndustry(label)
-                              setOpen(null)
-                            }}
-                          >
-                            {label}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </div>
+                <button className="btn" type="submit" disabled={state.submitting}>
+                  {state.submitting ? 'Sending…' : 'Send message'}
+                </button>
               </div>
             </div>
 
-            <div className="field">
-              <label htmlFor="home-message">What are you building?</label>
-              <textarea id="home-message" name="message" required />
-              <ValidationError
-                prefix="Message"
-                field="message"
-                errors={state.errors}
-                className="form-note form-note-error"
-              />
-            </div>
-            <button className="btn" type="submit" disabled={state.submitting}>
-              {state.submitting ? 'Sending…' : 'Send message'}
-            </button>
             {state.errors ? (
               <p className="form-note form-note-error" role="alert">
-                Something went wrong — email hello@understory.studio and we’ll
-                get back to you.
+                Something went wrong — please try again in a moment.
               </p>
-            ) : (
-              <p className="form-note">We reply from hello@understory.studio.</p>
-            )}
+            ) : null}
           </form>
         )}
       </div>

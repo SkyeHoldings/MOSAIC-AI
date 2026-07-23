@@ -328,7 +328,7 @@ export function MarketingPillars() {
             </span>
             <h3>
               {active.title}
-              <span className="pillars__ai-answer-tag"> @CDA & Spokane</span>
+              <span className="pillars__ai-answer-tag"> @Inland Northwest</span>
             </h3>
           </header>
 

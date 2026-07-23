@@ -1,18 +1,18 @@
 const cards = [
   {
     id: 'moderation',
-    title: 'Moderation',
-    body: 'We actively monitor content generated with our technology.',
+    title: 'Empathy',
+    body: 'We know this region — Coeur d’Alene, Spokane, and the communities between — so the work starts with people, not personas.',
   },
   {
     id: 'accountability',
-    title: 'Accountability',
-    body: 'We believe misuse must have consequences.',
+    title: 'Awareness',
+    body: 'We put local brands in front of the right neighbors at the right moment, across a market of more than 700,000.',
   },
   {
     id: 'provenance',
-    title: 'Provenance',
-    body: 'We believe you should know when content is AI-assisted.',
+    title: 'Conversion',
+    body: 'Awareness only matters when it turns into action — visits, calls, and customers who come back.',
   },
 ] as const
 
@@ -121,10 +121,7 @@ export function SafetyBuiltIn() {
   return (
     <section className="safety" aria-labelledby="safety-heading">
       <div className="safety__header">
-        <h2 id="safety-heading">Safety, built in</h2>
-        <a className="safety__more" href="#contact">
-          Learn more
-        </a>
+        <h2 id="safety-heading">Rooted in community</h2>
       </div>
 
       <div className="safety__grid">

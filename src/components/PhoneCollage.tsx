@@ -67,7 +67,7 @@ const cards: Card[] = [
     kind: 'product',
     src: assets.celestialBag,
     name: 'Celestial Bucket Bag',
-    price: '2 450,00€',
+    price: '$2,450',
     similar: 'Show me similar shapes',
   },
   {
@@ -99,7 +99,7 @@ const cards: Card[] = [
     kind: 'product',
     src: assets.travelDuo,
     name: 'Travel Companion',
-    price: '3 200,00€',
+    price: '$3,200',
   },
   {
     kind: 'pair',
@@ -107,12 +107,12 @@ const cards: Card[] = [
     left: {
       src: assets.adidasCollab,
       name: 'Court Duffel',
-      price: '1 650,00€',
+      price: '$1,650',
     },
     right: {
       src: assets.emeraldPortrait,
       name: 'Emerald Pendant',
-      price: '4 800,00€',
+      price: '$4,800',
     },
   },
   {

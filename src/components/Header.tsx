@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { MosaicLogo } from './MosaicLogo'
 
 const TICKER_LINES = [
-  'Female Founded',
+  'Women-Owned & Operated',
   'Founded in the Inland Northwest',
   'Enterprise Expertise, Local Frontier',
 ] as const

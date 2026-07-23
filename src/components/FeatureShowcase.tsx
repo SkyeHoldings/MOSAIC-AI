@@ -426,50 +426,134 @@ function ContentScene() {
 function GrowthScene() {
   return (
     <div className="fx-scene fx-scene--growth">
-      <article className="fx-mock fx-mock--dash">
+      <div className="fx-paid-glow" aria-hidden="true" />
+      <div className="fx-paid-glow fx-paid-glow--hot" aria-hidden="true" />
+
+      <article className="fx-mock fx-mock--dash fx-mock--paid">
         <header className="fx-mock__head">
           <div>
-            <p className="fx-mock__eyebrow">Workspace admin</p>
-            <h3 className="fx-mock__title">Growth controls</h3>
+            <p className="fx-mock__eyebrow">Paid media · Solara Beauty</p>
+            <h3 className="fx-mock__title">Campaign performance</h3>
           </div>
-          <div className="fx-mock__badge">This week</div>
+          <div className="fx-paid__live" aria-hidden="true">
+            <span className="fx-paid__pulse" />
+            Live
+          </div>
         </header>
 
-        <div className="fx-dash">
-          <div className="fx-dash__card fx-dash__card--coral">
-            <span>Creative velocity</span>
-            <strong>+38%</strong>
-            <div className="fx-dash__bars" aria-hidden="true">
-              <i style={{ height: '42%' }} />
-              <i style={{ height: '58%' }} />
-              <i style={{ height: '51%' }} />
-              <i style={{ height: '76%' }} />
-              <i style={{ height: '88%' }} />
+        <div className="fx-paid">
+          <div className="fx-paid__hero" aria-hidden="true">
+            <div className="fx-paid__hero-copy">
+              <span>ROAS</span>
+              <strong>4.8x</strong>
+              <em>+1.2 vs last week</em>
+            </div>
+            <svg
+              className="fx-paid__spark"
+              viewBox="0 0 180 64"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                className="fx-paid__spark-fill"
+                d="M0 52 C16 50 28 44 42 40 C58 34 70 46 86 30 C102 14 118 18 134 22 C148 25 162 12 180 8 V64 H0 Z"
+              />
+              <path
+                className="fx-paid__spark-line"
+                d="M0 52 C16 50 28 44 42 40 C58 34 70 46 86 30 C102 14 118 18 134 22 C148 25 162 12 180 8"
+              />
+              <circle className="fx-paid__spark-tip" cx="180" cy="8" r="3.5" />
+            </svg>
+          </div>
+
+          <div className="fx-paid__stats" aria-hidden="true">
+            <div>
+              <span>CPA</span>
+              <strong>$18</strong>
+            </div>
+            <div>
+              <span>CTR</span>
+              <strong>3.4%</strong>
+            </div>
+            <div>
+              <span>Spend</span>
+              <strong>$12.4k</strong>
             </div>
           </div>
-          <div className="fx-dash__card fx-dash__card--sky">
-            <span>On-brand rate</span>
-            <strong>96%</strong>
-            <div className="fx-dash__meter" aria-hidden="true">
-              <span style={{ width: '96%' }} />
+
+          <div className="fx-paid__channels" aria-hidden="true">
+            <div className="fx-paid__channels-head">
+              <span>Channel mix</span>
+              <em>Health &amp; beauty</em>
             </div>
-          </div>
-          <div className="fx-dash__card fx-dash__card--wide">
-            <span>Model access</span>
             <ul>
               <li>
-                <i className="is-coral" /> Campaign drafting · Editors
+                <div>
+                  <strong>Meta</strong>
+                  <span>42%</span>
+                </div>
+                <i style={{ ['--w' as string]: '42%' }} className="is-meta" />
               </li>
               <li>
-                <i className="is-sky" /> Claim check · Legal + Brand
+                <div>
+                  <strong>Google</strong>
+                  <span>35%</span>
+                </div>
+                <i style={{ ['--w' as string]: '35%' }} className="is-google" />
               </li>
               <li>
-                <i className="is-mint" /> Publish · Admins only
+                <div>
+                  <strong>TikTok</strong>
+                  <span>23%</span>
+                </div>
+                <i style={{ ['--w' as string]: '23%' }} className="is-tiktok" />
               </li>
             </ul>
           </div>
+
+          <div className="fx-paid__ads" aria-hidden="true">
+            <div className="fx-paid__ads-head">
+              <span>Winning creatives</span>
+              <em>3 live</em>
+            </div>
+            <div className="fx-paid__thumbs">
+              <div className="fx-paid__thumb fx-paid__thumb--a">
+                <span>Glow Serum</span>
+                <em>2.4x</em>
+              </div>
+              <div className="fx-paid__thumb fx-paid__thumb--b">
+                <span>Soft Reset</span>
+                <em>2.1x</em>
+              </div>
+              <div className="fx-paid__thumb fx-paid__thumb--c">
+                <span>Daily Ritual</span>
+                <em>1.9x</em>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
+
+      <aside className="fx-chat fx-chat--paid" aria-label="Example paid media conversation">
+        <div className="fx-chat__row">
+          <span className="fx-chat__avatar fx-chat__avatar--user" aria-hidden="true">
+            J
+          </span>
+          <div>
+            <strong>Jordan</strong>
+            <p>Glow Serum is doing well — what should we do next?</p>
+          </div>
+        </div>
+        <div className="fx-chat__row">
+          <span className="fx-chat__avatar fx-chat__avatar--agent" aria-hidden="true">
+            ✦
+          </span>
+          <div>
+            <strong>MOSAIC Agent</strong>
+            <p>Looks strong. I’ll lean into what’s working and keep exploring new angles.</p>
+          </div>
+        </div>
+      </aside>
     </div>
   )
 }
@@ -501,7 +585,7 @@ export function FeatureShowcase() {
   return (
     <section className="feature-showcase" aria-labelledby={tablistId}>
       <div className="feature-showcase__intro">
-        <p className="feature-showcase__eyebrow">What we build with</p>
+        <p className="feature-showcase__eyebrow">How we innovate</p>
         <h2 id={tablistId}>
           We build campaigns and content systems with AI and local artists —
           quietly, carefully, and with craft.
