@@ -17,13 +17,20 @@ const assets = {
 } as const
 
 type Card =
-  | { kind: 'search'; src: string; query: string; ideas?: string }
+  | {
+      kind: 'search'
+      src: string
+      query: string
+      ideas?: string
+      mediaFit?: 'cover' | 'contain' | 'top'
+    }
   | {
       kind: 'product'
       src: string
       name: string
       price: string
       similar?: string
+      mediaFit?: 'cover' | 'contain' | 'top'
     }
   | { kind: 'editorial'; title: string; body: string; src?: string }
   | {
@@ -32,6 +39,7 @@ type Card =
       handle: string
       caption: string
       likes: string
+      mediaFit?: 'cover' | 'contain' | 'top'
     }
   | { kind: 'social-story'; src: string; handle: string; label?: string }
 
@@ -41,6 +49,7 @@ const cards: Card[] = [
     src: assets.drinkSpecials,
     query: "You're looking for something?",
     ideas: '48 yummm finds',
+    mediaFit: 'contain',
   },
   {
     kind: 'product',
@@ -55,12 +64,14 @@ const cards: Card[] = [
     handle: 'redrobin',
     caption: 'Big Yummm Deals — all day, every day.',
     likes: '24,108',
+    mediaFit: 'contain',
   },
   {
     kind: 'product',
     src: assets.chickenClub,
     name: 'Bacon Club Crispy Chicken',
     price: '14.99',
+    mediaFit: 'contain',
   },
   {
     kind: 'social-story',
@@ -80,7 +91,14 @@ const cards: Card[] = [
 function CardContent({ card }: { card: Card }) {
   switch (card.kind) {
     case 'search':
-      return <SearchScreen src={card.src} query={card.query} ideas={card.ideas} />
+      return (
+        <SearchScreen
+          src={card.src}
+          query={card.query}
+          ideas={card.ideas}
+          mediaFit={card.mediaFit}
+        />
+      )
     case 'product':
       return (
         <ProductScreen
@@ -88,6 +106,7 @@ function CardContent({ card }: { card: Card }) {
           name={card.name}
           price={card.price}
           similar={card.similar}
+          mediaFit={card.mediaFit}
         />
       )
     case 'editorial':
@@ -101,6 +120,7 @@ function CardContent({ card }: { card: Card }) {
           handle={card.handle}
           caption={card.caption}
           likes={card.likes}
+          mediaFit={card.mediaFit}
         />
       )
     case 'social-story':

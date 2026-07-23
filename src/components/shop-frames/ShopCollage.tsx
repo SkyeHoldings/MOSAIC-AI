@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { type CSSProperties, type ReactNode } from 'react'
 
 /** Pack screens into N equal columns so the panel fills with no black voids. */
 export function ShopCollage({
@@ -8,27 +8,6 @@ export function ShopCollage({
   columns: number
   children: ReactNode[]
 }) {
-  const rootRef = useRef<HTMLDivElement>(null)
-  const [inColor, setInColor] = useState(false)
-
-  useEffect(() => {
-    const node = rootRef.current
-    if (!node) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setInColor(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.25 },
-    )
-
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [])
-
   const cols: ReactNode[][] = Array.from({ length: columns }, () => [])
   children.forEach((child, index) => {
     cols[index % columns]?.push(child)
@@ -36,8 +15,7 @@ export function ShopCollage({
 
   return (
     <div
-      ref={rootRef}
-      className={`phone-collage phone-collage--columns phone-collage--fit${inColor ? ' is-color' : ''}`}
+      className="phone-collage phone-collage--columns phone-collage--fit"
       style={{ '--collage-cols': columns } as CSSProperties}
       aria-hidden="true"
     >

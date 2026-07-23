@@ -122,10 +122,12 @@ export function SearchScreen({
   src,
   query,
   ideas,
+  mediaFit = 'cover',
 }: {
   src: string
   query: string
   ideas?: string
+  mediaFit?: 'cover' | 'contain' | 'top'
 }) {
   return (
     <ScreenShell className="shop-ui--search">
@@ -134,7 +136,11 @@ export function SearchScreen({
         <em aria-hidden="true">⌥</em>
       </div>
       {ideas ? <div className="shop-ui__ideas">{ideas}</div> : null}
-      <div className="shop-ui__media shop-ui__media--hero">
+      <div
+        className={`shop-ui__media shop-ui__media--hero${
+          mediaFit !== 'cover' ? ` shop-ui__media--${mediaFit}` : ''
+        }`}
+      >
         <img src={src} alt="" loading="lazy" />
       </div>
     </ScreenShell>
@@ -146,15 +152,21 @@ export function ProductScreen({
   name,
   price,
   similar,
+  mediaFit = 'cover',
 }: {
   src: string
   name: string
   price: string
   similar?: string
+  mediaFit?: 'cover' | 'contain' | 'top'
 }) {
   return (
     <ScreenShell className="shop-ui--product" withChrome={false}>
-      <div className="shop-ui__media shop-ui__media--product">
+      <div
+        className={`shop-ui__media shop-ui__media--product${
+          mediaFit !== 'cover' ? ` shop-ui__media--${mediaFit}` : ''
+        }`}
+      >
         <img src={src} alt="" loading="lazy" />
       </div>
       <div className="shop-ui__product-meta">
@@ -225,14 +237,20 @@ export function EditorialScreen({
 export function ActionsScreen({
   src,
   actions,
+  mediaFit = 'cover',
 }: {
   src?: string
   actions: ShopAction[]
+  mediaFit?: 'cover' | 'contain' | 'top'
 }) {
   return (
     <ScreenShell className={`shop-ui--actions${src ? '' : ' shop-ui--actions-plain'}`}>
       {src ? (
-        <div className="shop-ui__media shop-ui__media--actions">
+        <div
+          className={`shop-ui__media shop-ui__media--actions${
+            mediaFit !== 'cover' ? ` shop-ui__media--${mediaFit}` : ''
+          }`}
+        >
           <img src={src} alt="" loading="lazy" />
         </div>
       ) : null}
@@ -262,11 +280,13 @@ export function SocialPostScreen({
   handle,
   caption,
   likes,
+  mediaFit = 'cover',
 }: {
   src: string
   handle: string
   caption: string
   likes: string
+  mediaFit?: 'cover' | 'contain' | 'top'
 }) {
   return (
     <div className="shop-ui shop-ui--social-post">
@@ -280,7 +300,11 @@ export function SocialPostScreen({
           ···
         </span>
       </div>
-      <div className="shop-ui__media shop-ui__media--social">
+      <div
+        className={`shop-ui__media shop-ui__media--social${
+          mediaFit !== 'cover' ? ` shop-ui__media--${mediaFit}` : ''
+        }`}
+      >
         <img src={src} alt="" loading="lazy" />
       </div>
       <div className="shop-ui__social-actions" aria-hidden="true">
@@ -396,9 +420,11 @@ export function SerpResultScreen({
   rating?: string
   reviews?: string
   replyTime?: string
-  plaSrc?: string
+  plaSrc?: string | string[]
   query?: string
 }) {
+  const plaShots = plaSrc ? (Array.isArray(plaSrc) ? plaSrc : [plaSrc]) : []
+
   return (
     <div className="shop-ui shop-ui--serp shop-ui--serp-result">
       <SerpSearchBar query={query ?? site} />
@@ -422,11 +448,11 @@ export function SerpResultScreen({
           </span>
         </div>
       ) : null}
-      {plaSrc ? (
-        <div className="serp__pla">
-          <img src={plaSrc} alt="" loading="lazy" />
+      {plaShots.map((shot) => (
+        <div key={shot} className="serp__pla">
+          <img src={shot} alt="" loading="lazy" />
         </div>
-      ) : null}
+      ))}
     </div>
   )
 }
@@ -469,6 +495,37 @@ export function SerpSitelinksScreen({
           <img src={plaSrc} alt="" loading="lazy" />
         </div>
       ) : null}
+    </div>
+  )
+}
+
+/** Standalone PLA strip with Google search bar */
+export function SerpPlaScreen({
+  src,
+  query = "Cabela's",
+  sitelinksSrc,
+}: {
+  src: string
+  query?: string
+  sitelinksSrc?: string | string[]
+}) {
+  const belowShots = sitelinksSrc
+    ? Array.isArray(sitelinksSrc)
+      ? sitelinksSrc
+      : [sitelinksSrc]
+    : []
+
+  return (
+    <div className="shop-ui shop-ui--serp shop-ui--serp-pla">
+      <SerpSearchBar query={query} />
+      <div className="serp__pla">
+        <img src={src} alt="" loading="lazy" />
+      </div>
+      {belowShots.map((shot) => (
+        <div key={shot} className="serp__sitelinks-shot">
+          <img src={shot} alt="" loading="lazy" />
+        </div>
+      ))}
     </div>
   )
 }

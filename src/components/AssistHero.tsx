@@ -1,15 +1,41 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { expertise } from '../data/work'
 import { DigitalEarthCanvas } from './DigitalEarthCanvas'
 
 const industries = [
-  { label: 'Luxury & Fashion', href: '/work/gucci' },
-  { label: 'Outdoor Retail', href: '/work/bass-pro-cabelas' },
-  { label: 'Restaurant & QSR', href: '/work/red-robin' },
-  { label: 'Climate & Tech', href: '/work/northline' },
-  { label: 'DTC & Launch', href: '/work/kiln' },
-  { label: 'Content & Media', href: '/work/harbor' },
+  'Apartments & Housing',
+  'Automotive',
+  'Banking & Credit Unions',
+  'Beauty, Hair, Nails & Massage',
+  'Construction, Trades & Home Services',
+  'Dentistry',
+  'Education & Schools',
+  'Energy & Industrial',
+  'Engineering & Professional Services',
+  'Fitness & Athletic Training',
+  'Holistic, Naturopathic & Functional Medicine',
+  'Home Care, Hospice & Senior Living',
+  'Insurance & Financial Services',
+  'Legal',
+  'Maternity, Doula & Family Support',
+  'Med Spa, Aesthetics & IV Wellness',
+  'Media, Marketing & Technology',
+  'Medical — Primary & Specialty Care',
+  'Mental & Behavioral Health',
+  'Mortgage & Lending',
+  'Nonprofits, Charities & Community',
+  'Nutrition & Weight Management',
+  'Orthodontics',
+  'Physical Therapy & Sports Medicine',
+  'Prosthetics & Adaptive Medical',
+  'Real Estate Brokerages',
+  'Recreation, Tourism & Attractions',
+  'Restaurants, Food & Beverage',
+  'Retail & Consumer Goods',
+  'Tattoo & Body Art',
+  'Telecom',
+  'Title & Escrow',
+  'Tourism',
 ]
 
 type MenuKey = 'capabilities' | 'industries' | null
@@ -93,12 +119,16 @@ export function AssistHero() {
               <span className="assist-chevron" aria-hidden="true" />
             </button>
             {open === 'industries' ? (
-              <ul id={industriesId} className="assist-dropdown" role="list">
-                {industries.map((item) => (
-                  <li key={item.label}>
-                    <Link to={item.href} onClick={() => setOpen(null)}>
-                      {item.label}
-                    </Link>
+              <ul
+                id={industriesId}
+                className="assist-dropdown assist-dropdown--scroll"
+                role="list"
+              >
+                {industries.map((label) => (
+                  <li key={label}>
+                    <a href="#contact" onClick={() => setOpen(null)}>
+                      {label}
+                    </a>
                   </li>
                 ))}
               </ul>

@@ -368,8 +368,8 @@ export function FeatureShowcase() {
       <div className="feature-showcase__intro">
         <p className="feature-showcase__eyebrow">What we build with</p>
         <h2 id={tablistId}>
-          We build brands, campaigns, and content systems with AI and local
-          artists — quietly, carefully, and with craft.
+          We build campaigns and content systems with AI and local artists —
+          quietly, carefully, and with craft.
         </h2>
       </div>
 

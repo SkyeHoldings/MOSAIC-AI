@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { BassProCollage } from './BassProCollage'
 import { PhoneCollage } from './PhoneCollage'
@@ -52,16 +53,65 @@ function CollageForVariant({ variant }: { variant: CollageVariant }) {
 }
 
 export function ShippedShowcase() {
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
   const loopSlides = [...slides, ...slides]
 
+  useEffect(() => {
+    const viewport = viewportRef.current
+    const track = trackRef.current
+    if (!viewport || !track) return
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (reduceMotion.matches) return
+
+    let raf = 0
+    let x = 0
+    let last = performance.now()
+    let playing = true
+
+    const speedPx = () =>
+      window.matchMedia('(max-width: 900px)').matches ? 42 : 55
+
+    const tick = (now: number) => {
+      if (playing) {
+        const dt = Math.min(0.064, (now - last) / 1000)
+        last = now
+        x -= speedPx() * dt
+        const half = track.scrollWidth / 2
+        if (half > 0 && -x >= half) x += half
+        track.style.transform = `translate3d(${x}px, 0, 0)`
+      } else {
+        last = now
+      }
+      raf = requestAnimationFrame(tick)
+    }
+
+    raf = requestAnimationFrame(tick)
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        playing = Boolean(entry?.isIntersecting)
+        if (playing) last = performance.now()
+      },
+      { threshold: 0.12 },
+    )
+    io.observe(viewport)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      io.disconnect()
+    }
+  }, [])
+
   return (
-    <section className="shipped-showcase" aria-label="Shipped with MOSAIC">
+    <section className="shipped-showcase" aria-label="Work in Circulation">
       <div className="shipped-showcase__header">
-        <h2>Shipped with MOSAIC</h2>
+        <h2>Work in Circulation</h2>
       </div>
 
-      <div className="shipped-showcase__viewport">
-        <div className="shipped-showcase__track">
+      <div className="shipped-showcase__viewport" ref={viewportRef}>
+        <div className="shipped-showcase__track" ref={trackRef}>
           {loopSlides.map((slide, index) => (
             <Link
               key={`${slide.id}-${index}`}

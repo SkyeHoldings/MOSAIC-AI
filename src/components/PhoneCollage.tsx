@@ -1,24 +1,27 @@
 import {
   ActionsScreen,
-  EditorialScreen,
   PairScreen,
   ProductScreen,
   SearchScreen,
+  SerpPlaScreen,
   SocialPostScreen,
   SocialStoryScreen,
 } from './shop-frames/ShopScreens'
 import { ShopCollage } from './shop-frames/ShopCollage'
 
-const assets = [
-  '/work/gucci/harry-styles.png',
-  '/work/gucci/models-turquoise.png',
-  '/work/gucci/ryan-gosling.png',
-  '/work/gucci/celestial-bag.png',
-  '/work/gucci/pair-sunglasses.png',
-  '/work/gucci/travel-duo.png',
-  '/work/gucci/adidas-collab.png',
-  '/work/gucci/emerald-portrait.png',
-] as const
+const assets = {
+  harryStyles: '/work/gucci/harry-styles.png',
+  modelsTurquoise: '/work/gucci/models-turquoise.png',
+  ryanGosling: '/work/gucci/ryan-gosling.png',
+  celestialBag: '/work/gucci/celestial-bag.png',
+  pairSunglasses: '/work/gucci/pair-sunglasses.png',
+  travelDuo: '/work/gucci/travel-duo.png',
+  adidasCollab: '/work/gucci/adidas-collab.png',
+  emeraldPortrait: '/work/gucci/emerald-portrait.png',
+  pla: '/work/gucci/gucci-pla.png',
+  searchAd: '/work/gucci/gucci-search-ad.png',
+  sitelinks: '/work/gucci/gucci-sitelinks.png',
+} as const
 
 type Card =
   | { kind: 'search'; src: string; query: string; ideas?: string }
@@ -35,11 +38,12 @@ type Card =
       left: { src: string; name: string; price: string }
       right: { src: string; name: string; price: string }
     }
-  | { kind: 'editorial'; title: string; body: string; src?: string }
+  | { kind: 'pla'; src: string; query?: string; sitelinksSrc?: string | string[] }
   | {
       kind: 'actions'
       src?: string
       actions: { label: string; icon?: 'eye' | 'book' | 'spark' | 'pin' | 'bag' }[]
+      mediaFit?: 'cover' | 'contain' | 'top'
     }
   | {
       kind: 'social-post'
@@ -47,6 +51,7 @@ type Card =
       handle: string
       caption: string
       likes: string
+      mediaFit?: 'cover' | 'contain' | 'top'
     }
   | { kind: 'social-story'; src: string; handle: string; label?: string }
 
@@ -54,27 +59,29 @@ type Card =
 const cards: Card[] = [
   {
     kind: 'search',
-    src: assets[4],
+    src: assets.pairSunglasses,
     query: "You're looking for something?",
     ideas: '280 ideas',
   },
   {
     kind: 'product',
-    src: assets[3],
+    src: assets.celestialBag,
     name: 'Celestial Bucket Bag',
     price: '2 450,00€',
     similar: 'Show me similar shapes',
   },
   {
     kind: 'social-post',
-    src: assets[0],
+    src: assets.harryStyles,
     handle: 'gucci',
     caption: 'Quiet presence for the season ahead.',
     likes: '128,430',
+    mediaFit: 'top',
   },
   {
     kind: 'actions',
-    src: assets[1],
+    src: assets.modelsTurquoise,
+    mediaFit: 'contain',
     actions: [
       { label: 'Discover kindred pieces', icon: 'eye' },
       { label: 'Delve into the story', icon: 'book' },
@@ -84,34 +91,35 @@ const cards: Card[] = [
   },
   {
     kind: 'social-story',
-    src: assets[2],
+    src: assets.ryanGosling,
     handle: 'gucci',
     label: 'New arrivals · Story',
   },
   {
     kind: 'product',
-    src: assets[5],
+    src: assets.travelDuo,
     name: 'Travel Companion',
     price: '3 200,00€',
   },
   {
     kind: 'pair',
-    heading: 'Gifts for her',
+    heading: 'GUCCI x adidas · High Jewelry',
     left: {
-      src: assets[6],
+      src: assets.adidasCollab,
       name: 'Court Duffel',
       price: '1 650,00€',
     },
     right: {
-      src: assets[7],
+      src: assets.emeraldPortrait,
       name: 'Emerald Pendant',
       price: '4 800,00€',
     },
   },
   {
-    kind: 'editorial',
-    title: 'Quiet presence',
-    body: 'Curated pieces with quiet weight — made to be lived in, not just looked at.',
+    kind: 'pla',
+    src: assets.pla,
+    query: 'Gucci tote bag',
+    sitelinksSrc: [assets.searchAd, assets.sitelinks],
   },
 ]
 
@@ -132,12 +140,22 @@ function CardContent({ card }: { card: Card }) {
       return (
         <PairScreen heading={card.heading} left={card.left} right={card.right} />
       )
-    case 'editorial':
+    case 'pla':
       return (
-        <EditorialScreen title={card.title} body={card.body} src={card.src} />
+        <SerpPlaScreen
+          src={card.src}
+          query={card.query}
+          sitelinksSrc={card.sitelinksSrc}
+        />
       )
     case 'actions':
-      return <ActionsScreen src={card.src} actions={card.actions} />
+      return (
+        <ActionsScreen
+          src={card.src}
+          actions={card.actions}
+          mediaFit={card.mediaFit}
+        />
+      )
     case 'social-post':
       return (
         <SocialPostScreen
@@ -145,6 +163,7 @@ function CardContent({ card }: { card: Card }) {
           handle={card.handle}
           caption={card.caption}
           likes={card.likes}
+          mediaFit={card.mediaFit}
         />
       )
     case 'social-story':

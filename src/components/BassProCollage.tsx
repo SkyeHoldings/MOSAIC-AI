@@ -1,10 +1,10 @@
 import {
   SearchScreen,
+  SerpPlaScreen,
   SerpResultScreen,
   SerpSitelinksScreen,
   SocialPostScreen,
   SocialStoryScreen,
-  StillScreen,
 } from './shop-frames/ShopScreens'
 import { ShopCollage } from './shop-frames/ShopCollage'
 
@@ -15,6 +15,7 @@ const assets = {
   bassProPla: '/work/bass-pro/bass-pro-pla.png',
   shoesPla: '/work/bass-pro/shoes-pla.png',
   cabelasPla: '/work/bass-pro/cabelas-pla.png',
+  cabelasSitelinks: '/work/bass-pro/cabelas-sitelinks.png',
 } as const
 
 type Card =
@@ -29,7 +30,7 @@ type Card =
       rating?: string
       reviews?: string
       replyTime?: string
-      plaSrc?: string
+      plaSrc?: string | string[]
     }
   | {
       kind: 'serp-sitelinks'
@@ -37,7 +38,7 @@ type Card =
       plaSrc?: string
       links: { title: string; description: string; url: string }[]
     }
-  | { kind: 'pla'; src: string }
+  | { kind: 'pla'; src: string; query?: string; sitelinksSrc?: string }
   | {
       kind: 'social-post'
       src: string
@@ -49,12 +50,6 @@ type Card =
 
 const cards: Card[] = [
   {
-    kind: 'search',
-    src: assets.fishingCenter,
-    query: "You're looking for something?",
-    ideas: '120 outdoors finds',
-  },
-  {
     kind: 'serp-result',
     site: 'Bass Pro Shops',
     domain: 'basspro.com',
@@ -65,14 +60,19 @@ const cards: Card[] = [
     rating: '4.9',
     reviews: '715 reviews',
     replyTime: '3 hours',
-    plaSrc: assets.bassProPla,
+    plaSrc: [assets.bassProPla, assets.shoesPla],
   },
   {
-    kind: 'social-post',
-    src: assets.storefront,
-    handle: 'bassproshops',
-    caption: 'Outdoor World — destination retail, live.',
-    likes: '56,210',
+    kind: 'search',
+    src: assets.fishingCenter,
+    query: "You're looking for something?",
+    ideas: '120 outdoors finds',
+  },
+  {
+    kind: 'pla',
+    src: assets.cabelasPla,
+    query: "Cabela's",
+    sitelinksSrc: assets.cabelasSitelinks,
   },
   {
     kind: 'social-story',
@@ -103,8 +103,11 @@ const cards: Card[] = [
     ],
   },
   {
-    kind: 'pla',
-    src: assets.cabelasPla,
+    kind: 'social-post',
+    src: assets.storefront,
+    handle: 'bassproshops',
+    caption: 'Outdoor World — destination retail, live.',
+    likes: '56,210',
   },
 ]
 
@@ -136,7 +139,13 @@ function CardContent({ card }: { card: Card }) {
         />
       )
     case 'pla':
-      return <StillScreen src={card.src} />
+      return (
+        <SerpPlaScreen
+          src={card.src}
+          query={card.query}
+          sitelinksSrc={card.sitelinksSrc}
+        />
+      )
     case 'social-post':
       return (
         <SocialPostScreen

@@ -24,7 +24,7 @@ export function Home() {
             Brand Storytelling
           </a>
           <a className="spotlight-link" href="#how-we-work">
-            Growth Strategy
+            Paid Media Support
           </a>
         </div>
       </nav>

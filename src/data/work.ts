@@ -124,40 +124,16 @@ export const expertise: Expertise[] = [
       'radial-gradient(120% 100% at 25% 30%, #3d4e59 0%, transparent 60%), radial-gradient(90% 80% at 75% 75%, #2a3438 0%, transparent 55%), #0e1113',
   },
   {
-    title: 'Digital Product and Experience Design',
-    body: 'Accelerating client value creation through digital transformation.',
-    tileBg:
-      'radial-gradient(110% 90% at 70% 30%, #46545e 0%, transparent 55%), #121417',
-  },
-  {
     title: 'Brand Storytelling and Content',
     body: 'Unforgettable narratives that build emotional resonance and inspire.',
     tileBg:
       'radial-gradient(110% 90% at 35% 65%, #5c4a3a 0%, transparent 55%), #16130f',
   },
   {
-    title: 'Brand Design and Identity',
-    body: 'Distinctive, authoritative and meaningful ideas that energise the organisation.',
-    tileBg:
-      'radial-gradient(110% 90% at 60% 40%, #4a5244 0%, transparent 55%), #131510',
-  },
-  {
-    title: 'Creative Technology',
-    body: 'Where vision meets pioneering innovation.',
-    tileBg:
-      'radial-gradient(110% 90% at 25% 55%, #39505c 0%, transparent 55%), #101418',
-  },
-  {
-    title: 'Growth Strategy and Optimisation',
-    body: 'Maximising growth potential with precision and purpose.',
+    title: 'Paid Media Support',
+    body: 'Hands-on help with ads, targeting, and spend — clear, practical, and built for local growth.',
     tileBg:
       'radial-gradient(120% 100% at 55% 35%, #5e4034 0%, transparent 55%), #16110f',
-  },
-  {
-    title: 'Industrial Design and Space',
-    body: 'Integrating sustainable design principles with vision and advanced technologies to produce stunning environments.',
-    tileBg:
-      'radial-gradient(120% 100% at 20% 25%, #3c4a41 0%, transparent 60%), #141518',
   },
 ]
 
