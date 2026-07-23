@@ -5,6 +5,7 @@ import {
   SerpSitelinksScreen,
   SocialPostScreen,
   SocialStoryScreen,
+  type SerpSitelink,
 } from './shop-frames/ShopScreens'
 import { ShopCollage } from './shop-frames/ShopCollage'
 
@@ -31,12 +32,13 @@ type Card =
       reviews?: string
       replyTime?: string
       plaSrc?: string | string[]
+      sitelinks?: SerpSitelink[]
     }
   | {
       kind: 'serp-sitelinks'
       query?: string
       plaSrc?: string
-      links: { title: string; description: string; url: string }[]
+      links: SerpSitelink[]
     }
   | { kind: 'pla'; src: string; query?: string; sitelinksSrc?: string }
   | {
@@ -47,6 +49,24 @@ type Card =
       likes: string
     }
   | { kind: 'social-story'; src: string; handle: string; label?: string }
+
+const bassProSitelinks: SerpSitelink[] = [
+  {
+    title: 'Bass Pro® Bargain Cave',
+    description: 'Check Out These Clearance Deals! Save up to 50% off',
+    url: 'https://basspro.com › bargain-cave-sale-and-...',
+  },
+  {
+    title: 'Shop Fishing, Hunting & More',
+    description: 'Save on Premium Outdoor Brands You Love Today. Free Shipping on Orders $50+.',
+    url: 'https://basspro.com',
+  },
+  {
+    title: "Bass Pro Shops® CLUB Card",
+    description: 'Earn Points Toward Free Gear. Apply Today!',
+    url: 'https://basspro.com › club',
+  },
+]
 
 const cards: Card[] = [
   {
@@ -61,6 +81,7 @@ const cards: Card[] = [
     reviews: '715 reviews',
     replyTime: '3 hours',
     plaSrc: [assets.bassProPla, assets.shoesPla],
+    sitelinks: bassProSitelinks,
   },
   {
     kind: 'search',
@@ -84,23 +105,7 @@ const cards: Card[] = [
     kind: 'serp-sitelinks',
     query: 'Bass Pro Shops',
     plaSrc: assets.shoesPla,
-    links: [
-      {
-        title: 'Bass Pro® Bargain Cave',
-        description: 'Check Out These Clearance Deals! Save up to 50% off',
-        url: 'https://basspro.com › bargain-cave-sale-and-...',
-      },
-      {
-        title: 'Shop Fishing, Hunting & More',
-        description: 'Save on Premium Outdoor Brands You Love Today. Free Shipping on Orders $50+.',
-        url: 'https://basspro.com',
-      },
-      {
-        title: "Bass Pro Shops® CLUB Card",
-        description: 'Earn Points Toward Free Gear. Apply Today!',
-        url: 'https://basspro.com › club',
-      },
-    ],
+    links: bassProSitelinks,
   },
   {
     kind: 'social-post',
@@ -127,6 +132,7 @@ function CardContent({ card }: { card: Card }) {
           reviews={card.reviews}
           replyTime={card.replyTime}
           plaSrc={card.plaSrc}
+          sitelinks={card.sitelinks}
           query={card.site}
         />
       )

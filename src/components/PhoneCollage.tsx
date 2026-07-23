@@ -6,6 +6,7 @@ import {
   SerpPlaScreen,
   SocialPostScreen,
   SocialStoryScreen,
+  type SerpBelowAd,
 } from './shop-frames/ShopScreens'
 import { ShopCollage } from './shop-frames/ShopCollage'
 
@@ -19,9 +20,43 @@ const assets = {
   adidasCollab: '/work/gucci/adidas-collab.png',
   emeraldPortrait: '/work/gucci/emerald-portrait.png',
   pla: '/work/gucci/gucci-pla.png',
-  searchAd: '/work/gucci/gucci-search-ad.png',
-  sitelinks: '/work/gucci/gucci-sitelinks.png',
 } as const
+
+const gucciAds: SerpBelowAd[] = [
+  {
+    site: 'Gucci®',
+    url: 'https://www.gucci.com',
+    title: 'Gucci® Official Site',
+    snippet:
+      'Discover The New Arrivals — Everyday Accessories Defined By Signature Motifs. Enjoy Free Shipping & Returns.',
+    inlineLinks: [
+      "Women's New Arrivals",
+      "Men's New Arrivals",
+      'Summer Collection',
+    ],
+  },
+  {
+    site: 'Gucci',
+    url: 'https://www.gucci.com',
+    title: 'GUCCI® US Official Site',
+    snippet:
+      'Shop handbags, ready-to-wear, shoes, and accessories at the official Gucci US site.',
+    sitelinks: [
+      {
+        title: 'Handbags',
+        description: 'Shop iconic Gucci handbags and accessories.',
+      },
+      {
+        title: 'Women',
+        description: 'Ready-to-wear, shoes, and bags for her.',
+      },
+      {
+        title: 'Men',
+        description: 'New arrivals — from sneakers to suits.',
+      },
+    ],
+  },
+]
 
 type Card =
   | { kind: 'search'; src: string; query: string; ideas?: string }
@@ -38,7 +73,13 @@ type Card =
       left: { src: string; name: string; price: string }
       right: { src: string; name: string; price: string }
     }
-  | { kind: 'pla'; src: string; query?: string; sitelinksSrc?: string | string[] }
+  | {
+      kind: 'pla'
+      src?: string
+      query?: string
+      sitelinksSrc?: string | string[]
+      ads?: SerpBelowAd[]
+    }
   | {
       kind: 'actions'
       src?: string
@@ -98,7 +139,7 @@ const cards: Card[] = [
   {
     kind: 'product',
     src: assets.travelDuo,
-    name: 'Travel Companion',
+    name: 'Travel Suitcase',
     price: '$3,200',
   },
   {
@@ -119,7 +160,7 @@ const cards: Card[] = [
     kind: 'pla',
     src: assets.pla,
     query: 'Gucci tote bag',
-    sitelinksSrc: [assets.searchAd, assets.sitelinks],
+    ads: gucciAds,
   },
 ]
 
@@ -146,6 +187,7 @@ function CardContent({ card }: { card: Card }) {
           src={card.src}
           query={card.query}
           sitelinksSrc={card.sitelinksSrc}
+          ads={card.ads}
         />
       )
     case 'actions':

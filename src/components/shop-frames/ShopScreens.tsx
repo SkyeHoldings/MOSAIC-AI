@@ -399,6 +399,12 @@ function SerpSearchBar({ query }: { query: string }) {
   )
 }
 
+export type SerpSitelink = {
+  title: string
+  description: string
+  url?: string
+}
+
 /** Google dark-mode organic / paid search result */
 export function SerpResultScreen({
   site,
@@ -410,6 +416,7 @@ export function SerpResultScreen({
   reviews,
   replyTime,
   plaSrc,
+  sitelinks,
   query,
 }: {
   site: string
@@ -421,12 +428,18 @@ export function SerpResultScreen({
   reviews?: string
   replyTime?: string
   plaSrc?: string | string[]
+  sitelinks?: SerpSitelink[]
   query?: string
 }) {
   const plaShots = plaSrc ? (Array.isArray(plaSrc) ? plaSrc : [plaSrc]) : []
+  const belowLinks = sitelinks?.length ? sitelinks : null
 
   return (
-    <div className="shop-ui shop-ui--serp shop-ui--serp-result">
+    <div
+      className={`shop-ui shop-ui--serp shop-ui--serp-result${
+        belowLinks ? ' shop-ui--serp-result-filled' : ''
+      }`}
+    >
       <SerpSearchBar query={query ?? site} />
       <div className="serp__head">
         <span className="serp__favicon">{site.charAt(0)}</span>
@@ -453,14 +466,76 @@ export function SerpResultScreen({
           <img src={shot} alt="" loading="lazy" />
         </div>
       ))}
+      {belowLinks ? (
+        <div className="serp-sitelinks__list serp-sitelinks__list--nested">
+          {belowLinks.map((link) => (
+            <div key={link.title} className="serp-sitelink">
+              <div className="serp-sitelink__copy">
+                <strong>{link.title}</strong>
+                <p>{link.description}</p>
+                {link.url ? <span>{link.url}</span> : null}
+              </div>
+              <span className="serp-sitelink__chevron" aria-hidden="true">
+                ›
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }
 
-export type SerpSitelink = {
-  title: string
-  description: string
+export type SerpBelowAd = {
+  site: string
   url: string
+  title: string
+  snippet: string
+  inlineLinks?: string[]
+  sitelinks?: SerpSitelink[]
+}
+
+function SerpAdBlock({ ad }: { ad: SerpBelowAd }) {
+  return (
+    <div className="serp__ad">
+      <div className="serp__head">
+        <span className="serp__favicon">{ad.site.charAt(0)}</span>
+        <div className="serp__identity">
+          <strong>{ad.site}</strong>
+          <span>{ad.url}</span>
+        </div>
+        <span className="serp__more">⋮</span>
+      </div>
+      <div className="serp__title">{ad.title}</div>
+      <p className="serp__snippet">{ad.snippet}</p>
+      {ad.inlineLinks?.length ? (
+        <div className="serp__inline-links">
+          {ad.inlineLinks.map((link, index) => (
+            <span key={link}>
+              {index > 0 ? <span className="serp__inline-sep"> · </span> : null}
+              <em>{link}</em>
+            </span>
+          ))}
+        </div>
+      ) : null}
+      {ad.sitelinks?.length ? (
+        <div className="serp-sitelinks__list serp-sitelinks__list--nested">
+          {ad.sitelinks.map((link) => (
+            <div key={link.title} className="serp-sitelink">
+              <div className="serp-sitelink__copy">
+                <strong>{link.title}</strong>
+                <p>{link.description}</p>
+                {link.url ? <span>{link.url}</span> : null}
+              </div>
+              <span className="serp-sitelink__chevron" aria-hidden="true">
+                ›
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  )
 }
 
 /** Google sitelinks block */
@@ -482,7 +557,7 @@ export function SerpSitelinksScreen({
             <div className="serp-sitelink__copy">
               <strong>{link.title}</strong>
               <p>{link.description}</p>
-              <span>{link.url}</span>
+              {link.url ? <span>{link.url}</span> : null}
             </div>
             <span className="serp-sitelink__chevron" aria-hidden="true">
               ›
@@ -504,10 +579,12 @@ export function SerpPlaScreen({
   src,
   query = "Cabela's",
   sitelinksSrc,
+  ads,
 }: {
-  src: string
+  src?: string
   query?: string
   sitelinksSrc?: string | string[]
+  ads?: SerpBelowAd[]
 }) {
   const belowShots = sitelinksSrc
     ? Array.isArray(sitelinksSrc)
@@ -516,11 +593,20 @@ export function SerpPlaScreen({
     : []
 
   return (
-    <div className="shop-ui shop-ui--serp shop-ui--serp-pla">
+    <div
+      className={`shop-ui shop-ui--serp shop-ui--serp-pla${
+        ads?.length ? ' shop-ui--serp-pla-ads' : ''
+      }`}
+    >
       <SerpSearchBar query={query} />
-      <div className="serp__pla">
-        <img src={src} alt="" loading="lazy" />
-      </div>
+      {src ? (
+        <div className="serp__pla">
+          <img src={src} alt="" loading="lazy" />
+        </div>
+      ) : null}
+      {ads?.map((ad) => (
+        <SerpAdBlock key={`${ad.site}-${ad.title}`} ad={ad} />
+      ))}
       {belowShots.map((shot) => (
         <div key={shot} className="serp__sitelinks-shot">
           <img src={shot} alt="" loading="lazy" />
