@@ -16,6 +16,17 @@
   --assist-leaf: #9a9a9a;
 }
 
+@font-face {
+  font-family: 'Armata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src:
+    local('Armata'),
+    url('/fonts/armata.woff2') format('woff2'),
+    url('/fonts/armata.ttf') format('truetype');
+}
+
 *,
 *::before,
 *::after {
@@ -6241,12 +6252,13 @@ p {
 /* ---------- Printable one-sheet (street poster) ---------- */
 .os {
   --os-ink: #f4f4f2;
-  --os-muted: rgba(244, 244, 242, 0.72);
+  --os-muted: #d0d0cc;
   --os-deep: #05070a;
   min-height: 100vh;
   padding: clamp(1rem, 3vw, 2rem);
   background: #1a1c1f;
   color: var(--os-ink);
+  font-family: 'Armata', Helvetica, Arial, sans-serif;
 }
 
 .os__toolbar {
@@ -6284,6 +6296,7 @@ p {
   position: relative;
   width: min(100%, 8.5in);
   min-height: 11in;
+  height: 11in;
   margin: 0 auto;
   overflow: hidden;
   background: var(--os-deep);
@@ -6308,10 +6321,12 @@ p {
   position: relative;
   z-index: 1;
   min-height: 11in;
+  height: 11in;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 0.55in;
-  padding: 0.55in 0.55in 0.5in;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 0.4in;
+  padding: 0.5in 0.55in 0.55in;
+  box-sizing: border-box;
 }
 
 .os__brand {
@@ -6344,21 +6359,22 @@ p {
   text-transform: uppercase;
   text-align: right;
   line-height: 1;
-  color: var(--os-muted);
+  color: #d0d0cc;
   white-space: nowrap;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .os__copy {
-  align-self: end;
   justify-self: start;
   width: 100%;
   max-width: none;
-  padding-bottom: 0.55in;
+  padding-top: 0.7in;
   text-align: left;
 }
 
 .os__headline {
-  font-family: var(--sans);
+  font-family: 'Armata', Helvetica, Arial, sans-serif;
   font-size: clamp(3.4rem, 11vw, 5.75rem);
   font-weight: 400;
   line-height: 0.98;
@@ -6373,21 +6389,27 @@ p {
   max-width: 34ch;
   font-size: 1.05rem;
   line-height: 1.4;
-  color: var(--os-muted);
+  color: #d0d0cc;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .os__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto 0.18fr;
+  grid-template-rows: auto auto;
+  align-items: end;
+  column-gap: 1.5rem;
+  row-gap: 0.4in;
   padding-top: 0.35in;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .os__clients {
+  grid-column: 1;
+  grid-row: 1;
   min-width: 0;
-  flex: 1;
+  align-self: start;
 }
 
 .os__clients-label {
@@ -6395,7 +6417,9 @@ p {
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--os-muted);
+  color: #d0d0cc;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .os__client-list {
@@ -6415,19 +6439,42 @@ p {
   color: #fff;
 }
 
+.os__chamber {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+  align-self: end;
+  display: block;
+  line-height: 0;
+}
+
+.os__chamber img {
+  display: block;
+  width: 1.85in;
+  height: auto;
+  background: transparent;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
 .os__qr {
+  grid-column: 2;
+  grid-row: 2;
   margin: 0;
   flex-shrink: 0;
   display: grid;
   gap: 0.4rem;
   justify-items: center;
   text-align: center;
+  align-self: end;
 }
 
 .os__qr-mark {
+  display: block;
   width: 1.5in;
   height: 1.5in;
   padding: 0.1in;
+  object-fit: contain;
   background: #fff;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
@@ -6444,7 +6491,9 @@ p {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-align: center;
-  color: var(--os-muted);
+  color: #d0d0cc;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .os__url {
@@ -6468,13 +6517,19 @@ p {
   }
 
   .os__footer {
+    display: flex;
     flex-direction: column;
     align-items: stretch;
   }
 
   .os__qr {
+    justify-self: center;
     justify-items: center;
     text-align: center;
+  }
+
+  .os__chamber {
+    order: 3;
   }
 }
 
@@ -6488,31 +6543,40 @@ p {
     display: none !important;
   }
 
+  html,
   body {
-    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #05070a !important;
   }
 
   .os {
     min-height: 0;
-    padding: 0;
-    background: #fff;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #05070a !important;
   }
 
   .os__sheet {
     width: 8.5in;
     min-height: 11in;
+    height: 11in;
+    margin: 0 !important;
     box-shadow: none;
     break-inside: avoid;
     page-break-inside: avoid;
+    overflow: hidden;
   }
 
   .os__content {
     min-height: 11in;
+    height: 11in;
   }
 
   .os__sheet,
   .os__qr-mark,
-  .os__horizon {
+  .os__horizon,
+  .os__chamber img {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }

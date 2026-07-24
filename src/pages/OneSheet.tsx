@@ -5,33 +5,45 @@ import { OneSheetHorizon } from '../components/OneSheetHorizon'
 
 const BUSINESS_CARD_URL = 'https://hellomosaic.ai/businesscard'
 const SITE_URL = 'https://hellomosaic.ai/'
+const CHAMBER_URL = 'https://cdachamber.com/'
 
 const CLIENTS = ['GUCCI', 'Red Robin', 'Bass Pro Shops / Cabela’s'] as const
 
 export function OneSheet() {
-  const [qrSvg, setQrSvg] = useState('')
+  const [qrDataUrl, setQrDataUrl] = useState('')
+  const [fontsReady, setFontsReady] = useState(false)
 
   useEffect(() => {
     const previous = document.title
     document.title = 'MOSAIC AI · Flyer'
 
-    void QRCode.toString(BUSINESS_CARD_URL, {
-      type: 'svg',
+    void QRCode.toDataURL(BUSINESS_CARD_URL, {
       margin: 1,
+      width: 512,
       errorCorrectionLevel: 'H',
       color: {
         dark: '#0d0d0d',
         light: '#ffffff',
       },
-    }).then(setQrSvg)
+    }).then(setQrDataUrl)
+
+    void document.fonts.ready.then(() => {
+      void document.fonts.load('400 48px Armata').then(() => setFontsReady(true))
+    })
 
     return () => {
       document.title = previous
     }
   }, [])
 
+  const printReady = Boolean(qrDataUrl) && fontsReady
+
   return (
-    <section className="os" aria-label="MOSAIC AI flyer">
+    <section
+      className="os"
+      aria-label="MOSAIC AI flyer"
+      data-print-ready={printReady ? 'true' : 'false'}
+    >
       <div className="os__toolbar no-print">
         <p className="os__toolbar-hint">Flyer · US Letter · Print full color</p>
         <button type="button" className="os__print" onClick={() => window.print()}>
@@ -71,17 +83,36 @@ export function OneSheet() {
             </div>
 
             <figure className="os__qr">
-              <div
-                className="os__qr-mark"
-                role="img"
-                aria-label="QR code linking to digital business card"
-                dangerouslySetInnerHTML={qrSvg ? { __html: qrSvg } : undefined}
-              />
+              {qrDataUrl ? (
+                <img
+                  className="os__qr-mark"
+                  src={qrDataUrl}
+                  width={512}
+                  height={512}
+                  alt="QR code linking to digital business card"
+                />
+              ) : (
+                <div className="os__qr-mark" aria-hidden="true" />
+              )}
               <figcaption>
                 <span className="os__qr-label">Scan for card</span>
                 <span className="os__url">hellomosaic.ai</span>
               </figcaption>
             </figure>
+
+            <a
+              className="os__chamber"
+              href={CHAMBER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/partners/cda-chamber-flyer.png"
+                alt="Proud member of Coeur d’Alene Regional Chamber"
+                width={220}
+                height={132}
+              />
+            </a>
           </footer>
         </div>
       </article>
