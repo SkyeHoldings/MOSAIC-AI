@@ -1,0 +1,148 @@
+Name,Description,Section,Assignee,Parent Task
+Business entity / registration confirmed,"Confirm LLC (or chosen structure), EIN, and ownership docs.",1. Foundation & Legal,,
+LLC (or chosen structure) filed,,1. Foundation & Legal,,Business entity / registration confirmed
+EIN obtained,,1. Foundation & Legal,,Business entity / registration confirmed
+Operating agreement / ownership docs stored,,1. Foundation & Legal,,Business entity / registration confirmed
+Banking & payments,Get paid and track money cleanly.,1. Foundation & Legal,,
+Business bank account open,,1. Foundation & Legal,,Banking & payments
+Stripe / invoicing set up,,1. Foundation & Legal,,Banking & payments
+"Payment terms written (deposit, net-15, etc.)",,1. Foundation & Legal,,Banking & payments
+Insurance & compliance,,1. Foundation & Legal,,
+Business insurance reviewed/quoted,,1. Foundation & Legal,,Insurance & compliance
+Contracts / MSA / SOW templates ready,,1. Foundation & Legal,,Insurance & compliance
+Privacy policy + terms on site,,1. Foundation & Legal,,Insurance & compliance
+Brand kit locked,,2. Brand & Assets,,
+Logo final (light + dark + transparent),,2. Brand & Assets,,Brand kit locked
+Colors / fonts documented,,2. Brand & Assets,,Brand kit locked
+One-liner + short bio + long bio,,2. Brand & Assets,,Brand kit locked
+Print & physical,,2. Brand & Assets,,
+Business cards final + ordered,,2. Brand & Assets,,Print & physical
+Cards received / stocked,,2. Brand & Assets,,Print & physical
+Digital asset library,,2. Brand & Assets,,
+"Folder structure (logo, headshots, product, social, video)",,2. Brand & Assets,,Digital asset library
+Naming convention set,,2. Brand & Assets,,Digital asset library
+hellomosaic.ai live check,,3. Website & Conversion,,
+Homepage + key pages load on mobile,,3. Website & Conversion,,hellomosaic.ai live check
+Contact form tested (Formspree / email delivery),,3. Website & Conversion,,hellomosaic.ai live check
+Thank-you / confirmation flow works,,3. Website & Conversion,,hellomosaic.ai live check
+Offer clarity on site,,3. Website & Conversion,,
+Services listed clearly,,3. Website & Conversion,,Offer clarity on site
+Packages / starting prices (or book a call),,3. Website & Conversion,,Offer clarity on site
+CTA above the fold works,,3. Website & Conversion,,Offer clarity on site
+Tracking,,3. Website & Conversion,,
+Analytics installed (GA4 or equivalent),,3. Website & Conversion,,Tracking
+Form submissions tracked,,3. Website & Conversion,,Tracking
+Calendar / booking link live,,3. Website & Conversion,,Tracking
+Google Business Profile,,4. Google Presence (Local / CDA),,
+Profile claimed / verified,,4. Google Presence (Local / CDA),,Google Business Profile
+Cover photo uploaded,,4. Google Presence (Local / CDA),,Google Business Profile
+Logo + categories + service area set,,4. Google Presence (Local / CDA),,Google Business Profile
+"Hours, phone, website, description filled",,4. Google Presence (Local / CDA),,Google Business Profile
+First 3-5 posts scheduled/published,,4. Google Presence (Local / CDA),,Google Business Profile
+Local SEO basics,,4. Google Presence (Local / CDA),,
+"NAP consistent everywhere (name, address, phone)",,4. Google Presence (Local / CDA),,Local SEO basics
+Services listed in GBP,,4. Google Presence (Local / CDA),,Local SEO basics
+Ask for first reviews plan,,4. Google Presence (Local / CDA),,Local SEO basics
+LinkedIn (priority),,5. Social Media Setup,,
+"Personal profile optimized (headline, about, featured)",,5. Social Media Setup,,LinkedIn (priority)
+Company page created/updated,,5. Social Media Setup,,LinkedIn (priority)
+Cover + logo uploaded,,5. Social Media Setup,,LinkedIn (priority)
+First 3 posts drafted,,5. Social Media Setup,,LinkedIn (priority)
+Instagram / other (if using),,5. Social Media Setup,,
+Handle secured + bio + link,,5. Social Media Setup,,Instagram / other (if using)
+Highlights / pinned post structure,,5. Social Media Setup,,Instagram / other (if using)
+Content pillars defined (3-5 themes),,5. Social Media Setup,,Instagram / other (if using)
+Social ops,,5. Social Media Setup,,
+Content calendar (4 weeks),,5. Social Media Setup,,Social ops
+Posting cadence decided,,5. Social Media Setup,,Social ops
+Hashtag / location tags for CDA,,5. Social Media Setup,,Social ops
+Shot list planned,,6. Photos & Video Production,,
+Headshots (professional + casual),,6. Photos & Video Production,,Shot list planned
+Workspace / behind the scenes,,6. Photos & Video Production,,Shot list planned
+Product / screen demos,,6. Photos & Video Production,,Shot list planned
+Local CDA lifestyle / vibe B-roll,,6. Photos & Video Production,,Shot list planned
+Photo shoot day,,6. Photos & Video Production,,
+Outfit + locations booked,,6. Photos & Video Production,,Photo shoot day
+Shoot completed,,6. Photos & Video Production,,Photo shoot day
+Selects edited + exported,,6. Photos & Video Production,,Photo shoot day
+Video shoot,,6. Photos & Video Production,,
+Intro video (30-60s),,6. Photos & Video Production,,Video shoot
+Service explainer (60-90s),,6. Photos & Video Production,,Video shoot
+3-5 short social clips,,6. Photos & Video Production,,Video shoot
+Captions + thumbnails made,,6. Photos & Video Production,,Video shoot
+Asset delivery,,6. Photos & Video Production,,
+Upload to brand library,,6. Photos & Video Production,,Asset delivery
+"Resize for LinkedIn, IG, GBP, site",,6. Photos & Video Production,,Asset delivery
+Offer definition,,7. Offer & Sales Materials,,
+Ideal client profile (CDA / N Idaho),,7. Offer & Sales Materials,,Offer definition
+2-3 packages with scope + price,,7. Offer & Sales Materials,,Offer definition
+Pilot / intro offer defined,,7. Offer & Sales Materials,,Offer definition
+Sales collateral,,7. Offer & Sales Materials,,
+One-pager / PDF,,7. Offer & Sales Materials,,Sales collateral
+Case study template (even if placeholder),,7. Offer & Sales Materials,,Sales collateral
+Discovery call agenda,,7. Offer & Sales Materials,,Sales collateral
+Proposal template,,7. Offer & Sales Materials,,Sales collateral
+Objection handling,,7. Offer & Sales Materials,,
+FAQ sheet,,7. Offer & Sales Materials,,Objection handling
+Pricing talk track,,7. Offer & Sales Materials,,Objection handling
+CRM / pipeline,,8. Tools & Ops Stack,,
+Pipeline stages set (Lead → Contacted → Meeting → Proposal → Won/Lost),,8. Tools & Ops Stack,,CRM / pipeline
+Scheduling,,8. Tools & Ops Stack,,
+Calendly / booking link,,8. Tools & Ops Stack,,Scheduling
+Availability rules set,,8. Tools & Ops Stack,,Scheduling
+Email,,8. Tools & Ops Stack,,
+Professional email live,,8. Tools & Ops Stack,,Email
+Signature with site + booking link,,8. Tools & Ops Stack,,Email
+"Templates: intro, follow-up, meeting confirm",,8. Tools & Ops Stack,,Email
+Enrichment,,8. Tools & Ops Stack,,
+Apollo account ready,,8. Tools & Ops Stack,,Enrichment
+Credit / plan confirmed,,8. Tools & Ops Stack,,Enrichment
+Export → enrich → import workflow documented,,8. Tools & Ops Stack,,Enrichment
+Contact list prep,,9. Outreach & Pipeline (Apollo-backed),,
+Raw list imported,,9. Outreach & Pipeline (Apollo-backed),,Contact list prep
+"Cleaned (duplicates, bad companies)",,9. Outreach & Pipeline (Apollo-backed),,Contact list prep
+Prioritized (A/B/C for CDA),,9. Outreach & Pipeline (Apollo-backed),,Contact list prep
+Apollo enrichment,,9. Outreach & Pipeline (Apollo-backed),,
+Emails pulled,,9. Outreach & Pipeline (Apollo-backed),,Apollo enrichment
+Phones pulled (where available),,9. Outreach & Pipeline (Apollo-backed),,Apollo enrichment
+Titles / LinkedIn URLs confirmed,,9. Outreach & Pipeline (Apollo-backed),,Apollo enrichment
+Outreach system,,9. Outreach & Pipeline (Apollo-backed),,
+Cold email sequence (3-5 touches),,9. Outreach & Pipeline (Apollo-backed),,Outreach system
+LinkedIn connection + DM scripts,,9. Outreach & Pipeline (Apollo-backed),,Outreach system
+Call script / voicemail script,,9. Outreach & Pipeline (Apollo-backed),,Outreach system
+Weekly outreach targets set (e.g. 10-15/week),,9. Outreach & Pipeline (Apollo-backed),,Outreach system
+Tracking,Log touches and follow-ups,9. Outreach & Pipeline (Apollo-backed),,
+Log every touch in Asana/CRM,,9. Outreach & Pipeline (Apollo-backed),,Tracking
+Follow-up reminders set,,9. Outreach & Pipeline (Apollo-backed),,Tracking
+Target list of orgs / events,,10. Local Networking (CDA),,
+Chamber / business groups identified,,10. Local Networking (CDA),,Target list of orgs / events
+Meetup / networking calendar for next 30-60 days,,10. Local Networking (CDA),,Target list of orgs / events
+Warm intros,,10. Local Networking (CDA),,
+Friends / past coworkers list,,10. Local Networking (CDA),,Warm intros
+Ask-for-intro message drafted,,10. Local Networking (CDA),,Warm intros
+In-person readiness,,10. Local Networking (CDA),,
+Elevator pitch practiced,,10. Local Networking (CDA),,In-person readiness
+Cards + one-pager in bag,,10. Local Networking (CDA),,In-person readiness
+Follow-up same-day habit,,10. Local Networking (CDA),,In-person readiness
+Soft launch,,11. Soft Launch → Public Launch,,
+Site + GBP + LinkedIn live,,11. Soft Launch → Public Launch,,Soft launch
+10 warm contacts messaged,,11. Soft Launch → Public Launch,,Soft launch
+First discovery calls booked,,11. Soft Launch → Public Launch,,Soft launch
+Launch week,,11. Soft Launch → Public Launch,,
+Launch post (LinkedIn + GBP),,11. Soft Launch → Public Launch,,Launch week
+Email / DM blast to warm list,,11. Soft Launch → Public Launch,,Launch week
+Ask for shares / intros,,11. Soft Launch → Public Launch,,Launch week
+Post-launch cadence,,11. Soft Launch → Public Launch,,
+Weekly content plan running,,11. Soft Launch → Public Launch,,Post-launch cadence
+Weekly outreach quota,,11. Soft Launch → Public Launch,,Post-launch cadence
+Weekly pipeline review (30 min),,11. Soft Launch → Public Launch,,Post-launch cadence
+Finances,,12. Admin & Ongoing,,
+Expense tracking set,,12. Admin & Ongoing,,Finances
+Monthly P&L habit,,12. Admin & Ongoing,,Finances
+Reviews & proof,,12. Admin & Ongoing,,
+First testimonials requested,,12. Admin & Ongoing,,Reviews & proof
+Screenshot / quote bank started,,12. Admin & Ongoing,,Reviews & proof
+Weekly ops ritual,,12. Admin & Ongoing,,
+Monday: outreach plan,,12. Admin & Ongoing,,Weekly ops ritual
+Midweek: content publish,,12. Admin & Ongoing,,Weekly ops ritual
+Friday: pipeline + next-week priorities,,12. Admin & Ongoing,,Weekly ops ritual

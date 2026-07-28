@@ -30,6 +30,15 @@ export function Footer() {
             practical, consistent, and built for the long haul.
           </p>
         </div>
+
+        <div className="footer-col">
+          <h4>Explore</h4>
+          <nav className="footer-nav" aria-label="Footer">
+            <Link to="/">Home</Link>
+            <Link to="/services">Services</Link>
+            <a href="/#contact">Contact</a>
+          </nav>
+        </div>
       </div>
 
       <div className="footer-bottom">

@@ -5,6 +5,7 @@ import { Header } from './components/Header'
 import { BusinessCard } from './pages/BusinessCard'
 import { Home } from './pages/Home'
 import { OneSheet } from './pages/OneSheet'
+import { Services } from './pages/Services'
 import { WorkDetail } from './pages/WorkDetail'
 
 function ScrollToTop() {
@@ -36,6 +37,7 @@ export default function App() {
       <main className={`site-main${isStandalonePage ? ' site-main--flush' : ''}`}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/businesscard" element={<BusinessCard />} />
           <Route path="/onesheet" element={<OneSheet />} />
           <Route path="/work/:id" element={<WorkDetail />} />
