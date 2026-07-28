@@ -25,7 +25,9 @@ PAD = 22
 GAP = 10
 RADIUS = 14
 
-HEADER = "Brands We've Worked With"
+HEADER = "BRANDS WE'VE WORKED WITH"
+ARMATA = ROOT.parent / "linkedin" / "fonts" / "Armata-Regular.ttf"
+ARMATA_PUBLIC = ROOT.parent.parent / "public" / "fonts" / "armata.ttf"
 
 LOGO_FILES = [
     LOGOS / "official_gucci.png",
@@ -43,12 +45,26 @@ TILES = [
 ]
 
 
-def load_font(size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
-    for path in (
-        r"C:\Windows\Fonts\consola.ttf",
-        r"C:\Windows\Fonts\cour.ttf",
-        r"C:\Windows\Fonts\arial.ttf",
-    ):
+def load_font(size: int, fancy: bool = False) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
+    candidates = []
+    if fancy:
+        candidates.extend(
+            [
+                str(ARMATA),
+                str(ARMATA_PUBLIC),
+                r"C:\Windows\Fonts\seguisb.ttf",
+                r"C:\Windows\Fonts\segoeuil.ttf",
+                r"C:\Windows\Fonts\calibril.ttf",
+                r"C:\Windows\Fonts\georgia.ttf",
+            ]
+        )
+    candidates.extend(
+        [
+            r"C:\Windows\Fonts\arial.ttf",
+            r"C:\Windows\Fonts\consola.ttf",
+        ]
+    )
+    for path in candidates:
         if os.path.exists(path):
             return ImageFont.truetype(path, size)
     return ImageFont.load_default()
@@ -81,20 +97,68 @@ def fit_contain(im: Image.Image, max_w: int, max_h: int) -> Image.Image:
     return src.resize((nw, nh), Image.Resampling.LANCZOS)
 
 
-def draw_header_bar(canvas: Image.Image, x: int, y: int, width: int, height: int) -> None:
-    draw = ImageDraw.Draw(canvas)
-    draw.rectangle([x, y, x + width, y + height], fill=BLACK)
-    font = load_font(15)
-    # tracked monospace label
-    spacing = 1
-    chars = list(HEADER)
+def draw_tracked_text(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    font: ImageFont.ImageFont,
+    fill: tuple[int, int, int],
+    cx: float,
+    cy: float,
+    tracking: float,
+) -> tuple[float, float]:
+    """Draw centered text with letter-spacing. Returns (total_w, text_h)."""
+    chars = list(text)
     widths = [draw.textbbox((0, 0), ch, font=font)[2] for ch in chars]
-    total = sum(widths) + spacing * (len(chars) - 1)
-    tx = x + max(0, (width - total) // 2)
-    ty = y + (height - 15) // 2 - 1
+    heights = [draw.textbbox((0, 0), ch, font=font)[3] for ch in chars]
+    gaps = tracking * (len(chars) - 1)
+    total_w = sum(widths) + gaps
+    text_h = max(heights) if heights else 0
+    x = cx - total_w / 2
+    y = cy - text_h / 2
     for ch, cw in zip(chars, widths):
-        draw.text((tx, ty), ch, font=font, fill=WHITE)
-        tx += cw + spacing
+        draw.text((x, y), ch, font=font, fill=fill)
+        x += cw + tracking
+    return total_w, text_h
+
+
+def draw_header_bar(canvas: Image.Image, x: int, y: int, width: int, height: int) -> None:
+    """Editorial black plaque — Armata caps, wide tracking, soft corners, hairline inset."""
+    draw = ImageDraw.Draw(canvas)
+    radius = height // 2  # pill / soft capsule
+    draw.rounded_rectangle([x, y, x + width, y + height], radius=radius, fill=BLACK)
+
+    # Hairline inset in soft white for polish
+    inset = 3
+    draw.rounded_rectangle(
+        [x + inset, y + inset, x + width - inset, y + height - inset],
+        radius=max(1, radius - inset),
+        outline=(255, 255, 255),
+        width=1,
+    )
+
+    font = load_font(13, fancy=True)
+    # Fit tracking to the plaque width
+    pad_x = 22
+    avail = width - pad_x * 2
+    # Measure at zero tracking, then distribute leftover as letter-spacing
+    zero_w, _ = draw_tracked_text(
+        draw, HEADER, font, BLACK, -1000, -1000, tracking=0
+    )  # off-canvas measure via bbox fallback
+    # Proper measure without drawing:
+    widths = [draw.textbbox((0, 0), ch, font=font)[2] for ch in HEADER]
+    base_w = sum(widths)
+    n_gaps = max(1, len(HEADER) - 1)
+    tracking = max(1.5, min(4.5, (avail - base_w) / n_gaps))
+
+    draw_tracked_text(
+        draw,
+        HEADER,
+        font,
+        WHITE,
+        cx=x + width / 2,
+        cy=y + height / 2 - 0.5,
+        tracking=tracking,
+    )
 
 
 def paste_centered(canvas: Image.Image, im: Image.Image, box: tuple[int, int, int, int]) -> None:
@@ -133,8 +197,8 @@ def build_back() -> Image.Image:
         col, row = i % 2, i // 2
         x0 = logo_left + col * (cell_w + GAP)
         y0 = logo_top + row * (cell_h + GAP)
-        # Inset so logos breathe inside cells
-        inset = 8
+        # Inset so logos breathe inside cells (hi-res marks can sit larger)
+        inset = 4
         paste_centered(
             canvas,
             Image.open(path),
