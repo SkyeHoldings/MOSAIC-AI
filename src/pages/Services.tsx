@@ -1,385 +1,532 @@
-import { useId, useState } from 'react'
-import { Link } from 'react-router-dom'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { ContactSection } from '../components/ContactSection'
 
-type MonthlyService = {
+type PackageTier = {
   id: string
-  number: string
-  title: string
-  tagline: string
+  name: string
+  blurb: string
   price: string
-  body: string
+  meta: { label: string; value: string }[]
+  chooseLabel: string
   includes: string[]
 }
 
-type ProjectService = {
+type ProjectPackage = {
   id: string
-  number: string
-  title: string
+  name: string
+  blurb: string
+  price: string
+  meta?: { label: string; value: string }[]
+  includes: string[]
+}
+
+type ResultItem = {
+  client: string
   body: string
-  detail: string
+  stats: { value: string; label: string }[]
 }
 
-type FitGuide = {
-  number: string
-  situation: string
-  recommendation: string
-  body: string
-}
-
-type FaqItem = {
-  question: string
-  answer: string
-}
-
-const monthlyServices: MonthlyService[] = [
+const marketingPackages: PackageTier[] = [
   {
-    id: 'content',
-    number: '01',
-    title: 'MOSAIC Content',
-    tagline: 'For businesses that need to look active, premium, and trusted every month.',
-    price: '$3,000 / month',
-    body: 'Monthly content production built around the way your business needs to show up. We plan, shoot, and create the video, photo, and social assets that keep your brand visible and credible.',
+    id: 'core',
+    name: 'Mosaic Core',
+    blurb: 'Paid, follow-up, and converting destinations — with monthly video and photo so we own the content engine from day one.',
+    price: '$10,000/mo',
+    meta: [
+      { label: 'Kickoff', value: 'Growth audit — $3,500' },
+      { label: 'Commitment', value: 'Min 6 months' },
+      { label: 'Ad spend', value: 'Client-funded (not included)' },
+    ],
+    chooseLabel: 'Included:',
     includes: [
-      'Short-form video production',
-      'Photography',
-      'Static creative',
-      'Content strategy',
-      'Creative direction',
-      'Posting schedule',
-      'Client portal and reporting',
+      'Paid media management (recommended up to $5K/mo spend)',
+      'Follow-up system — 2 campaign emails / month + 1 nurture flow (3 touchpoints)',
+      'Landing page & offer support so ads have somewhere that converts',
+      '1 video / month*',
+      '1 photo shoot / month*',
+      'Conversion tracking & monthly performance reporting',
+      'Monthly strategy consultation',
     ],
   },
   {
-    id: 'ads',
-    number: '02',
-    title: 'MOSAIC Ads',
-    tagline: 'For businesses that need to turn attention into real inquiries.',
-    price: '$2,500 / month',
-    body: 'Ad campaigns built around your offer, your market, and the creative needed to get people to stop, understand, and take action.',
+    id: 'growth',
+    name: 'Mosaic Growth',
+    blurb: 'The sweet spot for most growing businesses — higher spend capacity, tighter testing, and bi-weekly steering on the same content-led system.',
+    price: '$14,500/mo',
+    meta: [
+      { label: 'Kickoff', value: 'Brand + performance audit — $5,500' },
+      { label: 'Commitment', value: 'Min 6 months' },
+      { label: 'Ad spend', value: 'Client-funded (not included)' },
+    ],
+    chooseLabel: 'Included:',
     includes: [
-      'Meta and Google campaign management',
-      'Video ad creative',
-      'Audience & targeting strategy',
-      'Creative testing',
-      'Weekly reporting',
-      'Monthly strategy call',
+      'Paid media management (recommended up to $15K/mo spend)',
+      'Follow-up system — 4 campaign emails / month + lifecycle flow (3 touchpoints)',
+      'Landing page CRO & offer testing',
+      '1 video / month*',
+      '1 photo shoot / month*',
+      'Creative direction + testing roadmap*',
+      'Conversion tracking & analytics setup',
+      'Bi-weekly strategy consultation',
     ],
   },
   {
-    id: 'content-ads',
-    number: '03',
-    title: 'MOSAIC Content + Ads',
-    tagline:
-      'For businesses ready to build visibility and turn it into consistent inbound demand.',
-    price: '$4,000 / month',
-    body: 'This is the strongest monthly system. Content builds trust. Ads put that trust in front of more people. Both are built by the same team, around the same strategy, with one clear creative direction.',
+    id: 'full',
+    name: 'Mosaic Full',
+    blurb: 'For in-house teams that need higher volume, faster cadence, and enterprise-level paid leadership — more production, more touchpoints, weekly steering.',
+    price: '$22,500/mo',
+    meta: [
+      { label: 'Kickoff', value: 'Full-funnel audit — $6,250' },
+      { label: 'Commitment', value: 'Min 6 months' },
+      { label: 'Ad spend', value: 'Client-funded (not included)' },
+    ],
+    chooseLabel: 'Included:',
     includes: [
-      'Everything in MOSAIC Content',
-      'Ad creative and campaign management',
-      'Lead automation software install',
-      'Daily lead notifications',
-      'Weekly reporting',
-      'Monthly strategy calls',
+      'Paid media management (recommended $15K–$50K+/mo spend)',
+      'Follow-up system — 4 campaign emails / month + lifecycle flows (4 touchpoints)',
+      'Landing page & website conversion support',
+      '2 videos / month*',
+      '1 photo shoot / month*',
+      'Ad cutdowns & platform variants from each shoot*',
+      'Creative direction + always-on testing program*',
+      'Full-funnel measurement & reporting',
+      'Weekly strategy consultation',
+      'Priority production queue',
     ],
   },
 ]
 
-const projectServices: ProjectService[] = [
+const aiPackages: ProjectPackage[] = [
   {
-    id: 'web',
-    number: '01',
-    title: 'Web Design',
-    body: 'A clean, fast, conversion-focused website that makes your business easier to trust and easier to choose.',
-    detail:
-      'Homepage, service pages, landing pages, lead forms, mobile structure, and tracking setup.',
-  },
-  {
-    id: 'brand',
-    number: '02',
-    title: 'Brand Launch',
-    body: 'Positioning, visual identity, and messaging built to make your business look like exactly what it is.',
-    detail:
-      'Brand direction, messaging, visual system, launch strategy, and core creative assets.',
-  },
-  {
-    id: 'film',
-    number: '03',
-    title: 'Film Production',
-    body: 'Cinematic brand films and campaign content built to make people feel something before they decide anything.',
-    detail:
-      'Hero films, campaign videos, founder stories, launch films, and premium video assets.',
-  },
-  {
-    id: 'photo',
-    number: '04',
-    title: 'Photo Production',
-    body: 'A full shoot day producing premium brand imagery your business can use across every touchpoint.',
-    detail:
-      'Website imagery, social assets, ad visuals, team photos, product moments, and campaign stills.',
+    id: 'ai',
+    name: 'Mosaic AI',
+    blurb: 'For teams ready to turn AI into a real marketing system — faster output, tighter testing, and assistants that know the brand.',
+    price: '$11,000/mo',
+    meta: [
+      { label: 'Kickoff', value: 'AI opportunity workshop — $4,000' },
+      { label: 'Commitment', value: 'Min 6 months' },
+      { label: 'Ad spend', value: 'Client-funded when paid is in scope' },
+    ],
+    includes: [
+      'Brand voice system, prompt library & AI guardrails',
+      'Up to 2 custom marketing assistants (GPT / workflow builds)',
+      'Always-on ad creative iteration engine (copy + briefs)*',
+      'AI-assisted content pipeline — email, social & SEO — with human QA',
+      'Landing page / offer testing support',
+      'Performance feedback loops into prompts & creatives',
+      'Team enablement so your people can run the system',
+      'Bi-weekly AI + growth consultation',
+      'Monthly system upgrades & roadmap',
+    ],
   },
 ]
 
-const fitGuides: FitGuide[] = [
+const projectPackages: ProjectPackage[] = [
   {
-    number: '01',
-    situation: 'If people already trust you, but not enough people see you',
-    recommendation: 'Start with MOSAIC Ads',
-    body: 'Paid campaigns built to put the right offer in front of the right people and turn attention into real inquiries.',
-  },
-  {
-    number: '02',
-    situation: 'If people know you exist, but your brand does not feel consistent',
-    recommendation: 'Start with MOSAIC Content',
-    body: 'Monthly creative built to make your business look active, credible, and worth paying attention to.',
-  },
-  {
-    number: '03',
-    situation: 'If you need visibility and leads working together',
-    recommendation: 'Start with MOSAIC Content + Ads',
-    body: 'Content builds trust. Ads put that trust in front of more of the right people — one strategy, one creative direction.',
-  },
-  {
-    number: '04',
-    situation:
-      'If you need to build a good brand foundation before thinking about ads and content',
-    recommendation: 'Start with a One-Time Build',
-    body: 'Website, brand, film, or photo projects built to give your business a stronger base before ongoing marketing.',
+    id: 'brand-full',
+    name: 'Brand Launch Full',
+    blurb: 'For businesses preparing to grow with a complete launch system.',
+    price: '$15,500+',
+    meta: [
+      { label: 'Revisions', value: 'Up to 15 hours' },
+      { label: 'Work with', value: 'A dedicated team' },
+    ],
+    includes: [
+      'Full brand positioning',
+      'Visual identity system',
+      '5-page website design',
+      'Launch creative package',
+      'Messaging & copy framework',
+      'Go-to-market plan',
+    ],
   },
 ]
 
-const faqs: FaqItem[] = [
+const results: ResultItem[] = [
   {
-    question: 'Do we need content, ads, or both?',
-    answer:
-      'If your business already looks strong online and people understand your offer quickly, ads may be the fastest lever. If your presence feels inconsistent or unclear, content usually needs to come first. If you need both visibility and better lead flow, Content + Ads is the strongest fit.',
+    client: 'Enterprise retail',
+    body: 'Campaign systems that move from national craft to local activation without losing the brand.',
+    stats: [
+      { value: '$200M+', label: 'Ad spend managed' },
+      { value: '10 yrs', label: 'Hands-on experience' },
+    ],
   },
   {
-    question: 'What is the difference between MOSAIC Content and MOSAIC Ads?',
-    answer:
-      'MOSAIC Content is built to help your business show up consistently, look credible, and build trust over time. MOSAIC Ads is built to put a clear offer in front of the right people and turn attention into inquiries. One builds presence. The other drives traffic. Together, they work better.',
+    client: 'Local growth brands',
+    body: 'Content and paid working as one system — clearer offers, sharper creative, better inbound.',
+    stats: [
+      { value: '3×', label: 'More consistent output' },
+      { value: '1 team', label: 'Strategy to production' },
+    ],
   },
   {
-    question: "What's the best monthly option?",
-    answer:
-      'Content + Ads is the strongest monthly system when you need both consistency and inbound demand. Content builds trust; ads put that trust in front of more of the right people — same team, same strategy, one creative direction.',
-  },
-  {
-    question: 'Do you handle strategy, or just production?',
-    answer:
-      'Strategy is built into everything. We are not here to create random videos, graphics, or campaigns. We look at what your market needs to see, understand, and believe before they choose you, then build the creative around that.',
-  },
-  {
-    question: 'Can you build the website too?',
-    answer:
-      'Yes. If your website is hurting trust, clarity, or conversions, we can build that foundation before or alongside content and ads. A stronger website makes every campaign, post, and inquiry work harder.',
-  },
-  {
-    question: 'What kinds of businesses is this best for?',
-    answer:
-      'MOSAIC is best for businesses where trust affects the sale — restaurants, hospitality, professional services, wellness, retail, and local brands across the Inland Northwest that need to look credible before someone reaches out.',
-  },
-  {
-    question: 'What if we only need one project right now?',
-    answer:
-      'That is what One-Time Builds are for. If you need a website, brand launch, film, or photo library before stepping into ongoing marketing, we can start there. Not every business needs a monthly system on day one.',
-  },
-  {
-    question: 'How fast can we start?',
-    answer:
-      'Monthly partnerships usually begin with strategy, onboarding, and production planning. Ads can move quickly when the offer, website, and creative direction are clear. Project timelines depend on the scope, but the goal is always to get the right work moving without dragging the process out.',
-  },
-  {
-    question: 'Do you post the content for us?',
-    answer:
-      'That depends on the service level. Some partnerships include planning and asset delivery, while higher-level monthly support can include posting and ongoing optimization. We will recommend the setup that makes the most sense for your team.',
+    client: 'Inland Northwest',
+    body: 'Women-owned and rooted here — enterprise judgment with frontier proximity.',
+    stats: [
+      { value: 'CDA', label: 'Home base' },
+      { value: '700K+', label: 'Regional market' },
+    ],
   },
 ]
 
-function Pill({ children }: { children: string }) {
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReduced(media.matches)
+    update()
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+
+  return reduced
+}
+
+function FadeIn({
+  children,
+  reduceMotion,
+  delay = 0,
+  className = '',
+}: {
+  children: ReactNode
+  reduceMotion: boolean
+  delay?: number
+  className?: string
+}) {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [visible, setVisible] = useState(reduceMotion)
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node || reduceMotion) {
+      setVisible(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [reduceMotion])
+
   return (
-    <p className="svc-pill">
-      <span className="svc-pill__dot" aria-hidden="true" />
+    <div
+      ref={ref}
+      className={`svc-fade${visible ? ' is-in' : ''}${className ? ` ${className}` : ''}`}
+      style={delay ? ({ '--svc-fade-delay': `${delay}ms` } as CSSProperties) : undefined}
+    >
       {children}
-      <span className="svc-pill__dot" aria-hidden="true" />
-    </p>
-  )
-}
-
-function FaqAccordion({ items }: { items: FaqItem[] }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
-  const baseId = useId()
-
-  return (
-    <div className="svc-faq__list">
-      {items.map((item, index) => {
-        const open = openIndex === index
-        const panelId = `${baseId}-panel-${index}`
-        const buttonId = `${baseId}-btn-${index}`
-        const number = String(index + 1).padStart(2, '0')
-
-        return (
-          <div key={item.question} className={`svc-faq__item${open ? ' is-open' : ''}`}>
-            <button
-              type="button"
-              id={buttonId}
-              className="svc-faq__trigger"
-              aria-expanded={open}
-              aria-controls={panelId}
-              onClick={() => setOpenIndex(open ? null : index)}
-            >
-              <span className="svc-faq__num">{number}</span>
-              <span className="svc-faq__q">{item.question}</span>
-              <span className="svc-faq__icon" aria-hidden="true">
-                {open ? '−' : '+'}
-              </span>
-            </button>
-            <div
-              id={panelId}
-              role="region"
-              aria-labelledby={buttonId}
-              className="svc-faq__panel"
-              hidden={!open}
-            >
-              <p>{item.answer}</p>
-            </div>
-          </div>
-        )
-      })}
     </div>
   )
 }
 
-export function Services() {
+function PackageCard({
+  name,
+  blurb,
+  price,
+  meta,
+  chooseLabel,
+  includes,
+  onContact,
+}: {
+  name: string
+  blurb: string
+  price: string
+  meta?: { label: string; value: string }[]
+  chooseLabel: string
+  includes: string[]
+  onContact: () => void
+}) {
+  const [expanded, setExpanded] = useState(false)
+  const preview = includes.slice(0, 3)
+  const rest = includes.slice(3)
+  const shown = expanded ? includes : preview
+
   return (
-    <div className="svc">
-      <section className="svc-hero" aria-labelledby="svc-hero-heading">
+    <article className={`svc-card${expanded ? ' is-open' : ''}`}>
+      <header className="svc-card__top">
+        <h3>{name}</h3>
+        <p className="svc-card__blurb">{blurb}</p>
+        <p className="svc-card__price">{price}</p>
+      </header>
+
+      {meta && meta.length > 0 ? (
+        <dl className="svc-card__meta">
+          {meta.map((row) => (
+            <div key={row.label}>
+              <dt>{row.label}</dt>
+              <dd>{row.value}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
+
+      <div className="svc-card__includes">
+        <p className="svc-card__choose">{chooseLabel}</p>
+        <ul>
+          {shown.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        {rest.length > 0 ? (
+          <button
+            type="button"
+            className="svc-text-link"
+            onClick={() => setExpanded((value) => !value)}
+          >
+            {expanded ? 'See less' : 'See more'}
+          </button>
+        ) : null}
+      </div>
+
+      <button type="button" className="svc-btn svc-btn--ghost svc-card__cta" onClick={onContact}>
+        Get started
+      </button>
+    </article>
+  )
+}
+
+export function Services() {
+  const [, setSearchParams] = useSearchParams()
+  const reduceMotion = usePrefersReducedMotion()
+  const heroRef = useRef<HTMLElement>(null)
+  const [heroStyle, setHeroStyle] = useState<CSSProperties>({ opacity: 1 })
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setHeroStyle({ opacity: 1 })
+      return
+    }
+
+    let frame = 0
+
+    const update = () => {
+      frame = 0
+      const hero = heroRef.current
+      if (!hero) return
+      const rect = hero.getBoundingClientRect()
+      const progress = Math.max(0, Math.min(1, -rect.top / Math.max(rect.height * 0.7, 1)))
+      setHeroStyle({
+        opacity: 1 - progress,
+        transform: `translate3d(0, ${progress * -28}px, 0)`,
+      })
+    }
+
+    const onScroll = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [reduceMotion])
+
+  function goContact(capability?: string) {
+    if (capability) {
+      setSearchParams({ capability }, { replace: true })
+    }
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <div className="svc svc--branded">
+      <section
+        ref={heroRef}
+        className="svc-hero"
+        aria-labelledby="svc-hero-heading"
+        style={heroStyle}
+      >
         <div className="svc-hero__inner">
-          <Pill>Services</Pill>
-          <h1 id="svc-hero-heading">Creative and strategic services for brand growth.</h1>
-          <p>
-            Content, ads, websites, brand launches, film, and photography built to help your
-            business look sharper, communicate clearly, and generate better opportunities.
-          </p>
+          <h1 id="svc-hero-heading">Pricing</h1>
+          <p className="svc-hero__tag">This is what great work costs.</p>
+          <a className="svc-hero__cue" href="#svc-packages" aria-label="Scroll to packages">
+            <span />
+          </a>
         </div>
       </section>
 
-      <section className="svc-monthly" aria-labelledby="svc-monthly-heading">
-        <div className="svc-section-head">
-          <Pill>Monthly Services</Pill>
-          <h2 id="svc-monthly-heading">Ongoing creative and marketing support.</h2>
-          <p>
-            For businesses that need consistent visibility, stronger trust, and better inbound
-            opportunities.
-          </p>
-        </div>
+      <section className="svc-intro" aria-labelledby="svc-intro-heading">
+        <FadeIn reduceMotion={reduceMotion}>
+          <div className="svc-intro__inner">
+            <h2 id="svc-intro-heading">
+              Move further,
+              <br />
+              faster.
+            </h2>
+            <p>
+              MOSAIC packages brand, paid, content, and AI under one system for Inland Northwest
+              businesses — from first impression to lasting loyalty. Pick the engagement that fits
+              where you are; we build the rest around it.
+            </p>
+            <button type="button" className="svc-btn svc-btn--solid" onClick={() => goContact()}>
+              Book an Intro
+            </button>
+          </div>
+        </FadeIn>
+      </section>
 
-        <div className="svc-monthly__list">
-          {monthlyServices.map((service) => (
-            <article key={service.id} className="svc-plan" id={service.id}>
-              <div className="svc-plan__top">
-                <p className="svc-plan__num">{service.number}.</p>
-                <h3>{service.title}</h3>
-                <p className="svc-plan__tagline">{service.tagline}</p>
-                <p className="svc-plan__price">{service.price}</p>
-                <p className="svc-plan__body">{service.body}</p>
-              </div>
-              <div className="svc-plan__includes">
-                <h4>Includes</h4>
-                <ul>
-                  {service.includes.map((item) => (
-                    <li key={item}>{item}</li>
+      <section
+        id="svc-packages"
+        className="svc-packages"
+        aria-labelledby="svc-packages-heading"
+      >
+        <FadeIn reduceMotion={reduceMotion}>
+          <div className="svc-packages__head">
+            <h2 id="svc-packages-heading">Marketing packages for growing businesses.</h2>
+            <button type="button" className="svc-btn svc-btn--solid" onClick={() => goContact()}>
+              Learn More
+            </button>
+          </div>
+          <p className="svc-packages__note">
+            Ad spend is always client-funded and not included in package pricing. Image and video
+            production (*) is fulfilled through partners and quoted separately.
+          </p>
+        </FadeIn>
+
+        <div className="svc-packages__grid">
+          {marketingPackages.map((pkg, index) => (
+            <FadeIn key={pkg.id} reduceMotion={reduceMotion} delay={index * 80}>
+              <PackageCard
+                name={pkg.name}
+                blurb={pkg.blurb}
+                price={pkg.price}
+                meta={pkg.meta}
+                chooseLabel={pkg.chooseLabel}
+                includes={pkg.includes}
+                onContact={() => goContact(pkg.name)}
+              />
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      <section className="svc-packages svc-packages--ai" aria-labelledby="svc-ai-heading">
+        <FadeIn reduceMotion={reduceMotion}>
+          <div className="svc-packages__head">
+            <h2 id="svc-ai-heading">AI for growing businesses.</h2>
+            <button type="button" className="svc-btn svc-btn--solid" onClick={() => goContact()}>
+              Learn More
+            </button>
+          </div>
+        </FadeIn>
+
+        <div className="svc-packages__grid svc-packages__grid--single">
+          {aiPackages.map((pkg, index) => (
+            <FadeIn key={pkg.id} reduceMotion={reduceMotion} delay={index * 80}>
+              <PackageCard
+                name={pkg.name}
+                blurb={pkg.blurb}
+                price={pkg.price}
+                meta={pkg.meta}
+                chooseLabel="Included:"
+                includes={pkg.includes}
+                onContact={() => goContact(pkg.name)}
+              />
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      <section className="svc-packages svc-packages--projects" aria-labelledby="svc-brand-heading">
+        <FadeIn reduceMotion={reduceMotion}>
+          <div className="svc-packages__head">
+            <h2 id="svc-brand-heading">Branding for growing businesses.</h2>
+            <button type="button" className="svc-btn svc-btn--solid" onClick={() => goContact()}>
+              Learn More
+            </button>
+          </div>
+        </FadeIn>
+
+        <div className="svc-packages__grid svc-packages__grid--single">
+          {projectPackages.map((pkg, index) => (
+            <FadeIn key={pkg.id} reduceMotion={reduceMotion} delay={index * 80}>
+              <PackageCard
+                name={pkg.name}
+                blurb={pkg.blurb}
+                price={pkg.price}
+                meta={pkg.meta}
+                chooseLabel="Included:"
+                includes={pkg.includes}
+                onContact={() => goContact(pkg.name)}
+              />
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      <section className="svc-results" aria-labelledby="svc-results-heading">
+        <FadeIn reduceMotion={reduceMotion}>
+          <h2 id="svc-results-heading">
+            We do great work.
+            <br />
+            And get great results.
+          </h2>
+        </FadeIn>
+        <div className="svc-results__grid">
+          {results.map((item, index) => (
+            <FadeIn key={item.client} reduceMotion={reduceMotion} delay={index * 90}>
+              <article className="svc-results__card">
+                <h3>{item.client}</h3>
+                <p>{item.body}</p>
+                <div className="svc-results__stats">
+                  {item.stats.map((stat) => (
+                    <div key={stat.label}>
+                      <strong>{stat.value}</strong>
+                      <span>{stat.label}</span>
+                    </div>
                   ))}
-                </ul>
-                <a className="svc-plan__cta" href="#contact">
-                  Get started →
-                </a>
-              </div>
-            </article>
+                </div>
+              </article>
+            </FadeIn>
           ))}
         </div>
       </section>
 
-      <section className="svc-projects" aria-labelledby="svc-projects-heading">
-        <div className="svc-section-head">
-          <Pill>Project Based</Pill>
-          <h2 id="svc-projects-heading">Start with a project.</h2>
+      <FadeIn reduceMotion={reduceMotion}>
+        <section className="svc-cta" aria-labelledby="svc-cta-heading">
+          <h2 id="svc-cta-heading">Ready to grow? Book a free discovery call.</h2>
           <p>
-            For businesses that need a stronger foundation before they scale visibility, launch
-            campaigns, or send more people to their brand.
+            We partner with ambitious local businesses at every stage — and design the right
+            starting point for where you are now.
           </p>
-        </div>
-
-        <div className="svc-projects__grid">
-          {projectServices.map((project) => (
-            <article key={project.id} className="svc-project" id={project.id}>
-              <p className="svc-project__num">{project.number}</p>
-              <h3>{project.title}</h3>
-              <p className="svc-project__body">{project.body}</p>
-              <p className="svc-project__detail">{project.detail}</p>
-              <a className="svc-project__cta" href="#contact">
-                Get started →
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="svc-fit" aria-labelledby="svc-fit-heading">
-        <div className="svc-section-head">
-          <Pill>Find the Right Fit</Pill>
-          <h2 id="svc-fit-heading">Not every business needs the same starting point.</h2>
-          <p>
-            Some businesses need consistency. Some need more qualified traffic. Some need a
-            stronger website or brand foundation before more people see them. The right move
-            depends on where the biggest gap is right now.
+          <button type="button" className="svc-btn svc-btn--solid" onClick={() => goContact()}>
+            Book a discovery call
+          </button>
+          <p className="svc-cta__alt">
+            Or return{' '}
+            <Link to="/" className="svc-cta__link">
+              home
+            </Link>
+            .
           </p>
-        </div>
+        </section>
+      </FadeIn>
 
-        <div className="svc-fit__grid">
-          {fitGuides.map((guide) => (
-            <article key={guide.number} className="svc-fit__card">
-              <p className="svc-fit__num">{guide.number}</p>
-              <h3>{guide.situation}</h3>
-              <p className="svc-fit__label">Recommendation</p>
-              <p className="svc-fit__rec">{guide.recommendation}</p>
-              <p className="svc-fit__body">{guide.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="svc-faq" aria-labelledby="svc-faq-heading">
-        <div className="svc-section-head">
-          <Pill>FAQ</Pill>
-          <h2 id="svc-faq-heading">Questions before we start.</h2>
-          <p>
-            The goal is not to sell you the biggest package. The goal is to build the thing that
-            gives your business the most leverage next.
-          </p>
-        </div>
-        <FaqAccordion items={faqs} />
-      </section>
-
-      <section className="svc-cta" aria-labelledby="svc-cta-heading">
-        <h2 id="svc-cta-heading">Let’s build the right starting point.</h2>
-        <p>
-          Tell us where your business is now, what you’re trying to grow, and which MOSAIC service
-          would create the biggest lift first.
-        </p>
-        <a className="svc-cta__button" href="#contact">
-          Get in touch
-        </a>
-        <p className="svc-cta__alt">
-          Or go back to{' '}
-          <Link to="/" className="svc-cta__link">
-            the home page
-          </Link>
-          .
-        </p>
-      </section>
-
-      <ContactSection />
+      <div className="svc-contact">
+        <ContactSection />
+      </div>
     </div>
   )
 }

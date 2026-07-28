@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { MosaicLogo } from './MosaicLogo'
 
 const TICKER_LINES = [
@@ -80,6 +80,8 @@ function SlotTicker() {
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const { pathname } = useLocation()
+  const isDark = pathname === '/services'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -89,7 +91,9 @@ export function Header() {
   }, [])
 
   return (
-    <header className={`site-header${scrolled ? ' is-scrolled' : ''}`}>
+    <header
+      className={`site-header${scrolled ? ' is-scrolled' : ''}${isDark ? ' site-header--dark' : ''}`}
+    >
       <div className="header-inner">
         <Link to="/" className="logo" aria-label="MOSAIC home">
           <MosaicLogo />
