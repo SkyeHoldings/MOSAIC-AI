@@ -1,0 +1,100 @@
+=== SHEET NAMES ===
+'Enriched'
+'Needs Enriched'
+'Categories'
+
+=== SHEET METADATA ===
+Sheet: 'Enriched'
+  max_row=272, max_column=12
+  headers (12): ['Industry', 'Business', 'Contact', 'Email / Contact Info', 'Apollo Email', 'Email Verified/Corrected', 'Phone', 'Apollo Name', 'Apollo Title', 'LinkedIn', 'Personal Emails', 'Enrichment Status']
+Sheet: 'Needs Enriched'
+  max_row=77, max_column=3
+  headers (3): ['Company', 'Contact Name', 'Email']
+Sheet: 'Categories'
+  max_row=77, max_column=4
+  headers (4): ['Company', 'Contact Name', 'Email', 'Med Spa, Aesthetics & IV Wellness']
+
+=== NEED ENRICHED SHEET: 'Needs Enriched' ===
+FORMAT: JSONL (one object per row)
+{"Company": "208 Companies", "Contact Name": "Dave Miller", "Email": "dave@208companies.com"}
+{"Company": "A+ Pioneer Title", "Contact Name": "Darrin Halliday", "Email": "dhalliday@pioneertitleco.com"}
+{"Company": "ACI Northwest", "Contact Name": "Bill Radobenko", "Email": "bradobenko@acinw.com"}
+{"Company": "Adventure Sport Rentals", "Contact Name": "Yogi Naresh", "Email": "asrentals@comcas.net"}
+{"Company": "Alani Bakery", "Contact Name": "Taysia Matthias", "Email": "Taysia@alanibakery.com"}
+{"Company": "Allwest Testing & Engineering ", "Contact Name": "Tayrn Perry", "Email": "tperry@allwesttesting.com"}
+{"Company": "Altek", "Contact Name": "Jacob Bonwell", "Email": "jbonwell@altek-inc.com"}
+{"Company": "Architects West, Inc.", "Contact Name": "Ryan Johnson ", "Email": "ryanj@architectswest.com"}
+{"Company": "Architerra Homes ", "Contact Name": "James Ha", "Email": "jamesh@myarchiterra.com"}
+{"Company": "Armon Wealth Management Group of Stifel", "Contact Name": "Michael Armon", "Email": "armonmi@stifel.com"}
+{"Company": "Atchley Financial Group", "Contact Name": "Les Atchley", "Email": "les@atchleyfinancial.com"}
+{"Company": "Avista", "Contact Name": "Todd Kiesbuy", "Email": "todd.kiesbuy@avistacorp.com"}
+{"Company": "Avondale Dental Group", "Contact Name": "Kory Wilson", "Email": "drwilson@avondaledentalcenter.com"}
+{"Company": "Bales Construction", "Contact Name": "Peter Dulebohn", "Email": "pdulebohn@balescon.com"}
+{"Company": "Blue Cross of Idaho", "Contact Name": "Randy Turner", "Email": "Randy.Turner@bcidaho.com"}
+{"Company": "Bouten Construction", "Contact Name": "Ryan MacDonald", "Email": "ryanm@boutenconstruction.com"}
+{"Company": "Caruso's Sandwiches & Artisan Pizza", "Contact Name": "Jesse Eggers", "Email": "jjoeggers@hotmail.com"}
+{"Company": "CDA Resort/Hagadone Hospitality", "Contact Name": "Brianna Shriner ", "Email": "bshriner@hagadone.com"}
+{"Company": "Coeur d'Alene Public Schools: District 271", "Contact Name": "Shon Hocker", "Email": "shon.hocker@cdaschools.org"}
+{"Company": "Coeur d'Alene Realty | Windermere", "Contact Name": "Jennifer Smock", "Email": "jsmock@windermere.com"}
+{"Company": "Domino's", "Contact Name": "Melissa Hightower", "Email": "hightower.melissa@gmail.com"}
+{"Company": "Evan's Brothers", "Contact Name": "David Hawley", "Email": "david@evansbrotherscoffee.com"}
+{"Company": "Fatbeam Fiber", "Contact Name": "Keeley Fenley", "Email": "marketing@fatbeam.com"}
+{"Company": "FMI Equipment", "Contact Name": "Dave Kopp", "Email": "dkopp@fmiequipment.com"}
+{"Company": "Fries Construction", "Contact Name": "Gary Fries", "Email": "gary@gsfries.com"}
+{"Company": "Gesa Credit Union", "Contact Name": "Kelley Hinrichs", "Email": "kelley.hinrichs@gesa.com"}
+{"Company": "Hagadone Marine Group", "Contact Name": "Kodie Woodhead", "Email": "kwoodhead@hagadonemarine.com"}
+{"Company": "Hagadone Media Group", "Contact Name": "Clint Schroeder", "Email": "cschroeder@hagadone.com"}
+{"Company": "Harris & Bruno International", "Contact Name": "Sabina McKinley", "Email": "sabinam@harris-bruno.com"}
+{"Company": "Hecla Mining Company", "Contact Name": "Mike Satre", "Email": "msatre@hecla-mining.com"}
+{"Company": "Heritage Health", "Contact Name": "Mike Baker", "Email": "mbaker@myheritagehealth.org"}
+{"Company": "HMH Engineering", "Contact Name": "Justin Shaw", "Email": "jshaw@hmh-llc.com"}
+{"Company": "Hospice of North Idaho", "Contact Name": "Nick Fulwiler", "Email": "fullwilern@honi.org"}
+{"Company": "HREI ", "Contact Name": "Jeannette Laster", "Email": "jlaster@hrei.org"}
+{"Company": "Idaho Forest Group", "Contact Name": "Marie Price", "Email": "marie.price@idfg.com"}
+{"Company": "iTrip Coeur d'Alene", "Contact Name": "Aaron Heinen", "Email": "aaron.heinen@itrip.net"}
+{"Company": "J-U-B Engineers, Inc. ", "Contact Name": "Jay Hassell", "Email": "ahassell@jub.com"}
+{"Company": "Kiemle Hagood", "Contact Name": "Casey Brazil", "Email": "casey.brazil@kiemlehagood.com"}
+{"Company": "Koerner Furniture", "Contact Name": "Tim Koerner", "Email": "tkoerner@koernerfurniture.com"}
+{"Company": "Kootenai County Democrats", "Contact Name": "Sarah Martin", "Email": "kootenaidemscommunications@gmail.com"}
+{"Company": "Kootenai Title", "Contact Name": "J.T. Jacobsen", "Email": "jt@kootenaititle.com"}
+{"Company": "Lakeside Companies", "Contact Name": "Nick Roach", "Email": "nroach@lakeside-capital.com"}
+{"Company": "Lewis-Clark State College", "Contact Name": "Rocky Owens", "Email": "rwowens@lcsc.edu"}
+{"Company": "Locate 208 Real Estate ", "Contact Name": "Lindsay Allen", "Email": "lindsay@locate208.com"}
+{"Company": "Marcus Anderson Properties", "Contact Name": "Chancy Margason", "Email": "admin@maffidaho.org"}
+{"Company": "McDonald's", "Contact Name": "Kari Newsom", "Email": "kari@mcdspokane.com"}
+{"Company": "Mix It Up", "Contact Name": "Beth and Teresa", "Email": "events@mixituphome.com"}
+{"Company": "National Mattress and Furniture", "Contact Name": "Karla O'Neill", "Email": "karla@cdamattress.com"}
+{"Company": "North Idaho College (NIC)", "Contact Name": "Nick Swayne", "Email": "ddswayne@nic.edu"}
+{"Company": "North Idaho Title", "Contact Name": "Gavin Jacobson ", "Email": "gavinj@northidahotitle.com"}
+{"Company": "Northwest Bank", "Contact Name": "Jess Dretke", "Email": "jess.dretke@northwest-bank.com"}
+{"Company": "Oxyfresh", "Contact Name": "Melissa Gulbranson", "Email": "melissag@oxyfresh.com"}
+{"Company": "Pacific Office Automation", "Contact Name": "Grady Condill", "Email": "grady.condill@pacificoffice.com"}
+{"Company": "Panhandle Affordable Housing Alliance (PAHA)", "Contact Name": "Maggie Lyons", "Email": "maggie@pahaid.org"}
+{"Company": "Paradigm of Idaho ", "Contact Name": "Farrah Fisher", "Email": "Farrah@paradigm-ors.biz"}
+{"Company": "Parker Toyota ", "Contact Name": "Sydni Parker", "Email": "sydnijp@hotmail.com"}
+{"Company": "Pita Pit USA", "Contact Name": "Lauren Casey ", "Email": "lauren.casey@pitapitusa.com"}
+{"Company": "Post Falls ER & Hospital", "Contact Name": "Amy Bartoo", "Email": "abartoo@postfallserhospital.com"}
+{"Company": "Prairie Family Medicine", "Contact Name": "Sarah Bomhard", "Email": "smbomhard@gopxh.com"}
+{"Company": "Rathdrum Power", "Contact Name": "Amy Miles", "Email": "amy.miles@NAES.com"}
+{"Company": "Regatta Strategy Group", "Contact Name": "Vanessa Moos", "Email": "vanessa@regattastrategygroup.com"}
+{"Company": "Regence BlueShield of Idaho", "Contact Name": "Maureen Hamilton", "Email": "maureen.hamilton@regence.com"}
+{"Company": "Republic Services", "Contact Name": "Wes Davis", "Email": "wdavis@republicservices.com"}
+{"Company": "Rojo Ink", "Contact Name": "Joe Rodriguez", "Email": "joe@rojoink.com"}
+{"Company": "SpringHill Suites Coeur d'Alene", "Contact Name": "Tucker Qualls", "Email": "tucker.qualls@springhillcda.com"}
+{"Company": "St. Vincent de Paul North Idaho", "Contact Name": "Kristi Rietze", "Email": "kristi@stvincentdepaulcda.org"}
+{"Company": "STCU", "Contact Name": "Amy Warker", "Email": "amyw2@stcu.org"}
+{"Company": "Super 1", "Contact Name": "Randy McIntire", "Email": "RMcIntire@super1foods.net"}
+{"Company": "TDS Telecom", "Contact Name": "Sandy Raudebaugh", "Email": "Sandy.Raudebaugh@tdstelecom.com"}
+{"Company": "The Business Strategy Institute", "Contact Name": "Todd Halterman", "Email": "todd@toddhalterman.com"}
+{"Company": "The Salvation Army Kroc Center", "Contact Name": "Amy Voeller", "Email": "amy.voeller@usw.salvationarmy.org"}
+{"Company": "Tomlinson Sothebys International Realty", "Contact Name": "Robert Murphy", "Email": "robertmurphy.tsir@gmail.com"}
+{"Company": "University of Idaho Coeur d'Alene", "Contact Name": "Julie Amador", "Email": "jamador@uidaho.edu"}
+{"Company": "Victory Media", "Contact Name": "Dayne Kuhlmann", "Email": "dayne@govictorymedia.com"}
+{"Company": "Watkins Distributing", "Contact Name": "Annie Pfinsgraff", "Email": "apfinsgraff@watkinsdist.com"}
+{"Company": "Ziply Fiber", "Contact Name": "Nicole Barnett", "Email": "nicole.barnett@ziply.com"}
+
+=== ENRICHED SHEET SAMPLE: 'Enriched' ===
+HEADERS (12): ["Industry", "Business", "Contact", "Email / Contact Info", "Apollo Email", "Email Verified/Corrected", "Phone", "Apollo Name", "Apollo Title", "LinkedIn", "Personal Emails", "Enrichment Status"]
+DATA_ROW_1: {"Industry": "Med Spa, Aesthetics & IV Wellness", "Business": "Pure Esthetics", "Contact": "Chelsea? - owner", "Email / Contact Info": null, "Apollo Email": null, "Email Verified/Corrected": null, "Phone": null, "Apollo Name": null, "Apollo Title": null, "LinkedIn": null, "Personal Emails": null, "Enrichment Status": "no match; no match"}
+DATA_ROW_2: {"Industry": "Apartments & Housing", "Business": "CDA Airport", "Contact": "Kim Stevenson- Compliance Admin", "Email / Contact Info": "kstevenson@kcgov.us", "Apollo Email": null, "Email Verified/Corrected": "kstevenson@kcgov.us", "Phone": null, "Apollo Name": null, "Apollo Title": null, "LinkedIn": null, "Personal Emails": null, "Enrichment Status": "no match; kept original; no Apollo match email"}
+DATA_ROW_3: {"Industry": "Apartments & Housing", "Business": "Home Share Kootenai County", "Contact": "Duncan", "Email / Contact Info": "info@homesharekc.org", "Apollo Email": null, "Email Verified/Corrected": "info@homesharekc.org", "Phone": null, "Apollo Name": null, "Apollo Title": null, "LinkedIn": null, "Personal Emails": null, "Enrichment Status": "no match; kept original; no Apollo match email"}

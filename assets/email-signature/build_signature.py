@@ -44,10 +44,10 @@ NAME = "SKYE SMITH"
 TITLE = "CEO"
 PHONE = "208.819.2549"
 EMAIL = "skye@hellomosaic.ai"
-URL = "HELLOMOSAIC.AI"
+URL = "hellomosaic.ai"
 BRANDS_LABEL = "BRANDS WE'VE WORKED WITH"
-CTA_LABEL = "BOOK A DISCOVERY CALL"
-CTA_URL = "https://hellomosaic.ai/#contact"
+CTA_LABEL = "VISIT OUR SITE"
+CTA_URL = "https://hellomosaic.ai/"
 
 # (path, mode, height_frac) — fractions matched to the approved brands-row reference
 CLIENTS = [
@@ -148,8 +148,13 @@ def color_logo_on_black(src: Path) -> Image.Image:
     import numpy as np
 
     im = Image.open(src).convert("RGBA")
-    # Trim empty margins first
     arr0 = np.array(im)
+    # Already-cut logos (soft alpha) — don't re-threshold (destroys AA)
+    alpha_ratio = float((arr0[:, :, 3] > 20).mean())
+    if 0.01 < alpha_ratio < 0.92:
+        return trim_alpha(im, pad=4)
+
+    # Trim empty margins first
     r0, g0, b0, a0 = arr0[:, :, 0], arr0[:, :, 1], arr0[:, :, 2], arr0[:, :, 3]
     corners = np.array(
         [arr0[0, 0, :3], arr0[0, -1, :3], arr0[-1, 0, :3], arr0[-1, -1, :3]],
@@ -175,7 +180,9 @@ def color_logo_on_black(src: Path) -> Image.Image:
             )
         )
 
-    im = im.resize((im.width * 2, im.height * 2), Image.Resampling.LANCZOS)
+    # Only upsample tiny sources — enlarging pixelated marks makes them worse
+    if max(im.size) < 500:
+        im = im.resize((im.width * 2, im.height * 2), Image.Resampling.LANCZOS)
     arr = np.array(im)
     r, g, b, a = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2], arr[:, :, 3]
     lum = (r.astype(np.int16) + g.astype(np.int16) + b.astype(np.int16)) / 3.0
@@ -485,7 +492,7 @@ def build_banner(
     title_font = load_font(24)
     contact_font = load_font(26)
     word_font = load_font(22)
-    label_font = load_font(14)
+    label_font = load_font(28)
     cta_font = load_font(26)
 
     top_h = 340  # contact band height
@@ -597,8 +604,13 @@ def build_animated_signature(frames: int = 16, duration_ms: int = 90) -> list[Im
     return out
 
 
-def build_animated_cta_pill(frames: int = 16) -> list[Image.Image]:
-    """Standalone CTA GIF for the HTML signature (black pill on white)."""
+def build_animated_cta_pill(
+    frames: int = 16,
+    *,
+    invert: bool = False,
+    bg: tuple[int, int, int] = BLACK,
+) -> list[Image.Image]:
+    """Standalone CTA GIF for the HTML signature."""
     cta_font = load_font(22)
     out: list[Image.Image] = []
     for i in range(frames):
@@ -606,11 +618,11 @@ def build_animated_cta_pill(frames: int = 16) -> list[Image.Image]:
         pulse = 0.25 + 0.75 * (0.5 + 0.5 * math.sin(t * 2 * math.pi))
         shimmer = (t + 0.15) % 1.0
         pill = make_cta_pill(
-            CTA_LABEL, cta_font, pulse=pulse, shimmer_t=shimmer, invert=True
+            CTA_LABEL, cta_font, pulse=pulse, shimmer_t=shimmer, invert=invert
         )
-        bg = Image.new("RGB", pill.size, (255, 255, 255))
-        bg.paste(pill, (0, 0), pill)
-        out.append(bg)
+        canvas = Image.new("RGB", pill.size, bg)
+        canvas.paste(pill, (0, 0), pill)
+        out.append(canvas)
     return out
 
 
@@ -637,13 +649,17 @@ def build_logo_lockup(fill: tuple[int, int, int], pad: int = 8) -> Image.Image:
     return out
 
 
-def build_brands_strip_transparent() -> Image.Image:
-    """Client strip for HTML signatures on light email backgrounds."""
-    # Reuse the same optical sizing as the black banner
-    row = build_client_row(available_w=520, row_max_h=48, gap=28)
-    # Gucci was prepared white-on-transparent — flip to black for light email bg
-    # Color logos stay as-is. Detect near-white ink and tint those pixels black.
+def build_brands_strip(for_dark: bool = True) -> Image.Image:
+    """Client strip for HTML signatures."""
     import numpy as np
+
+    # Render large then downscale for sharp email display
+    row = build_client_row(available_w=1168, row_max_h=144, gap=64)
+    if for_dark:
+        bg = Image.new("RGB", row.size, BLACK)
+        bg.paste(row, (0, 0), row)
+        # Display width ~584
+        return bg.resize((584, max(1, int(144 * 584 / 1168))), Image.Resampling.LANCZOS)
 
     arr = np.array(row)
     r, g, b, a = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2], arr[:, :, 3]
@@ -663,8 +679,8 @@ def save(img: Image.Image, name: str) -> Path:
 
 def save_gif(frames: list[Image.Image], name: str, duration_ms: int = 90) -> Path:
     path = ROOT / name
-    # Quantize for smaller email-friendly GIFs
-    q = [f.convert("P", palette=Image.Palette.ADAPTIVE, colors=128) for f in frames]
+    # 256 colors — 128 was crushing the yellow Cabela's edges
+    q = [f.convert("P", palette=Image.Palette.ADAPTIVE, colors=256) for f in frames]
     q[0].save(
         path,
         save_all=True,
@@ -690,8 +706,12 @@ def main() -> None:
     anim_frames = build_animated_signature(frames=14, duration_ms=95)
     save_gif(anim_frames, "mosaic-email-signature.gif", duration_ms=95)
 
-    cta_frames = build_animated_cta_pill(frames=14)
+    # Dark-bg CTA (white pill) for the black HTML signature
+    cta_frames = build_animated_cta_pill(frames=14, invert=False, bg=BLACK)
     save_gif(cta_frames, "mosaic-signature-cta.gif", duration_ms=95)
+    # Light-bg CTA (black pill) fallback
+    cta_light = build_animated_cta_pill(frames=14, invert=True, bg=WHITE)
+    save_gif(cta_light, "mosaic-signature-cta-light.gif", duration_ms=95)
 
     desktop = Path.home() / "Desktop"
     (desktop / "mosaic-email-signature.png").write_bytes(
@@ -719,20 +739,24 @@ def main() -> None:
     )
     save(logo_white_sm, "mosaic-signature-logo-white.png")
 
-    brands = build_brands_strip_transparent()
+    brands = build_brands_strip(for_dark=True)
     save(brands, "mosaic-signature-brands.png")
 
     public = ASSETS.parent / "public" / "email"
     public.mkdir(parents=True, exist_ok=True)
     for name in (
         "mosaic-signature-logo.png",
+        "mosaic-signature-logo-white.png",
         "mosaic-email-signature.png",
         "mosaic-email-signature.gif",
         "mosaic-signature-brands.png",
         "mosaic-signature-cta.gif",
+        "mosaic-signature-cta-light.gif",
     ):
-        (public / name).write_bytes((ROOT / name).read_bytes())
-        print(f"saved {public / name}")
+        src = ROOT / name
+        if src.exists():
+            (public / name).write_bytes(src.read_bytes())
+            print(f"saved {public / name}")
 
 
 if __name__ == "__main__":
