@@ -3829,6 +3829,21 @@ p {
   transform: translateY(-1px);
 }
 
+.calendly-section {
+  padding: 0 var(--page-pad) clamp(2rem, 5vw, 3.5rem);
+  background: #fff;
+}
+
+.calendly-embed {
+  display: block;
+  width: 100%;
+  max-width: 68rem;
+  min-width: 320px;
+  height: 700px;
+  margin-inline: auto;
+  border: 0;
+}
+
 /* ---------- Work grid (AKQA-style tiles) ---------- */
 .work-section {
   padding: clamp(3rem, 6vw, 5rem) var(--page-pad) clamp(2rem, 4vw, 3.5rem);

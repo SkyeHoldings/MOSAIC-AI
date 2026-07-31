@@ -1,4 +1,5 @@
 import { AssistHero } from '../components/AssistHero'
+import { CalendlySection } from '../components/CalendlySection'
 import { ContactSection } from '../components/ContactSection'
 import { FeatureShowcase } from '../components/FeatureShowcase'
 import { MarketingPillars } from '../components/MarketingPillars'
@@ -32,10 +33,12 @@ export function Home() {
 
       <section className="ideas-cta" aria-labelledby="ideas-cta-heading">
         <h2 id="ideas-cta-heading">Ideas no longer have to wait their turn</h2>
-        <a className="ideas-cta__button" href="#contact">
+        <a className="ideas-cta__button" href="#book">
           Get started
         </a>
       </section>
+
+      <CalendlySection />
 
       <ContactSection />
     </>
