@@ -276,8 +276,28 @@ def zoom_fit(
     return canvas
 
 
-def fit_contain(im: Image.Image, max_w: int, max_h: int) -> Image.Image:
+def flatten_logo_on_white(im: Image.Image) -> Image.Image:
+    """Composite RGBA logos onto opaque white before any resize.
+
+    Soft alpha / black-under-transparent mattes (Cabela's shadow, Red Robin)
+    print as a ghosty halo on Staples RIP. Flattening at native res, then
+    resizing as RGB, keeps edges print-clean on a white card.
+    """
     src = im.convert("RGBA")
+    arr = np.array(src)
+    rgb = arr[:, :, :3].astype(np.float32)
+    alpha = arr[:, :, 3].astype(np.float32) / 255.0
+    flat = rgb * alpha[..., None] + 255.0 * (1.0 - alpha[..., None])
+    out = flat.clip(0, 255).astype(np.uint8)
+    # Kill residual near-white ghost plate from soft shadows / AA
+    lum = out.mean(axis=2)
+    out[lum >= 250] = (255, 255, 255)
+    return Image.fromarray(out, "RGB")
+
+
+def fit_contain(im: Image.Image, max_w: int, max_h: int) -> Image.Image:
+    # Always flatten first so LANCZOS never blends black-matte transparent pixels
+    src = flatten_logo_on_white(im)
     sw, sh = src.size
     scale = min(max_w / sw, max_h / sh)
     nw, nh = max(1, int(round(sw * scale))), max(1, int(round(sh * scale)))
@@ -316,10 +336,10 @@ def draw_header_bar(canvas: Image.Image, x: int, y: int, width: int, height: int
 def paste_centered(canvas: Image.Image, im: Image.Image, box: tuple[int, int, int, int]) -> None:
     x0, y0, x1, y1 = box
     bw, bh = x1 - x0, y1 - y0
-    fitted = fit_contain(im, bw, bh)
+    fitted = fit_contain(im, bw, bh)  # opaque RGB — no alpha paste
     px = x0 + (bw - fitted.width) // 2
     py = y0 + (bh - fitted.height) // 2
-    canvas.paste(fitted, (px, py), fitted if fitted.mode == "RGBA" else None)
+    canvas.paste(fitted, (px, py))
 
 
 def build_back() -> Image.Image:
