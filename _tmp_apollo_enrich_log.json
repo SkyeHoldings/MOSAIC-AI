@@ -1,0 +1,2961 @@
+{
+  "attempted": 197,
+  "filled": 138,
+  "log": [
+    {
+      "row": 2,
+      "business": "Pure Esthetics",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Crissy Dowling",
+        "title": "Esthetician/Owner",
+        "email": "dowlingukers@charter.net",
+        "phone": "+15064675001",
+        "linkedin": "http://www.linkedin.com/in/crissy-dowling-89895683",
+        "org_phone": "+15064675001",
+        "notes": "senior @ Pure Esthetics"
+      }
+    },
+    {
+      "row": 3,
+      "business": "CDA Airport",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Kim Stevenson",
+        "title": "Accountant",
+        "email": "kstevenson@kcgov.us",
+        "phone": "+12082923850",
+        "linkedin": "http://www.linkedin.com/in/kim-stevenson-459a9362",
+        "org_phone": "+12082923850",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 4,
+      "business": "Home Share Kootenai County",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Duncan Menzies",
+        "title": null,
+        "email": "info@homesharekc.org",
+        "phone": "+12082152269",
+        "linkedin": null,
+        "org_phone": "+12082152269",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 6,
+      "business": "Health to Beauty Nails",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 7,
+      "business": "US Bank",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "brandon.vanderoes@usbank.com",
+        "phone": "+16514663000",
+        "linkedin": null,
+        "org_phone": "+16514663000",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 10,
+      "business": "PF US Bank",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Johnathan Brenner",
+        "title": "Branch Manager",
+        "email": "johnathan.brenner@usbank.com",
+        "phone": "+16514663000",
+        "linkedin": "http://www.linkedin.com/in/johnathan-brenner-632645342",
+        "org_phone": "+16514663000",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 12,
+      "business": "PF STCU",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Delena Hamrick",
+        "title": null,
+        "email": "delenah@stcu.org",
+        "phone": "+15093261954",
+        "linkedin": null,
+        "org_phone": "+15093261954",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 13,
+      "business": "Peach Orthodontics",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Diann Johnson",
+        "title": "Practice Administrator",
+        "email": null,
+        "phone": "+12086185111",
+        "linkedin": "http://www.linkedin.com/in/diann-johnson-01158077",
+        "org_phone": "+12086185111",
+        "notes": "senior @ Peach Orthodontics"
+      }
+    },
+    {
+      "row": 15,
+      "business": "PF Wells Fargo",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "autumn.l.brown@wellsfargo.com",
+        "phone": "+18662493302",
+        "linkedin": null,
+        "org_phone": "+18662493302",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 16,
+      "business": "Kathleen Mountain West Bank",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Arshia Mullen",
+        "title": "Branch Manager",
+        "email": "amullen@mountainwestbank.com",
+        "phone": "+12087650284",
+        "linkedin": "http://www.linkedin.com/in/arshia-mullen-2630b783",
+        "org_phone": "+12087650284",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 20,
+      "business": "CDA Horizon Credit Union",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": "Branch Manager",
+        "email": "ggammell@hzcu.org",
+        "phone": "+15099286494",
+        "linkedin": null,
+        "org_phone": "+15099286494",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 22,
+      "business": "Kathleen Mountain West Bank",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Arshia Mullen",
+        "title": "Branch Manager",
+        "email": "amullen@mountainwestbank.com",
+        "phone": "+12087650284",
+        "linkedin": "http://www.linkedin.com/in/arshia-mullen-2630b783",
+        "org_phone": "+12087650284",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 24,
+      "business": "Hospice of North Idaho",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Cindy Reed",
+        "title": "Director of Schniedmiller House",
+        "email": "cindy.reed@hospiceofnorthidaho.org",
+        "phone": "+12087727994",
+        "linkedin": "http://www.linkedin.com/in/cindy-reed-63b454167",
+        "org_phone": "+12087727994",
+        "notes": "senior @ Hospice of North Idaho"
+      }
+    },
+    {
+      "row": 25,
+      "business": "4th St US Bank",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Ryan McNabb",
+        "title": "Branch Manager",
+        "email": "ryan.mcnabb@usbank.com",
+        "phone": "+16514663000",
+        "linkedin": "http://www.linkedin.com/in/ryan-mcnabb-72723033a",
+        "org_phone": "+16514663000",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 26,
+      "business": "P1FCU - Post Falls",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Carlo Chimburas",
+        "title": "Assistant Branch Manager",
+        "email": "cchimburas@p1fcu.org",
+        "phone": "+12087468900",
+        "linkedin": null,
+        "org_phone": "+12087468900",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 27,
+      "business": "LakeCity PT",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 31,
+      "business": "PF Mountain West Bank",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Kim Adams",
+        "title": "VICE PRESIDENT",
+        "email": "kmadams@mountainwestbank.com",
+        "phone": "+12087650284",
+        "linkedin": null,
+        "org_phone": "+12087650284",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 32,
+      "business": "drybar",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Whitney Salazar",
+        "title": "Operating Partner & Owner",
+        "email": "whitney.salazar@drybarshops.com",
+        "phone": "+18773792279",
+        "linkedin": "http://www.linkedin.com/in/whitney-salazar-b424a42b",
+        "org_phone": "+18773792279",
+        "notes": "matched via email; senior @ Drybar"
+      }
+    },
+    {
+      "row": 33,
+      "business": "Quality Cleaning",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Sara",
+        "title": null,
+        "email": "sara@qualitycln.com",
+        "phone": "+15094269026",
+        "linkedin": null,
+        "org_phone": "+15094269026",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 35,
+      "business": "J.A. Bertsch Heating and Cooling",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Angela Blessinger",
+        "title": null,
+        "email": "angelab@jabertsch.net",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 36,
+      "business": "Collaborative Behavioral Solutions",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 38,
+      "business": "Movita Health Functional Medicine",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 39,
+      "business": "Disaster Response",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Jennifer Kniser",
+        "title": "Self Employed",
+        "email": "jbuatte@teamdr.com",
+        "phone": "+18006279529",
+        "linkedin": "http://www.linkedin.com/in/jennifer-l-kniser-a3a61911",
+        "org_phone": "+18006279529",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 43,
+      "business": "Century 21: Butler & Associates",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 45,
+      "business": "CdA Corner Store",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 46,
+      "business": "Earthly Beauty Bar",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Abbigail Lord",
+        "title": "Receptionist",
+        "email": null,
+        "phone": "+12086641888",
+        "linkedin": "http://www.linkedin.com/in/abbigail-lord-b490a0245",
+        "org_phone": "+12086641888",
+        "notes": "senior @ Earthly Beauty Bar"
+      }
+    },
+    {
+      "row": 47,
+      "business": "Idaho Fence",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Katy Battista",
+        "title": null,
+        "email": "katy@idahofence.com",
+        "phone": "+12086872296",
+        "linkedin": null,
+        "org_phone": "+12086872296",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 48,
+      "business": "Station No 9",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 49,
+      "business": "Greenline Excavation",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "cagehendry@gmail.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 50,
+      "business": "Pulse For Life",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Pulse Life",
+        "title": "Registered Nurse",
+        "email": null,
+        "phone": "+611300785734",
+        "linkedin": "http://www.linkedin.com/in/pulse-for-life-453a2b250",
+        "org_phone": "+611300785734",
+        "notes": "senior @ Pulse For Life - Registered NDIS Service Provider"
+      }
+    },
+    {
+      "row": 51,
+      "business": "Madd Chicken",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 52,
+      "business": "Vital Health",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Vital Health",
+        "title": "Owner",
+        "email": "vital@joinvitalhealth.com",
+        "phone": "+14083582511",
+        "linkedin": "http://www.linkedin.com/in/vital-health-20b7b53a",
+        "org_phone": "+14083582511",
+        "notes": "senior @ Vital Health"
+      }
+    },
+    {
+      "row": 54,
+      "business": "North Idaho Bungee Fitness",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 55,
+      "business": "Obran Family Dental",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 56,
+      "business": "PureBarre",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 57,
+      "business": "Divine Nails and Spa",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 58,
+      "business": "Massage place across from fairgrounds",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 59,
+      "business": "Coeur Beauty Bar",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 60,
+      "business": "Mohala Salon",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 61,
+      "business": "Terroir Fine Wine",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 63,
+      "business": "North Idaho Total Wellness",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 65,
+      "business": "Woodland Family Dental",
+      "result": {
+        "matched": true,
+        "status": "org_phone_only",
+        "person_name": "Alisa Mendenhall",
+        "title": null,
+        "email": "officemanagerwfd@gmail.com",
+        "phone": "+12087779599",
+        "linkedin": null,
+        "org_phone": "+12087779599",
+        "notes": "org only: WOODLAND FAMILY DENTAL PC"
+      }
+    },
+    {
+      "row": 66,
+      "business": "Ramsey Dental Group",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Marsha Bowerly",
+        "title": "Office Manager",
+        "email": null,
+        "phone": "+12087724500",
+        "linkedin": "http://www.linkedin.com/in/marsha-bowerly-b6a029151",
+        "org_phone": "+12087724500",
+        "notes": "senior @ Ramsey Dental Group"
+      }
+    },
+    {
+      "row": 67,
+      "business": "Sunshine Dentistry",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Daira Avila",
+        "title": "Dentist / Owner",
+        "email": "info@sunshinepf.com",
+        "phone": "+16094655415",
+        "linkedin": "http://www.linkedin.com/in/daira-avila-86874884",
+        "org_phone": "+16094655415",
+        "notes": "matched via email; senior @ Sunshine Dentistry"
+      }
+    },
+    {
+      "row": 68,
+      "business": "Legacy Dental",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Amanda Pike",
+        "title": "Treatment Coordinator",
+        "email": "amanda.pike@getweave.com",
+        "phone": "+18012108086",
+        "linkedin": "http://www.linkedin.com/in/amanda-pike-5b6432243",
+        "org_phone": "+18012108086",
+        "notes": "matched via email; senior @ Legacy Dental"
+      }
+    },
+    {
+      "row": 69,
+      "business": "Live More Financial",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 70,
+      "business": "Riverstone Orthodontics",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Chaffee",
+        "title": null,
+        "email": "mchaffee@drchaffee.com",
+        "phone": "+12086679212",
+        "linkedin": null,
+        "org_phone": "+12086679212",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 72,
+      "business": "Element Dental",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Rachel Fehling",
+        "title": null,
+        "email": "drfehling@elementdentalcda.com",
+        "phone": "+12086642160",
+        "linkedin": null,
+        "org_phone": "+12086642160",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 73,
+      "business": "Nesting Nutrition",
+      "result": {
+        "matched": true,
+        "status": "org_phone_only",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": "+14065500366",
+        "linkedin": null,
+        "org_phone": "+14065500366",
+        "notes": "org only: Nesting Nutrition LLC"
+      }
+    },
+    {
+      "row": 74,
+      "business": "BioPerformance Institute",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 77,
+      "business": "Rae & Co",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Melissa Graaff",
+        "title": "Owner",
+        "email": null,
+        "phone": "+17607200542",
+        "linkedin": "http://www.linkedin.com/in/melissagraaff",
+        "org_phone": "+17607200542",
+        "notes": "senior @ Melissa Rae & Co."
+      }
+    },
+    {
+      "row": 78,
+      "business": "Restoration 1",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Tim Downs",
+        "title": "Owner/President",
+        "email": "tim.d@restoration1.com",
+        "phone": "+16135101236",
+        "linkedin": "http://www.linkedin.com/in/tim-downs-81b62626",
+        "org_phone": "+16135101236",
+        "notes": "senior @ Restoration 1"
+      }
+    },
+    {
+      "row": 79,
+      "business": "Kootenai Classical Academy",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Jesse Lindenstein",
+        "title": "Director of Physical Education",
+        "email": "jesse.lindenstein@kootenaiclassical.org",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/jesse-lindenstein-aa6a272b3",
+        "org_phone": null,
+        "notes": "matched via email; senior @ Kootenai Classical Academy"
+      }
+    },
+    {
+      "row": 80,
+      "business": "Downtown Association",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Andrew Doudican",
+        "title": "Director of Urban Strategy",
+        "email": "andrewd@downtowncalgary.com",
+        "phone": "+14032151570",
+        "linkedin": "http://www.linkedin.com/in/andrew-doudican-5a2ba7170",
+        "org_phone": "+14032151570",
+        "notes": "senior @ Calgary Downtown Association"
+      }
+    },
+    {
+      "row": 81,
+      "business": "Verizon",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Charles Szrom",
+        "title": "Founder",
+        "email": "charles.s@verizonwireless.com",
+        "phone": "+12123951000",
+        "linkedin": "http://www.linkedin.com/in/charles-szrom-cfa-a0a8291",
+        "org_phone": "+12123951000",
+        "notes": "senior @ Verizon"
+      }
+    },
+    {
+      "row": 82,
+      "business": "C8 Aesthetics & Wellness",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 83,
+      "business": "Club Pilates",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Club Memorial",
+        "title": "Owner/ General Manager",
+        "email": "memorial@clubpilates.com",
+        "phone": "+19497917184",
+        "linkedin": "http://www.linkedin.com/in/club-pilates-memorial-5b385616a",
+        "org_phone": "+19497917184",
+        "notes": "senior @ Club Pilates"
+      }
+    },
+    {
+      "row": 84,
+      "business": "C8 Aesthetics & Wellness",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 85,
+      "business": "La Pinata",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Mayra Alcaraz",
+        "title": "Server",
+        "email": "malcaraz@ohlone.edu",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/mayra-alcaraz-897836132",
+        "org_phone": null,
+        "notes": "senior @ LA PINATA"
+      }
+    },
+    {
+      "row": 86,
+      "business": "Elevate Academy North",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "info@elevate208.org",
+        "phone": "+12085040130",
+        "linkedin": null,
+        "org_phone": "+12085040130",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 90,
+      "business": "BioPerformance Institute",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 91,
+      "business": "Post Falls Family Dental",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Kristen Walls",
+        "title": "Stay-At-Home Parent",
+        "email": "kristen@postfallsfamilydental.com",
+        "phone": "+12087734579",
+        "linkedin": "http://www.linkedin.com/in/kristen-walls-a8b54b255",
+        "org_phone": "+12087734579",
+        "notes": "senior @ Post Falls Family Dental Ctr"
+      }
+    },
+    {
+      "row": 92,
+      "business": "St. Joseph's Ear, Nose, Throat & Allergy Clinic",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Erik Gilbert",
+        "title": "Owner",
+        "email": null,
+        "phone": "+12087771320",
+        "linkedin": "http://www.linkedin.com/in/erik-gilbert-14288826",
+        "org_phone": "+12087771320",
+        "notes": "senior @ St. Joseph's Ear, Nose, Throat & Allergy Clinic"
+      }
+    },
+    {
+      "row": 93,
+      "business": "Spray Tans by Brandi",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 94,
+      "business": "Aroma CdA",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 95,
+      "business": "Pillar",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "John Pogacnik",
+        "title": "Company Owner",
+        "email": "kristen@pillarheatingandair.com",
+        "phone": "+13177776760",
+        "linkedin": "http://www.linkedin.com/in/john-pogacnik-b87783351",
+        "org_phone": "+13177776760",
+        "notes": "matched via email; senior @ Pillar"
+      }
+    },
+    {
+      "row": 98,
+      "business": "CDA Power Yoga",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Michelle Cooper",
+        "title": null,
+        "email": "hello@cdapoweryoga.com",
+        "phone": "+12082905777",
+        "linkedin": null,
+        "org_phone": "+12082905777",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 99,
+      "business": "Christ Fit",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Debra Spearman",
+        "title": "Grants Writer",
+        "email": null,
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/debra-spearman-a352a542",
+        "org_phone": null,
+        "notes": "senior @ CHRIST FIT GYM INC"
+      }
+    },
+    {
+      "row": 100,
+      "business": "Northwestern Mutual",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Wayne Moore",
+        "title": "Co-Founder and Principal",
+        "email": null,
+        "phone": "+14142711444",
+        "linkedin": "http://www.linkedin.com/in/twaynemoore",
+        "org_phone": "+14142711444",
+        "notes": "senior @ Northwestern Mutual"
+      }
+    },
+    {
+      "row": 102,
+      "business": "North Idaho Bungee Fitness",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "shay@nibfit.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 103,
+      "business": "The Zone",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Nick Paisley",
+        "title": "Partner",
+        "email": "nick.paisley@thezoneglobal.com",
+        "phone": "+447543689422",
+        "linkedin": "http://www.linkedin.com/in/nick-paisley-a0bbb83",
+        "org_phone": "+447543689422",
+        "notes": "matched via email; senior @ The Zone Global"
+      }
+    },
+    {
+      "row": 104,
+      "business": "Scotty's Backflow",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 105,
+      "business": "Carrington Place",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Rebecca Hendrix",
+        "title": "Staff Nurse",
+        "email": null,
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/rebecca-hendrix-2480905b",
+        "org_phone": null,
+        "notes": "senior @ Carrington Place At The Landings"
+      }
+    },
+    {
+      "row": 106,
+      "business": "CamFit",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Nikol Suarez",
+        "title": "Administrative Assistant",
+        "email": null,
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/nikol-suarez-7b1016281",
+        "org_phone": null,
+        "notes": "senior @ Camfit"
+      }
+    },
+    {
+      "row": 109,
+      "business": "The HOP",
+      "result": {
+        "matched": true,
+        "status": "org_phone_only",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": "+14805008351",
+        "linkedin": null,
+        "org_phone": "+14805008351",
+        "notes": "org only: The HOP Nerd LLC"
+      }
+    },
+    {
+      "row": 110,
+      "business": "StretchLab",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": "General Manager",
+        "email": "cdagm@stretchlab.com",
+        "phone": "+14154485572",
+        "linkedin": null,
+        "org_phone": "+14154485572",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 111,
+      "business": "Liberty Lake Athletic Club",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Liberty Club",
+        "title": null,
+        "email": "llacstaff@gmail.com",
+        "phone": "+15098912582",
+        "linkedin": null,
+        "org_phone": "+15098912582",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 112,
+      "business": "Anytime Fitness",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Levi Lenz",
+        "title": "Business Owner",
+        "email": "cdaid@anytimefitness.com",
+        "phone": "+18007045004",
+        "linkedin": "http://www.linkedin.com/in/levi-lenz-33951b268",
+        "org_phone": "+18007045004",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 113,
+      "business": "Cascadia Pizza",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Calvin Freatman",
+        "title": "Co-owner and CEO",
+        "email": "calvin@cascadiapizzaco.com",
+        "phone": "+15039915263",
+        "linkedin": "http://www.linkedin.com/in/calvin-freatman-14568879",
+        "org_phone": "+15039915263",
+        "notes": "senior @ Cascadia Pizza Co."
+      }
+    },
+    {
+      "row": 114,
+      "business": "Wild Land Crossfit",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Justin Wearne",
+        "title": null,
+        "email": "justin@wildlandcrossfit.com",
+        "phone": "+12082094237",
+        "linkedin": null,
+        "org_phone": "+12082094237",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 116,
+      "business": "Hayden Peak",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Lindsay Cantrell",
+        "title": null,
+        "email": "lindsay@thepeakid.com",
+        "phone": "+12086672582",
+        "linkedin": null,
+        "org_phone": "+12086672582",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 118,
+      "business": "Christian Yoga",
+      "result": {
+        "matched": true,
+        "status": "org_phone_only",
+        "person_name": "",
+        "title": null,
+        "email": "amyz@runbox.com",
+        "phone": "+18509957770",
+        "linkedin": null,
+        "org_phone": "+18509957770",
+        "notes": "org only: CHRISTIAN YOGA, LLC"
+      }
+    },
+    {
+      "row": 119,
+      "business": "Fuel Fitness",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Chad Schmidt",
+        "title": null,
+        "email": "cschmidt@fuel406.com",
+        "phone": "+14069263835",
+        "linkedin": null,
+        "org_phone": "+14069263835",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 121,
+      "business": "Northern Nutrition",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Libby Hugo",
+        "title": "Registered Dietitian Nutritionist (RDN)",
+        "email": "libby@northernnutrition.net",
+        "phone": "+12086404502",
+        "linkedin": null,
+        "org_phone": "+12086404502",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 122,
+      "business": "Austin Paulsen Fitness",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 124,
+      "business": "Best Life Colon Hydrotherapy",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 125,
+      "business": "REVV Health",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "support@revvhealth.com",
+        "phone": "+14259994363",
+        "linkedin": null,
+        "org_phone": "+14259994363",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 126,
+      "business": "Coeur d'Alene Healing Arts",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Hunter Peterson",
+        "title": null,
+        "email": "info@cdahealingarts.com",
+        "phone": "+12086641644",
+        "linkedin": null,
+        "org_phone": "+12086641644",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 127,
+      "business": "RestorationOne",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 128,
+      "business": "Liberty Lake Physical Therapy",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 129,
+      "business": "Lakeside Holistic Health",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Pamela Langenderfer",
+        "title": null,
+        "email": "contactus@lakesideholistic.com",
+        "phone": "+12087580568",
+        "linkedin": null,
+        "org_phone": "+12087580568",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 130,
+      "business": "CDA Acupuncture & Holistic Healing",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Clois Hancock",
+        "title": "Licensed Massage Therapist",
+        "email": "frontdesk@cdahealing.com",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/clois-hancock-10201a2a",
+        "org_phone": null,
+        "notes": "matched via email; senior @ CDA Acupuncture & Holistic Healing"
+      }
+    },
+    {
+      "row": 132,
+      "business": "Lake City Law",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Katharine Brereton",
+        "title": "Partner",
+        "email": "kbrereton@lclattorneys.com",
+        "phone": "+12086648115",
+        "linkedin": "http://www.linkedin.com/in/katharine-brereton-26373846",
+        "org_phone": "+12086648115",
+        "notes": "senior @ Lake City Law Group"
+      }
+    },
+    {
+      "row": 138,
+      "business": "Axis Spine",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Roland Kent",
+        "title": "Surgeon, Owner",
+        "email": "r.kent@axisspinecenter.com",
+        "phone": "+12084574208",
+        "linkedin": "http://www.linkedin.com/in/roland-kent-b357a937",
+        "org_phone": "+12084574208",
+        "notes": "senior @ Axis Spine Center"
+      }
+    },
+    {
+      "row": 139,
+      "business": "Spero Naturopath",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 143,
+      "business": "A Parent's Paradise",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Doree",
+        "title": "Founder",
+        "email": "doreethedoula@gmail.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 146,
+      "business": "StrengthWorkx",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 148,
+      "business": "Planet Fitness",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Julian Monterosso",
+        "title": "Principal, President",
+        "email": "julian.monterosso@planetfitness.com",
+        "phone": "+16037500001",
+        "linkedin": "http://www.linkedin.com/in/julianmonterosso",
+        "org_phone": "+16037500001",
+        "notes": "senior @ Planet Fitness"
+      }
+    },
+    {
+      "row": 149,
+      "business": "Safe Start Infant & Child Health & Safety",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Liz Montgomery",
+        "title": null,
+        "email": "liz@nwsids.org",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 150,
+      "business": "Venia",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Chuks Efam",
+        "title": "Full Stack Engineer",
+        "email": "chuks@venia-group.com",
+        "phone": "+2348170374344",
+        "linkedin": "http://www.linkedin.com/in/chuks-efam-64a86b140",
+        "org_phone": "+2348170374344",
+        "notes": "matched via email; senior @ Venia Group"
+      }
+    },
+    {
+      "row": 151,
+      "business": "Lakeside Med Spa & IV Lounge",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Rachel Fiddes",
+        "title": null,
+        "email": "lakesidemedspa@gmail.com",
+        "phone": "+12089649023",
+        "linkedin": null,
+        "org_phone": "+12089649023",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 152,
+      "business": "Aura Esthetics",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Mikaela Powell",
+        "title": "Licensed Esthetician",
+        "email": "aura.esthetics.cda@gmail.com",
+        "phone": "+19073010112",
+        "linkedin": "http://www.linkedin.com/in/mikaela-powell-0915131b2",
+        "org_phone": "+19073010112",
+        "notes": "matched via email; senior @ Aura Esthetics"
+      }
+    },
+    {
+      "row": 153,
+      "business": "PF P1FCU",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 154,
+      "business": "NorthLife Aesthetics & Wellness",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Nikkie Hamilton",
+        "title": null,
+        "email": "info@northlifecda.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 156,
+      "business": "Hagadone Media Group",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Bill Carlson",
+        "title": null,
+        "email": "bcarlson@hagadonemediagroup.com",
+        "phone": "+18665158227",
+        "linkedin": null,
+        "org_phone": "+18665158227",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 157,
+      "business": "Hagadone Media Group",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Rebecca Mulvaney",
+        "title": "Marketing Strategist",
+        "email": "rmulvaney@hagadonemediagroup.com",
+        "phone": "+18665158227",
+        "linkedin": "http://www.linkedin.com/in/rebecca-mulvaney-37b559315",
+        "org_phone": "+18665158227",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 158,
+      "business": "Mountain View Printing",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Neil Weinberg",
+        "title": "Production Manager",
+        "email": "neil@mvprinting.com",
+        "phone": "+16509659000",
+        "linkedin": "http://www.linkedin.com/in/neil-weinberg-a6b192b",
+        "org_phone": "+16509659000",
+        "notes": "matched via email; senior @ Mountain View Printing"
+      }
+    },
+    {
+      "row": 159,
+      "business": "Post Falls Living",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "postfallslivingmag@gmail.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 162,
+      "business": "Hagadone Technologies",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Andrea Fox",
+        "title": null,
+        "email": "andrea@hagadonetech.com",
+        "phone": "+12086673431",
+        "linkedin": null,
+        "org_phone": "+12086673431",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 163,
+      "business": "Drink H20",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 164,
+      "business": "Wild Muse",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Alan Liu",
+        "title": "Founder/Writer",
+        "email": null,
+        "phone": "+32485596864",
+        "linkedin": "http://www.linkedin.com/in/alan01",
+        "org_phone": "+32485596864",
+        "notes": "senior @ Wild Muse"
+      }
+    },
+    {
+      "row": 165,
+      "business": "Nurturing Touch",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "org found (NURTURING TOUCH) but no senior person"
+      }
+    },
+    {
+      "row": 166,
+      "business": "Co-Pow",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Darren Liu",
+        "title": "Investment Director",
+        "email": null,
+        "phone": "+8675526935145",
+        "linkedin": "http://www.linkedin.com/in/dazliu",
+        "org_phone": "+8675526935145",
+        "notes": "senior @ Co-Power Venture Capital Co., Ltd."
+      }
+    },
+    {
+      "row": 167,
+      "business": "Northwest Speciality Hospital",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "camey.yaeger@nwsh.com",
+        "phone": "+12082622300",
+        "linkedin": null,
+        "org_phone": "+12082622300",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 169,
+      "business": "Selkrik Endocrinology",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Chelsey Hansen",
+        "title": null,
+        "email": "chelsey@selkirkendocrinology.com",
+        "phone": "+12087580076",
+        "linkedin": null,
+        "org_phone": "+12087580076",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 170,
+      "business": "River City Physical Therapy",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Trish Ortega",
+        "title": "Office Manager",
+        "email": "rcptpf@gmail.com",
+        "phone": "+12087777800",
+        "linkedin": "http://www.linkedin.com/in/trish-ortega-342a0172",
+        "org_phone": "+12087777800",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 172,
+      "business": "MelFit",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Josh Melior",
+        "title": "Chief Operating Officer",
+        "email": "josh@melfitcoaching.com",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/joshmelior",
+        "org_phone": null,
+        "notes": "senior @ MelFit"
+      }
+    },
+    {
+      "row": 173,
+      "business": "Simply Strong",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Sunny Lurie",
+        "title": "CEO",
+        "email": "sunny@simplystrongteams.com",
+        "phone": "+12163086446",
+        "linkedin": "http://www.linkedin.com/in/sunnylurie",
+        "org_phone": "+12163086446",
+        "notes": "senior @ Simply Strong"
+      }
+    },
+    {
+      "row": 174,
+      "business": "Safe Start",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Alisa Bishop",
+        "title": "Child Safety Expert",
+        "email": "alisa@safestartchild.com",
+        "phone": "+13015072331",
+        "linkedin": "http://www.linkedin.com/in/alisa-bishop-b8b766104",
+        "org_phone": "+13015072331",
+        "notes": "senior @ Safe Start Child LLC"
+      }
+    },
+    {
+      "row": 175,
+      "business": "Upgrade Labs",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Dave Asprey",
+        "title": "Founder and CEO",
+        "email": "franchise@upgradelabs.com",
+        "phone": "+13103140013",
+        "linkedin": "http://www.linkedin.com/in/asprey",
+        "org_phone": "+13103140013",
+        "notes": "matched via email; senior @ Upgrade Labs"
+      }
+    },
+    {
+      "row": 177,
+      "business": "North Idaho Foot & Ankle Institute",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 179,
+      "business": "StretchLab",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": "General Manager",
+        "email": "cdagm@stretchlab.com",
+        "phone": "+14154485572",
+        "linkedin": null,
+        "org_phone": "+14154485572",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 181,
+      "business": "Adapt Prosthetics & Orthotics LLC",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Mary Fischer",
+        "title": "Licensed and Certified Prosthetist Orthotist",
+        "email": "maryfischer@adaptpo.com",
+        "phone": "+12087650597",
+        "linkedin": "http://www.linkedin.com/in/mary-fischer-561ab324",
+        "org_phone": "+12087650597",
+        "notes": "senior @ ADAPT Prosthetics and Orthotics, LLC"
+      }
+    },
+    {
+      "row": 182,
+      "business": "Dr Steach",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "hello@drsteach.com",
+        "phone": "+13109283481",
+        "linkedin": null,
+        "org_phone": "+13109283481",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 184,
+      "business": "Selkirk Women's Health",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Karmen",
+        "title": null,
+        "email": "karmen@selkirkwomenshealth.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 185,
+      "business": "Up North Distillery",
+      "result": {
+        "matched": true,
+        "status": "org_phone_only",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": "+12087734445",
+        "linkedin": null,
+        "org_phone": "+12087734445",
+        "notes": "org only: Up North Distillery"
+      }
+    },
+    {
+      "row": 186,
+      "business": "Smoke & Glory",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 188,
+      "business": "A Parents Paradise",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 189,
+      "business": "Coeur Doulas",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 190,
+      "business": "Brighter Life Foundation",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "support@thebrighterlifefoundation.org",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 191,
+      "business": "Family Promise of North Idaho",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Cheryl Hinchliff",
+        "title": null,
+        "email": "cheryl@familypromiseni.org",
+        "phone": "+12087774190",
+        "linkedin": null,
+        "org_phone": "+12087774190",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 192,
+      "business": "Habitat for Humanity",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Sara Sessions",
+        "title": "Supervisor",
+        "email": "volunteer@northidahohabitat.org",
+        "phone": "+12082500379",
+        "linkedin": "http://www.linkedin.com/in/sarasessions",
+        "org_phone": "+12082500379",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 193,
+      "business": "Imagination Initiative",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "imaginationinitiative19@gmail.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 194,
+      "business": "Northwest Speciality Hospital",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Kylie Ostic",
+        "title": "Marketing Specialist",
+        "email": "kylie.ostic@nwsh.com",
+        "phone": "+12082622300",
+        "linkedin": null,
+        "org_phone": "+12082622300",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 195,
+      "business": "North Idaho Pride Alliance",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Sam Koester",
+        "title": null,
+        "email": "info@nipridealliance.com",
+        "phone": "+12083523518",
+        "linkedin": null,
+        "org_phone": "+12083523518",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 197,
+      "business": "Special Olympics",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Barry Coats",
+        "title": "President & CEO",
+        "email": "bcoats@so-sc.org",
+        "phone": "+12026283630",
+        "linkedin": "http://www.linkedin.com/in/barry-coats-54ba4a5",
+        "org_phone": "+12026283630",
+        "notes": "matched via email; senior @ Special Olympics"
+      }
+    },
+    {
+      "row": 198,
+      "business": "Charity Reimagined",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Michelle Bailey",
+        "title": "Content Creator",
+        "email": null,
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/michelle-bailey-9b4935151",
+        "org_phone": null,
+        "notes": "senior @ Charity Reimagined"
+      }
+    },
+    {
+      "row": 199,
+      "business": "Pink Thread",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Libby Comras",
+        "title": "Owner",
+        "email": "pinkthread.contact@gmail.com",
+        "phone": "00040435877769",
+        "linkedin": "http://www.linkedin.com/in/libby-comras-5bb4b65",
+        "org_phone": "00040435877769",
+        "notes": "matched via email; senior @ Pink Thread"
+      }
+    },
+    {
+      "row": 200,
+      "business": "Family Sturges Practice",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Emily",
+        "title": null,
+        "email": "emily@sturgesfamilypractice.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 201,
+      "business": "CARA",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Vic Yeh",
+        "title": "Co-founder & CEO",
+        "email": "vic@hey.getcara.ai",
+        "phone": "+555555555123",
+        "linkedin": "http://www.linkedin.com/in/vicyeh",
+        "org_phone": "+555555555123",
+        "notes": "matched via email; senior @ Cara"
+      }
+    },
+    {
+      "row": 202,
+      "business": "Her Physical Therapy",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Denham",
+        "title": null,
+        "email": "herphysicaltherapy@herphysicaltherapy.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 203,
+      "business": "Mental Wellness Clinic of CDA",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Kelly Lagrou",
+        "title": null,
+        "email": "mwcofcda@gmail.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 204,
+      "business": "XOSphere Coaching",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Dan Lykken",
+        "title": "President",
+        "email": "dlykken@9idbx.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 207,
+      "business": "At Home Lending",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Keith Abramo",
+        "title": "Founder",
+        "email": "keith@athomelending.com",
+        "phone": "+18664069887",
+        "linkedin": "http://www.linkedin.com/in/keith-abramo-2720841a",
+        "org_phone": "+18664069887",
+        "notes": "matched via email; senior @ At Home Lending\u00ae"
+      }
+    },
+    {
+      "row": 208,
+      "business": "Curtis Orthodontics",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Kira Rosenau",
+        "title": "Patient Care Administrator",
+        "email": "kirar@curtisbraces.com",
+        "phone": "+12087727272",
+        "linkedin": null,
+        "org_phone": "+12087727272",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 209,
+      "business": "intouch Physical Therapy & Sports Medicine",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Sam Floch",
+        "title": null,
+        "email": "sam@intouchphysicaltherapy.org",
+        "phone": "+12087779740",
+        "linkedin": null,
+        "org_phone": "+12087779740",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 210,
+      "business": "PF ER & Hospital",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 211,
+      "business": "SALT - Mobile IV Nurse",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 212,
+      "business": "Elevate 208 Physical Therapy",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Matt Kifer",
+        "title": "Owner/ Doctor of Physical Therapy",
+        "email": "dr.matt@elevate208pt.com",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/mattkiferdpt",
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 213,
+      "business": "Paradigm - Owners Rep Services",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 214,
+      "business": "D1",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Eduardo Morales",
+        "title": "CEO / Owner",
+        "email": "eduardo.morales@d1training.com",
+        "phone": "+16152248242",
+        "linkedin": "http://www.linkedin.com/in/eduardo-morales-cpa-emba",
+        "org_phone": "+16152248242",
+        "notes": "senior @ D1 TRAINING"
+      }
+    },
+    {
+      "row": 215,
+      "business": "Carrington Appartments",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 216,
+      "business": "Villa Appartments",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 217,
+      "business": "Hayden Yoga & Massage",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Sarah Digre",
+        "title": "Yoga Instructor",
+        "email": "sarah@haydenyoga.com",
+        "phone": "+12086961330",
+        "linkedin": "http://www.linkedin.com/in/sarah-anderson-digre-7b2215197",
+        "org_phone": "+12086961330",
+        "notes": "senior @ Hayden Yoga & Massage"
+      }
+    },
+    {
+      "row": 219,
+      "business": "3D Cabinets by Design",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 220,
+      "business": "Steadfast Home Inspection",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "org found (STEADFAST HOME INSPECTION, LTD.) but no senior person"
+      }
+    },
+    {
+      "row": 221,
+      "business": "Boost Espresso",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 222,
+      "business": "Optimal Living Institute",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Jacklyn Callihan",
+        "title": "Doctor of Chiropractic",
+        "email": null,
+        "phone": "+12089304177",
+        "linkedin": "http://www.linkedin.com/in/jacklyn-callihan-b4987535b",
+        "org_phone": "+12089304177",
+        "notes": "senior @ Optimal Living Institute Idaho"
+      }
+    },
+    {
+      "row": 223,
+      "business": "Coach Brown 4 Health",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 224,
+      "business": "Tomlinson Sotheby's Realty",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Amber Johnson",
+        "title": null,
+        "email": "amber.johnson@tomlinsonsir.com",
+        "phone": "+12082635101",
+        "linkedin": null,
+        "org_phone": "+12082635101",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 225,
+      "business": "Geometric Landscape",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 226,
+      "business": "Optavia",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Tiffany Scott",
+        "title": "Business Owner",
+        "email": null,
+        "phone": "+18886782842",
+        "linkedin": "http://www.linkedin.com/in/tiffany-scott-034735329",
+        "org_phone": "+18886782842",
+        "notes": "senior @ Optavia"
+      }
+    },
+    {
+      "row": 227,
+      "business": "Guardian Angel Homes",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "postfalls@gahangel.com",
+        "phone": "+15415649070",
+        "linkedin": null,
+        "org_phone": "+15415649070",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 229,
+      "business": "North Idaho Experience",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Faller",
+        "title": null,
+        "email": "renee@nidexperience.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 230,
+      "business": "Re/Max Centennial",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "nwrealtyco@gmail.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "org found (REMAX Centennial) but no senior person"
+      }
+    },
+    {
+      "row": 231,
+      "business": "Psych Collective",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Chelsea Brouse",
+        "title": "Company Owner",
+        "email": "chelseabrouse@psychcollective.net",
+        "phone": "+12084006742",
+        "linkedin": "http://www.linkedin.com/in/chelsea-brouse-a94863340",
+        "org_phone": "+12084006742",
+        "notes": "senior @ Psych Collective"
+      }
+    },
+    {
+      "row": 232,
+      "business": "Misty Ridge Construction",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 233,
+      "business": "CDA Paving",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Brandon Wright",
+        "title": "Assistant Controller",
+        "email": "brandonw@wearecda.com",
+        "phone": "+12087140424",
+        "linkedin": "http://www.linkedin.com/in/brandon-wright-9a5947193",
+        "org_phone": "+12087140424",
+        "notes": "senior @ CDA Paving and Concrete Specialties"
+      }
+    },
+    {
+      "row": 234,
+      "business": "Northwest Natural Dentistry",
+      "result": {
+        "matched": true,
+        "status": "org_phone_only",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": "+12082038873",
+        "linkedin": null,
+        "org_phone": "+12082038873",
+        "notes": "org only: Northwest Natural Dentistry"
+      }
+    },
+    {
+      "row": 235,
+      "business": "Jana Hall - Restoration Health Care",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 236,
+      "business": "Windemere Reality",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Kylie",
+        "title": null,
+        "email": "kylie@windermere.com",
+        "phone": "+12065273801",
+        "linkedin": null,
+        "org_phone": "+12065273801",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 237,
+      "business": "Berkshire Hathaway",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Gareth P",
+        "title": "Co-Founder",
+        "email": "deann@bhhsjacklin.com",
+        "phone": "+14023461400",
+        "linkedin": "http://www.linkedin.com/in/gareth-p-646194154",
+        "org_phone": "+14023461400",
+        "notes": "matched via email; senior @ Berkshire Hathaway"
+      }
+    },
+    {
+      "row": 239,
+      "business": "Hayden Lake Marina",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Olmstead",
+        "title": null,
+        "email": "lolmstead@haydenlakemarina.com",
+        "phone": "+12087620181",
+        "linkedin": null,
+        "org_phone": "+12087620181",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 240,
+      "business": "StretchLab",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Kunal Kapoor",
+        "title": "Founder",
+        "email": "kunal@stretch-lab.co.uk",
+        "phone": "+442070813155",
+        "linkedin": "http://www.linkedin.com/in/kunal-kapoor-4a0317198",
+        "org_phone": "+442070813155",
+        "notes": "senior @ StretchLAB"
+      }
+    },
+    {
+      "row": 241,
+      "business": "Kroc Center",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Amy Voeller",
+        "title": "Director of Development",
+        "email": "amy.voeller@usw.salvationarmy.org",
+        "phone": "+12086671865",
+        "linkedin": "http://www.linkedin.com/in/amy-voeller-5961748",
+        "org_phone": "+12086671865",
+        "notes": "senior @ The Salvation Army Kroc Center Coeur d'Alene"
+      }
+    },
+    {
+      "row": 245,
+      "business": "Rae & Co Salon",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 246,
+      "business": "Stancraft",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Jennifer Pederson",
+        "title": "HR Manager",
+        "email": "jennifer.p@stancraft.com",
+        "phone": "+12087723731",
+        "linkedin": null,
+        "org_phone": "+12087723731",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 247,
+      "business": "Jamba Juice",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Jessica Brock",
+        "title": "General Manager",
+        "email": "jjstore244@gmail.com",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/jessica-brock-9b0485293",
+        "org_phone": null,
+        "notes": "matched via email; senior @ Jamba Juice SF / East Bay"
+      }
+    },
+    {
+      "row": 248,
+      "business": "Keller Williams",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Angela Coven",
+        "title": "Licensed Realtor, Founder of Rooted Realty, Co-Founder Rooted Management",
+        "email": "angelacrecca@kw.com",
+        "phone": "+18659665005",
+        "linkedin": "http://www.linkedin.com/in/angelacreccarootedrealty",
+        "org_phone": "+18659665005",
+        "notes": "senior @ Keller Williams"
+      }
+    },
+    {
+      "row": 249,
+      "business": "Centry 21 Beutler & Associates",
+      "result": {
+        "matched": false,
+        "status": "no_match",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "no org match"
+      }
+    },
+    {
+      "row": 250,
+      "business": "Coldwell Banker Schneidmiller Realty",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Zachary Weishaupt",
+        "title": "Executive Director",
+        "email": "zack@cbidaho.com",
+        "phone": "+12087652222",
+        "linkedin": "http://www.linkedin.com/in/zachary-weishaupt-073b3b105",
+        "org_phone": "+12087652222",
+        "notes": "senior @ Coldwell Banker Schneidmiller Realty"
+      }
+    },
+    {
+      "row": 251,
+      "business": "Kootenai Title",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Twila Willcut",
+        "title": "Escrow Manager",
+        "email": "twilaw@kootenaititle.com",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/twila-willcut-b2933212",
+        "org_phone": null,
+        "notes": "senior @ Kootenai Title Company"
+      }
+    },
+    {
+      "row": 252,
+      "business": "Mix it up",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "teresa@mixituphome.com",
+        "phone": "+12086678603",
+        "linkedin": null,
+        "org_phone": "+12086678603",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 253,
+      "business": "CDA Clothing Company",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Andrew Isaacson",
+        "title": null,
+        "email": "info@cdaidaho.com",
+        "phone": "+12089569669",
+        "linkedin": null,
+        "org_phone": "+12089569669",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 254,
+      "business": "Mountain Madness Soap",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Karissa Hubiak",
+        "title": null,
+        "email": "karissa@mountainmadnesssoap.com",
+        "phone": "+12089180667",
+        "linkedin": null,
+        "org_phone": "+12089180667",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 255,
+      "business": "Dynamic Health",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Ryan Twomey-Allaire",
+        "title": "Executive Vice President",
+        "email": "ryan.twomey@dhrpro.com",
+        "phone": "+18888347776",
+        "linkedin": "http://www.linkedin.com/in/ryan-twomey-allaire",
+        "org_phone": "+18888347776",
+        "notes": "senior @ Unified Dynamic Health Records"
+      }
+    },
+    {
+      "row": 256,
+      "business": "Hot Worx",
+      "result": {
+        "matched": true,
+        "status": "org_phone_only",
+        "person_name": null,
+        "title": null,
+        "email": null,
+        "phone": "+17579679809",
+        "linkedin": null,
+        "org_phone": "+17579679809",
+        "notes": "org only: Hot Worx, Inc."
+      }
+    },
+    {
+      "row": 258,
+      "business": "Rojo Ink",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "",
+        "title": null,
+        "email": "joer@rojoink.com",
+        "phone": "+18555634285",
+        "linkedin": null,
+        "org_phone": "+18555634285",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 261,
+      "business": "Washington Trust Bank",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Lindsey Weasel",
+        "title": "VP, Branch Manager",
+        "email": "lprettyweasel@watrust.com",
+        "phone": "+18007884578",
+        "linkedin": "http://www.linkedin.com/in/lindsey-pretty-weasel-5b294ab",
+        "org_phone": "+18007884578",
+        "notes": "senior @ Washington Trust Bank"
+      }
+    },
+    {
+      "row": 262,
+      "business": "Verizon",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Charles Szrom",
+        "title": "Founder",
+        "email": "charles.s@verizonwireless.com",
+        "phone": "+12123951000",
+        "linkedin": "http://www.linkedin.com/in/charles-szrom-cfa-a0a8291",
+        "org_phone": "+12123951000",
+        "notes": "senior @ Verizon"
+      }
+    },
+    {
+      "row": 264,
+      "business": "Lakes Middle School",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Mona Moorjani",
+        "title": "Mathematics Teacher at Chain",
+        "email": "monamoorjani@gmail.com",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/mona-moorjani-a1a56625",
+        "org_phone": null,
+        "notes": "senior @ Lakes Middle School"
+      }
+    },
+    {
+      "row": 265,
+      "business": "Flying S Title & Escrow",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Michelle Jirava",
+        "title": null,
+        "email": "michelle.jirava@fste.com",
+        "phone": "+12087855511",
+        "linkedin": null,
+        "org_phone": "+12087855511",
+        "notes": "matched via email"
+      }
+    },
+    {
+      "row": 267,
+      "business": "The Collective ESPR",
+      "result": {
+        "matched": true,
+        "status": "email_match",
+        "person_name": "Dan Zeller",
+        "title": null,
+        "email": "dan@thecollectiveespr.com",
+        "phone": null,
+        "linkedin": null,
+        "org_phone": null,
+        "notes": "matched via email; no org match"
+      }
+    },
+    {
+      "row": 268,
+      "business": "MelFit",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Josh Melior",
+        "title": "Chief Operating Officer",
+        "email": "josh@melfitcoaching.com",
+        "phone": null,
+        "linkedin": "http://www.linkedin.com/in/joshmelior",
+        "org_phone": null,
+        "notes": "senior @ MelFit"
+      }
+    },
+    {
+      "row": 269,
+      "business": "Summit Family Dental",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Cynthia Mo",
+        "title": "General Dentist",
+        "email": null,
+        "phone": "+15154460733",
+        "linkedin": "http://www.linkedin.com/in/cynthia-mo-45492b104",
+        "org_phone": "+15154460733",
+        "notes": "senior @ Summit Family Dental"
+      }
+    },
+    {
+      "row": 270,
+      "business": "Dragon Fly",
+      "result": {
+        "matched": true,
+        "status": "senior_match",
+        "person_name": "Dfa Zambia",
+        "title": "Managing Director",
+        "email": null,
+        "phone": "+260774223241",
+        "linkedin": "http://www.linkedin.com/in/dfa-zambia-2b1921341",
+        "org_phone": "+260774223241",
+        "notes": "senior @ DRAGON FLY AVIATION LIMITED."
+      }
+    },
+    {
+      "row": 271,
+      "business": "Selkirk",
+      "result": {
+        "matched": true,
+        "status": "email_match+senior",
+        "person_name": "Rob Barnes",
+        "title": "Co-Founder, Co-CEO",
+        "email": "rob@selkirk.com",
+        "phone": "+18007594326",
+        "linkedin": "http://www.linkedin.com/in/rob-barnes-848603192",
+        "org_phone": "+18007594326",
+        "notes": "matched via email; senior @ Selkirk Sport - We Are Pickleball"
+      }
+    }
+  ]
+}

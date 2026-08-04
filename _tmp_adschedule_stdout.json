@@ -1,0 +1,837 @@
+{
+  "date_range": "May 27, 2026 - July 27, 2026",
+  "summary": {
+    "Search": {
+      "totals": {
+        "cost": 121170.57,
+        "conv": 553724.44,
+        "cpa": 0.22
+      },
+      "worst_hours": [
+        {
+          "hour": 0,
+          "cost_pct": 3.84,
+          "conv_pct": 1.64,
+          "cpa": 0.51,
+          "cpa_vs_avg": 2.331,
+          "efficiency": 0.426,
+          "caution": false
+        },
+        {
+          "hour": 11,
+          "cost_pct": 5.55,
+          "conv_pct": 4.21,
+          "cpa": 0.29,
+          "cpa_vs_avg": 1.325,
+          "efficiency": 0.757,
+          "caution": true
+        },
+        {
+          "hour": 12,
+          "cost_pct": 7.29,
+          "conv_pct": 6.23,
+          "cpa": 0.26,
+          "cpa_vs_avg": 1.188,
+          "efficiency": 0.854,
+          "caution": true
+        },
+        {
+          "hour": 13,
+          "cost_pct": 8.33,
+          "conv_pct": 7.38,
+          "cpa": 0.25,
+          "cpa_vs_avg": 1.142,
+          "efficiency": 0.886,
+          "caution": true
+        },
+        {
+          "hour": 14,
+          "cost_pct": 9.11,
+          "conv_pct": 8.36,
+          "cpa": 0.24,
+          "cpa_vs_avg": 1.097,
+          "efficiency": 0.917,
+          "caution": true
+        },
+        {
+          "hour": 10,
+          "cost_pct": 2.88,
+          "conv_pct": 1.83,
+          "cpa": 0.34,
+          "cpa_vs_avg": 1.554,
+          "efficiency": 0.637,
+          "caution": false
+        },
+        {
+          "hour": 9,
+          "cost_pct": 1.41,
+          "conv_pct": 0.84,
+          "cpa": 0.37,
+          "cpa_vs_avg": 1.691,
+          "efficiency": 0.593,
+          "caution": false
+        },
+        {
+          "hour": 1,
+          "cost_pct": 1.01,
+          "conv_pct": 0.51,
+          "cpa": 0.44,
+          "cpa_vs_avg": 2.011,
+          "efficiency": 0.502,
+          "caution": false
+        }
+      ],
+      "week_blackouts": [
+        {
+          "hour": 0,
+          "cost_pct": 3.84,
+          "conv_pct": 1.64,
+          "cpa": 0.51,
+          "cpa_vs_avg": 2.331,
+          "weak_days": 7,
+          "caution": false
+        },
+        {
+          "hour": 9,
+          "cost_pct": 1.41,
+          "conv_pct": 0.84,
+          "cpa": 0.37,
+          "cpa_vs_avg": 1.691,
+          "weak_days": 5,
+          "caution": false
+        },
+        {
+          "hour": 1,
+          "cost_pct": 1.01,
+          "conv_pct": 0.51,
+          "cpa": 0.44,
+          "cpa_vs_avg": 2.011,
+          "weak_days": 7,
+          "caution": false
+        },
+        {
+          "hour": 2,
+          "cost_pct": 0.49,
+          "conv_pct": 0.26,
+          "cpa": 0.42,
+          "cpa_vs_avg": 1.919,
+          "weak_days": 7,
+          "caution": false
+        },
+        {
+          "hour": 3,
+          "cost_pct": 0.33,
+          "conv_pct": 0.16,
+          "cpa": 0.45,
+          "cpa_vs_avg": 2.056,
+          "weak_days": 7,
+          "caution": false
+        },
+        {
+          "hour": 4,
+          "cost_pct": 0.23,
+          "conv_pct": 0.1,
+          "cpa": 0.48,
+          "cpa_vs_avg": 2.194,
+          "weak_days": 7,
+          "caution": false
+        }
+      ],
+      "day_specific": [
+        {
+          "day": "Monday",
+          "hour": 11,
+          "cost": 1140.13,
+          "cost_pct": 0.94,
+          "conv_pct": 0.47,
+          "cpa": 0.44,
+          "cpa_vs_avg": 2.011
+        },
+        {
+          "day": "Thursday",
+          "hour": 10,
+          "cost": 604.45,
+          "cost_pct": 0.5,
+          "conv_pct": 0.28,
+          "cpa": 0.39,
+          "cpa_vs_avg": 1.782
+        },
+        {
+          "day": "Tuesday",
+          "hour": 10,
+          "cost": 542.77,
+          "cost_pct": 0.45,
+          "conv_pct": 0.24,
+          "cpa": 0.42,
+          "cpa_vs_avg": 1.919
+        },
+        {
+          "day": "Wednesday",
+          "hour": 10,
+          "cost": 561.67,
+          "cost_pct": 0.46,
+          "conv_pct": 0.27,
+          "cpa": 0.37,
+          "cpa_vs_avg": 1.691
+        },
+        {
+          "day": "Saturday",
+          "hour": 10,
+          "cost": 506.87,
+          "cost_pct": 0.42,
+          "conv_pct": 0.3,
+          "cpa": 0.3,
+          "cpa_vs_avg": 1.371
+        },
+        {
+          "day": "Sunday",
+          "hour": 10,
+          "cost": 445.1,
+          "cost_pct": 0.37,
+          "conv_pct": 0.25,
+          "cpa": 0.32,
+          "cpa_vs_avg": 1.462
+        }
+      ],
+      "best_hours": [
+        {
+          "cost": 9234.46,
+          "conv": 52916.83,
+          "cpa": 0.17,
+          "cost_pct": 7.62,
+          "conv_pct": 9.56,
+          "efficiency": 1.254,
+          "hour": 19,
+          "cpa_vs_avg": 0.777
+        },
+        {
+          "cost": 10158.01,
+          "conv": 57699.42,
+          "cpa": 0.18,
+          "cost_pct": 8.38,
+          "conv_pct": 10.42,
+          "efficiency": 1.243,
+          "hour": 17,
+          "cpa_vs_avg": 0.823
+        },
+        {
+          "cost": 10373.48,
+          "conv": 58453.0,
+          "cpa": 0.18,
+          "cost_pct": 8.56,
+          "conv_pct": 10.56,
+          "efficiency": 1.233,
+          "hour": 18,
+          "cpa_vs_avg": 0.823
+        },
+        {
+          "cost": 8138.37,
+          "conv": 44712.16,
+          "cpa": 0.18,
+          "cost_pct": 6.72,
+          "conv_pct": 8.07,
+          "efficiency": 1.202,
+          "hour": 20,
+          "cpa_vs_avg": 0.823
+        },
+        {
+          "cost": 5866.8,
+          "conv": 30755.89,
+          "cpa": 0.19,
+          "cost_pct": 4.84,
+          "conv_pct": 5.55,
+          "efficiency": 1.147,
+          "hour": 21,
+          "cpa_vs_avg": 0.868
+        }
+      ],
+      "day_summary": [
+        {
+          "cost": 14020.41,
+          "conv": 62148.0,
+          "cpa": 0.23,
+          "cost_pct": 11.57,
+          "conv_pct": 11.22,
+          "efficiency": 0.97,
+          "day": "Monday",
+          "cpa_vs_avg": 1.051
+        },
+        {
+          "cost": 15125.91,
+          "conv": 65499.41,
+          "cpa": 0.23,
+          "cost_pct": 12.48,
+          "conv_pct": 11.83,
+          "efficiency": 0.948,
+          "day": "Tuesday",
+          "cpa_vs_avg": 1.051
+        },
+        {
+          "cost": 16133.32,
+          "conv": 71626.57,
+          "cpa": 0.23,
+          "cost_pct": 13.31,
+          "conv_pct": 12.94,
+          "efficiency": 0.972,
+          "day": "Wednesday",
+          "cpa_vs_avg": 1.051
+        },
+        {
+          "cost": 16624.06,
+          "conv": 74618.29,
+          "cpa": 0.22,
+          "cost_pct": 13.72,
+          "conv_pct": 13.48,
+          "efficiency": 0.982,
+          "day": "Thursday",
+          "cpa_vs_avg": 1.005
+        },
+        {
+          "cost": 19551.21,
+          "conv": 92547.54,
+          "cpa": 0.21,
+          "cost_pct": 16.14,
+          "conv_pct": 16.71,
+          "efficiency": 1.036,
+          "day": "Friday",
+          "cpa_vs_avg": 0.96
+        },
+        {
+          "cost": 22120.58,
+          "conv": 103010.17,
+          "cpa": 0.21,
+          "cost_pct": 18.26,
+          "conv_pct": 18.6,
+          "efficiency": 1.019,
+          "day": "Saturday",
+          "cpa_vs_avg": 0.96
+        },
+        {
+          "cost": 17595.08,
+          "conv": 84274.46,
+          "cpa": 0.21,
+          "cost_pct": 14.52,
+          "conv_pct": 15.22,
+          "efficiency": 1.048,
+          "day": "Sunday",
+          "cpa_vs_avg": 0.96
+        }
+      ]
+    },
+    "PMax": {
+      "totals": {
+        "cost": 1197976.98,
+        "conv": 3046120.59,
+        "cpa": 0.39
+      },
+      "worst_hours": [
+        {
+          "hour": 16,
+          "cost_pct": 10.81,
+          "conv_pct": 9.49,
+          "cpa": 0.45,
+          "cpa_vs_avg": 1.144,
+          "efficiency": 0.878,
+          "caution": true
+        },
+        {
+          "hour": 14,
+          "cost_pct": 10.23,
+          "conv_pct": 9.24,
+          "cpa": 0.44,
+          "cpa_vs_avg": 1.119,
+          "efficiency": 0.904,
+          "caution": true
+        },
+        {
+          "hour": 15,
+          "cost_pct": 9.99,
+          "conv_pct": 9.26,
+          "cpa": 0.42,
+          "cpa_vs_avg": 1.068,
+          "efficiency": 0.927,
+          "caution": true
+        },
+        {
+          "hour": 13,
+          "cost_pct": 9.3,
+          "conv_pct": 8.55,
+          "cpa": 0.43,
+          "cpa_vs_avg": 1.093,
+          "efficiency": 0.919,
+          "caution": true
+        },
+        {
+          "hour": 12,
+          "cost_pct": 8.37,
+          "conv_pct": 7.75,
+          "cpa": 0.42,
+          "cpa_vs_avg": 1.068,
+          "efficiency": 0.927,
+          "caution": true
+        },
+        {
+          "hour": 17,
+          "cost_pct": 10.15,
+          "conv_pct": 9.68,
+          "cpa": 0.41,
+          "cpa_vs_avg": 1.043,
+          "efficiency": 0.953,
+          "caution": true
+        },
+        {
+          "hour": 18,
+          "cost_pct": 9.52,
+          "conv_pct": 9.16,
+          "cpa": 0.41,
+          "cpa_vs_avg": 1.043,
+          "efficiency": 0.962,
+          "caution": true
+        },
+        {
+          "hour": 19,
+          "cost_pct": 8.18,
+          "conv_pct": 8.1,
+          "cpa": 0.4,
+          "cpa_vs_avg": 1.017,
+          "efficiency": 0.99,
+          "caution": true
+        }
+      ],
+      "week_blackouts": [
+        {
+          "hour": 0,
+          "cost_pct": 0.12,
+          "conv_pct": 0.06,
+          "cpa": 0.77,
+          "cpa_vs_avg": 1.958,
+          "weak_days": 6,
+          "caution": false
+        },
+        {
+          "hour": 1,
+          "cost_pct": 0.04,
+          "conv_pct": 0.03,
+          "cpa": 0.62,
+          "cpa_vs_avg": 1.576,
+          "weak_days": 6,
+          "caution": false
+        }
+      ],
+      "day_specific": [],
+      "best_hours": [
+        {
+          "cost": 2232.03,
+          "conv": 20406.14,
+          "cpa": 0.11,
+          "cost_pct": 0.19,
+          "conv_pct": 0.67,
+          "efficiency": 3.596,
+          "hour": 23,
+          "cpa_vs_avg": 0.28
+        },
+        {
+          "cost": 7854.82,
+          "conv": 35273.0,
+          "cpa": 0.22,
+          "cost_pct": 0.66,
+          "conv_pct": 1.16,
+          "efficiency": 1.766,
+          "hour": 7,
+          "cpa_vs_avg": 0.559
+        },
+        {
+          "cost": 11423.15,
+          "conv": 49635.94,
+          "cpa": 0.23,
+          "cost_pct": 0.95,
+          "conv_pct": 1.63,
+          "efficiency": 1.709,
+          "hour": 8,
+          "cpa_vs_avg": 0.585
+        },
+        {
+          "cost": 4911.16,
+          "conv": 20415.0,
+          "cpa": 0.24,
+          "cost_pct": 0.41,
+          "conv_pct": 0.67,
+          "efficiency": 1.635,
+          "hour": 6,
+          "cpa_vs_avg": 0.61
+        },
+        {
+          "cost": 31871.72,
+          "conv": 122396.36,
+          "cpa": 0.26,
+          "cost_pct": 2.66,
+          "conv_pct": 4.02,
+          "efficiency": 1.51,
+          "hour": 10,
+          "cpa_vs_avg": 0.661
+        }
+      ],
+      "day_summary": [
+        {
+          "cost": 171822.76,
+          "conv": 404505.5,
+          "cpa": 0.42,
+          "cost_pct": 14.34,
+          "conv_pct": 13.28,
+          "efficiency": 0.926,
+          "day": "Monday",
+          "cpa_vs_avg": 1.068
+        },
+        {
+          "cost": 153508.95,
+          "conv": 371030.04,
+          "cpa": 0.41,
+          "cost_pct": 12.81,
+          "conv_pct": 12.18,
+          "efficiency": 0.951,
+          "day": "Tuesday",
+          "cpa_vs_avg": 1.043
+        },
+        {
+          "cost": 174428.98,
+          "conv": 396747.05,
+          "cpa": 0.44,
+          "cost_pct": 14.56,
+          "conv_pct": 13.02,
+          "efficiency": 0.895,
+          "day": "Wednesday",
+          "cpa_vs_avg": 1.119
+        },
+        {
+          "cost": 175702.78,
+          "conv": 451686.93,
+          "cpa": 0.39,
+          "cost_pct": 14.67,
+          "conv_pct": 14.83,
+          "efficiency": 1.011,
+          "day": "Thursday",
+          "cpa_vs_avg": 0.992
+        },
+        {
+          "cost": 180548.35,
+          "conv": 486347.73,
+          "cpa": 0.37,
+          "cost_pct": 15.07,
+          "conv_pct": 15.97,
+          "efficiency": 1.059,
+          "day": "Friday",
+          "cpa_vs_avg": 0.941
+        },
+        {
+          "cost": 174009.35,
+          "conv": 503360.06,
+          "cpa": 0.35,
+          "cost_pct": 14.53,
+          "conv_pct": 16.52,
+          "efficiency": 1.138,
+          "day": "Saturday",
+          "cpa_vs_avg": 0.89
+        },
+        {
+          "cost": 167955.81,
+          "conv": 432443.28,
+          "cpa": 0.39,
+          "cost_pct": 14.02,
+          "conv_pct": 14.2,
+          "efficiency": 1.013,
+          "day": "Sunday",
+          "cpa_vs_avg": 0.992
+        }
+      ]
+    },
+    "Demand Gen": {
+      "totals": {
+        "cost": 373588.52,
+        "conv": 187655.75,
+        "cpa": 1.99
+      },
+      "worst_hours": [
+        {
+          "hour": 20,
+          "cost_pct": 6.06,
+          "conv_pct": 5.22,
+          "cpa": 2.31,
+          "cpa_vs_avg": 1.16,
+          "efficiency": 0.862,
+          "caution": true
+        },
+        {
+          "hour": 10,
+          "cost_pct": 5.42,
+          "conv_pct": 4.66,
+          "cpa": 2.31,
+          "cpa_vs_avg": 1.16,
+          "efficiency": 0.861,
+          "caution": true
+        },
+        {
+          "hour": 11,
+          "cost_pct": 5.67,
+          "conv_pct": 4.97,
+          "cpa": 2.27,
+          "cpa_vs_avg": 1.14,
+          "efficiency": 0.878,
+          "caution": true
+        },
+        {
+          "hour": 21,
+          "cost_pct": 5.79,
+          "conv_pct": 5.14,
+          "cpa": 2.24,
+          "cpa_vs_avg": 1.125,
+          "efficiency": 0.888,
+          "caution": true
+        },
+        {
+          "hour": 19,
+          "cost_pct": 5.78,
+          "conv_pct": 5.22,
+          "cpa": 2.21,
+          "cpa_vs_avg": 1.11,
+          "efficiency": 0.903,
+          "caution": true
+        },
+        {
+          "hour": 9,
+          "cost_pct": 4.55,
+          "conv_pct": 4.05,
+          "cpa": 2.24,
+          "cpa_vs_avg": 1.125,
+          "efficiency": 0.89,
+          "caution": true
+        },
+        {
+          "hour": 22,
+          "cost_pct": 5.18,
+          "conv_pct": 4.89,
+          "cpa": 2.11,
+          "cpa_vs_avg": 1.06,
+          "efficiency": 0.944,
+          "caution": true
+        },
+        {
+          "hour": 12,
+          "cost_pct": 4.96,
+          "conv_pct": 4.71,
+          "cpa": 2.1,
+          "cpa_vs_avg": 1.055,
+          "efficiency": 0.949,
+          "caution": true
+        }
+      ],
+      "week_blackouts": [],
+      "day_specific": [
+        {
+          "day": "Monday",
+          "hour": 9,
+          "cost": 2177.11,
+          "cost_pct": 0.58,
+          "conv_pct": 0.39,
+          "cpa": 2.96,
+          "cpa_vs_avg": 1.487
+        },
+        {
+          "day": "Monday",
+          "hour": 10,
+          "cost": 2410.43,
+          "cost_pct": 0.65,
+          "conv_pct": 0.47,
+          "cpa": 2.72,
+          "cpa_vs_avg": 1.366
+        },
+        {
+          "day": "Monday",
+          "hour": 11,
+          "cost": 2342.54,
+          "cost_pct": 0.63,
+          "conv_pct": 0.48,
+          "cpa": 2.58,
+          "cpa_vs_avg": 1.296
+        },
+        {
+          "day": "Monday",
+          "hour": 13,
+          "cost": 1711.5,
+          "cost_pct": 0.46,
+          "conv_pct": 0.36,
+          "cpa": 2.53,
+          "cpa_vs_avg": 1.271
+        },
+        {
+          "day": "Monday",
+          "hour": 12,
+          "cost": 1991.44,
+          "cost_pct": 0.53,
+          "conv_pct": 0.44,
+          "cpa": 2.42,
+          "cpa_vs_avg": 1.216
+        },
+        {
+          "day": "Monday",
+          "hour": 16,
+          "cost": 1865.52,
+          "cost_pct": 0.5,
+          "conv_pct": 0.42,
+          "cpa": 2.36,
+          "cpa_vs_avg": 1.185
+        },
+        {
+          "day": "Tuesday",
+          "hour": 12,
+          "cost": 2015.37,
+          "cost_pct": 0.54,
+          "conv_pct": 0.47,
+          "cpa": 2.26,
+          "cpa_vs_avg": 1.135
+        },
+        {
+          "day": "Monday",
+          "hour": 8,
+          "cost": 1331.15,
+          "cost_pct": 0.36,
+          "conv_pct": 0.29,
+          "cpa": 2.41,
+          "cpa_vs_avg": 1.211
+        },
+        {
+          "day": "Monday",
+          "hour": 7,
+          "cost": 1062.68,
+          "cost_pct": 0.28,
+          "conv_pct": 0.21,
+          "cpa": 2.65,
+          "cpa_vs_avg": 1.331
+        }
+      ],
+      "best_hours": [
+        {
+          "cost": 9315.07,
+          "conv": 6257.1,
+          "cpa": 1.49,
+          "cost_pct": 2.49,
+          "conv_pct": 3.33,
+          "efficiency": 1.337,
+          "hour": 3,
+          "cpa_vs_avg": 0.748
+        },
+        {
+          "cost": 8148.14,
+          "conv": 5446.83,
+          "cpa": 1.5,
+          "cost_pct": 2.18,
+          "conv_pct": 2.9,
+          "efficiency": 1.331,
+          "hour": 4,
+          "cpa_vs_avg": 0.753
+        },
+        {
+          "cost": 11889.42,
+          "conv": 7635.07,
+          "cpa": 1.56,
+          "cost_pct": 3.18,
+          "conv_pct": 4.07,
+          "efficiency": 1.278,
+          "hour": 2,
+          "cpa_vs_avg": 0.784
+        },
+        {
+          "cost": 7198.34,
+          "conv": 4480.69,
+          "cpa": 1.61,
+          "cost_pct": 1.93,
+          "conv_pct": 2.39,
+          "efficiency": 1.239,
+          "hour": 5,
+          "cpa_vs_avg": 0.809
+        },
+        {
+          "cost": 14495.61,
+          "conv": 8976.37,
+          "cpa": 1.61,
+          "cost_pct": 3.88,
+          "conv_pct": 4.78,
+          "efficiency": 1.233,
+          "hour": 1,
+          "cpa_vs_avg": 0.809
+        }
+      ],
+      "day_summary": [
+        {
+          "cost": 45944.54,
+          "conv": 19087.04,
+          "cpa": 2.41,
+          "cost_pct": 12.3,
+          "conv_pct": 10.17,
+          "efficiency": 0.827,
+          "day": "Monday",
+          "cpa_vs_avg": 1.211
+        },
+        {
+          "cost": 40585.33,
+          "conv": 20514.8,
+          "cpa": 1.98,
+          "cost_pct": 10.86,
+          "conv_pct": 10.93,
+          "efficiency": 1.006,
+          "day": "Tuesday",
+          "cpa_vs_avg": 0.995
+        },
+        {
+          "cost": 56978.58,
+          "conv": 26544.02,
+          "cpa": 2.15,
+          "cost_pct": 15.25,
+          "conv_pct": 14.15,
+          "efficiency": 0.927,
+          "day": "Wednesday",
+          "cpa_vs_avg": 1.08
+        },
+        {
+          "cost": 56198.54,
+          "conv": 29977.31,
+          "cpa": 1.87,
+          "cost_pct": 15.04,
+          "conv_pct": 15.97,
+          "efficiency": 1.062,
+          "day": "Thursday",
+          "cpa_vs_avg": 0.939
+        },
+        {
+          "cost": 62749.99,
+          "conv": 34329.44,
+          "cpa": 1.83,
+          "cost_pct": 16.8,
+          "conv_pct": 18.29,
+          "efficiency": 1.089,
+          "day": "Friday",
+          "cpa_vs_avg": 0.919
+        },
+        {
+          "cost": 59383.67,
+          "conv": 30911.52,
+          "cpa": 1.92,
+          "cost_pct": 15.9,
+          "conv_pct": 16.47,
+          "efficiency": 1.036,
+          "day": "Saturday",
+          "cpa_vs_avg": 0.964
+        },
+        {
+          "cost": 51747.87,
+          "conv": 26291.62,
+          "cpa": 1.97,
+          "cost_pct": 13.85,
+          "conv_pct": 14.01,
+          "efficiency": 1.011,
+          "day": "Sunday",
+          "cpa_vs_avg": 0.99
+        }
+      ]
+    }
+  }
+}

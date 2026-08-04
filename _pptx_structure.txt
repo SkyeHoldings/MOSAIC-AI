@@ -1,0 +1,1442 @@
+================================================================================
+POWERPOINT STRUCTURAL ANALYSIS
+File: c:\Users\skyes\OneDrive\Desktop\Clients\Surface\Data Pulls & Reporting\Red Robin _ Target CPA Analysis.pptx
+================================================================================
+SLIDE DIMENSIONS: 13.333 in x 7.5 in (EMU 12192000 x 6858000)
+SLIDE COUNT: 7
+Format: widescreen 16:9
+
+--- SLIDE MASTER / LAYOUTS ---
+Master[0]:
+  Layout[0]: 'Title Slide'
+  Layout[1]: 'Title and Content'
+  Layout[2]: 'Section Header'
+  Layout[3]: 'Two Content'
+  Layout[4]: 'Comparison'
+  Layout[5]: 'Title Only'
+  Layout[6]: 'Blank'
+  Layout[7]: 'Content with Caption'
+  Layout[8]: 'Picture with Caption'
+  Layout[9]: 'Title and Vertical Text'
+  Layout[10]: 'Vertical Title and Text'
+
+--- THEME / COLOR INFO (from theme XML) ---
+Color scheme: Office
+  dk1: sys=windowText lastClr=#000000
+  lt1: sys=window lastClr=#FFFFFF
+  dk2: #1F497D
+  lt2: #EEECE1
+  accent1: #4F81BD
+  accent2: #C0504D
+  accent3: #9BBB59
+  accent4: #8064A2
+  accent5: #4BACC6
+  accent6: #F79646
+  hlink: #0000FF
+  folHlink: #800080
+Font scheme: Office
+  major: Calibri
+  minor: Calibri
+
+--- ACTUAL BRAND COLORS USED IN SHAPES/TEXT (extracted from srgbClr) ---
+Used colors: #121212, #161616, #262626, #2D8659, #3D6FA0, #6E6E6E, #9A9A9A, #CFCFCF, #F2F2F2, #F83000, #FFFFFF
+
+================================================================================
+NARRATIVE STRUCTURE OVERVIEW
+================================================================================
+
+Deck type: Client analysis / recommendation deck (Surface for Red Robin)
+Theme: Dark title slide + light content slides, orange accent #F83000
+Chrome (every slide):
+  - Top-right: small logo/icon picture (~0.34x0.37 at 12.55, 0.3)
+  - Bottom orange rule line (#F83000) at y~7.16, height 0.013
+  - Footer left: 'SURFACE   /   RED ROBIN – TARGET CPA TEST' (Arial Narrow 9pt; SURFACE bold orange, rest gray)
+  - Footer right: zero-padded slide number '01'..'07' (Arial Narrow 9pt bold gray)
+Typography:
+  - Section eyebrow: Arial Narrow 12.5pt bold #F83000
+  - Headline: Arial Narrow ~30pt bold #161616
+  - Accent underline bar under headline: ~0.72x0.075 #F83000
+  - Body: Arial 12-14pt #161616
+  - KPI big numbers: Arial Narrow ~32pt bold (green #2D8659 for positive/good, other for negative)
+  - Callout panels: left orange strip 0.12 wide + light gray or white fill
+
+Slide flow (recommendation narrative):
+  1. Title / framing question
+  2. Test design + methodology + research questions
+  3. CPA results (KPI cards + comparison)
+  4. (continued results / latency or conversion detail)
+  5. ...
+  6. ...
+  7. Recommendation / next steps
+
+
+================================================================================
+SLIDE 1 (index 0)
+================================================================================
+Layout: 'Blank'
+Dimensions: 13.333 x 7.5 in
+Shape count: 9
+  SHAPE name='Rectangle 1' type=auto_shape pos=(0.0,0.0) size=(13.333x7.5) fill=#121212
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Picture 2' type=picture pos=(12.55,0.3) size=(0.34x0.372) fill=None
+    auto_shape_type=RECTANGLE (1)
+    picture content_type=image/png ext=png bytes=32653
+  SHAPE name='Rectangle 3' type=auto_shape pos=(0.55,7.16) size=(12.23x0.013) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 4' type=textbox pos=(0.5,7.2) size=(9.0x0.3) fill=None
+    FULL_TEXT:
+      | SURFACE   /   RED ROBIN — TARGET CPA TEST
+    para[0] align=None level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=None color=#F83000
+             text='SURFACE'
+      run[1]: font=Arial Narrow size=9.0pt bold=None italic=None color=#CFCFCF
+             text='   /   RED ROBIN — TARGET CPA TEST'
+  SHAPE name='TextBox 5' type=textbox pos=(11.8,7.2) size=(1.0x0.3) fill=None
+    FULL_TEXT:
+      | 01
+    para[0] align=RIGHT (3) level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=False color=#CFCFCF
+             text='01'
+  SHAPE name='Picture 6' type=picture pos=(0.9,0.7) size=(2.1x0.531) fill=None
+    auto_shape_type=RECTANGLE (1)
+    picture content_type=image/png ext=png bytes=8977
+  SHAPE name='Rectangle 7' type=auto_shape pos=(0.9,2.35) size=(0.55x0.09) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 8' type=textbox pos=(0.9,2.55) size=(11.8x2.9) fill=None
+    FULL_TEXT:
+      | RED ROBIN PMAX
+      | TARGET CPA BIDDING TEST
+      | Does Target CPA improve efficiency — and does store visit latency limit it?
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=15.0pt bold=True italic=False color=#F83000
+             text='RED ROBIN PMAX'
+    para[1] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=44.0pt bold=True italic=False color=#FFFFFF
+             text='TARGET CPA BIDDING TEST'
+    para[2] align=LEFT (1) level=0
+      run[0]: font=Arial size=18.0pt bold=False italic=False color=#CFCFCF
+             text='Does Target CPA improve efficiency — and does store visit latency limit it?'
+  SHAPE name='TextBox 9' type=textbox pos=(0.95,5.75) size=(11.5x0.5) fill=None
+    FULL_TEXT:
+      | 11 TEST UNITS VS ~444 SYSTEM   ·   PRE: JAN 1 – MAR 31   ·   POST: APR 1 – JUN 17   ·   LAST 7 DAYS EXCLUDED
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=12.5pt bold=True italic=False color=#CFCFCF
+             text='11 TEST UNITS VS ~444 SYSTEM   ·   PRE: JAN 1 – MAR 31   ·   POST: APR 1 – JUN 17   ·   LAST 7 DAYS EXCLUDED'
+
+================================================================================
+SLIDE 2 (index 1)
+================================================================================
+Layout: 'Blank'
+Dimensions: 13.333 x 7.5 in
+Shape count: 36
+  SHAPE name='Rectangle 1' type=auto_shape pos=(0.0,0.0) size=(13.333x7.5) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Picture 2' type=picture pos=(12.55,0.3) size=(0.34x0.372) fill=None
+    auto_shape_type=RECTANGLE (1)
+    picture content_type=image/png ext=png bytes=31103
+  SHAPE name='Rectangle 3' type=auto_shape pos=(0.55,7.16) size=(12.23x0.013) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 4' type=textbox pos=(0.5,7.2) size=(9.0x0.3) fill=None
+    FULL_TEXT:
+      | SURFACE   /   RED ROBIN — TARGET CPA TEST
+    para[0] align=None level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=None color=#F83000
+             text='SURFACE'
+      run[1]: font=Arial Narrow size=9.0pt bold=None italic=None color=#6E6E6E
+             text='   /   RED ROBIN — TARGET CPA TEST'
+  SHAPE name='TextBox 5' type=textbox pos=(11.8,7.2) size=(1.0x0.3) fill=None
+    FULL_TEXT:
+      | 02
+    para[0] align=RIGHT (3) level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=False color=#6E6E6E
+             text='02'
+  SHAPE name='TextBox 6' type=textbox pos=(0.55,0.4) size=(11.6x0.34) fill=None
+    FULL_TEXT:
+      | TEST DESIGN
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=12.5pt bold=True italic=False color=#F83000
+             text='TEST DESIGN'
+  SHAPE name='TextBox 7' type=textbox pos=(0.55,0.64) size=(12.0x0.62) fill=None
+    FULL_TEXT:
+      | 11 UNITS SWITCHED FROM MAX CONVERSIONS TO TARGET CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=30.0pt bold=True italic=False color=#161616
+             text='11 UNITS SWITCHED FROM MAX CONVERSIONS TO TARGET CPA'
+  SHAPE name='Rectangle 8' type=auto_shape pos=(0.58,1.24) size=(0.72x0.075) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 9' type=textbox pos=(1.0,1.65) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   409 Webster
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  409 Webster'
+  SHAPE name='Rectangle 10' type=auto_shape pos=(0.85,1.72) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 11' type=textbox pos=(1.0,2.07) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   731 Chubbuck
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  731 Chubbuck'
+  SHAPE name='Rectangle 12' type=auto_shape pos=(0.85,2.14) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 13' type=textbox pos=(1.0,2.49) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   730 Twin Falls
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  730 Twin Falls'
+  SHAPE name='Rectangle 14' type=auto_shape pos=(0.85,2.56) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 15' type=textbox pos=(1.0,2.91) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   699 Davenport
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  699 Davenport'
+  SHAPE name='Rectangle 16' type=auto_shape pos=(0.85,2.98) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 17' type=textbox pos=(1.0,3.33) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   574 Alamance Crossing
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  574 Alamance Crossing'
+  SHAPE name='Rectangle 18' type=auto_shape pos=(0.85,3.4) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 19' type=textbox pos=(1.0,3.75) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   579 Greenville Grande
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  579 Greenville Grande'
+  SHAPE name='Rectangle 20' type=auto_shape pos=(0.85,3.82) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 21' type=textbox pos=(4.5,1.65) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   105 Oxford Valley
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  105 Oxford Valley'
+  SHAPE name='Rectangle 22' type=auto_shape pos=(4.35,1.72) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 23' type=textbox pos=(4.5,2.07) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   219 Greeley
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  219 Greeley'
+  SHAPE name='Rectangle 24' type=auto_shape pos=(4.35,2.14) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 25' type=textbox pos=(4.5,2.49) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   299 Grove City
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  299 Grove City'
+  SHAPE name='Rectangle 26' type=auto_shape pos=(4.35,2.56) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 27' type=textbox pos=(4.5,2.91) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   68 Longmont
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  68 Longmont'
+  SHAPE name='Rectangle 28' type=auto_shape pos=(4.35,2.98) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 29' type=textbox pos=(4.5,3.33) size=(3.2x0.4) fill=None
+    FULL_TEXT:
+      |   73 Mid-Rivers
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text='  73 Mid-Rivers'
+  SHAPE name='Rectangle 30' type=auto_shape pos=(4.35,3.4) size=(0.1x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 31' type=auto_shape pos=(7.5,1.55) size=(5.3x3.5) fill=#F2F2F2
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 32' type=auto_shape pos=(7.5,1.55) size=(0.12x3.5) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 33' type=textbox pos=(7.8,1.65) size=(4.8x3.3) fill=None
+    FULL_TEXT:
+      | METHODOLOGY
+      | Pre period: Jan 1 – Mar 31 (90 days)
+      | Post period: Apr 1 – Jun 17 (78 days)
+      | Last 7 days excluded (store visit lag)
+      | Spend + conversions from BQ fact tables
+      | Store visits deduped from raw table (latest run per date)
+      | Guest count from POS (traffic_performance_dashboard)
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=11.0pt bold=True italic=False color=#F83000
+             text='METHODOLOGY'
+    para[1] align=LEFT (1) level=0
+      run[0]: font=Arial size=12.0pt bold=False italic=False color=#161616
+             text='Pre period: Jan 1 – Mar 31 (90 days)'
+    para[2] align=LEFT (1) level=0
+      run[0]: font=Arial size=12.0pt bold=False italic=False color=#161616
+             text='Post period: Apr 1 – Jun 17 (78 days)'
+    para[3] align=LEFT (1) level=0
+      run[0]: font=Arial size=12.0pt bold=False italic=False color=#161616
+             text='Last 7 days excluded (store visit lag)'
+    para[4] align=LEFT (1) level=0
+      run[0]: font=Arial size=12.0pt bold=False italic=False color=#161616
+             text='Spend + conversions from BQ fact tables'
+    para[5] align=LEFT (1) level=0
+      run[0]: font=Arial size=12.0pt bold=False italic=False color=#161616
+             text='Store visits deduped from raw table (latest run per date)'
+    para[6] align=LEFT (1) level=0
+      run[0]: font=Arial size=12.0pt bold=False italic=False color=#161616
+             text='Guest count from POS (traffic_performance_dashboard)'
+  SHAPE name='Rectangle 34' type=auto_shape pos=(0.7,5.5) size=(11.95x1.35) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 35' type=auto_shape pos=(0.7,5.5) size=(0.12x1.35) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 36' type=textbox pos=(1.0,5.6) size=(11.4x1.15) fill=None
+    FULL_TEXT:
+      | QUESTIONS
+      | 1. Did Target CPA units improve CPA more than the system?
+      | 2. Does store visit reporting latency inhibit Target CPA's optimization loop?
+      | 3. Did the efficiency gains translate to incremental guest traffic?
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=11.0pt bold=True italic=False color=#F83000
+             text='QUESTIONS'
+    para[1] align=LEFT (1) level=0
+      run[0]: font=Arial size=14.0pt bold=False italic=False color=#161616
+             text='1. Did Target CPA units improve CPA more than the system?'
+    para[2] align=LEFT (1) level=0
+      run[0]: font=Arial size=14.0pt bold=False italic=False color=#161616
+             text="2. Does store visit reporting latency inhibit Target CPA's optimization loop?"
+    para[3] align=LEFT (1) level=0
+      run[0]: font=Arial size=14.0pt bold=False italic=False color=#161616
+             text='3. Did the efficiency gains translate to incremental guest traffic?'
+
+================================================================================
+SLIDE 3 (index 2)
+================================================================================
+Layout: 'Blank'
+Dimensions: 13.333 x 7.5 in
+Shape count: 48
+  SHAPE name='Rectangle 1' type=auto_shape pos=(0.0,0.0) size=(13.333x7.5) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Picture 2' type=picture pos=(12.55,0.3) size=(0.34x0.372) fill=None
+    auto_shape_type=RECTANGLE (1)
+    picture content_type=image/png ext=png bytes=31103
+  SHAPE name='Rectangle 3' type=auto_shape pos=(0.55,7.16) size=(12.23x0.013) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 4' type=textbox pos=(0.5,7.2) size=(9.0x0.3) fill=None
+    FULL_TEXT:
+      | SURFACE   /   RED ROBIN — TARGET CPA TEST
+    para[0] align=None level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=None color=#F83000
+             text='SURFACE'
+      run[1]: font=Arial Narrow size=9.0pt bold=None italic=None color=#6E6E6E
+             text='   /   RED ROBIN — TARGET CPA TEST'
+  SHAPE name='TextBox 5' type=textbox pos=(11.8,7.2) size=(1.0x0.3) fill=None
+    FULL_TEXT:
+      | 03
+    para[0] align=RIGHT (3) level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=False color=#6E6E6E
+             text='03'
+  SHAPE name='TextBox 6' type=textbox pos=(0.55,0.4) size=(11.6x0.34) fill=None
+    FULL_TEXT:
+      | CPA RESULTS
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=12.5pt bold=True italic=False color=#F83000
+             text='CPA RESULTS'
+  SHAPE name='TextBox 7' type=textbox pos=(0.55,0.64) size=(12.0x0.62) fill=None
+    FULL_TEXT:
+      | TARGET CPA IMPROVED TOTAL CPA +7.6 PP OVER SYSTEM
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=30.0pt bold=True italic=False color=#161616
+             text='TARGET CPA IMPROVED TOTAL CPA +7.6 PP OVER SYSTEM'
+  SHAPE name='Rectangle 8' type=auto_shape pos=(0.58,1.24) size=(0.72x0.075) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 9' type=auto_shape pos=(0.7,1.6) size=(2.9x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 10' type=auto_shape pos=(0.7,1.6) size=(2.9x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 11' type=textbox pos=(0.85,1.78) size=(2.6x0.3) fill=None
+    FULL_TEXT:
+      | TEST — ALL PRIMARY CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='TEST — ALL PRIMARY CPA'
+  SHAPE name='TextBox 12' type=textbox pos=(0.85,2.1) size=(2.6x0.5) fill=None
+    FULL_TEXT:
+      | -21.1%
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#2D8659
+             text='-21.1%'
+  SHAPE name='TextBox 13' type=textbox pos=(0.85,2.65) size=(2.6x0.35) fill=None
+    FULL_TEXT:
+      | $1.22 → $0.97
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='$1.22 → $0.97'
+  SHAPE name='Rectangle 14' type=auto_shape pos=(3.8,1.6) size=(2.9x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 15' type=auto_shape pos=(3.8,1.6) size=(2.9x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 16' type=textbox pos=(3.95,1.78) size=(2.6x0.3) fill=None
+    FULL_TEXT:
+      | TEST — STORE VISIT CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='TEST — STORE VISIT CPA'
+  SHAPE name='TextBox 17' type=textbox pos=(3.95,2.1) size=(2.6x0.5) fill=None
+    FULL_TEXT:
+      | -14.2%
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#2D8659
+             text='-14.2%'
+  SHAPE name='TextBox 18' type=textbox pos=(3.95,2.65) size=(2.6x0.35) fill=None
+    FULL_TEXT:
+      | $2.40 → $2.06
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='$2.40 → $2.06'
+  SHAPE name='Rectangle 19' type=auto_shape pos=(6.9,1.6) size=(2.9x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 20' type=auto_shape pos=(6.9,1.6) size=(2.9x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 21' type=textbox pos=(7.05,1.78) size=(2.6x0.3) fill=None
+    FULL_TEXT:
+      | TEST — NON-SV CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='TEST — NON-SV CPA'
+  SHAPE name='TextBox 22' type=textbox pos=(7.05,2.1) size=(2.6x0.5) fill=None
+    FULL_TEXT:
+      | -27.2%
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#2D8659
+             text='-27.2%'
+  SHAPE name='TextBox 23' type=textbox pos=(7.05,2.65) size=(2.6x0.35) fill=None
+    FULL_TEXT:
+      | $2.49 → $1.81
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='$2.49 → $1.81'
+  SHAPE name='Rectangle 24' type=auto_shape pos=(0.7,3.3) size=(2.9x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 25' type=auto_shape pos=(0.7,3.3) size=(2.9x0.1) fill=#3D6FA0
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 26' type=textbox pos=(0.85,3.48) size=(2.6x0.3) fill=None
+    FULL_TEXT:
+      | SYSTEM — ALL PRIMARY CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='SYSTEM — ALL PRIMARY CPA'
+  SHAPE name='TextBox 27' type=textbox pos=(0.85,3.8) size=(2.6x0.5) fill=None
+    FULL_TEXT:
+      | -13.5%
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#2D8659
+             text='-13.5%'
+  SHAPE name='TextBox 28' type=textbox pos=(0.85,4.35) size=(2.6x0.35) fill=None
+    FULL_TEXT:
+      | Max Conversions baseline
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='Max Conversions baseline'
+  SHAPE name='Rectangle 29' type=auto_shape pos=(3.8,3.3) size=(2.9x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 30' type=auto_shape pos=(3.8,3.3) size=(2.9x0.1) fill=#3D6FA0
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 31' type=textbox pos=(3.95,3.48) size=(2.6x0.3) fill=None
+    FULL_TEXT:
+      | SYSTEM — STORE VISIT CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='SYSTEM — STORE VISIT CPA'
+  SHAPE name='TextBox 32' type=textbox pos=(3.95,3.8) size=(2.6x0.5) fill=None
+    FULL_TEXT:
+      | -13.5%
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#2D8659
+             text='-13.5%'
+  SHAPE name='TextBox 33' type=textbox pos=(3.95,4.35) size=(2.6x0.35) fill=None
+    FULL_TEXT:
+      | Max Conversions baseline
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='Max Conversions baseline'
+  SHAPE name='Rectangle 34' type=auto_shape pos=(6.9,3.3) size=(2.9x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 35' type=auto_shape pos=(6.9,3.3) size=(2.9x0.1) fill=#3D6FA0
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 36' type=textbox pos=(7.05,3.48) size=(2.6x0.3) fill=None
+    FULL_TEXT:
+      | SYSTEM — NON-SV CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='SYSTEM — NON-SV CPA'
+  SHAPE name='TextBox 37' type=textbox pos=(7.05,3.8) size=(2.6x0.5) fill=None
+    FULL_TEXT:
+      | -13.6%
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#2D8659
+             text='-13.6%'
+  SHAPE name='TextBox 38' type=textbox pos=(7.05,4.35) size=(2.6x0.35) fill=None
+    FULL_TEXT:
+      | Max Conversions baseline
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='Max Conversions baseline'
+  SHAPE name='Rectangle 39' type=auto_shape pos=(0.7,5.0) size=(2.9x0.7) fill=#F2F2F2
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 40' type=textbox pos=(0.8,5.05) size=(2.7x0.3) fill=None
+    FULL_TEXT:
+      | INCREMENTAL: ALL PRIMARY
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=9.5pt bold=True italic=False color=#6E6E6E
+             text='INCREMENTAL: ALL PRIMARY'
+  SHAPE name='TextBox 41' type=textbox pos=(0.8,5.3) size=(2.7x0.35) fill=None
+    FULL_TEXT:
+      | +7.6 pp
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=22.0pt bold=True italic=False color=#2D8659
+             text='+7.6 pp'
+  SHAPE name='Rectangle 42' type=auto_shape pos=(3.8,5.0) size=(2.9x0.7) fill=#F2F2F2
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 43' type=textbox pos=(3.9,5.05) size=(2.7x0.3) fill=None
+    FULL_TEXT:
+      | INCREMENTAL: STORE VISITS
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=9.5pt bold=True italic=False color=#6E6E6E
+             text='INCREMENTAL: STORE VISITS'
+  SHAPE name='TextBox 44' type=textbox pos=(3.9,5.3) size=(2.7x0.35) fill=None
+    FULL_TEXT:
+      | +0.7 pp
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=22.0pt bold=True italic=False color=#9A9A9A
+             text='+0.7 pp'
+  SHAPE name='Rectangle 45' type=auto_shape pos=(6.9,5.0) size=(2.9x0.7) fill=#F2F2F2
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 46' type=textbox pos=(7.0,5.05) size=(2.7x0.3) fill=None
+    FULL_TEXT:
+      | INCREMENTAL: NON-SV ACTIONS
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=9.5pt bold=True italic=False color=#6E6E6E
+             text='INCREMENTAL: NON-SV ACTIONS'
+  SHAPE name='TextBox 47' type=textbox pos=(7.0,5.3) size=(2.7x0.35) fill=None
+    FULL_TEXT:
+      | +13.6 pp
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=22.0pt bold=True italic=False color=#2D8659
+             text='+13.6 pp'
+  SHAPE name='TextBox 48' type=textbox pos=(0.7,5.9) size=(12.0x0.8) fill=None
+    FULL_TEXT:
+      | Incremental = Test CPA improvement minus System CPA improvement. Non-SV = directions + menu views + website visits + other engagements. CPA = total PMAX spend / conversion count.
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=True color=#6E6E6E
+             text='Incremental = Test CPA improvement minus System CPA improvement. Non-SV = directions + menu views + website visits + other engagements. CPA = total PMAX spend / conversion count.'
+
+================================================================================
+SLIDE 4 (index 3)
+================================================================================
+Layout: 'Blank'
+Dimensions: 13.333 x 7.5 in
+Shape count: 14
+  SHAPE name='Rectangle 1' type=auto_shape pos=(0.0,0.0) size=(13.333x7.5) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Picture 2' type=picture pos=(12.55,0.3) size=(0.34x0.372) fill=None
+    auto_shape_type=RECTANGLE (1)
+    picture content_type=image/png ext=png bytes=31103
+  SHAPE name='Rectangle 3' type=auto_shape pos=(0.55,7.16) size=(12.23x0.013) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 4' type=textbox pos=(0.5,7.2) size=(9.0x0.3) fill=None
+    FULL_TEXT:
+      | SURFACE   /   RED ROBIN — TARGET CPA TEST
+    para[0] align=None level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=None color=#F83000
+             text='SURFACE'
+      run[1]: font=Arial Narrow size=9.0pt bold=None italic=None color=#6E6E6E
+             text='   /   RED ROBIN — TARGET CPA TEST'
+  SHAPE name='TextBox 5' type=textbox pos=(11.8,7.2) size=(1.0x0.3) fill=None
+    FULL_TEXT:
+      | 04
+    para[0] align=RIGHT (3) level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=False color=#6E6E6E
+             text='04'
+  SHAPE name='TextBox 6' type=textbox pos=(0.55,0.4) size=(11.6x0.34) fill=None
+    FULL_TEXT:
+      | STORE VISIT LATENCY
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=12.5pt bold=True italic=False color=#F83000
+             text='STORE VISIT LATENCY'
+  SHAPE name='TextBox 7' type=textbox pos=(0.55,0.64) size=(12.0x0.62) fill=None
+    FULL_TEXT:
+      | TARGET CPA OPTIMIZES WHAT IT CAN SEE — NOT WHAT MATTERS
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=30.0pt bold=True italic=False color=#161616
+             text='TARGET CPA OPTIMIZES WHAT IT CAN SEE — NOT WHAT MATTERS'
+  SHAPE name='Rectangle 8' type=auto_shape pos=(0.58,1.24) size=(0.72x0.075) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Table 9' type=table pos=(0.7,1.55) size=(10.7x1.8) fill=None
+    TABLE 4x6
+    col_widths_in=[3.0, 1.5, 1.6, 1.5, 1.6, 1.5]
+    --- cell grid ---
+    ROW[0]: Conversion Type || Test Pre CPA || Test Post CPA || Test Change || System Change || Incremental
+    ROW[1]: All Primary Conversions || $1.22 || $0.97 || -21.1% || -13.5% || +7.6 pp
+    ROW[2]: Store Visits Only || $2.40 || $2.06 || -14.2% || -13.5% || +0.7 pp
+    ROW[3]: Non-SV Local Actions || $2.49 || $1.81 || -27.2% || -13.6% || +13.6 pp
+    --- cell detail ---
+    cell[0,0]:
+      'Conversion Type' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,1]:
+      'Test Pre CPA' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,2]:
+      'Test Post CPA' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,3]:
+      'Test Change' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,4]:
+      'System Change' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,5]:
+      'Incremental' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[1,0]:
+      'All Primary Conversions' font=Arial size=12.0 bold=True color=#161616
+    cell[1,1]:
+      '$1.22' font=Arial size=12.0 bold=False color=#161616
+    cell[1,2]:
+      '$0.97' font=Arial size=12.0 bold=False color=#161616
+    cell[1,3]:
+      '-21.1%' font=Arial size=12.0 bold=True color=#2D8659
+    cell[1,4]:
+      '-13.5%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[1,5]:
+      '+7.6 pp' font=Arial size=12.0 bold=True color=#2D8659
+    cell[2,0]:
+      'Store Visits Only' font=Arial size=12.0 bold=True color=#161616
+    cell[2,1]:
+      '$2.40' font=Arial size=12.0 bold=False color=#161616
+    cell[2,2]:
+      '$2.06' font=Arial size=12.0 bold=False color=#161616
+    cell[2,3]:
+      '-14.2%' font=Arial size=12.0 bold=True color=#2D8659
+    cell[2,4]:
+      '-13.5%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[2,5]:
+      '+0.7 pp' font=Arial size=12.0 bold=True color=#9A9A9A
+    cell[3,0]:
+      'Non-SV Local Actions' font=Arial size=12.0 bold=True color=#161616
+    cell[3,1]:
+      '$2.49' font=Arial size=12.0 bold=False color=#161616
+    cell[3,2]:
+      '$1.81' font=Arial size=12.0 bold=False color=#161616
+    cell[3,3]:
+      '-27.2%' font=Arial size=12.0 bold=True color=#2D8659
+    cell[3,4]:
+      '-13.6%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[3,5]:
+      '+13.6 pp' font=Arial size=12.0 bold=True color=#2D8659
+  SHAPE name='TextBox 10' type=textbox pos=(0.7,3.45) size=(12.0x0.3) fill=None
+    FULL_TEXT:
+      | DAILY CONVERSION VOLUME (NORMALIZED FOR PERIOD LENGTH)
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=11.0pt bold=True italic=False color=#F83000
+             text='DAILY CONVERSION VOLUME (NORMALIZED FOR PERIOD LENGTH)'
+  SHAPE name='Table 11' type=table pos=(0.7,3.75) size=(10.7x1.8) fill=None
+    TABLE 4x6
+    col_widths_in=[3.0, 1.5, 1.6, 1.5, 1.6, 1.5]
+    --- cell grid ---
+    ROW[0]: Metric || Test Pre || Test Post || Test Change || System Change || Incremental
+    ROW[1]: Store Visits / day || 175 || 223 || +27.4% || +13.0% || +14.4 pp
+    ROW[2]: Non-SV Actions / day || 169 || 254 || +50.2% || +13.2% || +37.0 pp
+    ROW[3]: All Primary / day || 344 || 477 || +38.6% || +13.1% || +25.5 pp
+    --- cell detail ---
+    cell[0,0]:
+      'Metric' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,1]:
+      'Test Pre' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,2]:
+      'Test Post' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,3]:
+      'Test Change' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,4]:
+      'System Change' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,5]:
+      'Incremental' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[1,0]:
+      'Store Visits / day' font=Arial size=12.0 bold=False color=#161616
+    cell[1,1]:
+      '175' font=Arial size=12.0 bold=False color=#161616
+    cell[1,2]:
+      '223' font=Arial size=12.0 bold=False color=#161616
+    cell[1,3]:
+      '+27.4%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[1,4]:
+      '+13.0%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[1,5]:
+      '+14.4 pp' font=Arial size=12.0 bold=False color=#2D8659
+    cell[2,0]:
+      'Non-SV Actions / day' font=Arial size=12.0 bold=False color=#161616
+    cell[2,1]:
+      '169' font=Arial size=12.0 bold=False color=#161616
+    cell[2,2]:
+      '254' font=Arial size=12.0 bold=False color=#161616
+    cell[2,3]:
+      '+50.2%' font=Arial size=12.0 bold=True color=#2D8659
+    cell[2,4]:
+      '+13.2%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[2,5]:
+      '+37.0 pp' font=Arial size=12.0 bold=True color=#2D8659
+    cell[3,0]:
+      'All Primary / day' font=Arial size=12.0 bold=False color=#161616
+    cell[3,1]:
+      '344' font=Arial size=12.0 bold=False color=#161616
+    cell[3,2]:
+      '477' font=Arial size=12.0 bold=False color=#161616
+    cell[3,3]:
+      '+38.6%' font=Arial size=12.0 bold=True color=#2D8659
+    cell[3,4]:
+      '+13.1%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[3,5]:
+      '+25.5 pp' font=Arial size=12.0 bold=True color=#2D8659
+  SHAPE name='Rectangle 12' type=auto_shape pos=(0.7,5.7) size=(11.95x1.2) fill=#F2F2F2
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 13' type=auto_shape pos=(0.7,5.7) size=(0.12x1.2) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 14' type=textbox pos=(1.0,5.78) size=(11.4x1.05) fill=None
+    FULL_TEXT:
+      | CONFIRMED
+      | Target CPA grew non-SV local actions +50%/day vs system's +13% (nearly 4x), but store visits only +27% vs +13%. The optimization loop works — it just steers toward the conversions it can measure in near real-time. Store visits report 7+ days late, so Target CPA under-credits Maps/local inventory impressions.
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=11.0pt bold=True italic=False color=#F83000
+             text='CONFIRMED'
+    para[1] align=LEFT (1) level=0
+      run[0]: font=Arial size=12.0pt bold=False italic=False color=#161616
+             text="Target CPA grew non-SV local actions +50%/day vs system's +13% (nearly 4x), but store visits only +27% vs +13%. The optimization loop works — it just steers toward the conversions it can measure in near real-time. Store visits report 7+ days late, so Target CPA under-credits Maps/local inventory impressions."
+
+================================================================================
+SLIDE 5 (index 4)
+================================================================================
+Layout: 'Blank'
+Dimensions: 13.333 x 7.5 in
+Shape count: 21
+  SHAPE name='Rectangle 1' type=auto_shape pos=(0.0,0.0) size=(13.333x7.5) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Picture 2' type=picture pos=(12.55,0.3) size=(0.34x0.372) fill=None
+    auto_shape_type=RECTANGLE (1)
+    picture content_type=image/png ext=png bytes=31103
+  SHAPE name='Rectangle 3' type=auto_shape pos=(0.55,7.16) size=(12.23x0.013) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 4' type=textbox pos=(0.5,7.2) size=(9.0x0.3) fill=None
+    FULL_TEXT:
+      | SURFACE   /   RED ROBIN — TARGET CPA TEST
+    para[0] align=None level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=None color=#F83000
+             text='SURFACE'
+      run[1]: font=Arial Narrow size=9.0pt bold=None italic=None color=#6E6E6E
+             text='   /   RED ROBIN — TARGET CPA TEST'
+  SHAPE name='TextBox 5' type=textbox pos=(11.8,7.2) size=(1.0x0.3) fill=None
+    FULL_TEXT:
+      | 05
+    para[0] align=RIGHT (3) level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=False color=#6E6E6E
+             text='05'
+  SHAPE name='TextBox 6' type=textbox pos=(0.55,0.4) size=(11.6x0.34) fill=None
+    FULL_TEXT:
+      | MECHANISM
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=12.5pt bold=True italic=False color=#F83000
+             text='MECHANISM'
+  SHAPE name='TextBox 7' type=textbox pos=(0.55,0.64) size=(12.0x0.62) fill=None
+    FULL_TEXT:
+      | WHY STORE VISIT LAG MATTERS FOR TARGET CPA BIDDING
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=30.0pt bold=True italic=False color=#161616
+             text='WHY STORE VISIT LAG MATTERS FOR TARGET CPA BIDDING'
+  SHAPE name='Rectangle 8' type=auto_shape pos=(0.58,1.24) size=(0.72x0.075) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 9' type=auto_shape pos=(0.7,1.55) size=(5.85x4.2) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 10' type=auto_shape pos=(0.7,1.55) size=(5.85x0.12) fill=#3D6FA0
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 11' type=textbox pos=(0.95,1.78) size=(5.3x0.35) fill=None
+    FULL_TEXT:
+      | MAX CONVERSIONS (SYSTEM DEFAULT)
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=14.0pt bold=True italic=False color=#161616
+             text='MAX CONVERSIONS (SYSTEM DEFAULT)'
+  SHAPE name='TextBox 12' type=textbox pos=(0.95,2.15) size=(5.3x0.3) fill=None
+    FULL_TEXT:
+      | Feedback speed: NOT CRITICAL
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.5pt bold=True italic=False color=#3D6FA0
+             text='Feedback speed: NOT CRITICAL'
+  SHAPE name='TextBox 13' type=textbox pos=(0.95,2.55) size=(5.3x2.8) fill=None
+    FULL_TEXT:
+      | Bids to maximize total conversions within budget. Doesn't target a specific cost threshold — so it doesn't need fast conversion feedback. It works fine with lagged store visits because it's not adjusting bids per-auction against a CPA target.
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text="Bids to maximize total conversions within budget. Doesn't target a specific cost threshold — so it doesn't need fast conversion feedback. It works fine with lagged store visits because it's not adjusting bids per-auction against a CPA target."
+  SHAPE name='Rectangle 14' type=auto_shape pos=(6.85,1.55) size=(5.85x4.2) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 15' type=auto_shape pos=(6.85,1.55) size=(5.85x0.12) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 16' type=textbox pos=(7.1,1.78) size=(5.3x0.35) fill=None
+    FULL_TEXT:
+      | TARGET CPA (TEST)
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=14.0pt bold=True italic=False color=#161616
+             text='TARGET CPA (TEST)'
+  SHAPE name='TextBox 17' type=textbox pos=(7.1,2.15) size=(5.3x0.3) fill=None
+    FULL_TEXT:
+      | Feedback speed: CRITICAL
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.5pt bold=True italic=False color=#F83000
+             text='Feedback speed: CRITICAL'
+  SHAPE name='TextBox 18' type=textbox pos=(7.1,2.55) size=(5.3x2.8) fill=None
+    FULL_TEXT:
+      | Actively adjusts bids per-auction against a cost target. Needs timely conversion signals to know whether recent auctions hit the target. When store visits report days late, it can't attribute them to the auctions that caused them — so it under-credits store-visit-heavy impressions (Maps, local inventory) and over-indexes on fast-reporting signals (directions, menu views).
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#161616
+             text="Actively adjusts bids per-auction against a cost target. Needs timely conversion signals to know whether recent auctions hit the target. When store visits report days late, it can't attribute them to the auctions that caused them — so it under-credits store-visit-heavy impressions (Maps, local inventory) and over-indexes on fast-reporting signals (directions, menu views)."
+  SHAPE name='Rectangle 19' type=auto_shape pos=(0.7,6.0) size=(11.95x0.95) fill=#F2F2F2
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 20' type=auto_shape pos=(0.7,6.0) size=(0.12x0.95) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 21' type=textbox pos=(1.0,6.08) size=(11.4x0.8) fill=None
+    FULL_TEXT:
+      | RESULT
+      | Target CPA optimizes around the store-visit goal, not toward it. The incremental conversions are softer local actions (directions, menu views) that don't translate to foot traffic.
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=11.0pt bold=True italic=False color=#F83000
+             text='RESULT'
+    para[1] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=True italic=False color=#161616
+             text="Target CPA optimizes around the store-visit goal, not toward it. The incremental conversions are softer local actions (directions, menu views) that don't translate to foot traffic."
+
+================================================================================
+SLIDE 6 (index 5)
+================================================================================
+Layout: 'Blank'
+Dimensions: 13.333 x 7.5 in
+Shape count: 24
+  SHAPE name='Rectangle 1' type=auto_shape pos=(0.0,0.0) size=(13.333x7.5) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Picture 2' type=picture pos=(12.55,0.3) size=(0.34x0.372) fill=None
+    auto_shape_type=RECTANGLE (1)
+    picture content_type=image/png ext=png bytes=31103
+  SHAPE name='Rectangle 3' type=auto_shape pos=(0.55,7.16) size=(12.23x0.013) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 4' type=textbox pos=(0.5,7.2) size=(9.0x0.3) fill=None
+    FULL_TEXT:
+      | SURFACE   /   RED ROBIN — TARGET CPA TEST
+    para[0] align=None level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=None color=#F83000
+             text='SURFACE'
+      run[1]: font=Arial Narrow size=9.0pt bold=None italic=None color=#6E6E6E
+             text='   /   RED ROBIN — TARGET CPA TEST'
+  SHAPE name='TextBox 5' type=textbox pos=(11.8,7.2) size=(1.0x0.3) fill=None
+    FULL_TEXT:
+      | 06
+    para[0] align=RIGHT (3) level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=False color=#6E6E6E
+             text='06'
+  SHAPE name='TextBox 6' type=textbox pos=(0.55,0.4) size=(11.6x0.34) fill=None
+    FULL_TEXT:
+      | 1P GUEST COUNT
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=12.5pt bold=True italic=False color=#F83000
+             text='1P GUEST COUNT'
+  SHAPE name='TextBox 7' type=textbox pos=(0.55,0.64) size=(12.0x0.62) fill=None
+    FULL_TEXT:
+      | NO MEANINGFUL LIFT FROM TARGET CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=30.0pt bold=True italic=False color=#161616
+             text='NO MEANINGFUL LIFT FROM TARGET CPA'
+  SHAPE name='Rectangle 8' type=auto_shape pos=(0.58,1.24) size=(0.72x0.075) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 9' type=auto_shape pos=(0.7,1.55) size=(3.7x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 10' type=auto_shape pos=(0.7,1.55) size=(3.7x0.1) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 11' type=textbox pos=(0.85,1.73) size=(3.4x0.3) fill=None
+    FULL_TEXT:
+      | TEST — AVG DAILY GUESTS/UNIT
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='TEST — AVG DAILY GUESTS/UNIT'
+  SHAPE name='TextBox 12' type=textbox pos=(0.85,2.05) size=(3.4x0.5) fill=None
+    FULL_TEXT:
+      | -0.2%
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#9A9A9A
+             text='-0.2%'
+  SHAPE name='TextBox 13' type=textbox pos=(0.85,2.6) size=(3.4x0.35) fill=None
+    FULL_TEXT:
+      | 405 → 404 guests/unit/day
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='405 → 404 guests/unit/day'
+  SHAPE name='Rectangle 14' type=auto_shape pos=(4.6,1.55) size=(3.7x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 15' type=auto_shape pos=(4.6,1.55) size=(3.7x0.1) fill=#3D6FA0
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 16' type=textbox pos=(4.75,1.73) size=(3.4x0.3) fill=None
+    FULL_TEXT:
+      | SYSTEM — AVG DAILY GUESTS/UNIT
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='SYSTEM — AVG DAILY GUESTS/UNIT'
+  SHAPE name='TextBox 17' type=textbox pos=(4.75,2.05) size=(3.4x0.5) fill=None
+    FULL_TEXT:
+      | -1.1%
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#9A9A9A
+             text='-1.1%'
+  SHAPE name='TextBox 18' type=textbox pos=(4.75,2.6) size=(3.4x0.35) fill=None
+    FULL_TEXT:
+      | 454 → 449 guests/unit/day
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='454 → 449 guests/unit/day'
+  SHAPE name='Rectangle 19' type=auto_shape pos=(8.5,1.55) size=(3.7x1.45) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 20' type=auto_shape pos=(8.5,1.55) size=(3.7x0.1) fill=#262626
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 21' type=textbox pos=(8.65,1.73) size=(3.4x0.3) fill=None
+    FULL_TEXT:
+      | DID VS SYSTEM
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=10.0pt bold=True italic=False color=#6E6E6E
+             text='DID VS SYSTEM'
+  SHAPE name='TextBox 22' type=textbox pos=(8.65,2.05) size=(3.4x0.5) fill=None
+    FULL_TEXT:
+      | +0.9 pp
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=32.0pt bold=True italic=False color=#9A9A9A
+             text='+0.9 pp'
+  SHAPE name='TextBox 23' type=textbox pos=(8.65,2.6) size=(3.4x0.35) fill=None
+    FULL_TEXT:
+      | <1 guest/unit/day = not meaningful
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=10.0pt bold=False italic=False color=#6E6E6E
+             text='<1 guest/unit/day = not meaningful'
+  SHAPE name='Table 24' type=table pos=(0.7,3.3) size=(8.5x5.4) fill=None
+    TABLE 12x3
+    col_widths_in=[3.5, 2.5, 2.5]
+    --- cell grid ---
+    ROW[0]: Unit || Guest Change || DiD vs System
+    ROW[1]: 730 Twin Falls || +2.4% || +3.5 pp
+    ROW[2]: 299 Grove City || +2.3% || +3.4 pp
+    ROW[3]: 409 Webster || -0.2% || +0.9 pp
+    ROW[4]: 68 Longmont || -0.6% || +0.5 pp
+    ROW[5]: 699 Davenport || -1.0% || +0.1 pp
+    ROW[6]: 579 Greenville || -1.4% || -0.3 pp
+    ROW[7]: 574 Alamance Xing || -2.3% || -1.2 pp
+    ROW[8]: 105 Oxford Valley || -2.8% || -1.7 pp
+    ROW[9]: 219 Greeley || -3.4% || -2.3 pp
+    ROW[10]: 731 Chubbuck || -3.8% || -2.7 pp
+    ROW[11]: 73 Mid-Rivers || -5.4% || -4.3 pp
+    --- cell detail ---
+    cell[0,0]:
+      'Unit' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,1]:
+      'Guest Change' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[0,2]:
+      'DiD vs System' font=Arial Narrow size=11.0 bold=True color=#FFFFFF
+    cell[1,0]:
+      '730 Twin Falls' font=Arial size=12.0 bold=False color=#161616
+    cell[1,1]:
+      '+2.4%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[1,2]:
+      '+3.5 pp' font=Arial size=12.0 bold=True color=#2D8659
+    cell[2,0]:
+      '299 Grove City' font=Arial size=12.0 bold=False color=#161616
+    cell[2,1]:
+      '+2.3%' font=Arial size=12.0 bold=False color=#2D8659
+    cell[2,2]:
+      '+3.4 pp' font=Arial size=12.0 bold=True color=#2D8659
+    cell[3,0]:
+      '409 Webster' font=Arial size=12.0 bold=False color=#161616
+    cell[3,1]:
+      '-0.2%' font=Arial size=12.0 bold=False color=#9A9A9A
+    cell[3,2]:
+      '+0.9 pp' font=Arial size=12.0 bold=True color=#9A9A9A
+    cell[4,0]:
+      '68 Longmont' font=Arial size=12.0 bold=False color=#161616
+    cell[4,1]:
+      '-0.6%' font=Arial size=12.0 bold=False color=#9A9A9A
+    cell[4,2]:
+      '+0.5 pp' font=Arial size=12.0 bold=True color=#9A9A9A
+    cell[5,0]:
+      '699 Davenport' font=Arial size=12.0 bold=False color=#161616
+    cell[5,1]:
+      '-1.0%' font=Arial size=12.0 bold=False color=#9A9A9A
+    cell[5,2]:
+      '+0.1 pp' font=Arial size=12.0 bold=True color=#9A9A9A
+    cell[6,0]:
+      '579 Greenville' font=Arial size=12.0 bold=False color=#161616
+    cell[6,1]:
+      '-1.4%' font=Arial size=12.0 bold=False color=#9A9A9A
+    cell[6,2]:
+      '-0.3 pp' font=Arial size=12.0 bold=True color=#9A9A9A
+    cell[7,0]:
+      '574 Alamance Xing' font=Arial size=12.0 bold=False color=#161616
+    cell[7,1]:
+      '-2.3%' font=Arial size=12.0 bold=False color=#161616
+    cell[7,2]:
+      '-1.2 pp' font=Arial size=12.0 bold=True color=#161616
+    cell[8,0]:
+      '105 Oxford Valley' font=Arial size=12.0 bold=False color=#161616
+    cell[8,1]:
+      '-2.8%' font=Arial size=12.0 bold=False color=#161616
+    cell[8,2]:
+      '-1.7 pp' font=Arial size=12.0 bold=True color=#161616
+    cell[9,0]:
+      '219 Greeley' font=Arial size=12.0 bold=False color=#161616
+    cell[9,1]:
+      '-3.4%' font=Arial size=12.0 bold=False color=#C0392B
+    cell[9,2]:
+      '-2.3 pp' font=Arial size=12.0 bold=True color=#C0392B
+    cell[10,0]:
+      '731 Chubbuck' font=Arial size=12.0 bold=False color=#161616
+    cell[10,1]:
+      '-3.8%' font=Arial size=12.0 bold=False color=#C0392B
+    cell[10,2]:
+      '-2.7 pp' font=Arial size=12.0 bold=True color=#C0392B
+    cell[11,0]:
+      '73 Mid-Rivers' font=Arial size=12.0 bold=False color=#161616
+    cell[11,1]:
+      '-5.4%' font=Arial size=12.0 bold=False color=#C0392B
+    cell[11,2]:
+      '-4.3 pp' font=Arial size=12.0 bold=True color=#C0392B
+
+================================================================================
+SLIDE 7 (index 6)
+================================================================================
+Layout: 'Blank'
+Dimensions: 13.333 x 7.5 in
+Shape count: 24
+  SHAPE name='Rectangle 1' type=auto_shape pos=(0.0,0.0) size=(13.333x7.5) fill=#121212
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Picture 2' type=picture pos=(12.55,0.3) size=(0.34x0.372) fill=None
+    auto_shape_type=RECTANGLE (1)
+    picture content_type=image/png ext=png bytes=32653
+  SHAPE name='Rectangle 3' type=auto_shape pos=(0.55,7.16) size=(12.23x0.013) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 4' type=textbox pos=(0.5,7.2) size=(9.0x0.3) fill=None
+    FULL_TEXT:
+      | SURFACE   /   RED ROBIN — TARGET CPA TEST
+    para[0] align=None level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=None color=#F83000
+             text='SURFACE'
+      run[1]: font=Arial Narrow size=9.0pt bold=None italic=None color=#CFCFCF
+             text='   /   RED ROBIN — TARGET CPA TEST'
+  SHAPE name='TextBox 5' type=textbox pos=(11.8,7.2) size=(1.0x0.3) fill=None
+    FULL_TEXT:
+      | 07
+    para[0] align=RIGHT (3) level=0
+      run[0]: font=Arial Narrow size=9.0pt bold=True italic=False color=#CFCFCF
+             text='07'
+  SHAPE name='TextBox 6' type=textbox pos=(0.55,0.4) size=(11.6x0.34) fill=None
+    FULL_TEXT:
+      | BOTTOM LINE
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=12.5pt bold=True italic=False color=#F83000
+             text='BOTTOM LINE'
+  SHAPE name='TextBox 7' type=textbox pos=(0.55,0.64) size=(12.0x0.62) fill=None
+    FULL_TEXT:
+      | TARGET CPA WORKS — BUT NOT ON STORE VISITS
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=30.0pt bold=True italic=False color=#FFFFFF
+             text='TARGET CPA WORKS — BUT NOT ON STORE VISITS'
+  SHAPE name='Rectangle 8' type=auto_shape pos=(0.58,1.24) size=(0.72x0.075) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='Rectangle 9' type=auto_shape pos=(0.7,1.55) size=(0.08x1.2) fill=#2D8659
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 10' type=textbox pos=(0.95,1.6) size=(0.5x0.35) fill=None
+    FULL_TEXT:
+      | 01
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=22.0pt bold=True italic=False color=#2D8659
+             text='01'
+  SHAPE name='TextBox 11' type=textbox pos=(1.55,1.6) size=(3.5x0.35) fill=None
+    FULL_TEXT:
+      | TARGET CPA IMPROVES TOTAL CPA
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=14.0pt bold=True italic=False color=#FFFFFF
+             text='TARGET CPA IMPROVES TOTAL CPA'
+  SHAPE name='TextBox 12' type=textbox pos=(1.55,1.97) size=(10.5x0.7) fill=None
+    FULL_TEXT:
+      | +7.6 pp incremental improvement over Max Conversions on all primary conversions. The bidding strategy is working.
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#CFCFCF
+             text='+7.6 pp incremental improvement over Max Conversions on all primary conversions. The bidding strategy is working.'
+  SHAPE name='Rectangle 13' type=auto_shape pos=(0.7,2.97) size=(0.08x1.2) fill=#F83000
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 14' type=textbox pos=(0.95,3.02) size=(0.5x0.35) fill=None
+    FULL_TEXT:
+      | 02
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=22.0pt bold=True italic=False color=#F83000
+             text='02'
+  SHAPE name='TextBox 15' type=textbox pos=(1.55,3.02) size=(3.5x0.35) fill=None
+    FULL_TEXT:
+      | STORE VISIT LATENCY LIMITS IT
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=14.0pt bold=True italic=False color=#FFFFFF
+             text='STORE VISIT LATENCY LIMITS IT'
+  SHAPE name='TextBox 16' type=textbox pos=(1.55,3.39) size=(10.5x0.7) fill=None
+    FULL_TEXT:
+      | Only +0.7 pp on store visits vs +13.6 pp on fast-reporting local actions. Target CPA can't optimize toward a conversion it can't see in real time.
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#CFCFCF
+             text="Only +0.7 pp on store visits vs +13.6 pp on fast-reporting local actions. Target CPA can't optimize toward a conversion it can't see in real time."
+  SHAPE name='Rectangle 17' type=auto_shape pos=(0.7,4.39) size=(0.08x1.2) fill=#9A9A9A
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 18' type=textbox pos=(0.95,4.44) size=(0.5x0.35) fill=None
+    FULL_TEXT:
+      | 03
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=22.0pt bold=True italic=False color=#9A9A9A
+             text='03'
+  SHAPE name='TextBox 19' type=textbox pos=(1.55,4.44) size=(3.5x0.35) fill=None
+    FULL_TEXT:
+      | NO GUEST COUNT LIFT
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=14.0pt bold=True italic=False color=#FFFFFF
+             text='NO GUEST COUNT LIFT'
+  SHAPE name='TextBox 20' type=textbox pos=(1.55,4.81) size=(10.5x0.7) fill=None
+    FULL_TEXT:
+      | Test units held -0.2% vs system -1.1% (+0.9 pp DiD). Less than 1 guest/unit/day difference — not meaningful. The incremental conversions (directions, menu views) don't drive foot traffic.
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#CFCFCF
+             text="Test units held -0.2% vs system -1.1% (+0.9 pp DiD). Less than 1 guest/unit/day difference — not meaningful. The incremental conversions (directions, menu views) don't drive foot traffic."
+  SHAPE name='Rectangle 21' type=auto_shape pos=(0.7,5.81) size=(0.08x1.2) fill=#FFFFFF
+    auto_shape_type=RECTANGLE (1)
+    (empty text)
+  SHAPE name='TextBox 22' type=textbox pos=(0.95,5.86) size=(0.5x0.35) fill=None
+    FULL_TEXT:
+      | 04
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=22.0pt bold=True italic=False color=#FFFFFF
+             text='04'
+  SHAPE name='TextBox 23' type=textbox pos=(1.55,5.86) size=(3.5x0.35) fill=None
+    FULL_TEXT:
+      | RECOMMENDATION
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial Narrow size=14.0pt bold=True italic=False color=#FFFFFF
+             text='RECOMMENDATION'
+  SHAPE name='TextBox 24' type=textbox pos=(1.55,6.23) size=(10.5x0.7) fill=None
+    FULL_TEXT:
+      | Keep Max Conversions for store-visit-goal PMAX. Target CPA optimizes around the goal, not toward it. Revisit only if Google shortens store visit reporting latency.
+    para[0] align=LEFT (1) level=0
+      run[0]: font=Arial size=13.0pt bold=False italic=False color=#CFCFCF
+             text='Keep Max Conversions for store-visit-goal PMAX. Target CPA optimizes around the goal, not toward it. Revisit only if Google shortens store visit reporting latency.'
+
+================================================================================
+NARRATIVE / CONTENT INDEX (text + tables only)
+================================================================================
+
+----- SLIDE 1 -----
+SURFACE   /   RED ROBIN — TARGET CPA TEST
+---
+01
+---
+RED ROBIN PMAX
+TARGET CPA BIDDING TEST
+Does Target CPA improve efficiency — and does store visit latency limit it?
+---
+11 TEST UNITS VS ~444 SYSTEM   ·   PRE: JAN 1 – MAR 31   ·   POST: APR 1 – JUN 17   ·   LAST 7 DAYS EXCLUDED
+---
+
+----- SLIDE 2 -----
+SURFACE   /   RED ROBIN — TARGET CPA TEST
+---
+02
+---
+TEST DESIGN
+---
+11 UNITS SWITCHED FROM MAX CONVERSIONS TO TARGET CPA
+---
+  409 Webster
+---
+  731 Chubbuck
+---
+  730 Twin Falls
+---
+  699 Davenport
+---
+  574 Alamance Crossing
+---
+  579 Greenville Grande
+---
+  105 Oxford Valley
+---
+  219 Greeley
+---
+  299 Grove City
+---
+  68 Longmont
+---
+  73 Mid-Rivers
+---
+METHODOLOGY
+Pre period: Jan 1 – Mar 31 (90 days)
+Post period: Apr 1 – Jun 17 (78 days)
+Last 7 days excluded (store visit lag)
+Spend + conversions from BQ fact tables
+Store visits deduped from raw table (latest run per date)
+Guest count from POS (traffic_performance_dashboard)
+---
+QUESTIONS
+1. Did Target CPA units improve CPA more than the system?
+2. Does store visit reporting latency inhibit Target CPA's optimization loop?
+3. Did the efficiency gains translate to incremental guest traffic?
+---
+
+----- SLIDE 3 -----
+SURFACE   /   RED ROBIN — TARGET CPA TEST
+---
+03
+---
+CPA RESULTS
+---
+TARGET CPA IMPROVED TOTAL CPA +7.6 PP OVER SYSTEM
+---
+TEST — ALL PRIMARY CPA
+---
+-21.1%
+---
+$1.22 → $0.97
+---
+TEST — STORE VISIT CPA
+---
+-14.2%
+---
+$2.40 → $2.06
+---
+TEST — NON-SV CPA
+---
+-27.2%
+---
+$2.49 → $1.81
+---
+SYSTEM — ALL PRIMARY CPA
+---
+-13.5%
+---
+Max Conversions baseline
+---
+SYSTEM — STORE VISIT CPA
+---
+-13.5%
+---
+Max Conversions baseline
+---
+SYSTEM — NON-SV CPA
+---
+-13.6%
+---
+Max Conversions baseline
+---
+INCREMENTAL: ALL PRIMARY
+---
++7.6 pp
+---
+INCREMENTAL: STORE VISITS
+---
++0.7 pp
+---
+INCREMENTAL: NON-SV ACTIONS
+---
++13.6 pp
+---
+Incremental = Test CPA improvement minus System CPA improvement. Non-SV = directions + menu views + website visits + other engagements. CPA = total PMAX spend / conversion count.
+---
+
+----- SLIDE 4 -----
+SURFACE   /   RED ROBIN — TARGET CPA TEST
+---
+04
+---
+STORE VISIT LATENCY
+---
+TARGET CPA OPTIMIZES WHAT IT CAN SEE — NOT WHAT MATTERS
+---
+Conversion Type | Test Pre CPA | Test Post CPA | Test Change | System Change | Incremental
+All Primary Conversions | $1.22 | $0.97 | -21.1% | -13.5% | +7.6 pp
+Store Visits Only | $2.40 | $2.06 | -14.2% | -13.5% | +0.7 pp
+Non-SV Local Actions | $2.49 | $1.81 | -27.2% | -13.6% | +13.6 pp
+---TABLE---
+DAILY CONVERSION VOLUME (NORMALIZED FOR PERIOD LENGTH)
+---
+Metric | Test Pre | Test Post | Test Change | System Change | Incremental
+Store Visits / day | 175 | 223 | +27.4% | +13.0% | +14.4 pp
+Non-SV Actions / day | 169 | 254 | +50.2% | +13.2% | +37.0 pp
+All Primary / day | 344 | 477 | +38.6% | +13.1% | +25.5 pp
+---TABLE---
+CONFIRMED
+Target CPA grew non-SV local actions +50%/day vs system's +13% (nearly 4x), but store visits only +27% vs +13%. The optimization loop works — it just steers toward the conversions it can measure in near real-time. Store visits report 7+ days late, so Target CPA under-credits Maps/local inventory impressions.
+---
+
+----- SLIDE 5 -----
+SURFACE   /   RED ROBIN — TARGET CPA TEST
+---
+05
+---
+MECHANISM
+---
+WHY STORE VISIT LAG MATTERS FOR TARGET CPA BIDDING
+---
+MAX CONVERSIONS (SYSTEM DEFAULT)
+---
+Feedback speed: NOT CRITICAL
+---
+Bids to maximize total conversions within budget. Doesn't target a specific cost threshold — so it doesn't need fast conversion feedback. It works fine with lagged store visits because it's not adjusting bids per-auction against a CPA target.
+---
+TARGET CPA (TEST)
+---
+Feedback speed: CRITICAL
+---
+Actively adjusts bids per-auction against a cost target. Needs timely conversion signals to know whether recent auctions hit the target. When store visits report days late, it can't attribute them to the auctions that caused them — so it under-credits store-visit-heavy impressions (Maps, local inventory) and over-indexes on fast-reporting signals (directions, menu views).
+---
+RESULT
+Target CPA optimizes around the store-visit goal, not toward it. The incremental conversions are softer local actions (directions, menu views) that don't translate to foot traffic.
+---
+
+----- SLIDE 6 -----
+SURFACE   /   RED ROBIN — TARGET CPA TEST
+---
+06
+---
+1P GUEST COUNT
+---
+NO MEANINGFUL LIFT FROM TARGET CPA
+---
+TEST — AVG DAILY GUESTS/UNIT
+---
+-0.2%
+---
+405 → 404 guests/unit/day
+---
+SYSTEM — AVG DAILY GUESTS/UNIT
+---
+-1.1%
+---
+454 → 449 guests/unit/day
+---
+DID VS SYSTEM
+---
++0.9 pp
+---
+<1 guest/unit/day = not meaningful
+---
+Unit | Guest Change | DiD vs System
+730 Twin Falls | +2.4% | +3.5 pp
+299 Grove City | +2.3% | +3.4 pp
+409 Webster | -0.2% | +0.9 pp
+68 Longmont | -0.6% | +0.5 pp
+699 Davenport | -1.0% | +0.1 pp
+579 Greenville | -1.4% | -0.3 pp
+574 Alamance Xing | -2.3% | -1.2 pp
+105 Oxford Valley | -2.8% | -1.7 pp
+219 Greeley | -3.4% | -2.3 pp
+731 Chubbuck | -3.8% | -2.7 pp
+73 Mid-Rivers | -5.4% | -4.3 pp
+---TABLE---
+
+----- SLIDE 7 -----
+SURFACE   /   RED ROBIN — TARGET CPA TEST
+---
+07
+---
+BOTTOM LINE
+---
+TARGET CPA WORKS — BUT NOT ON STORE VISITS
+---
+01
+---
+TARGET CPA IMPROVES TOTAL CPA
+---
++7.6 pp incremental improvement over Max Conversions on all primary conversions. The bidding strategy is working.
+---
+02
+---
+STORE VISIT LATENCY LIMITS IT
+---
+Only +0.7 pp on store visits vs +13.6 pp on fast-reporting local actions. Target CPA can't optimize toward a conversion it can't see in real time.
+---
+03
+---
+NO GUEST COUNT LIFT
+---
+Test units held -0.2% vs system -1.1% (+0.9 pp DiD). Less than 1 guest/unit/day difference — not meaningful. The incremental conversions (directions, menu views) don't drive foot traffic.
+---
+04
+---
+RECOMMENDATION
+---
+Keep Max Conversions for store-visit-goal PMAX. Target CPA optimizes around the goal, not toward it. Revisit only if Google shortens store visit reporting latency.
+---
