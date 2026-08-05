@@ -55,7 +55,18 @@ export function Terms() {
           signed client agreement controls for that engagement.
         </p>
 
-        <h2>5. Intellectual property</h2>
+        <h2>5. Text messaging</h2>
+        <p>
+          If you opt in to receive SMS from MOSAIC through our{' '}
+          <Link to="/sms-opt-in">SMS opt-in page</Link> or the optional consent
+          checkbox on our contact form, you agree to receive recurring
+          promotional and informational text messages. Message frequency varies.
+          Message and data rates may apply. Consent is not a condition of any
+          purchase. Reply STOP to cancel and HELP for help. Additional details
+          are in our <Link to="/privacy">Privacy Policy</Link>.
+        </p>
+
+        <h2>6. Intellectual property</h2>
         <p>
           The Site and its content — including text, graphics, logos, layouts,
           and design — are owned by MOSAIC or our licensors and are protected by
@@ -70,22 +81,23 @@ export function Terms() {
           examples belong to their respective owners.
         </p>
 
-        <h2>6. Third-party services and links</h2>
+        <h2>7. Third-party services and links</h2>
         <p>
           The Site may link to or embed third-party tools (for example Calendly
-          for scheduling, Formspree for form delivery, and Google Analytics).
+          for scheduling, Formspree for form delivery, SimpleTexting or similar
+          SMS providers, and Google Analytics).
           We are not responsible for third-party sites, services, or their
           terms. Your use of those services is subject to their own policies.
         </p>
 
-        <h2>7. Privacy</h2>
+        <h2>8. Privacy</h2>
         <p>
           How we collect and use personal information is described in our{' '}
           <Link to="/privacy">Privacy Policy</Link>. By using the Site, you
           acknowledge that policy.
         </p>
 
-        <h2>8. Disclaimers</h2>
+        <h2>9. Disclaimers</h2>
         <p>
           THE SITE IS PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot;
           WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING
@@ -99,7 +111,7 @@ export function Terms() {
           campaign.
         </p>
 
-        <h2>9. Limitation of liability</h2>
+        <h2>10. Limitation of liability</h2>
         <p>
           TO THE MAXIMUM EXTENT PERMITTED BY LAW, MOSAIC AND ITS OWNERS,
           EMPLOYEES, AND AGENTS WILL NOT BE LIABLE FOR ANY INDIRECT,
@@ -113,7 +125,7 @@ export function Terms() {
           our liability is limited to the fullest extent permitted by law.
         </p>
 
-        <h2>10. Indemnification</h2>
+        <h2>11. Indemnification</h2>
         <p>
           You agree to indemnify and hold harmless MOSAIC and its owners,
           employees, and agents from claims, damages, losses, and expenses
@@ -121,14 +133,14 @@ export function Terms() {
           of the Site or your violation of these Terms.
         </p>
 
-        <h2>11. Changes to the Site or Terms</h2>
+        <h2>12. Changes to the Site or Terms</h2>
         <p>
           We may update the Site or these Terms at any time. The &quot;Last
           updated&quot; date will change when we revise the Terms. Continued use
           of the Site after changes means you accept the updated Terms.
         </p>
 
-        <h2>12. Governing law</h2>
+        <h2>13. Governing law</h2>
         <p>
           These Terms are governed by the laws of the State of Idaho, without
           regard to conflict-of-law rules. Courts located in Idaho will have
@@ -136,7 +148,7 @@ export function Terms() {
           Site, except where applicable law requires otherwise.
         </p>
 
-        <h2>13. Contact</h2>
+        <h2>14. Contact</h2>
         <p>
           Questions about these Terms:
           <br />

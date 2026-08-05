@@ -37,9 +37,9 @@ export function SmsOptIn() {
           <>
             <p>
               Use the form below to subscribe. You can also opt in from our{' '}
-              <a href="/#contact">contact form</a> at the bottom of the home
-              page by entering your phone number and checking the SMS consent
-              box.
+              <Link to={{ pathname: '/', hash: 'contact' }}>contact form</Link>{' '}
+              at the bottom of the home page by entering your phone number and
+              checking the SMS consent box.
             </p>
 
             <form className="sms-opt-in-form" onSubmit={handleSubmit}>
