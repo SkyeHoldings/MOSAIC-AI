@@ -28,12 +28,17 @@ export function Privacy() {
 
         <h2>2. Information we collect</h2>
         <h3>Information you provide</h3>
-        <p>When you use our contact form or otherwise reach out, we may collect:</p>
+        <p>
+          When you use our contact form, SMS opt-in form, or otherwise reach out,
+          we may collect:
+        </p>
         <ul>
           <li>Name</li>
           <li>Email address</li>
+          <li>Mobile phone number</li>
           <li>Company name</li>
           <li>Area of interest or message content</li>
+          <li>SMS opt-in consent and related disclosures you accept</li>
           <li>Any other details you choose to share</li>
         </ul>
         <p>
@@ -66,10 +71,27 @@ export function Privacy() {
           <li>Provide, improve, and operate our Site and services</li>
           <li>Understand Site performance and visitor interest</li>
           <li>Send follow-up communications related to your request</li>
+          <li>
+            Send text messages you have opted into (for example promotional
+            updates, appointment reminders, and related MOSAIC messages)
+          </li>
           <li>Protect against misuse and comply with legal obligations</li>
         </ul>
         <p>
-          We do not sell your personal information.
+          We do not sell your personal information. We do not sell or share
+          mobile phone numbers with third parties or affiliates for their own
+          marketing.
+        </p>
+        <h3>Text messaging</h3>
+        <p>
+          If you opt in to SMS through our{' '}
+          <Link to="/sms-opt-in">SMS opt-in page</Link> or the optional consent
+          checkbox on our contact form, you may receive recurring promotional
+          and informational texts from MOSAIC. Message frequency varies. Message
+          and data rates may apply. Reply STOP to cancel and HELP for help.
+          Consent is not a condition of any purchase. You can also email{' '}
+          <a href="mailto:skye@hellomosaic.ai">skye@hellomosaic.ai</a> to update
+          your preferences.
         </p>
 
         <h2>4. How we share information</h2>
@@ -77,9 +99,9 @@ export function Privacy() {
         <ul>
           <li>
             <strong>Service providers</strong> who help us run the Site and
-            communications — for example Formspree (contact form delivery),
-            Calendly (scheduling), Google Analytics (analytics), and hosting
-            providers
+            communications — for example Formspree (form delivery), SimpleTexting
+            or similar SMS providers (text messaging), Calendly (scheduling),
+            Google Analytics (analytics), and hosting providers
           </li>
           <li>
             <strong>Professional advisors</strong> such as lawyers or

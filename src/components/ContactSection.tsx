@@ -1,7 +1,8 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import { useForm, ValidationError } from '@formspree/react'
 import { useLocation } from 'react-router-dom'
 import { expertise } from '../data/work'
+import { SmsConsent } from './SmsConsent'
 
 const FORMSPREE_ID =
   (import.meta.env.VITE_FORMSPREE_FORM_ID as string | undefined) || 'xpqvjowe'
@@ -27,8 +28,10 @@ export function ContactSection() {
   const { search } = useLocation()
   const [open, setOpen] = useState(false)
   const [capability, setCapability] = useState('')
+  const [smsConsent, setSmsConsent] = useState(false)
   const menusRef = useRef<HTMLDivElement>(null)
   const capabilityId = useId()
+  const smsConsentId = useId()
 
   useEffect(() => {
     const prefill = readPrefill(search)
@@ -54,6 +57,27 @@ export function ContactSection() {
     }
   }, [])
 
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    const form = event.currentTarget
+    const phone = (
+      form.elements.namedItem('phone') as HTMLInputElement | null
+    )?.value.trim()
+
+    if (smsConsent && !phone) {
+      event.preventDefault()
+      const phoneInput = form.elements.namedItem('phone') as HTMLInputElement
+      phoneInput.setCustomValidity(
+        'Please enter a mobile number to opt in to texts.',
+      )
+      phoneInput.reportValidity()
+      return
+    }
+
+    const phoneInput = form.elements.namedItem('phone') as HTMLInputElement
+    phoneInput.setCustomValidity('')
+    void handleSubmit(event)
+  }
+
   return (
     <section id="contact" className="contact-section" aria-labelledby="contact-heading">
       <div className="contact-grid">
@@ -74,7 +98,8 @@ export function ContactSection() {
             </p>
           </div>
         ) : (
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form className="contact-form" onSubmit={onSubmit}>
+            <input type="hidden" name="form_type" value="contact" />
             <div className="field">
               <label htmlFor="home-name">Name</label>
               <input id="home-name" name="name" required autoComplete="name" />
@@ -115,6 +140,30 @@ export function ContactSection() {
                 className="form-note form-note-error"
               />
             </div>
+            <div className="field">
+              <label htmlFor="home-phone">Mobile phone (optional)</label>
+              <input
+                id="home-phone"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                inputMode="tel"
+                onChange={(event) => event.currentTarget.setCustomValidity('')}
+              />
+              <ValidationError
+                prefix="Phone"
+                field="phone"
+                errors={state.errors}
+                className="form-note form-note-error"
+              />
+            </div>
+
+            <SmsConsent
+              id={smsConsentId}
+              tone="dark"
+              checked={smsConsent}
+              onChange={setSmsConsent}
+            />
 
             <div className="field contact-selects-field">
               <span className="contact-selects-label" id="contact-interest-label">
