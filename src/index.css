@@ -5869,6 +5869,65 @@ p {
   max-width: 44rem;
 }
 
+/* ---------- Legal pages ---------- */
+.legal-page {
+  padding-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.legal-hero .legal-kicker {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.legal-body {
+  max-width: 44rem;
+  padding: 0 var(--page-pad);
+  display: grid;
+  gap: 1rem;
+}
+
+.legal-body h2 {
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  margin-top: 1.5rem;
+}
+
+.legal-body h3 {
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+}
+
+.legal-body p,
+.legal-body li {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.legal-body ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.legal-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-body a:hover {
+  opacity: 0.65;
+}
+
+.legal-nav {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
 /* ---------- Case study ---------- */
 .case-hero {
   padding: clamp(3rem, 6vw, 5rem) var(--page-pad) 2rem;

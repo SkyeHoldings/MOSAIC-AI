@@ -37,6 +37,8 @@ export function Footer() {
             <Link to="/">Home</Link>
             <Link to="/services">Services</Link>
             <a href="/#contact">Contact</a>
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">Terms &amp; Conditions</Link>
           </nav>
         </div>
       </div>
