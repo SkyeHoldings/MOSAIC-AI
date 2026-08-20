@@ -4,6 +4,7 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { BusinessCard } from './pages/BusinessCard'
 import { Home } from './pages/Home'
+import { LeadLeakCheck } from './pages/LeadLeakCheck'
 import { OneSheet } from './pages/OneSheet'
 import { Privacy } from './pages/Privacy'
 import { Services } from './pages/Services'
@@ -44,6 +45,8 @@ export default function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/sms-opt-in" element={<SmsOptIn />} />
+          <Route path="/lead-leak-check" element={<LeadLeakCheck />} />
+          <Route path="/free" element={<Navigate to="/lead-leak-check" replace />} />
           <Route path="/businesscard" element={<BusinessCard />} />
           <Route path="/onesheet" element={<OneSheet />} />
           <Route path="/work/:id" element={<WorkDetail />} />
