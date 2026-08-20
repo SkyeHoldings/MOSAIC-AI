@@ -31,8 +31,17 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  const { pathname } = useLocation()
+  const { pathname, search, hash } = useLocation()
   const isStandalonePage = pathname === '/businesscard' || pathname === '/onesheet'
+
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    return (
+      <Navigate
+        to={`${pathname.replace(/\/+$/, '')}${search}${hash}`}
+        replace
+      />
+    )
+  }
 
   return (
     <div className="site-shell">
@@ -46,7 +55,7 @@ export default function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/sms-opt-in" element={<SmsOptIn />} />
           <Route path="/lead-leak-check" element={<LeadLeakCheck />} />
-          <Route path="/free" element={<Navigate to="/lead-leak-check" replace />} />
+          <Route path="/free" element={<LeadLeakCheck />} />
           <Route path="/businesscard" element={<BusinessCard />} />
           <Route path="/onesheet" element={<OneSheet />} />
           <Route path="/work/:id" element={<WorkDetail />} />
