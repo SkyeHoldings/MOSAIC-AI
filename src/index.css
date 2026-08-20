@@ -59,7 +59,8 @@ a {
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
   color: inherit;
 }
@@ -7002,15 +7003,33 @@ p {
 }
 
 .contact-form .field input,
-.contact-form .field textarea {
+.contact-form .field textarea,
+.contact-form .field select {
   color: #ffffff;
   -webkit-text-fill-color: #ffffff;
   border-bottom-color: rgba(255, 255, 255, 0.35);
   caret-color: #ffffff;
 }
 
+.contact-form .field select {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0;
+  padding: 0.65rem 0;
+  outline: none;
+}
+
+.contact-form .field select option {
+  color: #111;
+  -webkit-text-fill-color: #111;
+  background: #fff;
+}
+
 .contact-form .field input:focus,
-.contact-form .field textarea:focus {
+.contact-form .field textarea:focus,
+.contact-form .field select:focus {
   border-bottom-color: #ffffff;
 }
 
@@ -7018,6 +7037,16 @@ p {
 .contact-form .field textarea::placeholder {
   color: rgba(255, 255, 255, 0.45);
   -webkit-text-fill-color: rgba(255, 255, 255, 0.45);
+}
+
+.contact-form > .btn {
+  margin-top: 0.35rem;
+}
+
+.contact-form > .btn:hover {
+  background: #fff;
+  color: #0a0a0a;
+  border-color: #fff;
 }
 
 .contact-form .field input:-webkit-autofill,
@@ -7050,7 +7079,8 @@ p {
 }
 
 .field input,
-.field textarea {
+.field textarea,
+.field select {
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--line);
@@ -7061,7 +7091,8 @@ p {
 }
 
 .field input:focus,
-.field textarea:focus {
+.field textarea:focus,
+.field select:focus {
   border-bottom-color: var(--text);
 }
 
@@ -7543,5 +7574,231 @@ p {
   .os__chamber img {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+}
+
+/* ---------- Stage 0 Lead Leak Check ---------- */
+.leak-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--assist-mid);
+}
+
+.leak-hero .leak-kicker {
+  animation: assist-rise 700ms ease both;
+}
+
+.leak-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 0.5rem;
+  animation: assist-rise 700ms ease 140ms both;
+}
+
+.leak-hero__cta {
+  width: auto;
+  min-width: 12.5rem;
+  text-decoration: none;
+}
+
+.leak-hero__quiet {
+  font-size: 0.92rem;
+  color: var(--assist-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.leak-hero__quiet:hover {
+  opacity: 0.65;
+}
+
+.leak-band {
+  padding: clamp(2rem, 5vw, 3.25rem) var(--page-pad);
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+
+.leak-band p {
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: center;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.55;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.leak-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding: clamp(3rem, 7vw, 5.5rem) var(--page-pad);
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.leak-split h2 {
+  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+  letter-spacing: -0.025em;
+  margin: 0.4rem 0 1.25rem;
+}
+
+.leak-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1.15rem;
+}
+
+.leak-list li {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.leak-list strong {
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.leak-list span {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.leak-steps {
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--page-pad) clamp(3rem, 7vw, 5.5rem);
+  background: #f5f5f5;
+}
+
+.leak-steps__intro,
+.leak-look__intro {
+  max-width: 40rem;
+  margin-bottom: 1.75rem;
+}
+
+.leak-steps h2,
+.leak-look h2,
+.leak-fit h2 {
+  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+  letter-spacing: -0.025em;
+  margin-top: 0.4rem;
+}
+
+.leak-steps__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  max-width: 68rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leak-step {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  min-height: 14rem;
+  padding: 1.5rem 1.4rem 1.6rem;
+  border-radius: 1.15rem;
+  background: #fff;
+}
+
+.leak-step__n {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--faint);
+}
+
+.leak-step h3,
+.leak-look__card h3 {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.leak-step p,
+.leak-look__card p,
+.leak-fit li {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.leak-look {
+  padding: clamp(3rem, 7vw, 5.5rem) var(--page-pad);
+  background: #fff;
+}
+
+.leak-look__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 68rem;
+}
+
+.leak-look__card {
+  padding: 1.5rem 1.4rem;
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 0.45rem;
+}
+
+.leak-fit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--page-pad) clamp(3.5rem, 8vw, 6rem);
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.leak-fit ul {
+  margin: 1.1rem 0 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.leak-claim {
+  background: #fff;
+  border-top: 1px solid var(--line);
+}
+
+.leak-claim .leak-kicker {
+  color: var(--muted);
+}
+
+.leak-cal-intro {
+  padding: 0 var(--page-pad) 1rem;
+  background: #fff;
+  text-align: center;
+}
+
+.leak-cal-intro p {
+  max-width: 40rem;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+@media (max-width: 900px) {
+  .leak-split,
+  .leak-fit,
+  .leak-look__grid,
+  .leak-steps__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .leak-step {
+    min-height: 0;
+  }
+
+  .leak-hero__cta {
+    width: 100%;
   }
 }
