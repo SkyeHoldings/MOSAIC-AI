@@ -790,11 +790,25 @@ p {
 
 /* ---------- Brand marquee (under home hero) ---------- */
 .brand-marquee {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand-marquee__banner {
+  margin: 0;
+  padding: 1.2rem var(--page-pad);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+  background: #0a0a0a;
+}
+
+.brand-marquee__viewport {
   position: relative;
   overflow: hidden;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: #fff;
 }
 
 .brand-marquee__track {
@@ -802,8 +816,8 @@ p {
   width: max-content;
   min-width: 100%;
   gap: clamp(2rem, 4vw, 4rem);
-  padding: 1rem var(--page-pad);
-  animation: marquee-scroll 24s linear infinite;
+  padding: 0.75rem var(--page-pad) 1rem;
+  animation: marquee-scroll 38s linear infinite;
 }
 
 .brand-marquee__item {
@@ -826,8 +840,9 @@ p {
 }
 
 .brand-mark {
-  display: block;
+  display: flex;
   align-items: center;
+  height: var(--brand-height, 2.4rem);
   width: var(--brand-width, 8rem);
   color: inherit;
 }
@@ -835,9 +850,12 @@ p {
 .brand-mark__image {
   display: block;
   width: 100%;
-  height: auto;
-  filter: grayscale(1) brightness(0.76) contrast(0.9);
-  opacity: 0.78;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  transform: translateY(var(--brand-shift, 0));
+  filter: grayscale(1) brightness(0.42) contrast(1.05);
+  opacity: 0.82;
 }
 
 @keyframes marquee-scroll {

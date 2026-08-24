@@ -1,4 +1,5 @@
 import { AssistHero } from '../components/AssistHero'
+import { BrandMarquee } from '../components/BrandMarquee'
 import { CalendlySection } from '../components/CalendlySection'
 import { ContactSection } from '../components/ContactSection'
 import { FeatureShowcase } from '../components/FeatureShowcase'
@@ -11,6 +12,8 @@ export function Home() {
   return (
     <>
       <AssistHero />
+
+      <BrandMarquee />
 
       <ShippedShowcase />
 
