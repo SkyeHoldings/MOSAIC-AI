@@ -48,10 +48,10 @@ export function Terms() {
 
         <h2>4. Inquiries, proposals, and client work</h2>
         <p>
-          Submitting a contact form, completing the private program brief, or
+          Submitting a contact form, completing the private growth diagnostic, or
           booking a call does not obligate either party to enter into a paid
-          engagement. The program brief is an informal working snapshot, not a
-          proposal, contract, or validated assessment. Any services we provide are
+          engagement. The growth diagnostic is a self-score to prepare a
+          conversation, not a proposal, contract, or validated assessment. Any services we provide are
           governed by a separate written agreement (such as a proposal, MSA, or
           statement of work). If those documents conflict with these Terms, the
           signed client agreement controls for that engagement.

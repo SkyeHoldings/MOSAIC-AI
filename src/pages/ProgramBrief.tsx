@@ -3,14 +3,29 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { CalendlySection } from '../components/CalendlySection'
 import { DigitalEarthCanvas } from '../components/DigitalEarthCanvas'
 import {
+  GrowthClusterMap,
+  GrowthScoreBars,
+} from '../components/GrowthScoreChart'
+import {
+  DIAGNOSTIC_SCALE,
+  DIAGNOSTIC_TOTAL_PAGES,
+  GOAL_OPTIONS,
+  OWNER_OPTIONS,
+  SCALE_LEGEND,
+  SERVICES,
+  SOURCE_OPTIONS,
+  answeredRatingCount,
+  isFactsReady,
+  isYouReady,
+  ratingsComplete,
+  ratingsOnPage,
+  type CustomerSource,
+  type DiagnosticAnswers,
+  type Goal12,
+  type MarketingOwner,
+} from '../data/growthDiagnostic'
+import {
   BRIEF_STORAGE_KEY,
-  BUDGET_OPTIONS,
-  DURATION_OPTIONS,
-  PROCESS_OPTIONS,
-  ROLE_OPTIONS,
-  SUPPORT_OPTIONS,
-  type BriefAnswers,
-  type SupportId,
   briefPayload,
   buildBriefReport,
   emptyBriefAnswers,
@@ -21,82 +36,31 @@ import {
 const FORMSPREE_ID =
   (import.meta.env.VITE_FORMSPREE_FORM_ID as string | undefined) || 'xpqvjowe'
 
-const STAGES = [
-  'code',
-  'you',
-  'direction',
-  'partnership',
-  'fit',
-  'context',
-  'report',
-] as const
-
+const STAGES = ['code', 'you', 'facts', 'services', 'building', 'report'] as const
 type Stage = (typeof STAGES)[number]
 
-const STAGE_META: Record<
-  Exclude<Stage, 'code' | 'report'>,
-  { kicker: string; title: string; note: string }
-> = {
-  you: {
-    kicker: 'Before we begin',
-    title: 'First, introduce yourself.',
-    note: 'Skye receives your completed brief and uses it to prepare the next conversation. Other visitors cannot see your answers.',
-  },
-  direction: {
-    kicker: '01 / Direction',
-    title: 'Where are you trying to go?',
-    note: 'Be specific if you can. Rough numbers are more useful than polished language.',
-  },
-  partnership: {
-    kicker: '02 / How we would work',
-    title: 'What kind of support do you actually need?',
-    note: 'You can choose more than one. We will sequence the work from there.',
-  },
-  fit: {
-    kicker: '03 / Fit',
-    title: 'Team, time, and investment.',
-    note: 'MOSAIC usually starts with a discovery audit around $5,000. Base monthly fees start at $20,000 for a 6-month engagement. Ad spend is separate.',
-  },
-  context: {
-    kicker: '04 / Context',
-    title: 'What is and is not working.',
-    note: 'Optional, but this is what makes the brief useful. Leave out names you would rather keep private.',
-  },
-}
-
-function toggleSupport(current: SupportId[], id: SupportId) {
-  return current.includes(id)
-    ? current.filter((item) => item !== id)
-    : [...current, id]
-}
-
-function isYouReady(answers: BriefAnswers) {
-  return (
-    answers.name.trim().length > 1 &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(answers.email) &&
-    answers.consent
-  )
-}
-
-function isDirectionReady(answers: BriefAnswers) {
-  return answers.goals6.trim().length > 8 || answers.goals12.trim().length > 8
-}
-
-function isPartnershipReady(answers: BriefAnswers) {
-  return answers.support.length > 0 && Boolean(answers.duration)
-}
-
-function isFitReady(answers: BriefAnswers) {
-  return Boolean(answers.budget) && Boolean(answers.process)
+function setRating(
+  current: DiagnosticAnswers,
+  index: number,
+  value: number,
+): DiagnosticAnswers {
+  return {
+    ...current,
+    ratings: {
+      ...current.ratings,
+      [index]: value,
+    },
+  }
 }
 
 export function ProgramBrief() {
   const [searchParams] = useSearchParams()
   const [stage, setStage] = useState<Stage>('code')
+  const [servicePage, setServicePage] = useState(0)
   const [code, setCode] = useState(searchParams.get('code') ?? '')
   const [codeError, setCodeError] = useState('')
   const [checkingCode, setCheckingCode] = useState(false)
-  const [answers, setAnswers] = useState<BriefAnswers>(emptyBriefAnswers)
+  const [answers, setAnswers] = useState<DiagnosticAnswers>(emptyBriefAnswers)
   const [hydrated, setHydrated] = useState(false)
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>(
     'idle',
@@ -109,10 +73,20 @@ export function ProgramBrief() {
     () => (stage === 'report' ? buildBriefReport(answers) : null),
     [answers, stage],
   )
+  const service = SERVICES[servicePage]
+  const answeredCount = answeredRatingCount(answers)
+  const quizProgress =
+    stage === 'facts'
+      ? 1 / DIAGNOSTIC_TOTAL_PAGES
+      : stage === 'services'
+        ? (servicePage + 2) / DIAGNOSTIC_TOTAL_PAGES
+        : stage === 'building' || stage === 'report'
+          ? 1
+          : 0.06
 
   useEffect(() => {
     const previous = document.title
-    document.title = 'Program Brief · MOSAIC'
+    document.title = 'Growth Diagnostic · MOSAIC'
     return () => {
       document.title = previous
     }
@@ -120,9 +94,7 @@ export function ProgramBrief() {
 
   useEffect(() => {
     try {
-      const stored = parseStoredBrief(
-        window.localStorage.getItem(BRIEF_STORAGE_KEY),
-      )
+      const stored = parseStoredBrief(window.localStorage.getItem(BRIEF_STORAGE_KEY))
       if (stored) setAnswers(stored)
     } catch {
       /* ignore private-mode storage */
@@ -151,7 +123,7 @@ export function ProgramBrief() {
     if (stage !== 'report' || !report) return
     let cancelled = false
     setSaveState('saving')
-    setSaveNote('Saving your brief for Skye…')
+    setSaveNote('Saving your picture for Skye…')
 
     const timer = window.setTimeout(async () => {
       try {
@@ -166,13 +138,13 @@ export function ProgramBrief() {
         if (!response.ok) throw new Error('save failed')
         if (!cancelled) {
           setSaveState('saved')
-          setSaveNote('Your completed brief is saved for Skye.')
+          setSaveNote('Your completed picture is saved for Skye.')
         }
       } catch {
         if (!cancelled) {
           setSaveState('error')
           setSaveNote(
-            'Your brief is still here in this browser, but it has not been sent yet. Retry below.',
+            'Your answers are still here in this browser, but they have not been sent yet. Retry below.',
           )
         }
       }
@@ -182,7 +154,16 @@ export function ProgramBrief() {
       cancelled = true
       window.clearTimeout(timer)
     }
-  }, [report, saveAttempt, stage])
+  }, [answers, report, saveAttempt, stage])
+
+  useEffect(() => {
+    if (stage !== 'building') return
+    const timer = window.setTimeout(() => {
+      setStage('report')
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }, 700)
+    return () => window.clearTimeout(timer)
+  }, [stage])
 
   function go(next: Stage) {
     setStage(next)
@@ -205,39 +186,8 @@ export function ProgramBrief() {
 
   async function copySnapshot() {
     if (!report) return
-    const text = [
-      `MOSAIC | Program brief | ${answers.company || answers.name}`,
-      '',
-      report.headline,
-      '',
-      report.overview,
-      '',
-      'KEEP',
-      report.keep,
-      '',
-      'LOOK MORE CLOSELY',
-      report.leak,
-      '',
-      'HOW WE WOULD WORK',
-      report.partnership,
-      '',
-      'HOW WE WOULD MEASURE',
-      report.measure,
-      '',
-      'ENGAGEMENT',
-      report.engagement,
-      '',
-      'INVESTMENT',
-      report.budgetNote,
-      '',
-      'FIRST 30 DAYS',
-      report.firstMove,
-      '',
-      'This is an informal working brief, not a proposal or contract.',
-    ].join('\n')
-
     try {
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(report.snapshot)
       setCopied(true)
       window.setTimeout(() => setCopied(false), 2000)
     } catch {
@@ -245,19 +195,27 @@ export function ProgramBrief() {
     }
   }
 
-  const quizIndex = STAGES.indexOf(stage)
+  const mailto = report
+    ? `mailto:${encodeURIComponent(answers.email)}?subject=${encodeURIComponent(
+        'Your MOSAIC growth picture',
+      )}&body=${encodeURIComponent(
+        `You answered five facts about the business and scored 10 marketing services. The lowest scores are where assistance would matter first. This is the picture we would use to prepare a working session.\n\n${report.snapshot}`,
+      )}`
+    : ''
 
   return (
     <article className="brief-page">
       {stage === 'code' ? (
         <section className="assist-hero leak-hero" aria-labelledby="brief-heading">
           <div className="assist-hero__copy">
-            <p className="leak-kicker">Private · Invite only</p>
-            <h1 id="brief-heading">A working brief before we talk.</h1>
+            <p className="leak-kicker">Private · 5 facts · 10 services · 30 ratings</p>
+            <h1 id="brief-heading">Where is your marketing leaking?</h1>
             <p>
-              For people considering MOSAIC as a marketing partner. About 8–10
-              minutes. You get a snapshot of how we would work together. Skye
-              gets a prepared conversation instead of a cold intro call.
+              First, five facts about the business. Then rate how true each
+              statement is of your marketing today, on the same 1–5 scale the
+              whole way through. At the end you get a ranked picture of where
+              assistance would actually move the number — not a generic “you
+              need more ads” report.
             </p>
             <form className="brief-code-form" onSubmit={submitCode}>
               <label htmlFor="brief-code">Invite code</label>
@@ -281,7 +239,7 @@ export function ProgramBrief() {
                   {codeError}
                 </p>
               ) : (
-                <p className="form-note">Use the code from your invite.</p>
+                <p className="form-note">Use the code from your invite. About 8 minutes.</p>
               )}
               <button className="btn" type="submit" disabled={checkingCode}>
                 {checkingCode ? 'Checking…' : 'Continue'}
@@ -294,419 +252,386 @@ export function ProgramBrief() {
         </section>
       ) : null}
 
-      {stage !== 'code' && stage !== 'report' ? (
+      {stage === 'you' || stage === 'facts' || stage === 'services' || stage === 'building' ? (
         <section className="quiz-shell brief-shell">
           <div className="brief-progress" aria-hidden="true">
-            <span style={{ width: `${(quizIndex / (STAGES.length - 1)) * 100}%` }} />
+            <span style={{ width: `${Math.max(8, quizProgress * 100)}%` }} />
           </div>
-          <p className="leak-kicker">{STAGE_META[stage].kicker}</p>
-          <h1>{STAGE_META[stage].title}</h1>
-          <p className="brief-note">{STAGE_META[stage].note}</p>
 
           {stage === 'you' ? (
-            <div className="brief-fields">
-              <label className="field">
-                <span>Your name</span>
-                <input
-                  value={answers.name}
-                  autoComplete="name"
-                  maxLength={100}
-                  onChange={(event) =>
-                    setAnswers((current) => ({ ...current, name: event.target.value }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>Email</span>
-                <input
-                  type="email"
-                  value={answers.email}
-                  autoComplete="email"
-                  maxLength={200}
-                  onChange={(event) =>
-                    setAnswers((current) => ({ ...current, email: event.target.value }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>Company</span>
-                <input
-                  value={answers.company}
-                  autoComplete="organization"
-                  maxLength={160}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      company: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>Your role</span>
-                <select
-                  value={answers.role}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      role: event.target.value as BriefAnswers['role'],
-                    }))
-                  }
-                >
-                  {ROLE_OPTIONS.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="brief-consent">
-                <input
-                  type="checkbox"
-                  checked={answers.consent}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      consent: event.target.checked,
-                    }))
-                  }
-                />
-                <span>
-                  I understand Skye will receive this completed brief and use it
-                  to prepare a conversation about MOSAIC marketing support. This
-                  is not a proposal or a contract.
-                </span>
-              </label>
-            </div>
-          ) : null}
-
-          {stage === 'direction' ? (
-            <div className="brief-fields">
-              <label className="field">
-                <span>What are you looking to achieve in the next 6 months?</span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.goals6}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      goals6: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>What about 1 year from now?</span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.goals12}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      goals12: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>
-                  What KPIs would you use to track success if we worked together?
-                </span>
-                <textarea
-                  rows={3}
-                  maxLength={1500}
-                  value={answers.kpis}
-                  placeholder="Booked jobs, revenue, qualified calls, cost per job — whatever is true."
-                  onChange={(event) =>
-                    setAnswers((current) => ({ ...current, kpis: event.target.value }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>How fast has the business grown in the past year?</span>
-                <textarea
-                  rows={3}
-                  maxLength={1500}
-                  value={answers.growthPast}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      growthPast: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>
-                  How fast do you need revenue or profit to grow the rest of this
-                  year — and next year?
-                </span>
-                <textarea
-                  rows={3}
-                  maxLength={1500}
-                  value={answers.growthWanted}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      growthWanted: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-            </div>
-          ) : null}
-
-          {stage === 'partnership' ? (
-            <div className="brief-fields">
-              <fieldset className="brief-choices">
-                <legend>What type of work are you looking for support on?</legend>
-                {SUPPORT_OPTIONS.map((option) => {
-                  const selected = answers.support.includes(option.id)
-                  return (
-                    <label
-                      key={option.id}
-                      className={`brief-choice${selected ? ' is-selected' : ''}`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selected}
-                        onChange={() =>
-                          setAnswers((current) => ({
-                            ...current,
-                            support: toggleSupport(current.support, option.id),
-                          }))
-                        }
-                      />
-                      <span>
-                        <strong>{option.title}</strong>
-                        {option.body}
-                      </span>
-                    </label>
-                  )
-                })}
-              </fieldset>
-
-              <fieldset className="brief-choices">
-                <legend>How long are you looking for support?</legend>
-                {DURATION_OPTIONS.map((option) => (
-                  <label
-                    key={option.id}
-                    className={`brief-choice${
-                      answers.duration === option.id ? ' is-selected' : ''
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="duration"
-                      checked={answers.duration === option.id}
-                      onChange={() =>
-                        setAnswers((current) => ({
-                          ...current,
-                          duration: option.id,
-                        }))
-                      }
-                    />
-                    <span>
-                      <strong>{option.label}</strong>
-                      {option.hint}
-                    </span>
-                  </label>
-                ))}
-              </fieldset>
-
-              {answers.duration === 'in-house' ? (
+            <>
+              <p className="leak-kicker">Before we begin</p>
+              <h1>First, introduce yourself.</h1>
+              <p className="brief-note">
+                Skye receives your completed picture and uses it to prepare the
+                next conversation. Other visitors cannot see your answers. Your
+                answers stay in this browser until you finish.
+              </p>
+              <div className="brief-fields">
                 <label className="field">
-                  <span>At what point would you want the work in-house?</span>
+                  <span>Your name</span>
                   <input
-                    maxLength={240}
-                    value={answers.inHouseWhen}
-                    placeholder="After 6 months, when we hire a coordinator, next spring…"
+                    value={answers.name}
+                    autoComplete="name"
+                    maxLength={100}
+                    onChange={(event) =>
+                      setAnswers((current) => ({ ...current, name: event.target.value }))
+                    }
+                  />
+                </label>
+                <label className="field">
+                  <span>Email</span>
+                  <input
+                    type="email"
+                    value={answers.email}
+                    autoComplete="email"
+                    maxLength={200}
+                    onChange={(event) =>
+                      setAnswers((current) => ({ ...current, email: event.target.value }))
+                    }
+                  />
+                </label>
+                <label className="field">
+                  <span>Company</span>
+                  <input
+                    value={answers.company}
+                    autoComplete="organization"
+                    maxLength={160}
                     onChange={(event) =>
                       setAnswers((current) => ({
                         ...current,
-                        inHouseWhen: event.target.value,
+                        company: event.target.value,
                       }))
                     }
                   />
                 </label>
-              ) : null}
-
-              <label className="field">
-                <span>
-                  Tell me about your current team: headcount, upcoming hires, and
-                  resource gaps.
-                </span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.team}
-                  onChange={(event) =>
-                    setAnswers((current) => ({ ...current, team: event.target.value }))
-                  }
-                />
-              </label>
-            </div>
+                <label className="brief-consent">
+                  <input
+                    type="checkbox"
+                    checked={answers.consent}
+                    onChange={(event) =>
+                      setAnswers((current) => ({
+                        ...current,
+                        consent: event.target.checked,
+                      }))
+                    }
+                  />
+                  <span>
+                    I understand Skye will receive this completed picture and use
+                    it to prepare a conversation about MOSAIC marketing support.
+                    This is not a proposal or a contract.
+                  </span>
+                </label>
+              </div>
+            </>
           ) : null}
 
-          {stage === 'fit' ? (
-            <div className="brief-fields">
-              <fieldset className="brief-choices">
-                <legend>What is the target budget?</legend>
-                {BUDGET_OPTIONS.map((option) => (
-                  <label
-                    key={option.id}
-                    className={`brief-choice${
-                      answers.budget === option.id ? ' is-selected' : ''
-                    }`}
-                  >
+          {stage === 'facts' ? (
+            <>
+              <div className="brief-quiz-heading">
+                <div>
+                  <p className="leak-kicker">About the business · 1 of 11</p>
+                  <h1>A few facts so the picture is about your company.</h1>
+                </div>
+                <p className="brief-progress-label">Part 1 of 11 · 5 facts</p>
+              </div>
+              <p className="brief-note">
+                Approximate is fine. These five are not scored. They make the
+                picture at the end about your company, not a generic report.
+              </p>
+              <div className="brief-fields">
+                <div className="field">
+                  <span>About how much revenue did the business do in the last 12 months?</span>
+                  <div className="brief-money">
+                    <b className="brief-money-prefix" aria-hidden="true">$</b>
                     <input
-                      type="radio"
-                      name="budget"
-                      checked={answers.budget === option.id}
-                      onChange={() =>
+                      inputMode="decimal"
+                      placeholder="0"
+                      aria-label="Annual revenue last 12 months"
+                      disabled={answers.revenuePreferNot}
+                      value={answers.revenuePreferNot ? '' : answers.revenueInput}
+                      onChange={(event) =>
                         setAnswers((current) => ({
                           ...current,
-                          budget: option.id,
+                          revenueInput: event.target.value,
+                          revenuePreferNot: false,
                         }))
                       }
                     />
-                    <span>
-                      <strong>{option.label}</strong>
-                      {option.hint}
-                    </span>
-                  </label>
-                ))}
-              </fieldset>
-
-              <fieldset className="brief-choices">
-                <legend>Where are you today in your selection process?</legend>
-                {PROCESS_OPTIONS.map((option) => (
-                  <label
-                    key={option.id}
-                    className={`brief-choice${
-                      answers.process === option.id ? ' is-selected' : ''
-                    }`}
-                  >
+                  </div>
+                  <p className="brief-field-help">Approximate is fine. Whole dollars. No need for cents.</p>
+                  <label className="brief-prefer-not">
                     <input
-                      type="radio"
-                      name="process"
-                      checked={answers.process === option.id}
-                      onChange={() =>
+                      type="checkbox"
+                      checked={answers.revenuePreferNot}
+                      onChange={(event) =>
                         setAnswers((current) => ({
                           ...current,
-                          process: option.id,
+                          revenuePreferNot: event.target.checked,
                         }))
                       }
                     />
-                    <span>
-                      <strong>{option.label}</strong>
-                    </span>
+                    Prefer not to say
                   </label>
-                ))}
-              </fieldset>
+                </div>
+
+                <div className="field">
+                  <span>About how much do you spend on ads in a typical month? If it is zero, put 0.</span>
+                  <div className="brief-money">
+                    <b className="brief-money-prefix" aria-hidden="true">$</b>
+                    <input
+                      inputMode="decimal"
+                      placeholder="0"
+                      aria-label="Typical monthly ad spend"
+                      disabled={answers.spendPreferNot}
+                      value={answers.spendPreferNot ? '' : answers.spendInput}
+                      onChange={(event) =>
+                        setAnswers((current) => ({
+                          ...current,
+                          spendInput: event.target.value,
+                          spendPreferNot: false,
+                        }))
+                      }
+                    />
+                  </div>
+                  <p className="brief-field-help">
+                    Paid search, paid social, YouTube, display — the media spend, not the agency fee.
+                  </p>
+                  <label className="brief-prefer-not">
+                    <input
+                      type="checkbox"
+                      checked={answers.spendPreferNot}
+                      onChange={(event) =>
+                        setAnswers((current) => ({
+                          ...current,
+                          spendPreferNot: event.target.checked,
+                        }))
+                      }
+                    />
+                    Prefer not to say
+                  </label>
+                </div>
+
+                <fieldset className="brief-choices">
+                  <legend>Where do most customers come from today?</legend>
+                  {SOURCE_OPTIONS.map((option) => (
+                    <label
+                      key={option.id}
+                      className={`brief-choice${
+                        answers.source === option.id ? ' is-selected' : ''
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="source"
+                        checked={answers.source === option.id}
+                        onChange={() =>
+                          setAnswers((current) => ({
+                            ...current,
+                            source: option.id as CustomerSource,
+                          }))
+                        }
+                      />
+                      <span>
+                        <strong>{option.label}</strong>
+                      </span>
+                    </label>
+                  ))}
+                </fieldset>
+
+                <fieldset className="brief-choices">
+                  <legend>Who owns marketing day to day?</legend>
+                  {OWNER_OPTIONS.map((option) => (
+                    <label
+                      key={option.id}
+                      className={`brief-choice${
+                        answers.owner === option.id ? ' is-selected' : ''
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="owner"
+                        checked={answers.owner === option.id}
+                        onChange={() =>
+                          setAnswers((current) => ({
+                            ...current,
+                            owner: option.id as MarketingOwner,
+                          }))
+                        }
+                      />
+                      <span>
+                        <strong>{option.label}</strong>
+                      </span>
+                    </label>
+                  ))}
+                </fieldset>
+
+                <fieldset className="brief-choices">
+                  <legend>What needs to be true in 12 months?</legend>
+                  {GOAL_OPTIONS.map((option) => (
+                    <label
+                      key={option.id}
+                      className={`brief-choice${
+                        answers.goal === option.id ? ' is-selected' : ''
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="goal"
+                        checked={answers.goal === option.id}
+                        onChange={() =>
+                          setAnswers((current) => ({
+                            ...current,
+                            goal: option.id as Goal12,
+                          }))
+                        }
+                      />
+                      <span>
+                        <strong>{option.label}</strong>
+                      </span>
+                    </label>
+                  ))}
+                </fieldset>
+              </div>
+            </>
+          ) : null}
+
+          {stage === 'services' && service ? (
+            <>
+              <div className="brief-quiz-heading">
+                <div>
+                  <p className="leak-kicker">
+                    {service.name} · {service.page} of 11
+                  </p>
+                  <h1>How true is this of your marketing today?</h1>
+                </div>
+                <p className="brief-progress-label">
+                  Part {service.page} of 11 · {answeredCount} of 30 ratings
+                </p>
+              </div>
+              <p className="brief-note">{service.line}</p>
+              <p className="brief-scale-legend">{SCALE_LEGEND}</p>
+              <div className="brief-question-list">
+                {service.questions.map((text, offset) => {
+                  const index = servicePage * 3 + offset
+                  return (
+                    <fieldset key={text} className="brief-question">
+                      <legend>
+                        <span>{String(index + 1).padStart(2, '0')}</span>
+                        {text}
+                      </legend>
+                      <div
+                        className="brief-scale"
+                        role="radiogroup"
+                        aria-label={text}
+                      >
+                        {DIAGNOSTIC_SCALE.map((option) => (
+                          <label
+                            key={option.value}
+                            className={
+                              answers.ratings[index] === option.value ? 'is-selected' : ''
+                            }
+                          >
+                            <input
+                              type="radio"
+                              name={`diag-${index}`}
+                              value={option.value}
+                              checked={answers.ratings[index] === option.value}
+                              onChange={() =>
+                                setAnswers((current) =>
+                                  setRating(current, index, option.value),
+                                )
+                              }
+                            />
+                            <span className="brief-scale-number">{option.value}</span>
+                            <span className="brief-scale-label">{option.short}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                  )
+                })}
+              </div>
+              <p className="brief-note brief-note-tight">
+                Think about the last six months. Choose what fits most often. A
+                low score is useful. That is how we see where MOSAIC should work
+                first.
+              </p>
+            </>
+          ) : null}
+
+          {stage === 'building' ? (
+            <div className="brief-building" role="status">
+              <p className="leak-kicker">Growth diagnostic</p>
+              <h1>Building your picture…</h1>
+              <p className="brief-note">
+                Ranking 10 services, lowest score first. Highest priority is
+                where assistance would move the number.
+              </p>
             </div>
           ) : null}
 
-          {stage === 'context' ? (
-            <div className="brief-fields">
-              <label className="field">
-                <span>What part of your marketing is working today?</span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.working}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      working: event.target.value,
-                    }))
+          {stage !== 'building' ? (
+            <div className="brief-actions">
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => {
+                  if (stage === 'you') go('code')
+                  else if (stage === 'facts') go('you')
+                  else if (stage === 'services' && servicePage === 0) go('facts')
+                  else if (stage === 'services') {
+                    setServicePage((page) => page - 1)
+                    window.scrollTo({ top: 0, behavior: 'instant' })
                   }
-                />
-              </label>
-              <label className="field">
-                <span>What is not working — where do inquiries or jobs stall?</span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.notWorking}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      notWorking: event.target.value,
-                    }))
+                }}
+              >
+                {stage === 'services' ? 'Previous' : '← Previous'}
+              </button>
+              <button
+                type="button"
+                className="btn"
+                disabled={
+                  (stage === 'you' && !isYouReady(answers)) ||
+                  (stage === 'facts' && !isFactsReady(answers)) ||
+                  (stage === 'services' && !ratingsOnPage(answers, servicePage))
+                }
+                onClick={() => {
+                  if (stage === 'you') go('facts')
+                  else if (stage === 'facts') {
+                    const firstUnanswered = SERVICES.findIndex((_, index) =>
+                      !ratingsOnPage(answers, index),
+                    )
+                    setServicePage(firstUnanswered < 0 ? 0 : firstUnanswered)
+                    go('services')
+                  } else if (stage === 'services' && servicePage < SERVICES.length - 1) {
+                    setServicePage((page) => page + 1)
+                    window.scrollTo({ top: 0, behavior: 'instant' })
+                  } else if (stage === 'services' && ratingsComplete(answers)) {
+                    go('building')
+                  } else if (stage === 'services') {
+                    const firstUnanswered = SERVICES.findIndex(
+                      (_, index) => !ratingsOnPage(answers, index),
+                    )
+                    setServicePage(firstUnanswered < 0 ? 0 : firstUnanswered)
+                    window.scrollTo({ top: 0, behavior: 'instant' })
                   }
-                />
-              </label>
-              <label className="field">
-                <span>
-                  Optional: have you worked with a consultant, agency, or
-                  freelancer before? What did you like and not like?
-                </span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.pastAgency}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      pastAgency: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>Do you have questions for MOSAIC before we proceed?</span>
-                <textarea
-                  rows={3}
-                  maxLength={1500}
-                  value={answers.questionsForMosaic}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      questionsForMosaic: event.target.value,
-                    }))
-                  }
-                />
-              </label>
+                }}
+              >
+                {stage === 'you'
+                  ? 'Continue'
+                  : stage === 'facts'
+                    ? isFactsReady(answers)
+                      ? 'Start the ratings'
+                      : 'Answer all five to continue'
+                    : stage === 'services' && servicePage === SERVICES.length - 1
+                      ? 'See my picture'
+                      : ratingsOnPage(answers, servicePage)
+                        ? 'Next'
+                        : 'Answer all three to continue'}
+              </button>
             </div>
           ) : null}
-
-          <div className="brief-actions">
-            <button
-              type="button"
-              className="text-button"
-              onClick={() => {
-                if (stage === 'you') go('code')
-                if (stage === 'direction') go('you')
-                if (stage === 'partnership') go('direction')
-                if (stage === 'fit') go('partnership')
-                if (stage === 'context') go('fit')
-              }}
-            >
-              ← Previous
-            </button>
-            <button
-              type="button"
-              className="btn"
-              disabled={
-                (stage === 'you' && !isYouReady(answers)) ||
-                (stage === 'direction' && !isDirectionReady(answers)) ||
-                (stage === 'partnership' && !isPartnershipReady(answers)) ||
-                (stage === 'fit' && !isFitReady(answers))
-              }
-              onClick={() => {
-                if (stage === 'you') go('direction')
-                else if (stage === 'direction') go('partnership')
-                else if (stage === 'partnership') go('fit')
-                else if (stage === 'fit') go('context')
-                else go('report')
-              }}
-            >
-              {stage === 'context' ? 'Build my brief' : 'Continue'} →
-            </button>
-          </div>
         </section>
       ) : null}
 
@@ -725,96 +650,109 @@ export function ProgramBrief() {
             ) : null}
           </div>
 
-          <p className="leak-kicker">Your MOSAIC brief</p>
+          <figure className="brief-type-hero">
+            <img
+              src={report.cluster.image}
+              alt={report.cluster.imageAlt}
+              width={1536}
+              height={1024}
+            />
+            <figcaption>
+              <span>{report.cluster.name} cluster</span>
+              Lowest scores are the highest priority.
+            </figcaption>
+          </figure>
+
+          <p className="leak-kicker">Your growth picture</p>
           <h1 id="report-heading">{report.headline}</h1>
+          <p className="brief-summary-line">{report.summaryLine}</p>
           <p className="brief-lede">{report.overview}</p>
 
-          <div className="brief-tiles">
-            {report.tiles.map((tile) => (
-              <article key={tile.label}>
-                <span>{tile.label}</span>
-                <strong>{tile.value}</strong>
-              </article>
-            ))}
+          <div className="brief-map-layout">
+            <GrowthClusterMap scores={report.clusterScores} />
+            <GrowthScoreBars scores={report.ranked} />
           </div>
 
-          <div className="brief-insights">
-            <article>
-              <span>01 / Keep</span>
-              <h2>What to protect</h2>
-              <p>{report.keep}</p>
-            </article>
-            <article>
-              <span>02 / Look closer</span>
-              <h2>Where the program leaks</h2>
-              <p>{report.leak}</p>
-            </article>
+          <div className="brief-priority">
+            <p className="leak-kicker">Start here</p>
+            <h2>These are the lowest scores. This is the assistance order — not a pitch deck.</h2>
+            <div className="brief-service-cards">
+              {report.priority.map((item, index) => (
+                <article key={item.id} className="brief-service-card">
+                  <header>
+                    <span>
+                      {String(index + 1).padStart(2, '0')} / {item.bandLabel}
+                    </span>
+                    <strong>{item.name}</strong>
+                    <em style={{ color: item.color }}>{item.score.toFixed(1)} / 5</em>
+                  </header>
+                  {item.means ? (
+                    <p>
+                      <b>What this means.</b> {item.means}
+                    </p>
+                  ) : null}
+                  {item.picture ? (
+                    <p>
+                      <b>The picture.</b> {item.picture}
+                    </p>
+                  ) : null}
+                  {item.help ? (
+                    <p>
+                      <b>How MOSAIC helps.</b> {report.helpPrefix} {item.help}
+                    </p>
+                  ) : (
+                    <p>
+                      <b>How MOSAIC helps.</b> {report.helpPrefix}
+                    </p>
+                  )}
+                </article>
+              ))}
+            </div>
           </div>
 
-          <div className="brief-block">
-            <h2>How MOSAIC would partner</h2>
-            <p>{report.partnership}</p>
-          </div>
-          <div className="brief-block">
-            <h2>How we would measure it</h2>
-            <p>{report.measure}</p>
-            {answers.growthPast.trim() || answers.growthWanted.trim() ? (
-              <p>
-                {answers.growthPast.trim()
-                  ? `Past year: ${answers.growthPast.trim()}`
-                  : null}
-                {answers.growthPast.trim() && answers.growthWanted.trim()
-                  ? ' '
-                  : null}
-                {answers.growthWanted.trim()
-                  ? `The pace you want next: ${answers.growthWanted.trim()}`
-                  : null}
-              </p>
-            ) : null}
-            {answers.team.trim() ? <p>Team: {answers.team.trim()}</p> : null}
-          </div>
-          <div className="brief-block">
-            <h2>Shape of the engagement</h2>
-            <p>{report.engagement}</p>
-            <p>{report.budgetNote}</p>
-          </div>
+          {report.strength ? (
+            <div className="brief-block">
+              <p className="leak-kicker">Protect this</p>
+              <h2>{report.strength.name}</h2>
+              <p>{report.strengthLine}</p>
+            </div>
+          ) : null}
+
           <div className="brief-experiment">
-            <p className="leak-kicker">First 30 days</p>
-            <h2>{report.firstMove}</h2>
-            <p>
-              {report.fitLabel}. {report.fitNote}
-            </p>
+            <p className="leak-kicker">What MOSAIC would do with this</p>
+            <h2>A defined 90-day pass, in this order.</h2>
+            <p>{report.close}</p>
           </div>
-
-          {answers.questionsForMosaic.trim() ? (
-            <div className="brief-block">
-              <h2>Your questions for MOSAIC</h2>
-              <p>{answers.questionsForMosaic.trim()}</p>
-            </div>
-          ) : null}
-
-          {answers.pastAgency.trim() ? (
-            <div className="brief-block">
-              <h2>What you liked and did not like before</h2>
-              <p>{answers.pastAgency.trim()}</p>
-            </div>
-          ) : null}
 
           <div className="brief-report-actions no-print">
-            <button type="button" className="btn" onClick={() => window.print()}>
-              Print / save PDF
-            </button>
+            <a className="btn" href="#book">
+              Book a working session
+            </a>
+            <a className="text-button" href={mailto}>
+              Email this picture to myself
+            </a>
             <button type="button" className="text-button" onClick={() => void copySnapshot()}>
               {copied ? 'Copied' : 'Copy my snapshot'}
             </button>
-            <button type="button" className="text-button" onClick={() => go('context')}>
+            <button type="button" className="text-button" onClick={() => window.print()}>
+              Print / save PDF
+            </button>
+            <button
+              type="button"
+              className="text-button"
+              onClick={() => {
+                setServicePage(0)
+                go('facts')
+              }}
+            >
               Review my answers
             </button>
           </div>
 
           <p className="brief-footnote">
-            {answers.name || 'You'} · {answers.company || 'MOSAIC program brief'} ·
-            Informal working snapshot, not a validated assessment or a proposal.
+            {answers.name || 'You'} · {report.companyLine} · This is a self-score,
+            not an audit. It is how we prepare a conversation. It is not a
+            proposal or a contract.
           </p>
         </section>
       ) : null}
@@ -823,13 +761,13 @@ export function ProgramBrief() {
         <div className="no-print">
           <div className="leak-cal-intro">
             <p>
-              If the picture is useful, book a working conversation. Come with
-              this brief open.
+              If the picture is useful, book a working session. Come with this
+              brief open.
             </p>
           </div>
           <CalendlySection
-            label="Book a conversation about this brief"
-            title="Book a MOSAIC conversation with Skye"
+            label="Book a working session"
+            title="Book a MOSAIC working session with Skye"
           />
           <p className="brief-home-link">
             <Link to="/">Back to hellomosaic.ai</Link>

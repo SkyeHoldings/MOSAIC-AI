@@ -58,6 +58,7 @@ export default function App() {
           <Route path="/lead-leak-check" element={<LeadLeakCheck />} />
           <Route path="/free" element={<LeadLeakCheck />} />
           <Route path="/brief" element={<ProgramBrief />} />
+          <Route path="/diagnostic" element={<ProgramBrief />} />
           <Route path="/businesscard" element={<BusinessCard />} />
           <Route path="/onesheet" element={<OneSheet />} />
           <Route path="/work/:id" element={<WorkDetail />} />

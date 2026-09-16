@@ -8124,6 +8124,328 @@ p {
   }
 }
 
+.brief-quiz-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+}
+
+.brief-quiz-heading h1 {
+  margin-bottom: 0.35rem;
+}
+
+.brief-progress-label {
+  color: var(--faint);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brief-field-help,
+.brief-note-tight {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0.45rem 0 0;
+}
+
+.brief-money {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.brief-money-prefix {
+  color: var(--muted);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.brief-money input {
+  border: 0;
+  background: transparent;
+  padding: 0.7rem 0;
+  outline: none;
+  width: 100%;
+}
+
+.brief-money input:disabled {
+  opacity: 0.4;
+}
+
+.field label.brief-prefer-not,
+.brief-prefer-not {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  margin-top: 0.7rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.brief-question-list {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.brief-question {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.brief-question legend {
+  padding: 0;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.brief-question legend span {
+  display: inline-block;
+  margin-right: 0.55rem;
+  color: var(--faint);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.brief-scale {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.brief-scale label {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  padding: 0.7rem 0.35rem 0.6rem;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  text-align: center;
+}
+
+.brief-scale label.is-selected {
+  border-color: var(--ink);
+  background: #f7f7f7;
+}
+
+.brief-scale input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.brief-scale-number {
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.brief-scale-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.brief-scale-legend {
+  color: var(--faint);
+  font-size: 0.8rem;
+  margin: -0.6rem 0 1.25rem;
+}
+
+.brief-building {
+  min-height: 40vh;
+  display: grid;
+  align-content: center;
+}
+
+.brief-type-hero {
+  margin: 0;
+}
+
+.brief-type-hero img {
+  width: 100%;
+  height: clamp(12rem, 32vw, 22rem);
+  object-fit: cover;
+  display: block;
+}
+
+.brief-type-hero figcaption {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.brief-type-hero span {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.brief-summary-line {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.brief-map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 1.25rem 1.75rem;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.brief-map {
+  margin: 0;
+  text-align: center;
+}
+
+.brief-map svg {
+  width: min(100%, 20rem);
+  height: auto;
+  font-family: inherit;
+}
+
+.brief-map figcaption {
+  margin-top: 0.65rem;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.brief-map figcaption span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.brief-score-bars {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.brief-score-bar__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.92rem;
+}
+
+.brief-score-bar__head span {
+  color: var(--ink);
+}
+
+.brief-score-bar__head strong {
+  font-weight: 400;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.bar-track {
+  height: 8px;
+  background: #e8eef5;
+  overflow: hidden;
+}
+
+.bar-track span {
+  display: block;
+  height: 100%;
+}
+
+.brief-priority h2,
+.brief-block h2 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.brief-service-cards {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.brief-service-card {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.25rem 1.15rem;
+  background: #f5f5f5;
+}
+
+.brief-service-card header {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.brief-service-card header span {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.brief-service-card header strong {
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.brief-service-card header em {
+  font-style: normal;
+  font-size: 0.95rem;
+}
+
+.brief-service-card p {
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.brief-service-card b {
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.brief-report-actions .btn {
+  text-decoration: none;
+}
+
+@media (max-width: 800px) {
+  .brief-quiz-heading,
+  .brief-map-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .brief-quiz-heading {
+    display: grid;
+  }
+
+  .brief-scale {
+    gap: 0.3rem;
+  }
+
+  .brief-scale-label {
+    font-size: 0.64rem;
+  }
+}
+
 @media print {
   .site-header,
   .site-footer,
