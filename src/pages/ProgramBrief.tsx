@@ -275,7 +275,7 @@ export function ProgramBrief() {
       {stage === 'code' ? (
         <section className="assist-hero leak-hero" aria-labelledby="brief-heading">
           <div className="assist-hero__copy">
-            <p className="leak-kicker">Private · working brief + growth diagnostic</p>
+            <p className="leak-kicker">A custom questionnaire built for your business.</p>
             <h1 id="brief-heading">
               <span>Learn where your program excels</span>
               <span>and where it can improve.</span>
@@ -287,10 +287,9 @@ export function ProgramBrief() {
               with MOSAIC.
             </p>
             <p>
-              First, the questions about goals, support, and fit. Then a 10-service
-              picture of where marketing is leaking — 30 ratings on the same 1–5
-              scale. You get a ranked snapshot. Skye gets a prepared conversation
-              instead of a cold intro call.
+              This questionnaire takes 15 minutes to complete. We ask that you
+              finish it in one sitting and answer as your marketing is today — not
+              as you wish it were.
             </p>
             <form className="brief-code-form" onSubmit={submitCode}>
               <label htmlFor="brief-code">Invite code</label>
@@ -314,7 +313,7 @@ export function ProgramBrief() {
                   {codeError}
                 </p>
               ) : (
-                <p className="form-note">Use the code from your invite. About 12 minutes.</p>
+                <p className="form-note">Use the code from your invite.</p>
               )}
               <button className="btn" type="submit" disabled={checkingCode}>
                 {checkingCode ? 'Checking…' : 'Continue'}
