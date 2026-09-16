@@ -428,7 +428,7 @@ export function ProgramBrief() {
               <p className="leak-kicker">Growth diagnostic</p>
               <h1>Sending your answers…</h1>
               <p className="brief-note">
-                Skye uses this picture to prepare your discovery call. Results
+                MOSAIC uses this picture to prepare your discovery call. Results
                 are walked through on the call, not on this page.
               </p>
             </div>
@@ -711,7 +711,7 @@ export function ProgramBrief() {
           </div>
 
           <p className="brief-footnote">
-            Private review link for Skye. The client does not see this page.
+            Private review link for MOSAIC. The client does not see this page.
           </p>
           <p className="brief-home-link no-print">
             <Link to="/">Back to hellomosaic.ai</Link>
@@ -731,7 +731,7 @@ export function ProgramBrief() {
           <CalendlySection
             variant="button"
             label="Book a discovery call"
-            title="Book a MOSAIC discovery call with Skye"
+            title="Book a MOSAIC discovery call"
           />
           <p className="brief-home-link">
             <Link to="/">Back to hellomosaic.ai</Link>

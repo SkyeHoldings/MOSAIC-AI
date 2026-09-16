@@ -372,7 +372,7 @@ export function LeadLeakCheck() {
       </div>
       <CalendlySection
         label="Pick a 20-minute Lead Leak Check"
-        title="Book a free Lead Leak Check with Skye"
+        title="Book a free Lead Leak Check with MOSAIC"
       />
     </article>
   )

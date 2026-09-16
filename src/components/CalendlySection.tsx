@@ -51,7 +51,7 @@ function loadCalendlyAssets() {
 
 export function CalendlySection({
   label = 'Book a discovery call',
-  title = 'Book a discovery call with Skye',
+  title = 'Book a discovery call with MOSAIC',
   variant = 'inline',
 }: CalendlySectionProps) {
   useEffect(() => {

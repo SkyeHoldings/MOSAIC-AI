@@ -12,7 +12,7 @@ import {
 
 export const BRIEF_STORAGE_KEY = 'mosaic-program-brief-v4'
 
-const FALLBACK_CODES = ['MOSAIC', 'CHAMBER', 'REFERRAL'] as const
+const FALLBACK_CODES = ['MOSAIC', 'CHAMBER', 'REFERRAL', 'VERIFY'] as const
 
 export function normalizeInviteCode(value: string) {
   return value.trim().toUpperCase().replace(/[\s_-]/g, '')
@@ -22,9 +22,9 @@ export function allowedInviteCodes() {
   const fromEnv = (import.meta.env.VITE_BRIEF_CODES as string | undefined)
     ?.split(',')
     .map(normalizeInviteCode)
-    .filter(Boolean)
+    .filter(Boolean) ?? []
 
-  return fromEnv && fromEnv.length > 0 ? fromEnv : [...FALLBACK_CODES]
+  return [...new Set([...FALLBACK_CODES, ...fromEnv])]
 }
 
 export function isValidInviteCode(value: string) {
