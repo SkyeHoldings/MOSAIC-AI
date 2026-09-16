@@ -285,7 +285,7 @@ export const SERVICES: ServiceDef[] = [
     page: 5,
     line: 'If you cannot name what booked the job, you are funding a guess.',
     questions: [
-      'Conversion tracking is automated. We do not rebuild the week in a spreadsheet to know what happened.',
+      'We’re confident that our conversion tracking is setup correctly.',
       'I can name which source booked the last real customer — not only which ad got clicks.',
       'Reporting is built for keep / kill / pause decisions. We look at it on a set cadence, not only when something feels off.',
     ],
