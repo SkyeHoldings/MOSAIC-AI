@@ -366,19 +366,19 @@ export function buildBriefReport(answers: BriefAnswers): BriefReport {
   }
 
   const tiles = [
-    {
-      label: 'Support',
-      value:
-        answers.support.length > 0
-          ? supportTitles(answers.support)
-          : 'Not named yet',
-    },
-    {
-      label: 'Horizon',
-      value:
-        DURATION_OPTIONS.find((option) => option.id === answers.duration)?.label ??
-        'Not named yet',
-    },
+    ...(answers.support.length > 0
+      ? [{ label: 'Support', value: supportTitles(answers.support) }]
+      : []),
+    ...(answers.duration
+      ? [
+          {
+            label: 'Horizon',
+            value:
+              DURATION_OPTIONS.find((option) => option.id === answers.duration)
+                ?.label ?? '',
+          },
+        ]
+      : []),
     {
       label: 'Investment',
       value:
@@ -397,10 +397,7 @@ export function buildBriefReport(answers: BriefAnswers): BriefReport {
     diagnostic.snapshot,
     '',
     'WORKING BRIEF',
-    `Support: ${tiles[0].value}`,
-    `Horizon: ${tiles[1].value}`,
-    `Investment: ${tiles[2].value}`,
-    `Process: ${tiles[3].value}`,
+    ...tiles.map((tile) => `${tile.label}: ${tile.value}`),
     goals ? `12-month incremental revenue: ${goals}` : '',
     products ? `Top products/services: ${products}` : '',
     answers.currentRoasCpa.trim()

@@ -25,17 +25,13 @@ import {
 import {
   BRIEF_STORAGE_KEY,
   BUDGET_OPTIONS,
-  DURATION_OPTIONS,
   PROCESS_OPTIONS,
-  SUPPORT_OPTIONS,
   type BriefAnswers,
-  type SupportId,
   briefPayload,
   buildBriefReport,
   emptyBriefAnswers,
   isDirectionReady,
   isFitReady,
-  isPartnershipReady,
   isValidInviteCode,
   parseStoredBrief,
 } from '../data/programBrief'
@@ -46,7 +42,6 @@ const FORMSPREE_ID =
 const STAGES = [
   'code',
   'direction',
-  'partnership',
   'fit',
   'context',
   'facts',
@@ -55,7 +50,7 @@ const STAGES = [
   'report',
 ] as const
 type Stage = (typeof STAGES)[number]
-type QualifyingStage = 'direction' | 'partnership' | 'fit' | 'context'
+type QualifyingStage = 'direction' | 'fit' | 'context'
 
 const STAGE_META: Record<
   QualifyingStage,
@@ -66,18 +61,13 @@ const STAGE_META: Record<
     title: 'Where are you trying to go?',
     note: 'Be specific if you can. Rough numbers are more useful than polished language.',
   },
-  partnership: {
-    kicker: '02 / How we would work',
-    title: 'What kind of support do you actually need?',
-    note: 'You can choose more than one. We will sequence the work from there.',
-  },
   fit: {
-    kicker: '03 / Fit',
-    title: 'Team, time, and investment.',
+    kicker: '02 / Fit',
+    title: 'Investment and selection.',
     note: 'MOSAIC usually starts with a discovery audit around $5,000. Base monthly fees start at $20,000 for a 6-month engagement. Ad spend is separate.',
   },
   context: {
-    kicker: '04 / Context',
+    kicker: '03 / Context',
     title: 'What is and is not working.',
     note: 'Optional, but this is what makes the brief useful. Leave out names you would rather keep private.',
   },
@@ -85,19 +75,12 @@ const STAGE_META: Record<
 
 const QUALIFYING_ORDER: QualifyingStage[] = [
   'direction',
-  'partnership',
   'fit',
   'context',
 ]
 
 function isQualifyingStage(stage: Stage): stage is QualifyingStage {
   return QUALIFYING_ORDER.includes(stage as QualifyingStage)
-}
-
-function toggleSupport(current: SupportId[], id: SupportId) {
-  return current.includes(id)
-    ? current.filter((item) => item !== id)
-    : [...current, id]
 }
 
 function setRating(current: BriefAnswers, index: number, value: number): BriefAnswers {
@@ -374,95 +357,6 @@ export function ProgramBrief() {
                       ...current,
                       currentRoasCpa: event.target.value,
                     }))
-                  }
-                />
-              </label>
-            </div>
-          ) : null}
-
-          {stage === 'partnership' ? (
-            <div className="brief-fields">
-              <fieldset className="brief-choices">
-                <legend>What type of work are you looking for support on?</legend>
-                {SUPPORT_OPTIONS.map((option) => {
-                  const selected = answers.support.includes(option.id)
-                  return (
-                    <label
-                      key={option.id}
-                      className={`brief-choice${selected ? ' is-selected' : ''}`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selected}
-                        onChange={() =>
-                          setAnswers((current) => ({
-                            ...current,
-                            support: toggleSupport(current.support, option.id),
-                          }))
-                        }
-                      />
-                      <span>
-                        <strong>{option.title}</strong>
-                        {option.body}
-                      </span>
-                    </label>
-                  )
-                })}
-              </fieldset>
-              <fieldset className="brief-choices">
-                <legend>How long are you looking for support?</legend>
-                {DURATION_OPTIONS.map((option) => (
-                  <label
-                    key={option.id}
-                    className={`brief-choice${
-                      answers.duration === option.id ? ' is-selected' : ''
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="duration"
-                      checked={answers.duration === option.id}
-                      onChange={() =>
-                        setAnswers((current) => ({
-                          ...current,
-                          duration: option.id,
-                        }))
-                      }
-                    />
-                    <span>
-                      <strong>{option.label}</strong>
-                      {option.hint}
-                    </span>
-                  </label>
-                ))}
-              </fieldset>
-              {answers.duration === 'in-house' ? (
-                <label className="field">
-                  <span>At what point would you want the work in-house?</span>
-                  <input
-                    maxLength={240}
-                    value={answers.inHouseWhen}
-                    placeholder="After 6 months, when we hire a coordinator, next spring…"
-                    onChange={(event) =>
-                      setAnswers((current) => ({
-                        ...current,
-                        inHouseWhen: event.target.value,
-                      }))
-                    }
-                  />
-                </label>
-              ) : null}
-              <label className="field">
-                <span>
-                  Tell me about your current team: headcount, upcoming hires, and
-                  resource gaps.
-                </span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.team}
-                  onChange={(event) =>
-                    setAnswers((current) => ({ ...current, team: event.target.value }))
                   }
                 />
               </label>
@@ -835,8 +729,7 @@ export function ProgramBrief() {
                 className="text-button"
                 onClick={() => {
                   if (stage === 'direction') go('code')
-                  else if (stage === 'partnership') go('direction')
-                  else if (stage === 'fit') go('partnership')
+                  else if (stage === 'fit') go('direction')
                   else if (stage === 'context') go('fit')
                   else if (stage === 'facts') go('context')
                   else if (stage === 'services' && servicePage === 0) go('facts')
@@ -853,14 +746,12 @@ export function ProgramBrief() {
                 className="btn"
                 disabled={
                   (stage === 'direction' && !isDirectionReady(answers)) ||
-                  (stage === 'partnership' && !isPartnershipReady(answers)) ||
                   (stage === 'fit' && !isFitReady(answers)) ||
                   (stage === 'facts' && !isFactsReady(answers)) ||
                   (stage === 'services' && !ratingsOnPage(answers, servicePage))
                 }
                 onClick={() => {
-                  if (stage === 'direction') go('partnership')
-                  else if (stage === 'partnership') go('fit')
+                  if (stage === 'direction') go('fit')
                   else if (stage === 'fit') go('context')
                   else if (stage === 'context') go('facts')
                   else if (stage === 'facts') {
@@ -1020,11 +911,10 @@ export function ProgramBrief() {
             {answers.topProducts.trim() ? (
               <p>Highest-revenue products/services: {answers.topProducts.trim()}</p>
             ) : null}
-            {answers.team.trim() ? <p>Team: {answers.team.trim()}</p> : null}
           </div>
           <div className="brief-block">
             <h2>Shape of the engagement</h2>
-            <p>{report.engagement}</p>
+            {answers.duration ? <p>{report.engagement}</p> : null}
             <p>{report.budgetNote}</p>
           </div>
 
