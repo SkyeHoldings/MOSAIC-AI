@@ -281,6 +281,12 @@ export function ProgramBrief() {
               <span>and where it can improve.</span>
             </h1>
             <p>
+              Marketing gets complicated without an agency by your side monitoring
+              and crafting how you are known, the demand you create, and the market
+              you grow in. This picture will help support your discovery conversation
+              with MOSAIC.
+            </p>
+            <p>
               First, the questions about goals, support, and fit. Then a 10-service
               picture of where marketing is leaking — 30 ratings on the same 1–5
               scale. You get a ranked snapshot. Skye gets a prepared conversation
