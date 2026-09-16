@@ -1,6 +1,5 @@
 import {
   DIAGNOSTIC_RATING_COUNT,
-  QUESTIONS,
   SERVICES,
   answeredRatingCount,
   buildDiagnosticReport,
@@ -510,11 +509,7 @@ export function briefPayload(
     start_here: report.priority
       .map((item) => `${item.name} ${item.score.toFixed(1)}/5 — ${item.bandLabel}`)
       .join('\n'),
-    quiz_answers: QUESTIONS.map((question) => {
-      const rating = answers.ratings[question.index]
-      const service = SERVICES.find((item) => item.id === question.serviceId)?.name
-      return `${question.index + 1}. [${rating ?? '—'}] ${service}: ${question.text}`
-    }).join('\n'),
+    email: 'skye@hellomosaic.ai',
   }
 
   return Object.fromEntries(

@@ -1,4 +1,3 @@
-import { getDefaultClient, isSubmissionError } from '@formspree/core'
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { CalendlySection } from '../components/CalendlySection'
@@ -173,28 +172,26 @@ export function ProgramBrief() {
     if (saveState === 'saving') return
     setSaveState('saving')
     setSaveNote('Sending your answers…')
-    if (stage !== 'done') setStage('building')
-    window.scrollTo({ top: 0, behavior: 'instant' })
 
     const reportNow = buildBriefReport(answers)
     const privateReviewUrl = briefReviewUrl(answers)
+    const payload = briefPayload(answers, reportNow, { privateReviewUrl })
+    const body = new FormData()
+    Object.entries(payload).forEach(([key, value]) => {
+      if (typeof value === 'string') body.append(key, value)
+    })
 
     try {
-      const result = await getDefaultClient().submitForm(
-        FORMSPREE_ID,
-        briefPayload(answers, reportNow, { privateReviewUrl }) as Record<
-          string,
-          string
-        >,
-      )
-      if (isSubmissionError(result)) {
-        const detail = result
-          .getFormErrors()
-          .map((error) => error.message)
-          .filter(Boolean)
-          .join(' ')
-        throw new Error(detail || 'save failed')
-      }
+      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body,
+      })
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean
+        error?: string
+      } | null
+      if (!response.ok || result?.error) throw new Error(result?.error || 'save failed')
       setSaveState('saved')
       setSaveNote('Answers sent to MOSAIC.')
       setStage('done')
@@ -409,17 +406,6 @@ export function ProgramBrief() {
                 })}
               </div>
             </>
-          ) : null}
-
-          {stage === 'building' ? (
-            <div className="brief-building" role="status">
-              <p className="leak-kicker">Growth diagnostic</p>
-              <h1>Sending your answers…</h1>
-              <p className="brief-note">
-                MOSAIC uses this picture to prepare your discovery call. Results
-                are walked through on the call, not on this page.
-              </p>
-            </div>
           ) : null}
 
           {stage !== 'building' ? (
