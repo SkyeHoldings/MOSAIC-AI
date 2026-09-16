@@ -7822,8 +7822,15 @@ p {
 }
 
 /* ---------- Private program brief ---------- */
-.brief-page {
-  background: #fff;
+.brief-page .assist-hero__copy h1 {
+  display: grid;
+  gap: 0.12em;
+  font-size: clamp(2rem, 4.4vw, 3.35rem);
+  line-height: 1.18;
+}
+
+.brief-page .assist-hero__copy h1 span {
+  display: block;
 }
 
 .brief-code-form {

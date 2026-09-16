@@ -153,7 +153,7 @@ export function ProgramBrief() {
 
   useEffect(() => {
     const previous = document.title
-    document.title = 'Program Brief · MOSAIC'
+    document.title = 'Understand how you market · MOSAIC'
     return () => {
       document.title = previous
     }
@@ -276,7 +276,10 @@ export function ProgramBrief() {
         <section className="assist-hero leak-hero" aria-labelledby="brief-heading">
           <div className="assist-hero__copy">
             <p className="leak-kicker">Private · working brief + growth diagnostic</p>
-            <h1 id="brief-heading">A working brief before we talk.</h1>
+            <h1 id="brief-heading">
+              <span>Understand how you market.</span>
+              <span>Get to know the leaks you’re working with.</span>
+            </h1>
             <p>
               First, the questions about goals, support, and fit. Then a 10-service
               picture of where marketing is leaking — 30 ratings on the same 1–5
