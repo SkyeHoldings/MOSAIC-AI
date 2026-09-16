@@ -424,7 +424,7 @@ export function ProgramBrief() {
               <p className="leak-kicker">Growth diagnostic</p>
               <h1>Sending your answers…</h1>
               <p className="brief-note">
-                Skye uses this picture to prepare your working session. Results
+                Skye uses this picture to prepare your discovery call. Results
                 are walked through on the call, not on this page.
               </p>
             </div>
@@ -477,7 +477,7 @@ export function ProgramBrief() {
                 {stage === 'direction'
                   ? 'Start the diagnostic'
                   : stage === 'services' && servicePage === SERVICES.length - 1
-                      ? 'Send my answers'
+                      ? 'Book a discovery call'
                       : stage === 'services'
                         ? ratingsOnPage(answers, servicePage)
                           ? 'Next'
@@ -523,8 +523,8 @@ export function ProgramBrief() {
               ) : null}
             </div>
             <p>
-              The growth picture is prepared for your working session. Book a
-              call below to walk the results together.
+              The growth picture is prepared for your discovery call. Book a
+              time below to walk the results together.
             </p>
           </div>
           <div className="assist-hero__visual" aria-hidden="true">
@@ -720,13 +720,13 @@ export function ProgramBrief() {
         <div className="no-print">
           <div className="leak-cal-intro">
             <p>
-              Book a working session to see the results. Skye will walk this
+              Book a discovery call to see the results. Skye will walk this
               picture with you on the call.
             </p>
           </div>
           <CalendlySection
-            label="Book a working session"
-            title="Book a MOSAIC working session with Skye"
+            label="Book a discovery call"
+            title="Book a MOSAIC discovery call with Skye"
           />
           <p className="brief-home-link">
             <Link to="/">Back to hellomosaic.ai</Link>
