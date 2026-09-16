@@ -15,7 +15,7 @@ import {
   type DiagnosticReport,
 } from './growthDiagnostic'
 
-export const BRIEF_STORAGE_KEY = 'mosaic-program-brief-v3'
+export const BRIEF_STORAGE_KEY = 'mosaic-program-brief-v4'
 
 const FALLBACK_CODES = ['MOSAIC', 'CHAMBER', 'REFERRAL'] as const
 
@@ -123,12 +123,10 @@ export type ProcessId = (typeof PROCESS_OPTIONS)[number]['id']
 
 export type BriefAnswers = DiagnosticAnswers & {
   role: RoleId | ''
-  goals6: string
-  goals12: string
+  incrementalRevenue: string
+  topProducts: string
+  currentRoasCpa: string
   support: SupportId[]
-  kpis: string
-  growthPast: string
-  growthWanted: string
   team: string
   duration: DurationId | ''
   inHouseWhen: string
@@ -157,12 +155,10 @@ export function emptyBriefAnswers(): BriefAnswers {
   return {
     ...emptyDiagnosticAnswers(),
     role: '',
-    goals6: '',
-    goals12: '',
+    incrementalRevenue: '',
+    topProducts: '',
+    currentRoasCpa: '',
     support: [],
-    kpis: '',
-    growthPast: '',
-    growthWanted: '',
     team: '',
     duration: '',
     inHouseWhen: '',
@@ -191,11 +187,17 @@ export function parseStoredBrief(raw: string | null): BriefAnswers | null {
       ...diagnostic,
       support,
       role: ROLE_OPTIONS.find((option) => option.id === parsed.role)?.id ?? '',
-      goals6: typeof parsed.goals6 === 'string' ? parsed.goals6 : '',
-      goals12: typeof parsed.goals12 === 'string' ? parsed.goals12 : '',
-      kpis: typeof parsed.kpis === 'string' ? parsed.kpis : '',
-      growthPast: typeof parsed.growthPast === 'string' ? parsed.growthPast : '',
-      growthWanted: typeof parsed.growthWanted === 'string' ? parsed.growthWanted : '',
+      incrementalRevenue:
+        (typeof parsed.incrementalRevenue === 'string' && parsed.incrementalRevenue) ||
+        (typeof (parsed as { goals12?: string }).goals12 === 'string'
+          ? ((parsed as { goals12?: string }).goals12 ?? '')
+          : ''),
+      topProducts: typeof parsed.topProducts === 'string' ? parsed.topProducts : '',
+      currentRoasCpa:
+        (typeof parsed.currentRoasCpa === 'string' && parsed.currentRoasCpa) ||
+        (typeof (parsed as { kpis?: string }).kpis === 'string'
+          ? ((parsed as { kpis?: string }).kpis ?? '')
+          : ''),
       team: typeof parsed.team === 'string' ? parsed.team : '',
       duration:
         DURATION_OPTIONS.find((option) => option.id === parsed.duration)?.id ?? '',
@@ -235,7 +237,11 @@ function supportTitles(ids: SupportId[]) {
 }
 
 export function isDirectionReady(answers: BriefAnswers) {
-  return answers.goals6.trim().length > 8 || answers.goals12.trim().length > 8
+  return (
+    answers.incrementalRevenue.trim().length > 0 &&
+    answers.topProducts.trim().length > 0 &&
+    answers.currentRoasCpa.trim().length > 0
+  )
 }
 
 export function isPartnershipReady(answers: BriefAnswers) {
@@ -251,15 +257,18 @@ export function buildBriefReport(answers: BriefAnswers): BriefReport {
   const wantsExecution = answers.support.includes('execution')
   const wantsTeaching = answers.support.includes('teaching')
   const wantsStrategy = answers.support.includes('strategy')
-  const goals =
-    sentence(answers.goals6) ||
-    sentence(answers.goals12) ||
-    'You have not named a 6-month or 1-year target yet — that is the first thing to make concrete.'
+  const goals = sentence(answers.incrementalRevenue)
+  const products = sentence(answers.topProducts)
   const working = sentence(answers.working)
   const notWorking = sentence(answers.notWorking)
 
   const overviewParts = [diagnostic.overview]
-  if (goals) overviewParts.push(`What you want next: ${goals}`)
+  if (goals) {
+    overviewParts.push(`Incremental revenue you want in the next 12 months: ${goals}`)
+  }
+  if (products) {
+    overviewParts.push(`Highest-revenue products and services: ${products}`)
+  }
   if (working) overviewParts.push(`In your words, what already works: ${working}`)
   if (notWorking) overviewParts.push(`In your words, where it breaks down: ${notWorking}`)
 
@@ -278,9 +287,9 @@ export function buildBriefReport(answers: BriefAnswers): BriefReport {
     partnership = `You want ${supportTitles(answers.support).toLowerCase()}. That is doable if we sequence it. First we agree what “good” looks like, then we do a thin slice of the work, then we teach whoever should keep it.`
   }
 
-  const measure = answers.kpis.trim()
-    ? `You would track success with: ${sentence(answers.kpis)} We should pick one primary number for the first 30 days so the rest of the dashboard does not hide the leak.`
-    : 'You have not named KPIs yet. Before we talk tactics, we should pick one number that means the partnership is working — usually booked jobs, revenue, or qualified conversations — not clicks.'
+  const measure = answers.currentRoasCpa.trim()
+    ? `Current ROAS/CPA: ${sentence(answers.currentRoasCpa)} Hold that next to the 12-month revenue number so the conversation is about efficiency, not just spend.`
+    : 'You have not named a current ROAS or CPA. That is one of the first numbers to put on the table in the working session.'
 
   let engagement =
     'We still need to name how long this should last, and whether the work is meant to stay with MOSAIC or move in-house.'
@@ -392,7 +401,11 @@ export function buildBriefReport(answers: BriefAnswers): BriefReport {
     `Horizon: ${tiles[1].value}`,
     `Investment: ${tiles[2].value}`,
     `Process: ${tiles[3].value}`,
-    goals ? `Goals: ${goals}` : '',
+    goals ? `12-month incremental revenue: ${goals}` : '',
+    products ? `Top products/services: ${products}` : '',
+    answers.currentRoasCpa.trim()
+      ? `Current ROAS/CPA: ${answers.currentRoasCpa.trim()}`
+      : '',
     working ? `Working: ${working}` : '',
     notWorking ? `Not working: ${notWorking}` : '',
     `First 30 days: ${firstMove}`,
@@ -425,12 +438,10 @@ export function briefPayload(answers: BriefAnswers, report: BriefReport) {
     email: answers.email,
     company: answers.company,
     role: ROLE_OPTIONS.find((option) => option.id === answers.role)?.label ?? '',
-    goals_6_months: answers.goals6,
-    goals_1_year: answers.goals12,
+    incremental_revenue_12mo: answers.incrementalRevenue,
+    top_products_services: answers.topProducts,
+    current_roas_cpa: answers.currentRoasCpa,
     support: supportTitles(answers.support),
-    kpis: answers.kpis,
-    growth_past_year: answers.growthPast,
-    growth_wanted: answers.growthWanted,
     team: answers.team,
     duration:
       DURATION_OPTIONS.find((option) => option.id === answers.duration)?.label ??

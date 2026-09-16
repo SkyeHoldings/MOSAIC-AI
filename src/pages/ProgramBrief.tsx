@@ -333,74 +333,46 @@ export function ProgramBrief() {
           {stage === 'direction' ? (
             <div className="brief-fields">
               <label className="field">
-                <span>What are you looking to achieve in the next 6 months?</span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.goals6}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      goals6: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>What about 1 year from now?</span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.goals12}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      goals12: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
                 <span>
-                  What KPIs would you use to track success if we worked together?
+                  How much incremental revenue are you looking to generate in the
+                  next 12 months?
                 </span>
                 <textarea
                   rows={3}
                   maxLength={1500}
-                  value={answers.kpis}
-                  placeholder="Booked jobs, revenue, qualified calls, cost per job — whatever is true."
-                  onChange={(event) =>
-                    setAnswers((current) => ({ ...current, kpis: event.target.value }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>How fast has the business grown in the past year?</span>
-                <textarea
-                  rows={3}
-                  maxLength={1500}
-                  value={answers.growthPast}
+                  value={answers.incrementalRevenue}
                   onChange={(event) =>
                     setAnswers((current) => ({
                       ...current,
-                      growthPast: event.target.value,
+                      incrementalRevenue: event.target.value,
                     }))
                   }
                 />
               </label>
               <label className="field">
-                <span>
-                  How fast do you need revenue or profit to grow the rest of this
-                  year — and next year?
-                </span>
+                <span>Which products/services generate the most revenue?</span>
                 <textarea
                   rows={3}
                   maxLength={1500}
-                  value={answers.growthWanted}
+                  value={answers.topProducts}
                   onChange={(event) =>
                     setAnswers((current) => ({
                       ...current,
-                      growthWanted: event.target.value,
+                      topProducts: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>What is your current ROAS/CPA?</span>
+                <textarea
+                  rows={3}
+                  maxLength={1500}
+                  value={answers.currentRoasCpa}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      currentRoasCpa: event.target.value,
                     }))
                   }
                 />
@@ -1045,16 +1017,8 @@ export function ProgramBrief() {
           <div className="brief-block">
             <h2>How we would measure it</h2>
             <p>{report.measure}</p>
-            {answers.growthPast.trim() || answers.growthWanted.trim() ? (
-              <p>
-                {answers.growthPast.trim()
-                  ? `Past year: ${answers.growthPast.trim()}`
-                  : null}
-                {answers.growthPast.trim() && answers.growthWanted.trim() ? ' ' : null}
-                {answers.growthWanted.trim()
-                  ? `The pace you want next: ${answers.growthWanted.trim()}`
-                  : null}
-              </p>
+            {answers.topProducts.trim() ? (
+              <p>Highest-revenue products/services: {answers.topProducts.trim()}</p>
             ) : null}
             {answers.team.trim() ? <p>Team: {answers.team.trim()}</p> : null}
           </div>
