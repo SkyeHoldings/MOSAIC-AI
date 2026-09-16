@@ -288,8 +288,7 @@ export function ProgramBrief() {
             </p>
             <p>
               This questionnaire takes 15 minutes to complete. We ask that you
-              finish it in one sitting and answer as your marketing is today — not
-              as you wish it were.
+              finish it in one sitting.
             </p>
             <form className="brief-code-form" onSubmit={submitCode}>
               <label htmlFor="brief-code">Invite code</label>
