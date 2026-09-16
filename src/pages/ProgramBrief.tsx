@@ -20,15 +20,24 @@ import {
   ratingsComplete,
   ratingsOnPage,
   type CustomerSource,
-  type DiagnosticAnswers,
   type Goal12,
   type MarketingOwner,
 } from '../data/growthDiagnostic'
 import {
   BRIEF_STORAGE_KEY,
+  BUDGET_OPTIONS,
+  DURATION_OPTIONS,
+  PROCESS_OPTIONS,
+  ROLE_OPTIONS,
+  SUPPORT_OPTIONS,
+  type BriefAnswers,
+  type SupportId,
   briefPayload,
   buildBriefReport,
   emptyBriefAnswers,
+  isDirectionReady,
+  isFitReady,
+  isPartnershipReady,
   isValidInviteCode,
   parseStoredBrief,
 } from '../data/programBrief'
@@ -36,14 +45,71 @@ import {
 const FORMSPREE_ID =
   (import.meta.env.VITE_FORMSPREE_FORM_ID as string | undefined) || 'xpqvjowe'
 
-const STAGES = ['code', 'you', 'facts', 'services', 'building', 'report'] as const
+const STAGES = [
+  'code',
+  'you',
+  'direction',
+  'partnership',
+  'fit',
+  'context',
+  'facts',
+  'services',
+  'building',
+  'report',
+] as const
 type Stage = (typeof STAGES)[number]
+type QualifyingStage = 'you' | 'direction' | 'partnership' | 'fit' | 'context'
 
-function setRating(
-  current: DiagnosticAnswers,
-  index: number,
-  value: number,
-): DiagnosticAnswers {
+const STAGE_META: Record<
+  QualifyingStage,
+  { kicker: string; title: string; note: string }
+> = {
+  you: {
+    kicker: 'Before we begin',
+    title: 'First, introduce yourself.',
+    note: 'Skye receives your completed brief and uses it to prepare the next conversation. Other visitors cannot see your answers.',
+  },
+  direction: {
+    kicker: '01 / Direction',
+    title: 'Where are you trying to go?',
+    note: 'Be specific if you can. Rough numbers are more useful than polished language.',
+  },
+  partnership: {
+    kicker: '02 / How we would work',
+    title: 'What kind of support do you actually need?',
+    note: 'You can choose more than one. We will sequence the work from there.',
+  },
+  fit: {
+    kicker: '03 / Fit',
+    title: 'Team, time, and investment.',
+    note: 'MOSAIC usually starts with a discovery audit around $5,000. Base monthly fees start at $20,000 for a 6-month engagement. Ad spend is separate.',
+  },
+  context: {
+    kicker: '04 / Context',
+    title: 'What is and is not working.',
+    note: 'Optional, but this is what makes the brief useful. Leave out names you would rather keep private.',
+  },
+}
+
+const QUALIFYING_ORDER: QualifyingStage[] = [
+  'you',
+  'direction',
+  'partnership',
+  'fit',
+  'context',
+]
+
+function isQualifyingStage(stage: Stage): stage is QualifyingStage {
+  return QUALIFYING_ORDER.includes(stage as QualifyingStage)
+}
+
+function toggleSupport(current: SupportId[], id: SupportId) {
+  return current.includes(id)
+    ? current.filter((item) => item !== id)
+    : [...current, id]
+}
+
+function setRating(current: BriefAnswers, index: number, value: number): BriefAnswers {
   return {
     ...current,
     ratings: {
@@ -60,7 +126,7 @@ export function ProgramBrief() {
   const [code, setCode] = useState(searchParams.get('code') ?? '')
   const [codeError, setCodeError] = useState('')
   const [checkingCode, setCheckingCode] = useState(false)
-  const [answers, setAnswers] = useState<DiagnosticAnswers>(emptyBriefAnswers)
+  const [answers, setAnswers] = useState<BriefAnswers>(emptyBriefAnswers)
   const [hydrated, setHydrated] = useState(false)
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>(
     'idle',
@@ -75,18 +141,19 @@ export function ProgramBrief() {
   )
   const service = SERVICES[servicePage]
   const answeredCount = answeredRatingCount(answers)
+  const totalSteps = QUALIFYING_ORDER.length + DIAGNOSTIC_TOTAL_PAGES
   const quizProgress =
     stage === 'facts'
-      ? 1 / DIAGNOSTIC_TOTAL_PAGES
+      ? (QUALIFYING_ORDER.length + 1) / totalSteps
       : stage === 'services'
-        ? (servicePage + 2) / DIAGNOSTIC_TOTAL_PAGES
+        ? (QUALIFYING_ORDER.length + servicePage + 2) / totalSteps
         : stage === 'building' || stage === 'report'
           ? 1
-          : 0.06
+          : Math.max(0.06, QUALIFYING_ORDER.indexOf(stage as QualifyingStage) / totalSteps)
 
   useEffect(() => {
     const previous = document.title
-    document.title = 'Growth Diagnostic · MOSAIC'
+    document.title = 'Program Brief · MOSAIC'
     return () => {
       document.title = previous
     }
@@ -123,7 +190,7 @@ export function ProgramBrief() {
     if (stage !== 'report' || !report) return
     let cancelled = false
     setSaveState('saving')
-    setSaveNote('Saving your picture for Skye…')
+    setSaveNote('Saving your brief for Skye…')
 
     const timer = window.setTimeout(async () => {
       try {
@@ -138,7 +205,7 @@ export function ProgramBrief() {
         if (!response.ok) throw new Error('save failed')
         if (!cancelled) {
           setSaveState('saved')
-          setSaveNote('Your completed picture is saved for Skye.')
+          setSaveNote('Your completed brief is saved for Skye.')
         }
       } catch {
         if (!cancelled) {
@@ -199,7 +266,7 @@ export function ProgramBrief() {
     ? `mailto:${encodeURIComponent(answers.email)}?subject=${encodeURIComponent(
         'Your MOSAIC growth picture',
       )}&body=${encodeURIComponent(
-        `You answered five facts about the business and scored 10 marketing services. The lowest scores are where assistance would matter first. This is the picture we would use to prepare a working session.\n\n${report.snapshot}`,
+        `You completed a MOSAIC working brief and scored 10 marketing services. The lowest scores are where assistance would matter first.\n\n${report.snapshot}`,
       )}`
     : ''
 
@@ -208,14 +275,13 @@ export function ProgramBrief() {
       {stage === 'code' ? (
         <section className="assist-hero leak-hero" aria-labelledby="brief-heading">
           <div className="assist-hero__copy">
-            <p className="leak-kicker">Private · 5 facts · 10 services · 30 ratings</p>
-            <h1 id="brief-heading">Where is your marketing leaking?</h1>
+            <p className="leak-kicker">Private · working brief + growth diagnostic</p>
+            <h1 id="brief-heading">A working brief before we talk.</h1>
             <p>
-              First, five facts about the business. Then rate how true each
-              statement is of your marketing today, on the same 1–5 scale the
-              whole way through. At the end you get a ranked picture of where
-              assistance would actually move the number — not a generic “you
-              need more ads” report.
+              First, the questions about goals, support, and fit. Then a 10-service
+              picture of where marketing is leaking — 30 ratings on the same 1–5
+              scale. You get a ranked snapshot. Skye gets a prepared conversation
+              instead of a cold intro call.
             </p>
             <form className="brief-code-form" onSubmit={submitCode}>
               <label htmlFor="brief-code">Invite code</label>
@@ -239,7 +305,7 @@ export function ProgramBrief() {
                   {codeError}
                 </p>
               ) : (
-                <p className="form-note">Use the code from your invite. About 8 minutes.</p>
+                <p className="form-note">Use the code from your invite. About 12 minutes.</p>
               )}
               <button className="btn" type="submit" disabled={checkingCode}>
                 {checkingCode ? 'Checking…' : 'Continue'}
@@ -252,85 +318,391 @@ export function ProgramBrief() {
         </section>
       ) : null}
 
-      {stage === 'you' || stage === 'facts' || stage === 'services' || stage === 'building' ? (
+      {stage !== 'code' && stage !== 'report' ? (
         <section className="quiz-shell brief-shell">
           <div className="brief-progress" aria-hidden="true">
             <span style={{ width: `${Math.max(8, quizProgress * 100)}%` }} />
           </div>
 
-          {stage === 'you' ? (
+          {isQualifyingStage(stage) ? (
             <>
-              <p className="leak-kicker">Before we begin</p>
-              <h1>First, introduce yourself.</h1>
-              <p className="brief-note">
-                Skye receives your completed picture and uses it to prepare the
-                next conversation. Other visitors cannot see your answers. Your
-                answers stay in this browser until you finish.
-              </p>
-              <div className="brief-fields">
-                <label className="field">
-                  <span>Your name</span>
-                  <input
-                    value={answers.name}
-                    autoComplete="name"
-                    maxLength={100}
-                    onChange={(event) =>
-                      setAnswers((current) => ({ ...current, name: event.target.value }))
-                    }
-                  />
-                </label>
-                <label className="field">
-                  <span>Email</span>
-                  <input
-                    type="email"
-                    value={answers.email}
-                    autoComplete="email"
-                    maxLength={200}
-                    onChange={(event) =>
-                      setAnswers((current) => ({ ...current, email: event.target.value }))
-                    }
-                  />
-                </label>
-                <label className="field">
-                  <span>Company</span>
-                  <input
-                    value={answers.company}
-                    autoComplete="organization"
-                    maxLength={160}
-                    onChange={(event) =>
-                      setAnswers((current) => ({
-                        ...current,
-                        company: event.target.value,
-                      }))
-                    }
-                  />
-                </label>
-                <label className="brief-consent">
-                  <input
-                    type="checkbox"
-                    checked={answers.consent}
-                    onChange={(event) =>
-                      setAnswers((current) => ({
-                        ...current,
-                        consent: event.target.checked,
-                      }))
-                    }
-                  />
-                  <span>
-                    I understand Skye will receive this completed picture and use
-                    it to prepare a conversation about MOSAIC marketing support.
-                    This is not a proposal or a contract.
-                  </span>
-                </label>
-              </div>
+              <p className="leak-kicker">{STAGE_META[stage].kicker}</p>
+              <h1>{STAGE_META[stage].title}</h1>
+              <p className="brief-note">{STAGE_META[stage].note}</p>
             </>
+          ) : null}
+
+          {stage === 'you' ? (
+            <div className="brief-fields">
+              <label className="field">
+                <span>Your name</span>
+                <input
+                  value={answers.name}
+                  autoComplete="name"
+                  maxLength={100}
+                  onChange={(event) =>
+                    setAnswers((current) => ({ ...current, name: event.target.value }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>Email</span>
+                <input
+                  type="email"
+                  value={answers.email}
+                  autoComplete="email"
+                  maxLength={200}
+                  onChange={(event) =>
+                    setAnswers((current) => ({ ...current, email: event.target.value }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>Company</span>
+                <input
+                  value={answers.company}
+                  autoComplete="organization"
+                  maxLength={160}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      company: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>Your role</span>
+                <select
+                  value={answers.role}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      role: event.target.value as BriefAnswers['role'],
+                    }))
+                  }
+                >
+                  {ROLE_OPTIONS.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="brief-consent">
+                <input
+                  type="checkbox"
+                  checked={answers.consent}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      consent: event.target.checked,
+                    }))
+                  }
+                />
+                <span>
+                  I understand Skye will receive this completed brief and use it
+                  to prepare a conversation about MOSAIC marketing support. This
+                  is not a proposal or a contract.
+                </span>
+              </label>
+            </div>
+          ) : null}
+
+          {stage === 'direction' ? (
+            <div className="brief-fields">
+              <label className="field">
+                <span>What are you looking to achieve in the next 6 months?</span>
+                <textarea
+                  rows={4}
+                  maxLength={2000}
+                  value={answers.goals6}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      goals6: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>What about 1 year from now?</span>
+                <textarea
+                  rows={4}
+                  maxLength={2000}
+                  value={answers.goals12}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      goals12: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>
+                  What KPIs would you use to track success if we worked together?
+                </span>
+                <textarea
+                  rows={3}
+                  maxLength={1500}
+                  value={answers.kpis}
+                  placeholder="Booked jobs, revenue, qualified calls, cost per job — whatever is true."
+                  onChange={(event) =>
+                    setAnswers((current) => ({ ...current, kpis: event.target.value }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>How fast has the business grown in the past year?</span>
+                <textarea
+                  rows={3}
+                  maxLength={1500}
+                  value={answers.growthPast}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      growthPast: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>
+                  How fast do you need revenue or profit to grow the rest of this
+                  year — and next year?
+                </span>
+                <textarea
+                  rows={3}
+                  maxLength={1500}
+                  value={answers.growthWanted}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      growthWanted: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+            </div>
+          ) : null}
+
+          {stage === 'partnership' ? (
+            <div className="brief-fields">
+              <fieldset className="brief-choices">
+                <legend>What type of work are you looking for support on?</legend>
+                {SUPPORT_OPTIONS.map((option) => {
+                  const selected = answers.support.includes(option.id)
+                  return (
+                    <label
+                      key={option.id}
+                      className={`brief-choice${selected ? ' is-selected' : ''}`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selected}
+                        onChange={() =>
+                          setAnswers((current) => ({
+                            ...current,
+                            support: toggleSupport(current.support, option.id),
+                          }))
+                        }
+                      />
+                      <span>
+                        <strong>{option.title}</strong>
+                        {option.body}
+                      </span>
+                    </label>
+                  )
+                })}
+              </fieldset>
+              <fieldset className="brief-choices">
+                <legend>How long are you looking for support?</legend>
+                {DURATION_OPTIONS.map((option) => (
+                  <label
+                    key={option.id}
+                    className={`brief-choice${
+                      answers.duration === option.id ? ' is-selected' : ''
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="duration"
+                      checked={answers.duration === option.id}
+                      onChange={() =>
+                        setAnswers((current) => ({
+                          ...current,
+                          duration: option.id,
+                        }))
+                      }
+                    />
+                    <span>
+                      <strong>{option.label}</strong>
+                      {option.hint}
+                    </span>
+                  </label>
+                ))}
+              </fieldset>
+              {answers.duration === 'in-house' ? (
+                <label className="field">
+                  <span>At what point would you want the work in-house?</span>
+                  <input
+                    maxLength={240}
+                    value={answers.inHouseWhen}
+                    placeholder="After 6 months, when we hire a coordinator, next spring…"
+                    onChange={(event) =>
+                      setAnswers((current) => ({
+                        ...current,
+                        inHouseWhen: event.target.value,
+                      }))
+                    }
+                  />
+                </label>
+              ) : null}
+              <label className="field">
+                <span>
+                  Tell me about your current team: headcount, upcoming hires, and
+                  resource gaps.
+                </span>
+                <textarea
+                  rows={4}
+                  maxLength={2000}
+                  value={answers.team}
+                  onChange={(event) =>
+                    setAnswers((current) => ({ ...current, team: event.target.value }))
+                  }
+                />
+              </label>
+            </div>
+          ) : null}
+
+          {stage === 'fit' ? (
+            <div className="brief-fields">
+              <fieldset className="brief-choices">
+                <legend>What is the target budget?</legend>
+                {BUDGET_OPTIONS.map((option) => (
+                  <label
+                    key={option.id}
+                    className={`brief-choice${
+                      answers.budget === option.id ? ' is-selected' : ''
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="budget"
+                      checked={answers.budget === option.id}
+                      onChange={() =>
+                        setAnswers((current) => ({
+                          ...current,
+                          budget: option.id,
+                        }))
+                      }
+                    />
+                    <span>
+                      <strong>{option.label}</strong>
+                      {option.hint}
+                    </span>
+                  </label>
+                ))}
+              </fieldset>
+              <fieldset className="brief-choices">
+                <legend>Where are you today in your selection process?</legend>
+                {PROCESS_OPTIONS.map((option) => (
+                  <label
+                    key={option.id}
+                    className={`brief-choice${
+                      answers.process === option.id ? ' is-selected' : ''
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="process"
+                      checked={answers.process === option.id}
+                      onChange={() =>
+                        setAnswers((current) => ({
+                          ...current,
+                          process: option.id,
+                        }))
+                      }
+                    />
+                    <span>
+                      <strong>{option.label}</strong>
+                    </span>
+                  </label>
+                ))}
+              </fieldset>
+            </div>
+          ) : null}
+
+          {stage === 'context' ? (
+            <div className="brief-fields">
+              <label className="field">
+                <span>What part of your marketing is working today?</span>
+                <textarea
+                  rows={4}
+                  maxLength={2000}
+                  value={answers.working}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      working: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>What is not working — where do inquiries or jobs stall?</span>
+                <textarea
+                  rows={4}
+                  maxLength={2000}
+                  value={answers.notWorking}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      notWorking: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>
+                  Optional: have you worked with a consultant, agency, or
+                  freelancer before? What did you like and not like?
+                </span>
+                <textarea
+                  rows={4}
+                  maxLength={2000}
+                  value={answers.pastAgency}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      pastAgency: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>Do you have questions for MOSAIC before we proceed?</span>
+                <textarea
+                  rows={3}
+                  maxLength={1500}
+                  value={answers.questionsForMosaic}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      questionsForMosaic: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+            </div>
           ) : null}
 
           {stage === 'facts' ? (
             <>
               <div className="brief-quiz-heading">
                 <div>
-                  <p className="leak-kicker">About the business · 1 of 11</p>
+                  <p className="leak-kicker">Growth diagnostic · About the business · 1 of 11</p>
                   <h1>A few facts so the picture is about your company.</h1>
                 </div>
                 <p className="brief-progress-label">Part 1 of 11 · 5 facts</p>
@@ -374,7 +746,6 @@ export function ProgramBrief() {
                     Prefer not to say
                   </label>
                 </div>
-
                 <div className="field">
                   <span>About how much do you spend on ads in a typical month? If it is zero, put 0.</span>
                   <div className="brief-money">
@@ -411,7 +782,6 @@ export function ProgramBrief() {
                     Prefer not to say
                   </label>
                 </div>
-
                 <fieldset className="brief-choices">
                   <legend>Where do most customers come from today?</legend>
                   {SOURCE_OPTIONS.map((option) => (
@@ -438,7 +808,6 @@ export function ProgramBrief() {
                     </label>
                   ))}
                 </fieldset>
-
                 <fieldset className="brief-choices">
                   <legend>Who owns marketing day to day?</legend>
                   {OWNER_OPTIONS.map((option) => (
@@ -465,7 +834,6 @@ export function ProgramBrief() {
                     </label>
                   ))}
                 </fieldset>
-
                 <fieldset className="brief-choices">
                   <legend>What needs to be true in 12 months?</legend>
                   {GOAL_OPTIONS.map((option) => (
@@ -501,7 +869,7 @@ export function ProgramBrief() {
               <div className="brief-quiz-heading">
                 <div>
                   <p className="leak-kicker">
-                    {service.name} · {service.page} of 11
+                    Growth diagnostic · {service.name} · {service.page} of 11
                   </p>
                   <h1>How true is this of your marketing today?</h1>
                 </div>
@@ -520,11 +888,7 @@ export function ProgramBrief() {
                         <span>{String(index + 1).padStart(2, '0')}</span>
                         {text}
                       </legend>
-                      <div
-                        className="brief-scale"
-                        role="radiogroup"
-                        aria-label={text}
-                      >
+                      <div className="brief-scale" role="radiogroup" aria-label={text}>
                         {DIAGNOSTIC_SCALE.map((option) => (
                           <label
                             key={option.value}
@@ -578,7 +942,11 @@ export function ProgramBrief() {
                 className="text-button"
                 onClick={() => {
                   if (stage === 'you') go('code')
-                  else if (stage === 'facts') go('you')
+                  else if (stage === 'direction') go('you')
+                  else if (stage === 'partnership') go('direction')
+                  else if (stage === 'fit') go('partnership')
+                  else if (stage === 'context') go('fit')
+                  else if (stage === 'facts') go('context')
                   else if (stage === 'services' && servicePage === 0) go('facts')
                   else if (stage === 'services') {
                     setServicePage((page) => page - 1)
@@ -593,14 +961,21 @@ export function ProgramBrief() {
                 className="btn"
                 disabled={
                   (stage === 'you' && !isYouReady(answers)) ||
+                  (stage === 'direction' && !isDirectionReady(answers)) ||
+                  (stage === 'partnership' && !isPartnershipReady(answers)) ||
+                  (stage === 'fit' && !isFitReady(answers)) ||
                   (stage === 'facts' && !isFactsReady(answers)) ||
                   (stage === 'services' && !ratingsOnPage(answers, servicePage))
                 }
                 onClick={() => {
-                  if (stage === 'you') go('facts')
+                  if (stage === 'you') go('direction')
+                  else if (stage === 'direction') go('partnership')
+                  else if (stage === 'partnership') go('fit')
+                  else if (stage === 'fit') go('context')
+                  else if (stage === 'context') go('facts')
                   else if (stage === 'facts') {
-                    const firstUnanswered = SERVICES.findIndex((_, index) =>
-                      !ratingsOnPage(answers, index),
+                    const firstUnanswered = SERVICES.findIndex(
+                      (_, index) => !ratingsOnPage(answers, index),
                     )
                     setServicePage(firstUnanswered < 0 ? 0 : firstUnanswered)
                     go('services')
@@ -618,17 +993,19 @@ export function ProgramBrief() {
                   }
                 }}
               >
-                {stage === 'you'
-                  ? 'Continue'
+                {stage === 'context'
+                  ? 'Start the diagnostic'
                   : stage === 'facts'
                     ? isFactsReady(answers)
                       ? 'Start the ratings'
                       : 'Answer all five to continue'
                     : stage === 'services' && servicePage === SERVICES.length - 1
                       ? 'See my picture'
-                      : ratingsOnPage(answers, servicePage)
-                        ? 'Next'
-                        : 'Answer all three to continue'}
+                      : stage === 'services'
+                        ? ratingsOnPage(answers, servicePage)
+                          ? 'Next'
+                          : 'Answer all three to continue'
+                        : 'Continue'}
               </button>
             </div>
           ) : null}
@@ -675,7 +1052,10 @@ export function ProgramBrief() {
 
           <div className="brief-priority">
             <p className="leak-kicker">Start here</p>
-            <h2>These are the lowest scores. This is the assistance order — not a pitch deck.</h2>
+            <h2>
+              These are the lowest scores. This is the assistance order — not a
+              pitch deck.
+            </h2>
             <div className="brief-service-cards">
               {report.priority.map((item, index) => (
                 <article key={item.id} className="brief-service-card">
@@ -718,11 +1098,76 @@ export function ProgramBrief() {
             </div>
           ) : null}
 
+          <div className="brief-tiles">
+            {report.tiles.map((tile) => (
+              <article key={tile.label}>
+                <span>{tile.label}</span>
+                <strong>{tile.value}</strong>
+              </article>
+            ))}
+          </div>
+
+          <div className="brief-insights">
+            <article>
+              <span>01 / Keep</span>
+              <h2>What to protect</h2>
+              <p>{report.keep}</p>
+            </article>
+            <article>
+              <span>02 / Look closer</span>
+              <h2>Where the program leaks</h2>
+              <p>{report.leak}</p>
+            </article>
+          </div>
+
+          <div className="brief-block">
+            <h2>How MOSAIC would partner</h2>
+            <p>{report.partnership}</p>
+          </div>
+          <div className="brief-block">
+            <h2>How we would measure it</h2>
+            <p>{report.measure}</p>
+            {answers.growthPast.trim() || answers.growthWanted.trim() ? (
+              <p>
+                {answers.growthPast.trim()
+                  ? `Past year: ${answers.growthPast.trim()}`
+                  : null}
+                {answers.growthPast.trim() && answers.growthWanted.trim() ? ' ' : null}
+                {answers.growthWanted.trim()
+                  ? `The pace you want next: ${answers.growthWanted.trim()}`
+                  : null}
+              </p>
+            ) : null}
+            {answers.team.trim() ? <p>Team: {answers.team.trim()}</p> : null}
+          </div>
+          <div className="brief-block">
+            <h2>Shape of the engagement</h2>
+            <p>{report.engagement}</p>
+            <p>{report.budgetNote}</p>
+          </div>
+
           <div className="brief-experiment">
             <p className="leak-kicker">What MOSAIC would do with this</p>
             <h2>A defined 90-day pass, in this order.</h2>
             <p>{report.close}</p>
+            <p>
+              {report.firstMove} {report.fitLabel}. {report.fitNote}
+            </p>
           </div>
+
+          {answers.questionsForMosaic.trim() ? (
+            <div className="brief-block">
+              <h2>Your questions for MOSAIC</h2>
+              <p>{answers.questionsForMosaic.trim()}</p>
+            </div>
+          ) : null}
+
+          {answers.pastAgency.trim() ? (
+            <div className="brief-block">
+              <h2>What you liked and did not like before</h2>
+              <p>{answers.pastAgency.trim()}</p>
+            </div>
+          ) : null}
 
           <div className="brief-report-actions no-print">
             <a className="btn" href="#book">
@@ -740,19 +1185,15 @@ export function ProgramBrief() {
             <button
               type="button"
               className="text-button"
-              onClick={() => {
-                setServicePage(0)
-                go('facts')
-              }}
+              onClick={() => go('you')}
             >
               Review my answers
             </button>
           </div>
 
           <p className="brief-footnote">
-            {answers.name || 'You'} · {report.companyLine} · This is a self-score,
-            not an audit. It is how we prepare a conversation. It is not a
-            proposal or a contract.
+            {answers.name || 'You'} · {report.companyLine} · This is a self-score
+            and a working brief, not an audit, proposal, or contract.
           </p>
         </section>
       ) : null}
