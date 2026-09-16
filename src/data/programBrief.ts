@@ -1,16 +1,11 @@
 import {
   DIAGNOSTIC_RATING_COUNT,
-  GOAL_OPTIONS,
-  OWNER_OPTIONS,
   QUESTIONS,
   SERVICES,
-  SOURCE_OPTIONS,
   answeredRatingCount,
   buildDiagnosticReport,
   emptyDiagnosticAnswers,
   parseStoredDiagnostic,
-  resolvedRevenue,
-  resolvedSpend,
   type DiagnosticAnswers,
   type DiagnosticReport,
 } from './growthDiagnostic'
@@ -445,67 +440,81 @@ function briefEmailSubject(answers: BriefAnswers) {
   return clipped ? `Program brief — ${clipped}` : 'Program brief — hellomosaic.ai'
 }
 
+function briefNotificationMessage(
+  answers: BriefAnswers,
+  report: BriefReport,
+  privateReviewUrl: string,
+) {
+  const direction = [
+    answers.incrementalRevenue.trim()
+      ? `12-month incremental revenue: ${answers.incrementalRevenue.trim()}`
+      : '',
+    answers.topProducts.trim()
+      ? `Highest-revenue products/services: ${answers.topProducts.trim()}`
+      : '',
+    answers.currentRoasCpa.trim()
+      ? `Current ROAS/CPA: ${answers.currentRoasCpa.trim()}`
+      : '',
+  ].filter(Boolean)
+
+  return [
+    'PRIVATE REVIEW — open this for the pictured report (not shown to the client):',
+    privateReviewUrl,
+    '',
+    'If that page says the link is incomplete, paste the full URL above, including everything after #.',
+    '',
+    'DIRECTION',
+    ...(direction.length > 0 ? direction : ['No direction notes.']),
+    '',
+    'PICTURE',
+    report.headline,
+    report.overview,
+    '',
+    'START HERE',
+    report.priority
+      .map(
+        (item) =>
+          `${item.name} ${item.score.toFixed(1)}/5 — ${item.bandLabel}`,
+      )
+      .join('\n'),
+    '',
+    'SCORES',
+    report.ranked
+      .map((item) => `${item.name} ${item.score.toFixed(1)}/5 (${item.band})`)
+      .join('\n'),
+  ].join('\n')
+}
+
+const BRIEF_NOTIFY_EMAIL =
+  (import.meta.env.VITE_FORMSPREE_NOTIFY_EMAIL as string | undefined) ||
+  'skye@hellomosaic.ai'
+
 export function briefPayload(
   answers: BriefAnswers,
   report: BriefReport,
   extras?: { privateReviewUrl?: string },
 ) {
+  const privateReviewUrl = extras?.privateReviewUrl?.trim() ?? ''
   const payload = {
     form_type: 'program_brief',
     _subject: briefEmailSubject(answers),
-    private_review_url: extras?.privateReviewUrl ?? '',
-    private_review_token: extras?.privateReviewUrl?.split('#').pop() ?? '',
-    message: extras?.privateReviewUrl
-      ? `Open the pictured report (private — not shown to the client). If the page says the link is incomplete, copy the full URL including the # from this field:\n${extras.privateReviewUrl}`
+    _cc: BRIEF_NOTIFY_EMAIL,
+    private_review_url: privateReviewUrl,
+    message: privateReviewUrl
+      ? briefNotificationMessage(answers, report, privateReviewUrl)
       : '',
-    name: answers.name,
-    email: answers.email,
-    company: answers.company,
-    role: ROLE_OPTIONS.find((option) => option.id === answers.role)?.label ?? '',
     incremental_revenue_12mo: answers.incrementalRevenue,
     top_products_services: answers.topProducts,
     current_roas_cpa: answers.currentRoasCpa,
-    support: supportTitles(answers.support),
-    team: answers.team,
-    duration:
-      DURATION_OPTIONS.find((option) => option.id === answers.duration)?.label ??
-      '',
-    in_house_when: answers.inHouseWhen,
-    budget:
-      BUDGET_OPTIONS.find((option) => option.id === answers.budget)?.label ?? '',
-    past_agency: answers.pastAgency,
-    selection_process:
-      PROCESS_OPTIONS.find((option) => option.id === answers.process)?.label ??
-      '',
-    questions_for_mosaic: answers.questionsForMosaic,
-    what_is_working: answers.working,
-    what_is_not_working: answers.notWorking,
-    annual_revenue: answers.revenuePreferNot
-      ? 'Prefer not to say'
-      : resolvedRevenue(answers)?.toString() ?? '',
-    monthly_ad_spend: answers.spendPreferNot
-      ? 'Prefer not to say'
-      : resolvedSpend(answers)?.toString() ?? '',
-    customer_source:
-      SOURCE_OPTIONS.find((option) => option.id === answers.source)?.label ?? '',
-    marketing_owner:
-      OWNER_OPTIONS.find((option) => option.id === answers.owner)?.label ?? '',
-    goal_12mo: GOAL_OPTIONS.find((option) => option.id === answers.goal)?.label ?? '',
     ratings_answered: `${answeredRatingCount(answers)} / ${DIAGNOSTIC_RATING_COUNT}`,
     service_scores: report.ranked
       .map((item) => `${item.name} ${item.score.toFixed(1)}/5 (${item.band})`)
       .join('\n'),
     cluster: report.cluster.name,
     headline: report.headline,
-    overview: report.overview,
     start_here: report.priority
       .map((item) => `${item.name} ${item.score.toFixed(1)}/5 — ${item.bandLabel}`)
       .join('\n'),
-    protect_this: report.strengthLine,
-    mosaic_help_prefix: report.helpPrefix,
-    close: report.close,
-    report_first_move: report.firstMove,
-    report_fit: `${report.fitLabel}. ${report.fitNote}`,
     quiz_answers: QUESTIONS.map((question) => {
       const rating = answers.ratings[question.index]
       const service = SERVICES.find((item) => item.id === question.serviceId)?.name
