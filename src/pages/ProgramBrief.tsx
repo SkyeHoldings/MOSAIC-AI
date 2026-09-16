@@ -278,7 +278,7 @@ export function ProgramBrief() {
             <p className="leak-kicker">A custom questionnaire built for your business</p>
             <h1 id="brief-heading">
               <span>Learn where your program excels</span>
-              <span>and where it can improve.</span>
+              <span>and where it can improve</span>
             </h1>
             <p>
               Marketing gets complicated without an agency by your side monitoring
