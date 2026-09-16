@@ -24,14 +24,11 @@ import {
 } from '../data/growthDiagnostic'
 import {
   BRIEF_STORAGE_KEY,
-  BUDGET_OPTIONS,
-  PROCESS_OPTIONS,
   type BriefAnswers,
   briefPayload,
   buildBriefReport,
   emptyBriefAnswers,
   isDirectionReady,
-  isFitReady,
   isValidInviteCode,
   parseStoredBrief,
 } from '../data/programBrief'
@@ -42,7 +39,6 @@ const FORMSPREE_ID =
 const STAGES = [
   'code',
   'direction',
-  'fit',
   'context',
   'facts',
   'services',
@@ -50,7 +46,7 @@ const STAGES = [
   'report',
 ] as const
 type Stage = (typeof STAGES)[number]
-type QualifyingStage = 'direction' | 'fit' | 'context'
+type QualifyingStage = 'direction' | 'context'
 
 const STAGE_META: Record<
   QualifyingStage,
@@ -61,23 +57,14 @@ const STAGE_META: Record<
     title: 'Where are you trying to go?',
     note: 'Be specific if you can. Rough numbers are more useful than polished language.',
   },
-  fit: {
-    kicker: '02 / Fit',
-    title: 'Investment and selection.',
-    note: 'MOSAIC usually starts with a discovery audit around $5,000. Base monthly fees start at $20,000 for a 6-month engagement. Ad spend is separate.',
-  },
   context: {
-    kicker: '03 / Context',
+    kicker: '02 / Context',
     title: 'What is and is not working.',
     note: 'Optional, but this is what makes the brief useful. Leave out names you would rather keep private.',
   },
 }
 
-const QUALIFYING_ORDER: QualifyingStage[] = [
-  'direction',
-  'fit',
-  'context',
-]
+const QUALIFYING_ORDER: QualifyingStage[] = ['direction', 'context']
 
 function isQualifyingStage(stage: Stage): stage is QualifyingStage {
   return QUALIFYING_ORDER.includes(stage as QualifyingStage)
@@ -360,64 +347,6 @@ export function ProgramBrief() {
                   }
                 />
               </label>
-            </div>
-          ) : null}
-
-          {stage === 'fit' ? (
-            <div className="brief-fields">
-              <fieldset className="brief-choices">
-                <legend>What is the target budget?</legend>
-                {BUDGET_OPTIONS.map((option) => (
-                  <label
-                    key={option.id}
-                    className={`brief-choice${
-                      answers.budget === option.id ? ' is-selected' : ''
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="budget"
-                      checked={answers.budget === option.id}
-                      onChange={() =>
-                        setAnswers((current) => ({
-                          ...current,
-                          budget: option.id,
-                        }))
-                      }
-                    />
-                    <span>
-                      <strong>{option.label}</strong>
-                      {option.hint}
-                    </span>
-                  </label>
-                ))}
-              </fieldset>
-              <fieldset className="brief-choices">
-                <legend>Where are you today in your selection process?</legend>
-                {PROCESS_OPTIONS.map((option) => (
-                  <label
-                    key={option.id}
-                    className={`brief-choice${
-                      answers.process === option.id ? ' is-selected' : ''
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="process"
-                      checked={answers.process === option.id}
-                      onChange={() =>
-                        setAnswers((current) => ({
-                          ...current,
-                          process: option.id,
-                        }))
-                      }
-                    />
-                    <span>
-                      <strong>{option.label}</strong>
-                    </span>
-                  </label>
-                ))}
-              </fieldset>
             </div>
           ) : null}
 
@@ -729,8 +658,7 @@ export function ProgramBrief() {
                 className="text-button"
                 onClick={() => {
                   if (stage === 'direction') go('code')
-                  else if (stage === 'fit') go('direction')
-                  else if (stage === 'context') go('fit')
+                  else if (stage === 'context') go('direction')
                   else if (stage === 'facts') go('context')
                   else if (stage === 'services' && servicePage === 0) go('facts')
                   else if (stage === 'services') {
@@ -746,13 +674,11 @@ export function ProgramBrief() {
                 className="btn"
                 disabled={
                   (stage === 'direction' && !isDirectionReady(answers)) ||
-                  (stage === 'fit' && !isFitReady(answers)) ||
                   (stage === 'facts' && !isFactsReady(answers)) ||
                   (stage === 'services' && !ratingsOnPage(answers, servicePage))
                 }
                 onClick={() => {
-                  if (stage === 'direction') go('fit')
-                  else if (stage === 'fit') go('context')
+                  if (stage === 'direction') go('context')
                   else if (stage === 'context') go('facts')
                   else if (stage === 'facts') {
                     const firstUnanswered = SERVICES.findIndex(
@@ -879,14 +805,16 @@ export function ProgramBrief() {
             </div>
           ) : null}
 
-          <div className="brief-tiles">
-            {report.tiles.map((tile) => (
-              <article key={tile.label}>
-                <span>{tile.label}</span>
-                <strong>{tile.value}</strong>
-              </article>
-            ))}
-          </div>
+          {report.tiles.length > 0 ? (
+            <div className="brief-tiles">
+              {report.tiles.map((tile) => (
+                <article key={tile.label}>
+                  <span>{tile.label}</span>
+                  <strong>{tile.value}</strong>
+                </article>
+              ))}
+            </div>
+          ) : null}
 
           <div className="brief-insights">
             <article>

@@ -379,18 +379,26 @@ export function buildBriefReport(answers: BriefAnswers): BriefReport {
           },
         ]
       : []),
-    {
-      label: 'Investment',
-      value:
-        BUDGET_OPTIONS.find((option) => option.id === answers.budget)?.label ??
-        'Not named yet',
-    },
-    {
-      label: 'Process',
-      value:
-        PROCESS_OPTIONS.find((option) => option.id === answers.process)?.label ??
-        'Not named yet',
-    },
+    ...(answers.budget
+      ? [
+          {
+            label: 'Investment',
+            value:
+              BUDGET_OPTIONS.find((option) => option.id === answers.budget)
+                ?.label ?? '',
+          },
+        ]
+      : []),
+    ...(answers.process
+      ? [
+          {
+            label: 'Process',
+            value:
+              PROCESS_OPTIONS.find((option) => option.id === answers.process)
+                ?.label ?? '',
+          },
+        ]
+      : []),
   ]
 
   const snapshot = [
