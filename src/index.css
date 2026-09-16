@@ -8200,21 +8200,23 @@ p {
 
 .brief-question-list {
   display: grid;
-  gap: 1.4rem;
+  gap: 2rem;
 }
 
 .brief-question {
   border: 0;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: 0.75rem;
+  min-width: 0;
 }
 
 .brief-question legend {
   padding: 0;
   color: var(--ink);
   line-height: 1.45;
+  float: left;
+  width: 100%;
+  margin: 0 0 1.35rem;
 }
 
 .brief-question legend span {
@@ -8229,6 +8231,7 @@ p {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.4rem;
+  clear: both;
 }
 
 .brief-scale label {
