@@ -16,7 +16,6 @@ import {
   SOURCE_OPTIONS,
   answeredRatingCount,
   isFactsReady,
-  isYouReady,
   ratingsComplete,
   ratingsOnPage,
   type CustomerSource,
@@ -28,7 +27,6 @@ import {
   BUDGET_OPTIONS,
   DURATION_OPTIONS,
   PROCESS_OPTIONS,
-  ROLE_OPTIONS,
   SUPPORT_OPTIONS,
   type BriefAnswers,
   type SupportId,
@@ -47,7 +45,6 @@ const FORMSPREE_ID =
 
 const STAGES = [
   'code',
-  'you',
   'direction',
   'partnership',
   'fit',
@@ -58,17 +55,12 @@ const STAGES = [
   'report',
 ] as const
 type Stage = (typeof STAGES)[number]
-type QualifyingStage = 'you' | 'direction' | 'partnership' | 'fit' | 'context'
+type QualifyingStage = 'direction' | 'partnership' | 'fit' | 'context'
 
 const STAGE_META: Record<
   QualifyingStage,
   { kicker: string; title: string; note: string }
 > = {
-  you: {
-    kicker: 'Before we begin',
-    title: 'First, introduce yourself.',
-    note: 'Skye receives your completed brief and uses it to prepare the next conversation. Other visitors cannot see your answers.',
-  },
   direction: {
     kicker: '01 / Direction',
     title: 'Where are you trying to go?',
@@ -92,7 +84,6 @@ const STAGE_META: Record<
 }
 
 const QUALIFYING_ORDER: QualifyingStage[] = [
-  'you',
   'direction',
   'partnership',
   'fit',
@@ -182,7 +173,7 @@ export function ProgramBrief() {
     const fromUrl = searchParams.get('code')
     if (fromUrl && isValidInviteCode(fromUrl)) {
       setCode(fromUrl)
-      setStage((current) => (current === 'code' ? 'you' : current))
+      setStage((current) => (current === 'code' ? 'direction' : current))
     }
   }, [searchParams])
 
@@ -243,7 +234,7 @@ export function ProgramBrief() {
     setCodeError('')
     window.setTimeout(() => {
       if (isValidInviteCode(code)) {
-        go('you')
+        go('direction')
       } else {
         setCodeError('That code is not active. Use the invite from your note or email.')
       }
@@ -337,83 +328,6 @@ export function ProgramBrief() {
               <h1>{STAGE_META[stage].title}</h1>
               <p className="brief-note">{STAGE_META[stage].note}</p>
             </>
-          ) : null}
-
-          {stage === 'you' ? (
-            <div className="brief-fields">
-              <label className="field">
-                <span>Your name</span>
-                <input
-                  value={answers.name}
-                  autoComplete="name"
-                  maxLength={100}
-                  onChange={(event) =>
-                    setAnswers((current) => ({ ...current, name: event.target.value }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>Email</span>
-                <input
-                  type="email"
-                  value={answers.email}
-                  autoComplete="email"
-                  maxLength={200}
-                  onChange={(event) =>
-                    setAnswers((current) => ({ ...current, email: event.target.value }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>Company</span>
-                <input
-                  value={answers.company}
-                  autoComplete="organization"
-                  maxLength={160}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      company: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>Your role</span>
-                <select
-                  value={answers.role}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      role: event.target.value as BriefAnswers['role'],
-                    }))
-                  }
-                >
-                  {ROLE_OPTIONS.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="brief-consent">
-                <input
-                  type="checkbox"
-                  checked={answers.consent}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      consent: event.target.checked,
-                    }))
-                  }
-                />
-                <span>
-                  I understand Skye will receive this completed brief and use it
-                  to prepare a conversation about MOSAIC marketing support. This
-                  is not a proposal or a contract.
-                </span>
-              </label>
-            </div>
           ) : null}
 
           {stage === 'direction' ? (
@@ -948,8 +862,7 @@ export function ProgramBrief() {
                 type="button"
                 className="text-button"
                 onClick={() => {
-                  if (stage === 'you') go('code')
-                  else if (stage === 'direction') go('you')
+                  if (stage === 'direction') go('code')
                   else if (stage === 'partnership') go('direction')
                   else if (stage === 'fit') go('partnership')
                   else if (stage === 'context') go('fit')
@@ -967,7 +880,6 @@ export function ProgramBrief() {
                 type="button"
                 className="btn"
                 disabled={
-                  (stage === 'you' && !isYouReady(answers)) ||
                   (stage === 'direction' && !isDirectionReady(answers)) ||
                   (stage === 'partnership' && !isPartnershipReady(answers)) ||
                   (stage === 'fit' && !isFitReady(answers)) ||
@@ -975,8 +887,7 @@ export function ProgramBrief() {
                   (stage === 'services' && !ratingsOnPage(answers, servicePage))
                 }
                 onClick={() => {
-                  if (stage === 'you') go('direction')
-                  else if (stage === 'direction') go('partnership')
+                  if (stage === 'direction') go('partnership')
                   else if (stage === 'partnership') go('fit')
                   else if (stage === 'fit') go('context')
                   else if (stage === 'context') go('facts')
@@ -1180,9 +1091,11 @@ export function ProgramBrief() {
             <a className="btn" href="#book">
               Book a working session
             </a>
-            <a className="text-button" href={mailto}>
-              Email this picture to myself
-            </a>
+            {answers.email.trim() ? (
+              <a className="text-button" href={mailto}>
+                Email this picture to myself
+              </a>
+            ) : null}
             <button type="button" className="text-button" onClick={() => void copySnapshot()}>
               {copied ? 'Copied' : 'Copy my snapshot'}
             </button>
@@ -1192,15 +1105,17 @@ export function ProgramBrief() {
             <button
               type="button"
               className="text-button"
-              onClick={() => go('you')}
+              onClick={() => go('direction')}
             >
               Review my answers
             </button>
           </div>
 
           <p className="brief-footnote">
-            {answers.name || 'You'} · {report.companyLine} · This is a self-score
-            and a working brief, not an audit, proposal, or contract.
+            {[answers.name.trim(), answers.company.trim()].filter(Boolean).join(' · ')}
+            {answers.name.trim() || answers.company.trim() ? ' · ' : ''}
+            This is a self-score and a working brief, not an audit, proposal, or
+            contract.
           </p>
         </section>
       ) : null}

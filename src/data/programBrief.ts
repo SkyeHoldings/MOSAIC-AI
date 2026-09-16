@@ -156,7 +156,7 @@ export type BriefReport = DiagnosticReport & {
 export function emptyBriefAnswers(): BriefAnswers {
   return {
     ...emptyDiagnosticAnswers(),
-    role: 'owner',
+    role: '',
     goals6: '',
     goals12: '',
     support: [],
@@ -190,7 +190,7 @@ export function parseStoredBrief(raw: string | null): BriefAnswers | null {
       ...emptyBriefAnswers(),
       ...diagnostic,
       support,
-      role: ROLE_OPTIONS.find((option) => option.id === parsed.role)?.id ?? 'owner',
+      role: ROLE_OPTIONS.find((option) => option.id === parsed.role)?.id ?? '',
       goals6: typeof parsed.goals6 === 'string' ? parsed.goals6 : '',
       goals12: typeof parsed.goals12 === 'string' ? parsed.goals12 : '',
       kpis: typeof parsed.kpis === 'string' ? parsed.kpis : '',
@@ -476,6 +476,6 @@ export function briefPayload(answers: BriefAnswers, report: BriefReport) {
       const service = SERVICES.find((item) => item.id === question.serviceId)?.name
       return `${question.index + 1}. [${rating ?? '—'}] ${service}: ${question.text}`
     }).join('\n'),
-    consent: answers.consent ? 'yes' : 'no',
+    consent: answers.consent ? 'yes' : 'not collected in form',
   }
 }
