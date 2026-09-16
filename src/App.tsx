@@ -6,6 +6,7 @@ import { BusinessCard } from './pages/BusinessCard'
 import { Home } from './pages/Home'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
 import { OneSheet } from './pages/OneSheet'
+import { ProgramBrief } from './pages/ProgramBrief'
 import { Privacy } from './pages/Privacy'
 import { Services } from './pages/Services'
 import { SmsOptIn } from './pages/SmsOptIn'
@@ -56,6 +57,7 @@ export default function App() {
           <Route path="/sms-opt-in" element={<SmsOptIn />} />
           <Route path="/lead-leak-check" element={<LeadLeakCheck />} />
           <Route path="/free" element={<LeadLeakCheck />} />
+          <Route path="/brief" element={<ProgramBrief />} />
           <Route path="/businesscard" element={<BusinessCard />} />
           <Route path="/onesheet" element={<OneSheet />} />
           <Route path="/work/:id" element={<WorkDetail />} />

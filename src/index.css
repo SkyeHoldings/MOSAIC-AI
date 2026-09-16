@@ -7820,3 +7820,322 @@ p {
     width: 100%;
   }
 }
+
+/* ---------- Private program brief ---------- */
+.brief-page {
+  background: #fff;
+}
+
+.brief-code-form {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  max-width: 22rem;
+  animation: assist-rise 700ms ease 140ms both;
+}
+
+.brief-code-form label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.brief-code-form input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 0;
+  outline: none;
+}
+
+.brief-code-form input:focus {
+  border-bottom-color: var(--text);
+}
+
+.brief-code-form .btn {
+  margin-top: 0.65rem;
+}
+
+.brief-shell {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--page-pad) clamp(4rem, 8vw, 6rem);
+}
+
+.brief-progress {
+  height: 2px;
+  background: var(--line);
+  margin-bottom: 1.75rem;
+}
+
+.brief-progress span {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+}
+
+.brief-shell h1 {
+  font-size: clamp(1.85rem, 4vw, 2.6rem);
+  letter-spacing: -0.03em;
+  margin: 0.4rem 0 0.85rem;
+}
+
+.brief-note {
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 1.75rem;
+}
+
+.brief-fields {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.brief-fields .field span,
+.brief-choices legend {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.brief-choices {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.brief-choice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.brief-choice.is-selected {
+  border-color: var(--ink);
+  background: #f7f7f7;
+}
+
+.brief-choice input {
+  margin-top: 0.3rem;
+}
+
+.brief-choice strong {
+  display: block;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 1rem;
+}
+
+.brief-choice span {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.brief-consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.brief-consent input {
+  margin-top: 0.3rem;
+}
+
+.brief-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.brief-actions .btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.text-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.text-button:hover {
+  opacity: 0.65;
+}
+
+.brief-report {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--page-pad) 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.brief-save {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.brief-save.error {
+  color: var(--ink);
+}
+
+.brief-report h1 {
+  font-size: clamp(2rem, 4.4vw, 3rem);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.brief-lede {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.brief-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.brief-tiles article {
+  border: 1px solid var(--line);
+  padding: 1rem 1.05rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.brief-tiles span {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.brief-tiles strong {
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.brief-insights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.brief-insights article,
+.brief-block,
+.brief-experiment {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.brief-insights article {
+  padding: 1.25rem 1.15rem;
+  background: #f5f5f5;
+}
+
+.brief-insights span,
+.brief-experiment .leak-kicker {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.brief-insights h2,
+.brief-block h2,
+.brief-experiment h2 {
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.brief-insights p,
+.brief-block p,
+.brief-experiment p {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.brief-experiment {
+  padding: 1.5rem 1.25rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.brief-report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  align-items: center;
+}
+
+.brief-footnote {
+  color: var(--faint);
+  font-size: 0.82rem;
+}
+
+.brief-home-link {
+  text-align: center;
+  padding: 1.5rem var(--page-pad) 3rem;
+}
+
+.brief-home-link a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 800px) {
+  .brief-tiles,
+  .brief-insights {
+    grid-template-columns: 1fr;
+  }
+
+  .brief-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .brief-actions .btn {
+    width: 100%;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .no-print,
+  .brief-save,
+  .brief-progress,
+  .brief-actions {
+    display: none !important;
+  }
+
+  .brief-report {
+    max-width: none;
+    padding: 0;
+  }
+}

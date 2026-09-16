@@ -29,8 +29,8 @@ export function Privacy() {
         <h2>2. Information we collect</h2>
         <h3>Information you provide</h3>
         <p>
-          When you use our contact form, SMS opt-in form, or otherwise reach out,
-          we may collect:
+          When you use our contact form, SMS opt-in form, private program brief,
+          or otherwise reach out, we may collect:
         </p>
         <ul>
           <li>Name</li>
@@ -39,7 +39,7 @@ export function Privacy() {
           <li>Company name</li>
           <li>Area of interest or message content</li>
           <li>SMS opt-in consent and related disclosures you accept</li>
-          <li>Any other details you choose to share</li>
+          <li>Any other details you choose to share, including program-brief answers</li>
         </ul>
         <p>
           If you book a call through Calendly, Calendly may collect scheduling
