@@ -39,14 +39,13 @@ const FORMSPREE_ID =
 const STAGES = [
   'code',
   'direction',
-  'context',
   'facts',
   'services',
   'building',
   'report',
 ] as const
 type Stage = (typeof STAGES)[number]
-type QualifyingStage = 'direction' | 'context'
+type QualifyingStage = 'direction'
 
 const STAGE_META: Record<
   QualifyingStage,
@@ -57,14 +56,9 @@ const STAGE_META: Record<
     title: 'Where are you trying to go?',
     note: 'Be specific if you can. Rough numbers are more useful than polished language.',
   },
-  context: {
-    kicker: '02 / Context',
-    title: 'What is and is not working.',
-    note: 'Optional, but this is what makes the brief useful. Leave out names you would rather keep private.',
-  },
 }
 
-const QUALIFYING_ORDER: QualifyingStage[] = ['direction', 'context']
+const QUALIFYING_ORDER: QualifyingStage[] = ['direction']
 
 function isQualifyingStage(stage: Stage): stage is QualifyingStage {
   return QUALIFYING_ORDER.includes(stage as QualifyingStage)
@@ -350,70 +344,6 @@ export function ProgramBrief() {
             </div>
           ) : null}
 
-          {stage === 'context' ? (
-            <div className="brief-fields">
-              <label className="field">
-                <span>What part of your marketing is working today?</span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.working}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      working: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>What is not working — where do inquiries or jobs stall?</span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.notWorking}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      notWorking: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>
-                  Optional: have you worked with a consultant, agency, or
-                  freelancer before? What did you like and not like?
-                </span>
-                <textarea
-                  rows={4}
-                  maxLength={2000}
-                  value={answers.pastAgency}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      pastAgency: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>Do you have questions for MOSAIC before we proceed?</span>
-                <textarea
-                  rows={3}
-                  maxLength={1500}
-                  value={answers.questionsForMosaic}
-                  onChange={(event) =>
-                    setAnswers((current) => ({
-                      ...current,
-                      questionsForMosaic: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-            </div>
-          ) : null}
-
           {stage === 'facts' ? (
             <>
               <div className="brief-quiz-heading">
@@ -658,8 +588,7 @@ export function ProgramBrief() {
                 className="text-button"
                 onClick={() => {
                   if (stage === 'direction') go('code')
-                  else if (stage === 'context') go('direction')
-                  else if (stage === 'facts') go('context')
+                  else if (stage === 'facts') go('direction')
                   else if (stage === 'services' && servicePage === 0) go('facts')
                   else if (stage === 'services') {
                     setServicePage((page) => page - 1)
@@ -678,8 +607,7 @@ export function ProgramBrief() {
                   (stage === 'services' && !ratingsOnPage(answers, servicePage))
                 }
                 onClick={() => {
-                  if (stage === 'direction') go('context')
-                  else if (stage === 'context') go('facts')
+                  if (stage === 'direction') go('facts')
                   else if (stage === 'facts') {
                     const firstUnanswered = SERVICES.findIndex(
                       (_, index) => !ratingsOnPage(answers, index),
@@ -700,7 +628,7 @@ export function ProgramBrief() {
                   }
                 }}
               >
-                {stage === 'context'
+                {stage === 'direction'
                   ? 'Start the diagnostic'
                   : stage === 'facts'
                     ? isFactsReady(answers)
