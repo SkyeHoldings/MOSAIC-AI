@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { CalendlySection } from '../components/CalendlySection'
 import { DigitalEarthCanvas } from '../components/DigitalEarthCanvas'
@@ -89,6 +89,7 @@ export function ProgramBrief() {
   const [saveNote, setSaveNote] = useState('')
   const [saveAttempt, setSaveAttempt] = useState(0)
   const [copied, setCopied] = useState(false)
+  const sentKey = useRef<string | null>(null)
 
   const report = useMemo(
     () =>
@@ -171,12 +172,17 @@ export function ProgramBrief() {
 
   useEffect(() => {
     if (isReview || stage !== 'done' || !report) return
-    let cancelled = false
+    const privateReviewUrl = briefReviewUrl(answers)
+    const key = `${saveAttempt}:${privateReviewUrl}`
+    if (sentKey.current === key) return
+    sentKey.current = key
+
     setSaveState('saving')
     setSaveNote('Sending your answers…')
-    const privateReviewUrl = briefReviewUrl(answers)
 
+    let started = false
     const timer = window.setTimeout(async () => {
+      started = true
       try {
         const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
           method: 'POST',
@@ -191,23 +197,20 @@ export function ProgramBrief() {
           error?: string
         } | null
         if (!response.ok || result?.error) throw new Error(result?.error || 'save failed')
-        if (!cancelled) {
-          setSaveState('saved')
-          setSaveNote('')
-        }
+        setSaveState('saved')
+        setSaveNote('')
       } catch {
-        if (!cancelled) {
-          setSaveState('error')
-          setSaveNote(
-            'Your answers are still here in this browser, but they have not been sent yet. Retry below.',
-          )
-        }
+        sentKey.current = null
+        setSaveState('error')
+        setSaveNote(
+          'Your answers are still here in this browser, but they have not been sent yet. Retry below.',
+        )
       }
     }, 400)
 
     return () => {
-      cancelled = true
       window.clearTimeout(timer)
+      if (!started) sentKey.current = null
     }
   }, [answers, isReview, report, saveAttempt, stage])
 

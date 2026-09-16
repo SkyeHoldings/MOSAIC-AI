@@ -485,10 +485,6 @@ function briefNotificationMessage(
   ].join('\n')
 }
 
-const BRIEF_NOTIFY_EMAIL =
-  (import.meta.env.VITE_FORMSPREE_NOTIFY_EMAIL as string | undefined) ||
-  'skye@hellomosaic.ai'
-
 export function briefPayload(
   answers: BriefAnswers,
   report: BriefReport,
@@ -498,7 +494,6 @@ export function briefPayload(
   const payload = {
     form_type: 'program_brief',
     _subject: briefEmailSubject(answers),
-    _cc: BRIEF_NOTIFY_EMAIL,
     private_review_url: privateReviewUrl,
     message: privateReviewUrl
       ? briefNotificationMessage(answers, report, privateReviewUrl)
