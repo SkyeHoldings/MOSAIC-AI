@@ -186,7 +186,11 @@ export function ProgramBrief() {
           },
           body: JSON.stringify(briefPayload(answers, report, { privateReviewUrl })),
         })
-        if (!response.ok) throw new Error('save failed')
+        const result = (await response.json().catch(() => null)) as {
+          ok?: boolean
+          error?: string
+        } | null
+        if (!response.ok || result?.error) throw new Error(result?.error || 'save failed')
         if (!cancelled) {
           setSaveState('saved')
           setSaveNote('')
@@ -725,6 +729,7 @@ export function ProgramBrief() {
       {stage === 'done' ? (
         <div className="no-print">
           <CalendlySection
+            variant="button"
             label="Book a discovery call"
             title="Book a MOSAIC discovery call with Skye"
           />

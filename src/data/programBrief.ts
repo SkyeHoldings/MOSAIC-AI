@@ -450,7 +450,7 @@ export function briefPayload(
   report: BriefReport,
   extras?: { privateReviewUrl?: string },
 ) {
-  return {
+  const payload = {
     form_type: 'program_brief',
     _subject: briefEmailSubject(answers),
     private_review_url: extras?.privateReviewUrl ?? '',
@@ -511,6 +511,12 @@ export function briefPayload(
       const service = SERVICES.find((item) => item.id === question.serviceId)?.name
       return `${question.index + 1}. [${rating ?? '—'}] ${service}: ${question.text}`
     }).join('\n'),
-    consent: answers.consent ? 'yes' : 'not collected in form',
   }
+
+  return Object.fromEntries(
+    Object.entries(payload).filter(([, value]) => {
+      if (typeof value !== 'string') return value != null && value !== ''
+      return value.trim().length > 0
+    }),
+  )
 }
