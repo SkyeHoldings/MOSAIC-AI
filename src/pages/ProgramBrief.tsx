@@ -9,7 +9,6 @@ import {
 import {
   DIAGNOSTIC_SCALE,
   DIAGNOSTIC_TOTAL_PAGES,
-  SCALE_LEGEND,
   SERVICES,
   answeredRatingCount,
   ratingsComplete,
@@ -340,18 +339,14 @@ export function ProgramBrief() {
               <div className="brief-quiz-heading">
                 <div>
                   <p className="leak-kicker">
-                    Growth diagnostic · {service.name} · {servicePage + 1} of{' '}
-                    {DIAGNOSTIC_TOTAL_PAGES}
+                    Growth diagnostic · {service.name}
                   </p>
                   <h1>How true is this of your marketing today?</h1>
                 </div>
                 <p className="brief-progress-label">
-                  Part {servicePage + 1} of {DIAGNOSTIC_TOTAL_PAGES} · {answeredCount} of 30
-                  ratings
+                  {answeredCount} of 30 ratings
                 </p>
               </div>
-              <p className="brief-note">{service.line}</p>
-              <p className="brief-scale-legend">{SCALE_LEGEND}</p>
               <div className="brief-question-list">
                 {service.questions.map((text, offset) => {
                   const index = servicePage * 3 + offset
@@ -389,11 +384,6 @@ export function ProgramBrief() {
                   )
                 })}
               </div>
-              <p className="brief-note brief-note-tight">
-                Think about the last six months. Choose what fits most often. A
-                low score is useful. That is how we see where MOSAIC should work
-                first.
-              </p>
             </>
           ) : null}
 
