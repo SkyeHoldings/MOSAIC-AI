@@ -9,18 +9,11 @@ import {
 import {
   DIAGNOSTIC_SCALE,
   DIAGNOSTIC_TOTAL_PAGES,
-  GOAL_OPTIONS,
-  OWNER_OPTIONS,
   SCALE_LEGEND,
   SERVICES,
-  SOURCE_OPTIONS,
   answeredRatingCount,
-  isFactsReady,
   ratingsComplete,
   ratingsOnPage,
-  type CustomerSource,
-  type Goal12,
-  type MarketingOwner,
 } from '../data/growthDiagnostic'
 import {
   BRIEF_STORAGE_KEY,
@@ -39,7 +32,6 @@ const FORMSPREE_ID =
 const STAGES = [
   'code',
   'direction',
-  'facts',
   'services',
   'building',
   'report',
@@ -98,13 +90,11 @@ export function ProgramBrief() {
   const answeredCount = answeredRatingCount(answers)
   const totalSteps = QUALIFYING_ORDER.length + DIAGNOSTIC_TOTAL_PAGES
   const quizProgress =
-    stage === 'facts'
-      ? (QUALIFYING_ORDER.length + 1) / totalSteps
-      : stage === 'services'
-        ? (QUALIFYING_ORDER.length + servicePage + 2) / totalSteps
-        : stage === 'building' || stage === 'report'
-          ? 1
-          : Math.max(0.06, QUALIFYING_ORDER.indexOf(stage as QualifyingStage) / totalSteps)
+    stage === 'services'
+      ? (QUALIFYING_ORDER.length + servicePage + 1) / totalSteps
+      : stage === 'building' || stage === 'report'
+        ? 1
+        : Math.max(0.06, QUALIFYING_ORDER.indexOf(stage as QualifyingStage) / totalSteps)
 
   useEffect(() => {
     const previous = document.title
@@ -344,183 +334,20 @@ export function ProgramBrief() {
             </div>
           ) : null}
 
-          {stage === 'facts' ? (
-            <>
-              <div className="brief-quiz-heading">
-                <div>
-                  <p className="leak-kicker">Growth diagnostic · About the business · 1 of 11</p>
-                  <h1>A few facts so the picture is about your company.</h1>
-                </div>
-                <p className="brief-progress-label">Part 1 of 11 · 5 facts</p>
-              </div>
-              <p className="brief-note">
-                Approximate is fine. These five are not scored. They make the
-                picture at the end about your company, not a generic report.
-              </p>
-              <div className="brief-fields">
-                <div className="field">
-                  <span>About how much revenue did the business do in the last 12 months?</span>
-                  <div className="brief-money">
-                    <b className="brief-money-prefix" aria-hidden="true">$</b>
-                    <input
-                      inputMode="decimal"
-                      placeholder="0"
-                      aria-label="Annual revenue last 12 months"
-                      disabled={answers.revenuePreferNot}
-                      value={answers.revenuePreferNot ? '' : answers.revenueInput}
-                      onChange={(event) =>
-                        setAnswers((current) => ({
-                          ...current,
-                          revenueInput: event.target.value,
-                          revenuePreferNot: false,
-                        }))
-                      }
-                    />
-                  </div>
-                  <p className="brief-field-help">Approximate is fine. Whole dollars. No need for cents.</p>
-                  <label className="brief-prefer-not">
-                    <input
-                      type="checkbox"
-                      checked={answers.revenuePreferNot}
-                      onChange={(event) =>
-                        setAnswers((current) => ({
-                          ...current,
-                          revenuePreferNot: event.target.checked,
-                        }))
-                      }
-                    />
-                    Prefer not to say
-                  </label>
-                </div>
-                <div className="field">
-                  <span>About how much do you spend on ads in a typical month? If it is zero, put 0.</span>
-                  <div className="brief-money">
-                    <b className="brief-money-prefix" aria-hidden="true">$</b>
-                    <input
-                      inputMode="decimal"
-                      placeholder="0"
-                      aria-label="Typical monthly ad spend"
-                      disabled={answers.spendPreferNot}
-                      value={answers.spendPreferNot ? '' : answers.spendInput}
-                      onChange={(event) =>
-                        setAnswers((current) => ({
-                          ...current,
-                          spendInput: event.target.value,
-                          spendPreferNot: false,
-                        }))
-                      }
-                    />
-                  </div>
-                  <p className="brief-field-help">
-                    Paid search, paid social, YouTube, display — the media spend, not the agency fee.
-                  </p>
-                  <label className="brief-prefer-not">
-                    <input
-                      type="checkbox"
-                      checked={answers.spendPreferNot}
-                      onChange={(event) =>
-                        setAnswers((current) => ({
-                          ...current,
-                          spendPreferNot: event.target.checked,
-                        }))
-                      }
-                    />
-                    Prefer not to say
-                  </label>
-                </div>
-                <fieldset className="brief-choices">
-                  <legend>Where do most customers come from today?</legend>
-                  {SOURCE_OPTIONS.map((option) => (
-                    <label
-                      key={option.id}
-                      className={`brief-choice${
-                        answers.source === option.id ? ' is-selected' : ''
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="source"
-                        checked={answers.source === option.id}
-                        onChange={() =>
-                          setAnswers((current) => ({
-                            ...current,
-                            source: option.id as CustomerSource,
-                          }))
-                        }
-                      />
-                      <span>
-                        <strong>{option.label}</strong>
-                      </span>
-                    </label>
-                  ))}
-                </fieldset>
-                <fieldset className="brief-choices">
-                  <legend>Who owns marketing day to day?</legend>
-                  {OWNER_OPTIONS.map((option) => (
-                    <label
-                      key={option.id}
-                      className={`brief-choice${
-                        answers.owner === option.id ? ' is-selected' : ''
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="owner"
-                        checked={answers.owner === option.id}
-                        onChange={() =>
-                          setAnswers((current) => ({
-                            ...current,
-                            owner: option.id as MarketingOwner,
-                          }))
-                        }
-                      />
-                      <span>
-                        <strong>{option.label}</strong>
-                      </span>
-                    </label>
-                  ))}
-                </fieldset>
-                <fieldset className="brief-choices">
-                  <legend>What needs to be true in 12 months?</legend>
-                  {GOAL_OPTIONS.map((option) => (
-                    <label
-                      key={option.id}
-                      className={`brief-choice${
-                        answers.goal === option.id ? ' is-selected' : ''
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="goal"
-                        checked={answers.goal === option.id}
-                        onChange={() =>
-                          setAnswers((current) => ({
-                            ...current,
-                            goal: option.id as Goal12,
-                          }))
-                        }
-                      />
-                      <span>
-                        <strong>{option.label}</strong>
-                      </span>
-                    </label>
-                  ))}
-                </fieldset>
-              </div>
-            </>
-          ) : null}
 
           {stage === 'services' && service ? (
             <>
               <div className="brief-quiz-heading">
                 <div>
                   <p className="leak-kicker">
-                    Growth diagnostic · {service.name} · {service.page} of 11
+                    Growth diagnostic · {service.name} · {servicePage + 1} of{' '}
+                    {DIAGNOSTIC_TOTAL_PAGES}
                   </p>
                   <h1>How true is this of your marketing today?</h1>
                 </div>
                 <p className="brief-progress-label">
-                  Part {service.page} of 11 · {answeredCount} of 30 ratings
+                  Part {servicePage + 1} of {DIAGNOSTIC_TOTAL_PAGES} · {answeredCount} of 30
+                  ratings
                 </p>
               </div>
               <p className="brief-note">{service.line}</p>
@@ -588,8 +415,7 @@ export function ProgramBrief() {
                 className="text-button"
                 onClick={() => {
                   if (stage === 'direction') go('code')
-                  else if (stage === 'facts') go('direction')
-                  else if (stage === 'services' && servicePage === 0) go('facts')
+                  else if (stage === 'services' && servicePage === 0) go('direction')
                   else if (stage === 'services') {
                     setServicePage((page) => page - 1)
                     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -603,12 +429,10 @@ export function ProgramBrief() {
                 className="btn"
                 disabled={
                   (stage === 'direction' && !isDirectionReady(answers)) ||
-                  (stage === 'facts' && !isFactsReady(answers)) ||
                   (stage === 'services' && !ratingsOnPage(answers, servicePage))
                 }
                 onClick={() => {
-                  if (stage === 'direction') go('facts')
-                  else if (stage === 'facts') {
+                  if (stage === 'direction') {
                     const firstUnanswered = SERVICES.findIndex(
                       (_, index) => !ratingsOnPage(answers, index),
                     )
@@ -630,11 +454,7 @@ export function ProgramBrief() {
               >
                 {stage === 'direction'
                   ? 'Start the diagnostic'
-                  : stage === 'facts'
-                    ? isFactsReady(answers)
-                      ? 'Start the ratings'
-                      : 'Answer all five to continue'
-                    : stage === 'services' && servicePage === SERVICES.length - 1
+                  : stage === 'services' && servicePage === SERVICES.length - 1
                       ? 'See my picture'
                       : stage === 'services'
                         ? ratingsOnPage(answers, servicePage)

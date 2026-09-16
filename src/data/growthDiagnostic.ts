@@ -1,5 +1,5 @@
 export const DIAGNOSTIC_STORAGE_KEY = 'mosaic-growth-diagnostic-v1'
-export const DIAGNOSTIC_TOTAL_PAGES = 11
+export const DIAGNOSTIC_TOTAL_PAGES = 10
 export const DIAGNOSTIC_RATING_COUNT = 30
 
 export const DIAGNOSTIC_SCALE = [
