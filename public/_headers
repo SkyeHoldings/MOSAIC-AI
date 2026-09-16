@@ -1,3 +1,9 @@
+/brief/review
+  X-Robots-Tag: noindex, nofollow
+
+/diagnostic/review
+  X-Robots-Tag: noindex, nofollow
+
 /skye-smith.vcf
   Content-Type: text/vcard; charset=utf-8
   Content-Disposition: inline; filename="Skye-Smith.vcf"

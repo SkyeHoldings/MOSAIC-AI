@@ -17,7 +17,7 @@ function ScrollToTop() {
   const { pathname, hash } = useLocation()
 
   useEffect(() => {
-    if (hash) {
+    if (hash && !pathname.endsWith('/review')) {
       const id = hash.replace('#', '')
       const node = document.getElementById(id)
       if (node) {
@@ -58,7 +58,9 @@ export default function App() {
           <Route path="/lead-leak-check" element={<LeadLeakCheck />} />
           <Route path="/free" element={<LeadLeakCheck />} />
           <Route path="/brief" element={<ProgramBrief />} />
+          <Route path="/brief/review" element={<ProgramBrief />} />
           <Route path="/diagnostic" element={<ProgramBrief />} />
+          <Route path="/diagnostic/review" element={<ProgramBrief />} />
           <Route path="/businesscard" element={<BusinessCard />} />
           <Route path="/onesheet" element={<OneSheet />} />
           <Route path="/work/:id" element={<WorkDetail />} />

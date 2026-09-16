@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { CalendlySection } from '../components/CalendlySection'
 import { DigitalEarthCanvas } from '../components/DigitalEarthCanvas'
 import {
@@ -24,6 +24,7 @@ import {
   isValidInviteCode,
   parseStoredBrief,
 } from '../data/programBrief'
+import { briefReviewUrl, decodeBriefReview } from '../data/briefReview'
 
 const FORMSPREE_ID =
   (import.meta.env.VITE_FORMSPREE_FORM_ID as string | undefined) || 'xpqvjowe'
@@ -33,9 +34,15 @@ const STAGES = [
   'direction',
   'services',
   'building',
+  'done',
   'report',
+  'review-missing',
 ] as const
 type Stage = (typeof STAGES)[number]
+
+function isReviewPath(pathname: string) {
+  return pathname === '/brief/review' || pathname === '/diagnostic/review'
+}
 type QualifyingStage = 'direction'
 
 const STAGE_META: Record<
@@ -66,8 +73,10 @@ function setRating(current: BriefAnswers, index: number, value: number): BriefAn
 }
 
 export function ProgramBrief() {
+  const { pathname, hash } = useLocation()
+  const isReview = isReviewPath(pathname)
   const [searchParams] = useSearchParams()
-  const [stage, setStage] = useState<Stage>('code')
+  const [stage, setStage] = useState<Stage>(isReview ? 'building' : 'code')
   const [servicePage, setServicePage] = useState(0)
   const [code, setCode] = useState(searchParams.get('code') ?? '')
   const [codeError, setCodeError] = useState('')
@@ -82,7 +91,8 @@ export function ProgramBrief() {
   const [copied, setCopied] = useState(false)
 
   const report = useMemo(
-    () => (stage === 'report' ? buildBriefReport(answers) : null),
+    () =>
+      stage === 'report' || stage === 'done' ? buildBriefReport(answers) : null,
     [answers, stage],
   )
   const service = SERVICES[servicePage]
@@ -91,19 +101,47 @@ export function ProgramBrief() {
   const quizProgress =
     stage === 'services'
       ? (QUALIFYING_ORDER.length + servicePage + 1) / totalSteps
-      : stage === 'building' || stage === 'report'
+      : stage === 'building' || stage === 'done' || stage === 'report'
         ? 1
         : Math.max(0.06, QUALIFYING_ORDER.indexOf(stage as QualifyingStage) / totalSteps)
+  const inQuiz =
+    !isReview &&
+    stage !== 'code' &&
+    stage !== 'report' &&
+    stage !== 'done' &&
+    stage !== 'review-missing'
 
   useEffect(() => {
     const previous = document.title
-    document.title = 'Learn where your program excels · MOSAIC'
+    document.title = isReview
+      ? 'Private brief review · MOSAIC'
+      : 'Learn where your program excels · MOSAIC'
+    const robots = isReview ? document.createElement('meta') : null
+    if (robots) {
+      robots.setAttribute('name', 'robots')
+      robots.setAttribute('content', 'noindex, nofollow')
+      document.head.appendChild(robots)
+    }
     return () => {
       document.title = previous
+      robots?.remove()
     }
-  }, [])
+  }, [isReview])
 
   useEffect(() => {
+    if (isReview) {
+      const token = hash.replace(/^#/, '') || searchParams.get('r') || ''
+      const decoded = decodeBriefReview(token)
+      if (decoded) {
+        setAnswers(decoded)
+        setStage('report')
+      } else {
+        setStage('review-missing')
+      }
+      setHydrated(true)
+      return
+    }
+
     try {
       const stored = parseStoredBrief(window.localStorage.getItem(BRIEF_STORAGE_KEY))
       if (stored) setAnswers(stored)
@@ -111,30 +149,32 @@ export function ProgramBrief() {
       /* ignore private-mode storage */
     }
     setHydrated(true)
-  }, [])
+  }, [hash, isReview, searchParams])
 
   useEffect(() => {
-    if (!hydrated) return
+    if (!hydrated || isReview) return
     try {
       window.localStorage.setItem(BRIEF_STORAGE_KEY, JSON.stringify(answers))
     } catch {
       /* ignore */
     }
-  }, [answers, hydrated])
+  }, [answers, hydrated, isReview])
 
   useEffect(() => {
+    if (isReview) return
     const fromUrl = searchParams.get('code')
     if (fromUrl && isValidInviteCode(fromUrl)) {
       setCode(fromUrl)
       setStage((current) => (current === 'code' ? 'direction' : current))
     }
-  }, [searchParams])
+  }, [isReview, searchParams])
 
   useEffect(() => {
-    if (stage !== 'report' || !report) return
+    if (isReview || stage !== 'done' || !report) return
     let cancelled = false
     setSaveState('saving')
-    setSaveNote('Saving your brief for Skye…')
+    setSaveNote('Sending your answers to Skye…')
+    const privateReviewUrl = briefReviewUrl(answers)
 
     const timer = window.setTimeout(async () => {
       try {
@@ -144,12 +184,12 @@ export function ProgramBrief() {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(briefPayload(answers, report)),
+          body: JSON.stringify(briefPayload(answers, report, { privateReviewUrl })),
         })
         if (!response.ok) throw new Error('save failed')
         if (!cancelled) {
           setSaveState('saved')
-          setSaveNote('Your completed brief is saved for Skye.')
+          setSaveNote('Your answers are with Skye.')
         }
       } catch {
         if (!cancelled) {
@@ -165,16 +205,16 @@ export function ProgramBrief() {
       cancelled = true
       window.clearTimeout(timer)
     }
-  }, [answers, report, saveAttempt, stage])
+  }, [answers, isReview, report, saveAttempt, stage])
 
   useEffect(() => {
-    if (stage !== 'building') return
+    if (isReview || stage !== 'building') return
     const timer = window.setTimeout(() => {
-      setStage('report')
+      setStage('done')
       window.scrollTo({ top: 0, behavior: 'instant' })
     }, 700)
     return () => window.clearTimeout(timer)
-  }, [stage])
+  }, [isReview, stage])
 
   function go(next: Stage) {
     setStage(next)
@@ -205,14 +245,6 @@ export function ProgramBrief() {
       setCopied(false)
     }
   }
-
-  const mailto = report
-    ? `mailto:${encodeURIComponent(answers.email)}?subject=${encodeURIComponent(
-        'Your MOSAIC growth picture',
-      )}&body=${encodeURIComponent(
-        `You completed a MOSAIC working brief and scored 10 marketing services. The lowest scores are where assistance would matter first.\n\n${report.snapshot}`,
-      )}`
-    : ''
 
   return (
     <article className="brief-page">
@@ -269,7 +301,7 @@ export function ProgramBrief() {
         </section>
       ) : null}
 
-      {stage !== 'code' && stage !== 'report' ? (
+      {inQuiz ? (
         <section className="quiz-shell brief-shell">
           <div className="brief-progress" aria-hidden="true">
             <span style={{ width: `${Math.max(8, quizProgress * 100)}%` }} />
@@ -390,10 +422,10 @@ export function ProgramBrief() {
           {stage === 'building' ? (
             <div className="brief-building" role="status">
               <p className="leak-kicker">Growth diagnostic</p>
-              <h1>Building your picture…</h1>
+              <h1>Sending your answers…</h1>
               <p className="brief-note">
-                Ranking 10 services, lowest score first. Highest priority is
-                where assistance would move the number.
+                Skye uses this picture to prepare your working session. Results
+                are walked through on the call, not on this page.
               </p>
             </div>
           ) : null}
@@ -445,7 +477,7 @@ export function ProgramBrief() {
                 {stage === 'direction'
                   ? 'Start the diagnostic'
                   : stage === 'services' && servicePage === SERVICES.length - 1
-                      ? 'See my picture'
+                      ? 'Send my answers'
                       : stage === 'services'
                         ? ratingsOnPage(answers, servicePage)
                           ? 'Next'
@@ -457,20 +489,53 @@ export function ProgramBrief() {
         </section>
       ) : null}
 
+      {stage === 'review-missing' ? (
+        <section className="assist-hero leak-hero" aria-labelledby="brief-review-missing">
+          <div className="assist-hero__copy">
+            <p className="leak-kicker">Private review</p>
+            <h1 id="brief-review-missing">This review link is incomplete</h1>
+            <p>
+              Open the pictured report from the Formspree email that arrives when
+              someone submits. That link is unique to that brief.
+            </p>
+            <p className="brief-home-link">
+              <Link to="/brief">Back to the questionnaire</Link>
+            </p>
+          </div>
+        </section>
+      ) : null}
+
+      {stage === 'done' ? (
+        <section className="assist-hero leak-hero" aria-labelledby="brief-done-heading">
+          <div className="assist-hero__copy">
+            <p className="leak-kicker">Brief received</p>
+            <h1 id="brief-done-heading">Your answers are with Skye</h1>
+            <div className={`brief-save ${saveState}`} role="status">
+              <p>{saveNote || 'Sending your answers to Skye…'}</p>
+              {saveState === 'error' ? (
+                <button
+                  type="button"
+                  className="text-button"
+                  onClick={() => setSaveAttempt((current) => current + 1)}
+                >
+                  Retry sending
+                </button>
+              ) : null}
+            </div>
+            <p>
+              The growth picture is prepared for your working session. Book a
+              call below to walk the results together.
+            </p>
+          </div>
+          <div className="assist-hero__visual" aria-hidden="true">
+            <DigitalEarthCanvas />
+          </div>
+        </section>
+      ) : null}
+
       {stage === 'report' && report ? (
         <section className="brief-report" aria-labelledby="report-heading">
-          <div className={`brief-save ${saveState}`} role="status">
-            <p>{saveNote}</p>
-            {saveState === 'error' ? (
-              <button
-                type="button"
-                className="text-button"
-                onClick={() => setSaveAttempt((current) => current + 1)}
-              >
-                Retry saving
-              </button>
-            ) : null}
-          </div>
+          <p className="leak-kicker">Private review · not shown to the client</p>
 
           <figure className="brief-type-hero">
             <img
@@ -485,10 +550,29 @@ export function ProgramBrief() {
             </figcaption>
           </figure>
 
-          <p className="leak-kicker">Your growth picture</p>
           <h1 id="report-heading">{report.headline}</h1>
           <p className="brief-summary-line">{report.summaryLine}</p>
           <p className="brief-lede">{report.overview}</p>
+
+          <div className="brief-block">
+            <p className="leak-kicker">Direction</p>
+            <h2>What they said they are trying to do</h2>
+            {answers.incrementalRevenue.trim() ? (
+              <p>
+                <b>12-month incremental revenue.</b> {answers.incrementalRevenue.trim()}
+              </p>
+            ) : null}
+            {answers.topProducts.trim() ? (
+              <p>
+                <b>Highest-revenue products/services.</b> {answers.topProducts.trim()}
+              </p>
+            ) : null}
+            {answers.currentRoasCpa.trim() ? (
+              <p>
+                <b>Current ROAS/CPA.</b> {answers.currentRoasCpa.trim()}
+              </p>
+            ) : null}
+          </div>
 
           <div className="brief-map-layout">
             <GrowthClusterMap scores={report.clusterScores} />
@@ -608,44 +692,36 @@ export function ProgramBrief() {
           ) : null}
 
           <div className="brief-report-actions no-print">
-            <a className="btn" href="#book">
-              Book a working session
-            </a>
-            {answers.email.trim() ? (
-              <a className="text-button" href={mailto}>
-                Email this picture to myself
-              </a>
-            ) : null}
-            <button type="button" className="text-button" onClick={() => void copySnapshot()}>
-              {copied ? 'Copied' : 'Copy my snapshot'}
-            </button>
-            <button type="button" className="text-button" onClick={() => window.print()}>
+            <button type="button" className="btn" onClick={() => window.print()}>
               Print / save PDF
             </button>
-            <button
-              type="button"
-              className="text-button"
-              onClick={() => go('direction')}
-            >
-              Review my answers
+            <button type="button" className="text-button" onClick={() => void copySnapshot()}>
+              {copied ? 'Copied' : 'Copy snapshot'}
             </button>
           </div>
 
           <p className="brief-footnote">
-            {[answers.name.trim(), answers.company.trim()].filter(Boolean).join(' · ')}
-            {answers.name.trim() || answers.company.trim() ? ' · ' : ''}
-            This is a self-score and a working brief, not an audit, proposal, or
-            contract.
+            Private review link for Skye. The client does not see this page.
+          </p>
+          <p className="brief-home-link no-print">
+            <Link to="/">Back to hellomosaic.ai</Link>
           </p>
         </section>
       ) : null}
 
-      {stage === 'report' ? (
+      {isReview && stage === 'building' ? (
+        <section className="brief-report" aria-busy="true">
+          <p className="leak-kicker">Private review</p>
+          <h1>Opening brief…</h1>
+        </section>
+      ) : null}
+
+      {stage === 'done' ? (
         <div className="no-print">
           <div className="leak-cal-intro">
             <p>
-              If the picture is useful, book a working session. Come with this
-              brief open.
+              Book a working session to see the results. Skye will walk this
+              picture with you on the call.
             </p>
           </div>
           <CalendlySection

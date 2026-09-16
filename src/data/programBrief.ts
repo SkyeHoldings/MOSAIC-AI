@@ -435,10 +435,29 @@ export function buildBriefReport(answers: BriefAnswers): BriefReport {
   }
 }
 
-export function briefPayload(answers: BriefAnswers, report: BriefReport) {
+function briefEmailSubject(answers: BriefAnswers) {
+  const hint =
+    answers.incrementalRevenue.trim() ||
+    answers.topProducts.trim() ||
+    answers.company.trim() ||
+    answers.name.trim()
+  const clipped = hint.replace(/\s+/g, ' ').slice(0, 70)
+  return clipped ? `Program brief — ${clipped}` : 'Program brief — hellomosaic.ai'
+}
+
+export function briefPayload(
+  answers: BriefAnswers,
+  report: BriefReport,
+  extras?: { privateReviewUrl?: string },
+) {
   return {
     form_type: 'program_brief',
-    _subject: `Program brief — ${answers.company || answers.name || 'hellomosaic.ai'}`,
+    _subject: briefEmailSubject(answers),
+    private_review_url: extras?.privateReviewUrl ?? '',
+    private_review_token: extras?.privateReviewUrl?.split('#').pop() ?? '',
+    message: extras?.privateReviewUrl
+      ? `Open the pictured report (private — not shown to the client). If the page says the link is incomplete, copy the full URL including the # from this field:\n${extras.privateReviewUrl}`
+      : '',
     name: answers.name,
     email: answers.email,
     company: answers.company,
