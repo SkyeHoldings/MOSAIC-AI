@@ -275,7 +275,7 @@ export function ProgramBrief() {
       {stage === 'code' ? (
         <section className="assist-hero leak-hero" aria-labelledby="brief-heading">
           <div className="assist-hero__copy">
-            <p className="leak-kicker">A custom questionnaire built for your business.</p>
+            <p className="leak-kicker">A custom questionnaire built for your business</p>
             <h1 id="brief-heading">
               <span>Learn where your program excels</span>
               <span>and where it can improve.</span>
