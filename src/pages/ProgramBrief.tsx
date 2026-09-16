@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
+import { getDefaultClient, isSubmissionError } from '@formspree/core'
+import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { CalendlySection } from '../components/CalendlySection'
 import { DigitalEarthCanvas } from '../components/DigitalEarthCanvas'
@@ -87,9 +88,7 @@ export function ProgramBrief() {
     'idle',
   )
   const [saveNote, setSaveNote] = useState('')
-  const [saveAttempt, setSaveAttempt] = useState(0)
   const [copied, setCopied] = useState(false)
-  const sentKey = useRef<string | null>(null)
 
   const report = useMemo(
     () =>
@@ -170,58 +169,44 @@ export function ProgramBrief() {
     }
   }, [isReview, searchParams])
 
-  useEffect(() => {
-    if (isReview || stage !== 'done' || !report) return
-    const privateReviewUrl = briefReviewUrl(answers)
-    const key = `${saveAttempt}:${privateReviewUrl}`
-    if (sentKey.current === key) return
-    sentKey.current = key
-
+  async function submitBrief() {
+    if (saveState === 'saving') return
     setSaveState('saving')
     setSaveNote('Sending your answers…')
+    if (stage !== 'done') setStage('building')
+    window.scrollTo({ top: 0, behavior: 'instant' })
 
-    let started = false
-    const timer = window.setTimeout(async () => {
-      started = true
-      try {
-        const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(briefPayload(answers, report, { privateReviewUrl })),
-        })
-        const result = (await response.json().catch(() => null)) as {
-          ok?: boolean
-          error?: string
-        } | null
-        if (!response.ok || result?.error) throw new Error(result?.error || 'save failed')
-        setSaveState('saved')
-        setSaveNote('')
-      } catch {
-        sentKey.current = null
-        setSaveState('error')
-        setSaveNote(
-          'Your answers are still here in this browser, but they have not been sent yet. Retry below.',
-        )
+    const reportNow = buildBriefReport(answers)
+    const privateReviewUrl = briefReviewUrl(answers)
+
+    try {
+      const result = await getDefaultClient().submitForm(
+        FORMSPREE_ID,
+        briefPayload(answers, reportNow, { privateReviewUrl }) as Record<
+          string,
+          string
+        >,
+      )
+      if (isSubmissionError(result)) {
+        const detail = result
+          .getFormErrors()
+          .map((error) => error.message)
+          .filter(Boolean)
+          .join(' ')
+        throw new Error(detail || 'save failed')
       }
-    }, 400)
-
-    return () => {
-      window.clearTimeout(timer)
-      if (!started) sentKey.current = null
-    }
-  }, [answers, isReview, report, saveAttempt, stage])
-
-  useEffect(() => {
-    if (isReview || stage !== 'building') return
-    const timer = window.setTimeout(() => {
+      setSaveState('saved')
+      setSaveNote('Answers sent to MOSAIC.')
       setStage('done')
-      window.scrollTo({ top: 0, behavior: 'instant' })
-    }, 700)
-    return () => window.clearTimeout(timer)
-  }, [isReview, stage])
+    } catch {
+      setSaveState('error')
+      setSaveNote(
+        'Your answers are still here in this browser, but they have not been sent yet. Retry below.',
+      )
+      setStage('done')
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
 
   function go(next: Stage) {
     setStage(next)
@@ -457,6 +442,7 @@ export function ProgramBrief() {
                 type="button"
                 className="btn"
                 disabled={
+                  saveState === 'saving' ||
                   (stage === 'direction' && !isDirectionReady(answers)) ||
                   (stage === 'services' && !ratingsOnPage(answers, servicePage))
                 }
@@ -471,7 +457,7 @@ export function ProgramBrief() {
                     setServicePage((page) => page + 1)
                     window.scrollTo({ top: 0, behavior: 'instant' })
                   } else if (stage === 'services' && ratingsComplete(answers)) {
-                    go('building')
+                    void submitBrief()
                   } else if (stage === 'services') {
                     const firstUnanswered = SERVICES.findIndex(
                       (_, index) => !ratingsOnPage(answers, index),
@@ -484,7 +470,9 @@ export function ProgramBrief() {
                 {stage === 'direction'
                   ? 'Start the diagnostic'
                   : stage === 'services' && servicePage === SERVICES.length - 1
-                      ? 'Book a discovery call'
+                      ? saveState === 'saving'
+                        ? 'Sending…'
+                        : 'Send my answers'
                       : stage === 'services'
                         ? ratingsOnPage(answers, servicePage)
                           ? 'Next'
@@ -517,18 +505,20 @@ export function ProgramBrief() {
           <div className="assist-hero__copy">
             <p className="leak-kicker">Brief received</p>
             <h1 id="brief-done-heading">Your answers are with MOSAIC</h1>
-            {saveState === 'saving' || saveState === 'error' ? (
+            {saveState !== 'idle' ? (
               <div className={`brief-save ${saveState}`} role="status">
                 <p>
                   {saveState === 'saving'
                     ? 'Sending your answers…'
-                    : saveNote}
+                    : saveState === 'saved'
+                      ? 'Answers sent to MOSAIC.'
+                      : saveNote}
                 </p>
                 {saveState === 'error' ? (
                   <button
                     type="button"
                     className="text-button"
-                    onClick={() => setSaveAttempt((current) => current + 1)}
+                    onClick={() => void submitBrief()}
                   >
                     Retry sending
                   </button>
