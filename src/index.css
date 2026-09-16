@@ -3863,6 +3863,17 @@ p {
   border: 0;
 }
 
+.brief-page .calendly-section {
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(1.5rem, 4vw, 2.75rem);
+}
+
+.brief-page .calendly-embed {
+  width: min(100%, 36rem);
+  margin-inline: auto;
+}
+
 /* ---------- Work grid (AKQA-style tiles) ---------- */
 .work-section {
   padding: clamp(3rem, 6vw, 5rem) var(--page-pad) clamp(2rem, 4vw, 3.5rem);

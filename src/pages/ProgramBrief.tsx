@@ -173,7 +173,7 @@ export function ProgramBrief() {
     if (isReview || stage !== 'done' || !report) return
     let cancelled = false
     setSaveState('saving')
-    setSaveNote('Sending your answers to Skye…')
+    setSaveNote('Sending your answers…')
     const privateReviewUrl = briefReviewUrl(answers)
 
     const timer = window.setTimeout(async () => {
@@ -189,7 +189,7 @@ export function ProgramBrief() {
         if (!response.ok) throw new Error('save failed')
         if (!cancelled) {
           setSaveState('saved')
-          setSaveNote('Your answers are with Skye.')
+          setSaveNote('')
         }
       } catch {
         if (!cancelled) {
@@ -509,22 +509,28 @@ export function ProgramBrief() {
         <section className="assist-hero leak-hero" aria-labelledby="brief-done-heading">
           <div className="assist-hero__copy">
             <p className="leak-kicker">Brief received</p>
-            <h1 id="brief-done-heading">Your answers are with Skye</h1>
-            <div className={`brief-save ${saveState}`} role="status">
-              <p>{saveNote || 'Sending your answers to Skye…'}</p>
-              {saveState === 'error' ? (
-                <button
-                  type="button"
-                  className="text-button"
-                  onClick={() => setSaveAttempt((current) => current + 1)}
-                >
-                  Retry sending
-                </button>
-              ) : null}
-            </div>
+            <h1 id="brief-done-heading">Your answers are with MOSAIC</h1>
+            {saveState === 'saving' || saveState === 'error' ? (
+              <div className={`brief-save ${saveState}`} role="status">
+                <p>
+                  {saveState === 'saving'
+                    ? 'Sending your answers…'
+                    : saveNote}
+                </p>
+                {saveState === 'error' ? (
+                  <button
+                    type="button"
+                    className="text-button"
+                    onClick={() => setSaveAttempt((current) => current + 1)}
+                  >
+                    Retry sending
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
             <p>
               The growth picture is prepared for your discovery call. Book a
-              time below to walk the results together.
+              time below to discuss further.
             </p>
           </div>
           <div className="assist-hero__visual" aria-hidden="true">
@@ -718,12 +724,6 @@ export function ProgramBrief() {
 
       {stage === 'done' ? (
         <div className="no-print">
-          <div className="leak-cal-intro">
-            <p>
-              Book a discovery call to see the results. Skye will walk this
-              picture with you on the call.
-            </p>
-          </div>
           <CalendlySection
             label="Book a discovery call"
             title="Book a MOSAIC discovery call with Skye"
