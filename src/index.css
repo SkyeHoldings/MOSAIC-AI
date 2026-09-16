@@ -8318,10 +8318,53 @@ p {
   text-align: center;
 }
 
+.brief-map-plot {
+  display: grid;
+  grid-template-columns: 7.25rem minmax(0, 1fr) 4.5rem;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  column-gap: 0.35rem;
+  row-gap: 0.2rem;
+}
+
+.brief-map-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.brief-map-label.is-top {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.brief-map-label.is-left {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: end;
+  text-align: right;
+}
+
+.brief-map-label.is-right {
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: start;
+  text-align: left;
+}
+
+.brief-map-label.is-bottom {
+  grid-column: 2;
+  grid-row: 3;
+}
+
 .brief-map svg {
-  width: min(100%, 20rem);
+  grid-column: 2;
+  grid-row: 2;
+  width: min(100%, 16.5rem);
   height: auto;
   font-family: inherit;
+  overflow: visible;
 }
 
 .brief-map figcaption {
