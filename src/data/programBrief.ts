@@ -1,6 +1,5 @@
 import {
   DIAGNOSTIC_RATING_COUNT,
-  SERVICES,
   answeredRatingCount,
   buildDiagnosticReport,
   emptyDiagnosticAnswers,

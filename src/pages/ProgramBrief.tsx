@@ -24,10 +24,8 @@ import {
   isValidInviteCode,
   parseStoredBrief,
 } from '../data/programBrief'
+import { sendBriefNotification } from '../data/briefNotify'
 import { briefReviewUrl, decodeBriefReview } from '../data/briefReview'
-
-const FORMSPREE_ID =
-  (import.meta.env.VITE_FORMSPREE_FORM_ID as string | undefined) || 'xpqvjowe'
 
 const STAGES = [
   'code',
@@ -172,37 +170,23 @@ export function ProgramBrief() {
     if (saveState === 'saving') return
     setSaveState('saving')
     setSaveNote('Sending your answers…')
+    setStage('done')
+    window.scrollTo({ top: 0, behavior: 'instant' })
 
     const reportNow = buildBriefReport(answers)
     const privateReviewUrl = briefReviewUrl(answers)
     const payload = briefPayload(answers, reportNow, { privateReviewUrl })
-    const body = new FormData()
-    Object.entries(payload).forEach(([key, value]) => {
-      if (typeof value === 'string') body.append(key, value)
-    })
 
     try {
-      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body,
-      })
-      const result = (await response.json().catch(() => null)) as {
-        ok?: boolean
-        error?: string
-      } | null
-      if (!response.ok || result?.error) throw new Error(result?.error || 'save failed')
+      await sendBriefNotification(payload)
       setSaveState('saved')
       setSaveNote('Answers sent to MOSAIC.')
-      setStage('done')
     } catch {
       setSaveState('error')
       setSaveNote(
         'Your answers are still here in this browser, but they have not been sent yet. Retry below.',
       )
-      setStage('done')
     }
-    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   function go(next: Stage) {
@@ -476,8 +460,8 @@ export function ProgramBrief() {
             <p className="leak-kicker">Private review</p>
             <h1 id="brief-review-missing">This review link is incomplete</h1>
             <p>
-              Open the pictured report from the Formspree email that arrives when
-              someone submits. That link is unique to that brief.
+              Open the pictured report from the notification email that arrives
+              when someone submits. That link is unique to that brief.
             </p>
             <p className="brief-home-link">
               <Link to="/brief">Back to the questionnaire</Link>
