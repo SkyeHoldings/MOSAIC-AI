@@ -10,7 +10,7 @@ import {
 
 export const BRIEF_STORAGE_KEY = 'mosaic-program-brief-v4'
 
-const FALLBACK_CODES = ['MOSAIC', 'CHAMBER', 'REFERRAL', 'VERIFY'] as const
+const FALLBACK_CODES = ['MOSAIC', 'CHAMBER', 'REFERRAL', 'VERIFY', 'INBOX'] as const
 
 export function normalizeInviteCode(value: string) {
   return value.trim().toUpperCase().replace(/[\s_-]/g, '')
