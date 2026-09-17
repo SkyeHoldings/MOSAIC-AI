@@ -44,11 +44,14 @@ async function postJson(url: string, fields: StringPayload) {
       ...fields,
     }),
   })
-  const contentType = response.headers.get('content-type') || ''
-  if (!contentType.includes('application/json')) {
-    throw new Error(`Unexpected response from ${url}`)
+  // FormSubmit returns JSON with a text/html content type.
+  const text = await response.text()
+  let result: unknown = null
+  try {
+    result = JSON.parse(text)
+  } catch {
+    result = null
   }
-  const result = await response.json().catch(() => null)
   if (!response.ok || !isFormSubmitOk(result)) {
     const message =
       result && typeof result === 'object' && 'message' in result
@@ -95,18 +98,6 @@ async function postFormspree(fields: StringPayload) {
 
 export async function sendBriefNotification(payload: Record<string, unknown>) {
   const fields = asStringPayload(payload)
-  const backup = () => {
-    void postFormspree(fields).catch(() => undefined)
-  }
-
-  try {
-    await postJson('/api/brief-notify', fields)
-    backup()
-    return
-  } catch {
-    // Pages Function may not be live yet; use the public FormSubmit endpoint.
-  }
-
   await postFormSubmit(fields)
-  backup()
+  void postFormspree(fields).catch(() => undefined)
 }
