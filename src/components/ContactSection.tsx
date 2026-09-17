@@ -1,16 +1,15 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
-import { useForm, ValidationError } from '@formspree/react'
 import { useLocation } from 'react-router-dom'
+import { sendSiteNotification } from '../data/briefNotify'
 import { expertise } from '../data/work'
 import { SmsConsent } from './SmsConsent'
-
-const FORMSPREE_ID =
-  (import.meta.env.VITE_FORMSPREE_FORM_ID as string | undefined) || 'xpqvjowe'
 
 const INTEREST_OPTIONS = [
   ...expertise.map((item) => item.title),
   "Don't Know Yet",
 ] as const
+
+type SubmitState = 'idle' | 'submitting' | 'succeeded' | 'error'
 
 function readPrefill(search: string) {
   const params = new URLSearchParams(search)
@@ -23,9 +22,17 @@ function readPrefill(search: string) {
   }
 }
 
+function fieldValue(form: HTMLFormElement, name: string) {
+  const value = form.elements.namedItem(name)
+  if (value instanceof HTMLInputElement || value instanceof HTMLTextAreaElement) {
+    return value.value.trim()
+  }
+  return ''
+}
+
 export function ContactSection() {
-  const [state, handleSubmit] = useForm(FORMSPREE_ID)
   const { search } = useLocation()
+  const [submitState, setSubmitState] = useState<SubmitState>('idle')
   const [open, setOpen] = useState(false)
   const [capability, setCapability] = useState('')
   const [smsConsent, setSmsConsent] = useState(false)
@@ -57,25 +64,63 @@ export function ContactSection() {
     }
   }, [])
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (submitState === 'submitting') return
+
     const form = event.currentTarget
-    const phone = (
-      form.elements.namedItem('phone') as HTMLInputElement | null
-    )?.value.trim()
+    const phone = fieldValue(form, 'phone')
+    const phoneInput = form.elements.namedItem('phone') as HTMLInputElement | null
 
     if (smsConsent && !phone) {
-      event.preventDefault()
-      const phoneInput = form.elements.namedItem('phone') as HTMLInputElement
-      phoneInput.setCustomValidity(
+      phoneInput?.setCustomValidity(
         'Please enter a mobile number to opt in to texts.',
       )
-      phoneInput.reportValidity()
+      phoneInput?.reportValidity()
       return
     }
 
-    const phoneInput = form.elements.namedItem('phone') as HTMLInputElement
-    phoneInput.setCustomValidity('')
-    void handleSubmit(event)
+    phoneInput?.setCustomValidity('')
+    if (!form.checkValidity()) {
+      form.reportValidity()
+      return
+    }
+
+    const name = fieldValue(form, 'name')
+    const email = fieldValue(form, 'email')
+    const company = fieldValue(form, 'company')
+    const interest = capability.trim() || 'Not specified'
+    const subject = company
+      ? `Contact — ${name} · ${company}`
+      : `Contact — ${name}`
+
+    setSubmitState('submitting')
+    try {
+      await sendSiteNotification({
+        form_type: 'contact',
+        _subject: subject,
+        name,
+        email,
+        company,
+        phone,
+        capability: interest,
+        sms_opt_in: smsConsent ? 'yes' : 'no',
+        message: [
+          'Contact form — hellomosaic.ai',
+          `Name: ${name}`,
+          `Email: ${email}`,
+          company ? `Company: ${company}` : '',
+          phone ? `Phone: ${phone}` : '',
+          `Interest: ${interest}`,
+          `SMS opt-in: ${smsConsent ? 'yes' : 'no'}`,
+        ]
+          .filter(Boolean)
+          .join('\n'),
+      })
+      setSubmitState('succeeded')
+    } catch {
+      setSubmitState('error')
+    }
   }
 
   return (
@@ -90,7 +135,7 @@ export function ContactSection() {
           </p>
         </div>
 
-        {state.succeeded ? (
+        {submitState === 'succeeded' ? (
           <div className="contact-info">
             <h3 className="contact-sent-title">Message sent</h3>
             <p>
@@ -103,12 +148,6 @@ export function ContactSection() {
             <div className="field">
               <label htmlFor="home-name">Name</label>
               <input id="home-name" name="name" required autoComplete="name" />
-              <ValidationError
-                prefix="Name"
-                field="name"
-                errors={state.errors}
-                className="form-note form-note-error"
-              />
             </div>
             <div className="field">
               <label htmlFor="home-email">Email</label>
@@ -119,12 +158,6 @@ export function ContactSection() {
                 required
                 autoComplete="email"
               />
-              <ValidationError
-                prefix="Email"
-                field="email"
-                errors={state.errors}
-                className="form-note form-note-error"
-              />
             </div>
             <div className="field">
               <label htmlFor="home-company">Company</label>
@@ -132,12 +165,6 @@ export function ContactSection() {
                 id="home-company"
                 name="company"
                 autoComplete="organization"
-              />
-              <ValidationError
-                prefix="Company"
-                field="company"
-                errors={state.errors}
-                className="form-note form-note-error"
               />
             </div>
             <div className="field">
@@ -149,12 +176,6 @@ export function ContactSection() {
                 autoComplete="tel"
                 inputMode="tel"
                 onChange={(event) => event.currentTarget.setCustomValidity('')}
-              />
-              <ValidationError
-                prefix="Phone"
-                field="phone"
-                errors={state.errors}
-                className="form-note form-note-error"
               />
             </div>
 
@@ -225,13 +246,17 @@ export function ContactSection() {
                   </div>
                 </div>
 
-                <button className="btn" type="submit" disabled={state.submitting}>
-                  {state.submitting ? 'Sending…' : 'Send message'}
+                <button
+                  className="btn"
+                  type="submit"
+                  disabled={submitState === 'submitting'}
+                >
+                  {submitState === 'submitting' ? 'Sending…' : 'Send message'}
                 </button>
               </div>
             </div>
 
-            {state.errors ? (
+            {submitState === 'error' ? (
               <p className="form-note form-note-error" role="alert">
                 Something went wrong — please try again in a moment.
               </p>

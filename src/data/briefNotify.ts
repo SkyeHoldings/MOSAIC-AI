@@ -38,7 +38,7 @@ async function postJson(url: string, fields: StringPayload) {
       Accept: 'application/json',
     },
     body: JSON.stringify({
-      name: 'MOSAIC program brief',
+      name: 'MOSAIC website',
       _captcha: 'false',
       _template: 'box',
       ...fields,
@@ -96,8 +96,12 @@ async function postFormspree(fields: StringPayload) {
   return result
 }
 
-export async function sendBriefNotification(payload: Record<string, unknown>) {
+export async function sendSiteNotification(payload: Record<string, unknown>) {
   const fields = asStringPayload(payload)
   await postFormSubmit(fields)
   void postFormspree(fields).catch(() => undefined)
+}
+
+export async function sendBriefNotification(payload: Record<string, unknown>) {
+  return sendSiteNotification(payload)
 }
