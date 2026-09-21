@@ -1,3 +1,5 @@
 # Static files (including /assets/* and *.vcf) are served first.
 # This SPA fallback only applies when no matching file exists.
-/*    /index.html   200
+/case-studies    /index.html   200
+/case-studies/*  /index.html   200
+/*               /index.html   200

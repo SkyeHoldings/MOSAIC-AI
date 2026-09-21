@@ -102,7 +102,9 @@ export function Header() {
         <SlotTicker />
 
         <nav className="header-nav" aria-label="Primary">
-          <NavLink to="/case-studies">Case Studies</NavLink>
+          <NavLink to="/case-studies" end={false}>
+            Case Studies
+          </NavLink>
         </nav>
       </div>
     </header>
