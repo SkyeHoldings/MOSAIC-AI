@@ -28,7 +28,7 @@ const slides: Slide[] = [
   {
     id: 'red-robin',
     client: 'Red Robin',
-    href: '/work/red-robin',
+    href: '/case-studies/red-robin',
     kind: 'collage',
     variant: 'red-robin',
   },

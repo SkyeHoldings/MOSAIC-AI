@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { CaseStudy } from '../data/work'
+import { getCaseStudyPath, type CaseStudy } from '../data/work'
 import { BassProCollage } from './BassProCollage'
 import { PhoneCollage } from './PhoneCollage'
 import { RedRobinCollage } from './RedRobinCollage'
@@ -66,7 +66,7 @@ export function WorkCard({ study }: Props) {
 
   return (
     <Link
-      to={`/work/${study.id}`}
+      to={getCaseStudyPath(study)}
       className={`work-card${study.wide ? ' is-wide caption-top' : ''}`}
     >
       {study.wide ? (

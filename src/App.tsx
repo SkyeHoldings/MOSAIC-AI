@@ -11,6 +11,8 @@ import { Privacy } from './pages/Privacy'
 import { Services } from './pages/Services'
 import { SmsOptIn } from './pages/SmsOptIn'
 import { Terms } from './pages/Terms'
+import { CaseStudies } from './pages/CaseStudies'
+import { CaseStudy } from './pages/CaseStudy'
 import { WorkDetail } from './pages/WorkDetail'
 
 function ScrollToTop() {
@@ -63,6 +65,8 @@ export default function App() {
           <Route path="/diagnostic/review" element={<ProgramBrief />} />
           <Route path="/businesscard" element={<BusinessCard />} />
           <Route path="/onesheet" element={<OneSheet />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/case-studies/:id" element={<CaseStudy />} />
           <Route path="/work/:id" element={<WorkDetail />} />
           <Route path="/expertise" element={<Navigate to={{ pathname: '/', hash: 'how-we-work' }} replace />} />
           <Route path="/contact" element={<Navigate to={{ pathname: '/', hash: 'contact' }} replace />} />

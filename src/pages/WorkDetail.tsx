@@ -1,9 +1,13 @@
-import { Link, useParams } from 'react-router-dom'
-import { getCaseStudy } from '../data/work'
+import { Link, Navigate, useParams } from 'react-router-dom'
+import { getCaseStudy, getCaseStudyPath } from '../data/work'
 
 export function WorkDetail() {
   const { id } = useParams()
   const study = id ? getCaseStudy(id) : undefined
+
+  if (study?.published) {
+    return <Navigate to={getCaseStudyPath(study)} replace />
+  }
 
   if (!study) {
     return (

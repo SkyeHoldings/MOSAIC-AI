@@ -1,3 +1,28 @@
+export type CaseStudyStat = {
+  value: string
+  label: string
+}
+
+export type CaseStudySolution = {
+  eyebrow: string
+  heading: string
+  body: string[]
+}
+
+export type CaseStudyStory = {
+  date: string
+  seoTitle: string
+  heroImage: string
+  heroImageAlt: string
+  results: CaseStudyStat[]
+  services: string[]
+  startingPoint: string[]
+  solution: CaseStudySolution[]
+  impact: CaseStudyStat[]
+  impactBody: string[]
+  methodNote: string
+}
+
 export type CaseStudy = {
   id: string
   client: string
@@ -14,6 +39,9 @@ export type CaseStudy = {
   tileCollage?: string[]
   /** Span full grid width for featured tiles */
   wide?: boolean
+  /** Live case-study writeup at /case-studies/:id */
+  published?: boolean
+  story?: CaseStudyStory
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -61,13 +89,13 @@ export const caseStudies: CaseStudy[] = [
   {
     id: 'red-robin',
     client: 'Red Robin',
-    title: 'Restaurant brand and content system',
+    title: 'YouTube + Performance Max guest lift',
     summary:
-      'Brand and content systems for Red Robin — warm, approachable storytelling that scales across locations and channels.',
-    tags: ['Brand', 'Content', 'QSR'],
+      'Units with YouTube on top of Performance Max grew guests +14.5% year-over-year. PMax-only units in those same markets were −1.5%.',
+    tags: ['Paid Media', 'YouTube', 'Performance Max'],
     tileBg:
       'radial-gradient(120% 100% at 35% 25%, #6b2a2a 0%, transparent 55%), #1a1010',
-    tileImage: '/work/red-robin.png',
+    tileImage: '/work/red-robin/appetizer-platter.png',
     tileCollage: [
       '/work/red-robin/drink-specials.png',
       '/work/red-robin/chicken-bacon-club.png',
@@ -77,6 +105,58 @@ export const caseStudies: CaseStudy[] = [
       '/work/red-robin/whiskey-river-wrap.png',
     ],
     wide: true,
+    published: true,
+    story: {
+      date: 'September 2026',
+      seoTitle: 'How MOSAIC grew Red Robin guest traffic with YouTube + Performance Max',
+      heroImage: '/work/red-robin/appetizer-platter.png',
+      heroImageAlt:
+        'Red Robin appetizer platter with chicken, pretzel bites, and dipping sauces',
+      results: [
+        { value: '+14.5%', label: 'Guest YoY' },
+        { value: '+19.5%', label: 'Net sales YoY' },
+      ],
+      services: ['Paid Media', 'Performance Max', 'YouTube', 'Measurement'],
+      startingPoint: [
+        'Red Robin already had Performance Max in market. In casual dining, the number that matters is guests through the door — not last-click conversions. Units running PMax without YouTube were essentially flat year-over-year on guest count. Spend was working. It just was not compounding.',
+        'The question was specific: when a unit also received YouTube (Demand Gen) on top of Performance Max, did guest traffic actually lift relative to PMax-only units in the same market, in the same period?',
+      ],
+      solution: [
+        {
+          eyebrow: 'Media mix',
+          heading: 'YouTube as the top-of-funnel layer',
+          body: [
+            'We did not treat YouTube as a brand tax sitting next to search. It sat on top of Performance Max as the awareness layer — the same creative system, a different altitude.',
+            'Because the YouTube roster changes every period, we scored each store-period on whether it actually received both: $50+ YouTube and $50+ PMax. If YouTube dropped off, that unit moved back into the PMax-only set. No static “YouTube markets.”',
+          ],
+        },
+        {
+          eyebrow: 'Measurement',
+          heading: 'Same-market isolation',
+          body: [
+            'A national average would have hidden the story. We compared YouTube + PMax units to PMax-only units in the same DMA and the same operating period, on comparable stores with a year-ago guest base. That keeps regional weather, local events, and period length from pretending to be media mix.',
+            'Chicago is the cleanest multi-unit read: in P9, YouTube-supported units at Norridge and Valparaiso posted +26.3% and +15.3% guest comps, while PMax-only units in that market were −0.8%. South Plainfield repeated the pattern — +13.8% in P8, then +26.7% in P9 — against PMax-only in New York at −3.7%.',
+          ],
+        },
+        {
+          eyebrow: 'Proof points',
+          heading: 'The +10% set, rolled together',
+          body: [
+            'The case-study number is not the average of every YouTube unit. It is the units where YouTube + PMax posted +10% or better guest comps, added together, then compared with PMax-only units sitting in those same markets and periods. Thirteen store-periods, twelve restaurants, ten DMAs.',
+          ],
+        },
+      ],
+      impact: [
+        { value: '+14.5%', label: 'Guest YoY' },
+        { value: '+19.5%', label: 'Net sales YoY' },
+      ],
+      impactBody: [
+        'Those YouTube + PMax units grew guests +14.5% versus last year — +18,848 guests — while PMax-only units in the same markets were −1.5%. Net sales in that same set: +19.5%, or +$475k versus year-ago.',
+        'Across every YouTube + PMax unit in P7–P8, not just the +10% tail, guests were +2.0% versus +0.1% for PMax-only, and net sales were +5.4% versus +3.5%. The proof points sit on top of a program that was already ahead — they are not a substitute for it.',
+      ],
+      methodNote:
+        'Comparable stores only. YouTube = Demand Gen with $50+ spend in the period. Guest count and net sales versus year-ago POS. Operating periods P7–P9, FY2026.',
+    },
   },
   {
     id: 'northline',
@@ -175,4 +255,12 @@ export const industries = [
 
 export function getCaseStudy(id: string) {
   return caseStudies.find((study) => study.id === id)
+}
+
+export function getPublishedCaseStudies() {
+  return caseStudies.filter((study) => study.published && study.story)
+}
+
+export function getCaseStudyPath(study: Pick<CaseStudy, 'id' | 'published'>) {
+  return study.published ? `/case-studies/${study.id}` : `/work/${study.id}`
 }
