@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { MosaicLogo } from './MosaicLogo'
 
 const TICKER_LINES = [
@@ -100,12 +100,6 @@ export function Header() {
         </Link>
 
         <SlotTicker />
-
-        <nav className="header-nav" aria-label="Primary">
-          <NavLink to="/case-studies" end={false}>
-            Case Studies
-          </NavLink>
-        </nav>
       </div>
     </header>
   )
