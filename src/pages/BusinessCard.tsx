@@ -25,13 +25,14 @@ const CARD: CardProfile = {
   email: 'skye@hellomosaic.ai',
   phone: '208.819.2549',
   website: 'https://hellomosaic.ai/',
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/in/skyesmithcda/',
   location: "Coeur d'Alene, Idaho",
 }
 
 /** Real static file in /public — required for iOS “Add Contact”. */
 const VCARD_PATH = '/skye-smith.vcf'
 const VCARD_FILENAME = 'Skye-Smith.vcf'
+const PORTRAIT_PATH = '/skye-smith.jpg'
 
 function websiteLabel(url: string) {
   return url.replace(/^https?:\/\//, '').replace(/\/$/, '')
@@ -48,7 +49,19 @@ function escapeVCard(value: string) {
   return value.replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n')
 }
 
-function buildVCardContent() {
+function foldVCardLine(line: string) {
+  const limit = 75
+  if (line.length <= limit) return line
+  const parts = [line.slice(0, limit)]
+  let index = limit
+  while (index < line.length) {
+    parts.push(` ${line.slice(index, index + limit - 1)}`)
+    index += limit - 1
+  }
+  return parts.join('\r\n')
+}
+
+function buildVCardContent(photoBase64 = '') {
   const [firstName = '', ...rest] = CARD.name.split(' ')
   const lastName = rest.join(' ')
   const lines = [
@@ -67,6 +80,7 @@ function buildVCardContent() {
   if (CARD.linkedin) lines.push(`URL;TYPE=LinkedIn:${CARD.linkedin}`)
   if (CARD.location) lines.push(`ADR;TYPE=WORK:;;${escapeVCard(CARD.location)};;;;`)
   lines.push(`NOTE:${escapeVCard(CARD.tagline)}`)
+  if (photoBase64) lines.push(foldVCardLine(`PHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}`))
   lines.push('END:VCARD')
 
   return lines.join('\r\n')
@@ -82,7 +96,22 @@ function isAppleMobile() {
 async function saveContact(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault()
 
-  const content = buildVCardContent()
+  let photoBase64 = ''
+  try {
+    const photo = await fetch(PORTRAIT_PATH)
+    if (photo.ok) {
+      const bytes = new Uint8Array(await photo.arrayBuffer())
+      let binary = ''
+      for (let index = 0; index < bytes.length; index += 0x8000) {
+        binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000))
+      }
+      photoBase64 = btoa(binary)
+    }
+  } catch {
+    // Contact still saves without a portrait.
+  }
+
+  const content = buildVCardContent(photoBase64)
   const file = new File([content], VCARD_FILENAME, { type: 'text/vcard;charset=utf-8' })
 
   // Mobile share sheet (includes a path to save the .vcf on many phones).
@@ -143,17 +172,22 @@ export function BusinessCard() {
         </header>
 
         <div className="bc__body">
-          <p className="bc__kicker">Digital Business Card</p>
-          <h1 id="bc-name" className="bc__name">
-            {CARD.name}
-          </h1>
-          <p className="bc__role">
-            {CARD.title}
-            <span className="bc__role-sep" aria-hidden="true">
-              ·
-            </span>
-            {CARD.organization}
-          </p>
+          <div className="bc__identity">
+            <img className="bc__photo" src={PORTRAIT_PATH} alt="" />
+            <div>
+              <p className="bc__kicker">Digital Business Card</p>
+              <h1 id="bc-name" className="bc__name">
+                {CARD.name}
+              </h1>
+              <p className="bc__role">
+                {CARD.title}
+                <span className="bc__role-sep" aria-hidden="true">
+                  ·
+                </span>
+                {CARD.organization}
+              </p>
+            </div>
+          </div>
           <p className="bc__tagline">{CARD.tagline}</p>
 
           <div className="bc__primary">
@@ -203,7 +237,7 @@ export function BusinessCard() {
                   rel="noopener noreferrer"
                 >
                   <span className="bc__action-label">LinkedIn</span>
-                  <span className="bc__action-value">Connect</span>
+                  <span className="bc__action-value">{websiteLabel(CARD.linkedin)}</span>
                 </a>
               </li>
             ) : null}
