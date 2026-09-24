@@ -3,6 +3,7 @@ import { Link, Navigate, Route, Routes, useLocation, useNavigate } from 'react-r
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { BusinessCard } from './pages/BusinessCard'
+import { GrowthPreview } from './pages/GrowthPreview'
 import { Home } from './pages/Home'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
 import { OneSheet } from './pages/OneSheet'
@@ -73,6 +74,7 @@ export default function App() {
       <main className={`site-main${isStandalonePage ? ' site-main--flush' : ''}`}>
         <Routes>
           <Route index element={<Home />} />
+          <Route path="growth" element={<GrowthPreview />} />
           <Route path="case-studies">
             <Route index element={<CaseStudies />} />
             <Route path=":id" element={<CaseStudy />} />

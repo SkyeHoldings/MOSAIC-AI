@@ -191,15 +191,16 @@ p {
 
 .bc__name {
   font-family: var(--serif);
-  font-size: clamp(2.4rem, 9vw, 3.1rem);
+  font-size: clamp(1.95rem, 6.2vw, 2.4rem);
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.32;
+  padding-bottom: 0.45rem;
   letter-spacing: -0.03em;
   animation: bc-fade 700ms ease 120ms both;
 }
 
 .bc__role {
-  margin-top: 0.15rem;
+  margin-top: 0.05rem;
   font-size: 0.95rem;
   letter-spacing: 0.01em;
   color: var(--bc-ink);
@@ -622,6 +623,47 @@ p {
   min-height: 22rem;
   background: #050505;
   overflow: hidden;
+}
+
+.growth-type {
+  position: absolute;
+  inset: 0;
+  background: #050505;
+  overflow: hidden;
+}
+
+.growth-type__cluster {
+  position: absolute;
+  margin: 0;
+  color: #c6c6c6;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.35rem, 2.5vw, 2.2rem);
+  letter-spacing: 0.045em;
+  line-height: 1.02;
+  text-transform: uppercase;
+  animation: growth-type-in 220ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+.growth-type__cluster p {
+  margin: 0;
+}
+
+@keyframes growth-type-in {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--dx, 0px), var(--dy, 18px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .growth-type__cluster {
+    animation: none;
+  }
 }
 
 .assist-hero__video {

@@ -1,10 +1,11 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { expertise, industries } from '../data/work'
 import { DigitalEarthCanvas } from './DigitalEarthCanvas'
+import { GrowthTypeCanvas } from './GrowthTypeCanvas'
 
 type MenuKey = 'capabilities' | 'industries' | null
 
-export function AssistHero() {
+export function AssistHero({ visual = 'earth' }: { visual?: 'earth' | 'growth' }) {
   const [open, setOpen] = useState<MenuKey>(null)
   const rootRef = useRef<HTMLElement>(null)
   const capabilitiesId = useId()
@@ -108,7 +109,7 @@ export function AssistHero() {
       </div>
 
       <div className="assist-hero__visual" aria-hidden="true">
-        <DigitalEarthCanvas />
+        {visual === 'growth' ? <GrowthTypeCanvas /> : <DigitalEarthCanvas />}
       </div>
     </section>
   )
