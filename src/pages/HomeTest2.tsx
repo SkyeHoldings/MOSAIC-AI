@@ -41,7 +41,7 @@ export function HomeTest2() {
 
       <RecognitionStrip />
 
-      <MarketingPillars />
+      <MarketingPillars answerTag="@MOSAIC" />
 
       <SafetyBuiltIn />
 

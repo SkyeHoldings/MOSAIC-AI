@@ -200,7 +200,11 @@ function StreamingText({
   )
 }
 
-export function MarketingPillars() {
+export function MarketingPillars({
+  answerTag = '@Inland Northwest',
+}: {
+  answerTag?: string
+} = {}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [cycleKey, setCycleKey] = useState(0)
   const [playing, setPlaying] = useState(true)
@@ -328,7 +332,7 @@ export function MarketingPillars() {
             </span>
             <h3>
               {active.title}
-              <span className="pillars__ai-answer-tag"> @Inland Northwest</span>
+              <span className="pillars__ai-answer-tag"> {answerTag}</span>
             </h3>
           </header>
 

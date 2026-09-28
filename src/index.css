@@ -3839,6 +3839,7 @@ p {
 .pillars__ai-answer-tag {
   font-weight: 500;
   color: #9a9aa2;
+  white-space: nowrap;
 }
 
 .pillars__ai-answer-body {
