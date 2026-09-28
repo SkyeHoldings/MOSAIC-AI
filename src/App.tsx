@@ -8,6 +8,7 @@ import { Home } from './pages/Home'
 import { HomeTest } from './pages/HomeTest'
 import { HomeTest2 } from './pages/HomeTest2'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
+import { MathOfSales } from './pages/MathOfSales'
 import { OneSheet } from './pages/OneSheet'
 import { ProgramBrief } from './pages/ProgramBrief'
 import { Privacy } from './pages/Privacy'
@@ -89,6 +90,7 @@ export default function App() {
           <Route path="terms" element={<Terms />} />
           <Route path="sms-opt-in" element={<SmsOptIn />} />
           <Route path="lead-leak-check" element={<LeadLeakCheck />} />
+          <Route path="math-of-sales" element={<MathOfSales />} />
           <Route path="free" element={<LeadLeakCheck />} />
           <Route path="brief" element={<ProgramBrief />} />
           <Route path="brief/review" element={<ProgramBrief />} />

@@ -37,6 +37,7 @@ export function Footer() {
             <Link to="/">Home</Link>
             <Link to="/case-studies">Case Studies</Link>
             <Link to="/brief">Program brief</Link>
+            <Link to="/math-of-sales">Math of sales</Link>
             <Link to="/sms-opt-in">SMS Opt-In</Link>
             <Link to="/privacy">Privacy Policy</Link>
             <Link to="/terms">Terms &amp; Conditions</Link>
