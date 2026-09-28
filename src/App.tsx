@@ -5,6 +5,7 @@ import { Header } from './components/Header'
 import { BusinessCard } from './pages/BusinessCard'
 import { GrowthPreview } from './pages/GrowthPreview'
 import { Home } from './pages/Home'
+import { HomeTest } from './pages/HomeTest'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
 import { OneSheet } from './pages/OneSheet'
 import { ProgramBrief } from './pages/ProgramBrief'
@@ -64,7 +65,8 @@ function NotFound() {
 
 export default function App() {
   const { pathname } = useLocation()
-  const isStandalonePage = pathname === '/businesscard' || pathname === '/onesheet'
+  const isStandalonePage =
+    pathname === '/businesscard' || pathname === '/onesheet' || pathname === '/test'
 
   return (
     <div className="site-shell">
@@ -74,6 +76,7 @@ export default function App() {
       <main className={`site-main${isStandalonePage ? ' site-main--flush' : ''}`}>
         <Routes>
           <Route index element={<Home />} />
+          <Route path="test" element={<HomeTest />} />
           <Route path="growth" element={<GrowthPreview />} />
           <Route path="case-studies">
             <Route index element={<CaseStudies />} />

@@ -1,3 +1,6 @@
+/test
+  X-Robots-Tag: noindex, nofollow
+
 /brief/review
   X-Robots-Tag: noindex, nofollow
 
