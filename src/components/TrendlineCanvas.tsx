@@ -92,11 +92,10 @@ export function TrendlineCanvas() {
       }
       bounds.push(right)
       ctx!.lineWidth = 1
-      bounds.forEach((x, i) => {
-        if (i === bounds.length - 1) return
+      for (let i = 0; i < bounds.length - 1; i++) {
         ctx!.fillStyle = i % 2 === 0 ? 'rgba(255, 255, 255, 0.035)' : 'rgba(255, 255, 255, 0.015)'
         ctx!.fillRect(bounds[i], top, bounds[i + 1] - bounds[i], bottom - top)
-      })
+      }
       for (let i = 1; i < bounds.length - 1; i++) {
         ctx!.strokeStyle = 'rgba(255, 255, 255, 0.16)'
         ctx!.beginPath()
