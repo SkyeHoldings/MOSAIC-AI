@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { expertise, industries } from '../data/work'
+import { CreativeReportCanvas } from './CreativeReportCanvas'
 import { DigitalEarthCanvas } from './DigitalEarthCanvas'
 import { GrowthTypeCanvas } from './GrowthTypeCanvas'
 import { MosaicLogo } from './MosaicLogo'
@@ -11,7 +12,7 @@ export function AssistHero({
   visual = 'earth',
   copy = 'default',
 }: {
-  visual?: 'earth' | 'growth' | 'trend'
+  visual?: 'earth' | 'growth' | 'trend' | 'creative'
   copy?: 'default' | 'partner'
 }) {
   const [open, setOpen] = useState<MenuKey>(null)
@@ -146,6 +147,8 @@ export function AssistHero({
           <GrowthTypeCanvas />
         ) : visual === 'trend' ? (
           <TrendlineCanvas />
+        ) : visual === 'creative' ? (
+          <CreativeReportCanvas />
         ) : (
           <DigitalEarthCanvas />
         )}

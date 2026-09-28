@@ -7,6 +7,7 @@ import { GrowthPreview } from './pages/GrowthPreview'
 import { Home } from './pages/Home'
 import { HomeTest } from './pages/HomeTest'
 import { HomeTest2 } from './pages/HomeTest2'
+import { HomeTest3 } from './pages/HomeTest3'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
 import { MathOfSales } from './pages/MathOfSales'
 import { OneSheet } from './pages/OneSheet'
@@ -80,6 +81,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="test" element={<HomeTest />} />
           <Route path="test2" element={<HomeTest2 />} />
+          <Route path="test3" element={<HomeTest3 />} />
           <Route path="growth" element={<GrowthPreview />} />
           <Route path="case-studies">
             <Route index element={<CaseStudies />} />
