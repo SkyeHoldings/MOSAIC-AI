@@ -127,7 +127,7 @@ export function CarouselHero() {
           <h1>
             Meet your growth marketing <span className="carousel-hero__partner">partner.</span>
           </h1>
-          <p>Ads. Creative. Reporting. AI.</p>
+          <p>Ads. Creative. Reporting. AI. We do it all.</p>
 
           <div className="assist-menus">
             <div className="assist-menu">
