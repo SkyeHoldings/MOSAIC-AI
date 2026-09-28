@@ -7,6 +7,11 @@
   font-family: var(--sans);
 }
 
+.ht--embed {
+  min-height: 0;
+  background: transparent;
+}
+
 .ht h1,
 .ht h2,
 .ht h3,
