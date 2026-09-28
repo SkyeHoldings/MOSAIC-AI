@@ -119,12 +119,16 @@ const illustrations = {
 
 export function SafetyBuiltIn({
   empathy = cards[0].body,
+  awareness = cards[1].body,
 }: {
   empathy?: string
+  awareness?: string
 } = {}) {
-  const items = cards.map((card) =>
-    card.id === 'moderation' ? { ...card, body: empathy } : card,
-  )
+  const items = cards.map((card) => {
+    if (card.id === 'moderation') return { ...card, body: empathy }
+    if (card.id === 'accountability') return { ...card, body: awareness }
+    return card
+  })
 
   return (
     <section className="safety" aria-labelledby="safety-heading">
