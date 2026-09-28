@@ -1,21 +1,17 @@
 .ht {
-  --ht-navy: #0c1e2d;
-  --ht-lime: #d3f05f;
-  --ht-cyan: #00e4e6;
-  --ht-teal: #148889;
-  --ht-paper: #f4f0f6;
-  --ht-ink: #0c1e2d;
-  --ht-display: 'Host Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --ht-ink: #0d0d0d;
+  --ht-muted: #6f6f6f;
   min-height: 100vh;
-  background: var(--ht-paper);
+  background: #fff;
   color: var(--ht-ink);
-  font-family: var(--ht-display);
+  font-family: var(--sans);
 }
 
 .ht h1,
 .ht h2,
-.ht h3,
-.ht p {
+.ht-proof strong,
+.ht-card h3 {
+  font-family: var(--serif);
   font-weight: 500;
 }
 
@@ -29,12 +25,13 @@
   gap: 1.5rem;
   min-height: 4.75rem;
   padding: 0.75rem clamp(1.25rem, 3vw, 2.5rem);
-  background: var(--ht-navy);
-  color: #fff;
+  background: #fff;
+  color: var(--ht-ink);
+  border-bottom: 1px solid var(--line);
 }
 
 .ht-nav__logo {
-  color: #fff;
+  color: var(--ht-ink);
   flex: 0 0 auto;
 }
 
@@ -58,24 +55,22 @@
 }
 
 .ht-nav__links a:not(.ht-pill) {
-  color: #fff;
+  color: var(--ht-ink);
   font-size: 0.78rem;
-  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .ht-nav__links a:not(.ht-pill):hover {
-  color: var(--ht-lime);
+  color: var(--ht-muted);
 }
 
 .ht-nav__toggle {
   display: none;
   border: 0;
   background: transparent;
-  color: #fff;
+  color: var(--ht-ink);
   font-size: 0.78rem;
-  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
@@ -88,18 +83,17 @@
   border: 0;
   border-radius: 999px;
   padding: 0.72rem 1.2rem;
-  background: var(--ht-cyan);
-  color: var(--ht-navy);
+  background: #111;
+  color: #fff;
   font-family: inherit;
   font-size: 0.78rem;
-  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
 }
 
 .ht-pill:hover {
-  background: #7ff6f7;
+  background: #000;
 }
 
 .ht-pill:disabled {
@@ -115,7 +109,7 @@
 
 .ht-pill--ghost:hover {
   background: #fff;
-  color: var(--ht-navy);
+  color: var(--ht-ink);
 }
 
 .ht-hero {
@@ -126,9 +120,7 @@
   min-height: calc(100vh - 4.75rem);
   padding: clamp(3.5rem, 9vh, 6.5rem) clamp(1.25rem, 4vw, 4.5rem) 0;
   overflow: hidden;
-  background:
-    radial-gradient(90% 70% at 80% 20%, rgba(211, 240, 95, 0.08), transparent 50%),
-    linear-gradient(180deg, #1a2c24 0%, #24382c 46%, #16342f 100%);
+  background: #0d0d0d;
   color: #fff;
 }
 
@@ -151,14 +143,15 @@
 .ht-hero h1 {
   max-width: 11em;
   font-size: clamp(2.7rem, 5.6vw, 5.15rem);
-  font-weight: 600;
-  line-height: 0.96;
-  letter-spacing: -0.035em;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
 }
 
 .ht-hero h1 span {
   display: block;
-  color: var(--ht-lime);
+  font-style: italic;
+  font-weight: 500;
+  color: #fff;
 }
 
 .ht-hero p {
@@ -194,26 +187,25 @@
 .ht-work h2,
 .ht-start h2 {
   font-size: clamp(2.2rem, 4.6vw, 4rem);
-  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.05;
 }
 
 .ht-intro h2 span {
-  color: var(--ht-teal);
-  box-shadow: inset 0 -0.12em 0 var(--ht-teal);
+  font-style: italic;
+  box-shadow: inset 0 -0.08em 0 var(--ht-ink);
 }
 
 .ht-intro p {
   max-width: 40rem;
   margin: 1.15rem auto 0;
-  color: #6d7380;
-  font-size: 1.15rem;
+  color: var(--ht-muted);
+  font-size: 1.05rem;
   line-height: 1.45;
 }
 
 .ht-intro__lead {
-  color: #8b919c;
+  color: var(--ht-muted);
   font-size: clamp(1.25rem, 2vw, 1.7rem) !important;
 }
 
@@ -227,7 +219,7 @@
   min-height: 28rem;
   overflow: hidden;
   border-radius: 1.4rem;
-  background: var(--ht-navy);
+  background: #111;
   color: #fff;
 }
 
@@ -237,7 +229,6 @@
 
 .ht-how h2 {
   font-size: clamp(2.4rem, 4vw, 3.4rem);
-  font-weight: 600;
   letter-spacing: -0.03em;
 }
 
@@ -256,13 +247,13 @@
 }
 
 .ht-how li span {
-  color: var(--ht-lime);
-  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .ht-how h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 500;
 }
 
 .ht-how li p {
@@ -272,8 +263,7 @@
 }
 
 .ht-how__side {
-  background:
-    linear-gradient(160deg, #d3f05f 0%, #1f8f78 42%, #0c3d3a 100%);
+  background: linear-gradient(180deg, #f4f4f4 0%, #cfcfcf 100%);
 }
 
 .ht-proof h2 {
@@ -292,7 +282,6 @@
 .ht-proof strong {
   display: block;
   font-size: clamp(2.6rem, 5vw, 4.2rem);
-  font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1;
 }
@@ -301,7 +290,7 @@
   display: block;
   max-width: 16rem;
   margin-top: 0.7rem;
-  color: #6d7380;
+  color: var(--ht-muted);
   font-size: 1.05rem;
   line-height: 1.35;
 }
@@ -315,8 +304,7 @@
 }
 
 .ht-work__head a {
-  color: var(--ht-teal);
-  font-weight: 600;
+  color: var(--ht-ink);
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
@@ -344,9 +332,8 @@
 
 .ht-card__client {
   margin-top: 0.9rem;
-  color: var(--ht-teal);
+  color: var(--ht-muted);
   font-size: 0.82rem;
-  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -354,18 +341,17 @@
 .ht-card h3 {
   margin-top: 0.35rem;
   font-size: 1.45rem;
-  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
 
 .ht-card__stat {
   margin-top: 0.45rem;
-  color: #6d7380;
+  color: var(--ht-muted);
 }
 
 .ht-card:hover h3 {
-  color: var(--ht-teal);
+  color: var(--ht-muted);
 }
 
 .ht-logos {
@@ -374,9 +360,8 @@
 
 .ht-logos p {
   margin-bottom: 1.2rem;
-  color: #6d7380;
+  color: var(--ht-muted);
   font-size: 0.82rem;
-  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -407,7 +392,7 @@
   margin: 0 clamp(1.25rem, 4vw, 4.5rem) clamp(2rem, 4vw, 3rem);
   padding: clamp(2rem, 4vw, 3.5rem);
   border-radius: 1.4rem;
-  background: var(--ht-navy);
+  background: #111;
   color: #fff;
 }
 
@@ -420,6 +405,17 @@
 
 .ht-start .ht-pill {
   margin-top: 1.5rem;
+}
+
+.ht-form .ht-pill {
+  margin-top: 0;
+  justify-self: start;
+  background: #fff;
+  color: #111;
+}
+
+.ht-form .ht-pill:hover {
+  background: #e8e8e8;
 }
 
 .ht-start__done {
@@ -455,7 +451,7 @@
 
 .ht-form input:focus,
 .ht-form textarea:focus {
-  border-bottom-color: var(--ht-cyan);
+  border-bottom-color: #fff;
 }
 
 .ht-form__wide {
@@ -467,7 +463,7 @@
 }
 
 .ht-form .sms-consent a {
-  color: var(--ht-cyan);
+  color: #fff;
 }
 
 .ht-form__error {
@@ -498,7 +494,7 @@
 
 .ht-foot p,
 .ht-foot a {
-  color: #6d7380;
+  color: var(--ht-muted);
   font-size: 0.92rem;
 }
 
@@ -509,7 +505,7 @@
 }
 
 .ht-foot a:hover {
-  color: var(--ht-navy);
+  color: var(--ht-ink);
 }
 
 @media (max-width: 900px) {
@@ -528,7 +524,8 @@
     align-items: flex-start;
     gap: 1rem;
     padding: 1rem 1.25rem 1.25rem;
-    background: var(--ht-navy);
+    background: #fff;
+    border-bottom: 1px solid var(--line);
   }
 
   .ht-nav__links.is-open {
