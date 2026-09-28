@@ -8,12 +8,18 @@ const TICKER_LINES = [
   'Enterprise Expertise, Local Frontier',
 ] as const
 
+const TEST4_TICKER_LINES = [
+  'Women-Owned & Operated',
+  'Founded in the Inland Northwest',
+  'Managed +$200M of Ad Spend',
+] as const
+
 const HOLD_MS = 3200
 const SPIN_MS = 650
 
-function SlotTicker() {
+function SlotTicker({ lines }: { lines: readonly string[] }) {
   // Extra first line at the end lets us loop forward, then snap.
-  const reel = [...TICKER_LINES, TICKER_LINES[0]]
+  const reel = [...lines, lines[0]]
   const [index, setIndex] = useState(0)
   const [animate, setAnimate] = useState(true)
   const indexRef = useRef(0)
@@ -40,7 +46,7 @@ function SlotTicker() {
         await wait(SPIN_MS)
         if (cancelled) return
 
-        if (next >= TICKER_LINES.length) {
+        if (next >= lines.length) {
           // Snap from duplicate first line back to the real first line.
           setAnimate(false)
           setIndex(0)
@@ -99,7 +105,10 @@ export function Header() {
           <MosaicLogo />
         </Link>
 
-        <SlotTicker />
+        <SlotTicker
+          key={pathname === '/test4' ? 'test4' : 'default'}
+          lines={pathname === '/test4' ? TEST4_TICKER_LINES : TICKER_LINES}
+        />
       </div>
     </header>
   )
