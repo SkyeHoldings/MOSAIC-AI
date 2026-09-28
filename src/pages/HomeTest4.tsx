@@ -31,7 +31,7 @@ export function HomeTest4() {
           <span className="spotlight-label">Spotlight Achievements</span>
           <span className="spotlight-link">+$200M Managed in Ad Spend</span>
           <span className="spotlight-link">10 Years of Experience</span>
-          <span className="spotlight-link">Enterprise to Local Expertise</span>
+          <span className="spotlight-link">2 Awards from dentsu</span>
         </div>
       </nav>
 
