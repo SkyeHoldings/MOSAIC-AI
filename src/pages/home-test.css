@@ -159,6 +159,9 @@
 
 .ht-hero__aside {
   flex: 0 0 auto;
+  font-size: 0.46em;
+  line-height: 1;
+  letter-spacing: 0;
   white-space: nowrap;
 }
 
