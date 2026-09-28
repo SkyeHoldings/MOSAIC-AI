@@ -3,8 +3,9 @@ import { MosaicLogo } from './MosaicLogo'
 
 export function Footer() {
   const { pathname } = useLocation()
+  const isTest4 = pathname === '/test4'
   const about =
-    pathname === '/test4'
+    isTest4
       ? 'Backed by years of enterprise experience, MOSAIC builds marketing and AI systems for brands around the world.'
       : "Based in Coeur d'Alene, MOSAIC partners with Inland Northwest business owners to shape marketing and AI systems that feel grounded — practical, consistent, and built for the long haul."
   return (
@@ -36,9 +37,9 @@ export function Footer() {
           <h4>Explore</h4>
           <nav className="footer-nav" aria-label="Footer">
             <Link to="/">Home</Link>
-            <Link to="/case-studies">Case Studies</Link>
-            <Link to="/brief">Program brief</Link>
-            <Link to="/sms-opt-in">SMS Opt-In</Link>
+            {!isTest4 && <Link to="/case-studies">Case Studies</Link>}
+            {!isTest4 && <Link to="/brief">Program brief</Link>}
+            {!isTest4 && <Link to="/sms-opt-in">SMS Opt-In</Link>}
             <Link to="/privacy">Privacy Policy</Link>
             <Link to="/terms">Terms &amp; Conditions</Link>
           </nav>
