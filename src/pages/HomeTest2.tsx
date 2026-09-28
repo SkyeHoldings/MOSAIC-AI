@@ -43,7 +43,7 @@ export function HomeTest2() {
 
       <MarketingPillars answerTag="@MOSAIC" />
 
-      <SafetyBuiltIn empathy="The work starts with people, not personas. Humans notice, decide, and come back for the same reasons, anywhere in the world." />
+      <SafetyBuiltIn empathy="The work starts with people, not personas. Humans notice, decide, and come back for the same reasons." />
 
       <section className="ideas-cta" aria-labelledby="ideas-cta-heading">
         <h2 id="ideas-cta-heading">Ideas no longer have to wait their turn</h2>
