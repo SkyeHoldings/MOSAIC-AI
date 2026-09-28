@@ -117,7 +117,15 @@ const illustrations = {
   provenance: IllustrationProvenance,
 } as const
 
-export function SafetyBuiltIn() {
+export function SafetyBuiltIn({
+  empathy = cards[0].body,
+}: {
+  empathy?: string
+} = {}) {
+  const items = cards.map((card) =>
+    card.id === 'moderation' ? { ...card, body: empathy } : card,
+  )
+
   return (
     <section className="safety" aria-labelledby="safety-heading">
       <div className="safety__header">
@@ -125,7 +133,7 @@ export function SafetyBuiltIn() {
       </div>
 
       <div className="safety__grid">
-        {cards.map((card) => {
+        {items.map((card) => {
           const Illustration = illustrations[card.id]
           return (
             <article key={card.id} className="safety-card">
