@@ -87,7 +87,8 @@ function SlotTicker({ lines }: { lines: readonly string[] }) {
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
-  const isDark = pathname === '/services' || pathname === '/test4'
+  const isNewHome = pathname === '/' || pathname === '/test4'
+  const isDark = pathname === '/services' || isNewHome
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -98,7 +99,7 @@ export function Header() {
 
   return (
     <header
-      className={`site-header${scrolled ? ' is-scrolled' : ''}${isDark ? ' site-header--dark' : ''}${pathname === '/test4' ? ' site-header--on-test4' : ''}`}
+      className={`site-header${scrolled ? ' is-scrolled' : ''}${isDark ? ' site-header--dark' : ''}${isNewHome ? ' site-header--on-test4' : ''}`}
     >
       <div className="header-inner">
         <Link to="/" className="logo" aria-label="MOSAIC home">
@@ -106,8 +107,8 @@ export function Header() {
         </Link>
 
         <SlotTicker
-          key={pathname === '/test4' ? 'test4' : 'default'}
-          lines={pathname === '/test4' ? TEST4_TICKER_LINES : TICKER_LINES}
+          key={isNewHome ? 'test4' : 'default'}
+          lines={isNewHome ? TEST4_TICKER_LINES : TICKER_LINES}
         />
       </div>
     </header>

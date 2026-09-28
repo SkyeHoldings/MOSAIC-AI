@@ -4,11 +4,11 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { BusinessCard } from './pages/BusinessCard'
 import { GrowthPreview } from './pages/GrowthPreview'
-import { Home } from './pages/Home'
 import { HomeTest } from './pages/HomeTest'
 import { HomeTest2 } from './pages/HomeTest2'
 import { HomeTest3 } from './pages/HomeTest3'
 import { HomeTest4 } from './pages/HomeTest4'
+import { HomeTest5 } from './pages/HomeTest5'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
 import { MathOfSales } from './pages/MathOfSales'
 import { OneSheet } from './pages/OneSheet'
@@ -79,11 +79,12 @@ export default function App() {
       {!isStandalonePage && <Header />}
       <main className={`site-main${isStandalonePage ? ' site-main--flush' : ''}`}>
         <Routes>
-          <Route index element={<Home />} />
+          <Route index element={<HomeTest4 />} />
           <Route path="test" element={<HomeTest />} />
           <Route path="test2" element={<HomeTest2 />} />
           <Route path="test3" element={<HomeTest3 />} />
           <Route path="test4" element={<HomeTest4 />} />
+          <Route path="test5" element={<HomeTest5 />} />
           <Route path="growth" element={<GrowthPreview />} />
           <Route path="case-studies">
             <Route index element={<CaseStudies />} />
@@ -104,7 +105,7 @@ export default function App() {
           <Route path="onesheet" element={<OneSheet />} />
           <Route path="work/:id" element={<WorkDetail />} />
           <Route path="expertise" element={<Navigate to={{ pathname: '/', hash: 'how-we-work' }} replace />} />
-          <Route path="contact" element={<Navigate to={{ pathname: '/', hash: 'contact' }} replace />} />
+          <Route path="contact" element={<Navigate to={{ pathname: '/', hash: 'book' }} replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

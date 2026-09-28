@@ -148,7 +148,7 @@ export function CarouselHero() {
                   {expertise.map((item) => (
                     <li key={item.title}>
                       <a
-                        href={`/?capability=${encodeURIComponent(item.title)}#contact`}
+                        href={`/?capability=${encodeURIComponent(item.title)}#book`}
                         onClick={() => setOpen(null)}
                       >
                         {item.title}
@@ -181,7 +181,7 @@ export function CarouselHero() {
                   {industries.map((label) => (
                     <li key={label}>
                       <a
-                        href={`/?industry=${encodeURIComponent(label)}#contact`}
+                        href={`/?industry=${encodeURIComponent(label)}#book`}
                         onClick={() => setOpen(null)}
                       >
                         {label}

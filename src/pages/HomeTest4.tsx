@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { CarouselHero } from '../components/CarouselHero'
 import { BrandMarquee } from '../components/BrandMarquee'
 import { CalendlySection } from '../components/CalendlySection'
@@ -8,7 +9,10 @@ import { RecognitionStrip } from '../components/RecognitionStrip'
 import { SafetyBuiltIn } from '../components/SafetyBuiltIn'
 
 export function HomeTest4() {
+  const { pathname } = useLocation()
+
   useEffect(() => {
+    if (pathname === '/') return
     const robots = document.createElement('meta')
     robots.name = 'robots'
     robots.content = 'noindex, nofollow'
@@ -16,7 +20,7 @@ export function HomeTest4() {
     return () => {
       robots.remove()
     }
-  }, [])
+  }, [pathname])
 
   return (
     <>

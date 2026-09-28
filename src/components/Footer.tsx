@@ -3,7 +3,7 @@ import { MosaicLogo } from './MosaicLogo'
 
 export function Footer() {
   const { pathname } = useLocation()
-  const isTest4 = pathname === '/test4'
+  const isTest4 = pathname === '/' || pathname === '/test4'
   const about =
     isTest4
       ? 'Backed by years of enterprise experience, MOSAIC builds marketing and AI systems for brands around the world.'
