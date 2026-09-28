@@ -121,8 +121,13 @@ export function CreativeReportCanvas() {
         ctx!.fillStyle = '#fff'
         ctx!.font = `400 ${valueSize}px Armata, sans-serif`
         ctx!.fillText(metric.value, x + 10, top + 8 + labelSize + 3)
-        const sparkY = top + cardH - 16
-        drawSpark(metric.spark, x + 10, sparkY - cardH * 0.28, cardW - 20, cardH * 0.28, reveal)
+        const textBottom = 8 + labelSize + valueSize + 10
+        const sparkRoom = cardH - textBottom - 8
+        if (sparkRoom >= 12) {
+          const sparkH = Math.min(sparkRoom, 26)
+          const sparkY = top + cardH - 8 - sparkH
+          drawSpark(metric.spark, x + 10, sparkY, cardW - 20, sparkH, reveal)
+        }
         ctx!.restore()
       })
 
