@@ -1,7 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { expertise, getCaseStudy, industries } from '../data/work'
 import { BassProCollage } from './BassProCollage'
-import { MosaicLogo } from './MosaicLogo'
 import { PhoneCollage } from './PhoneCollage'
 import { RedRobinCollage } from './RedRobinCollage'
 
@@ -126,19 +125,9 @@ export function CarouselHero() {
       <div className="carousel-hero__card assist-hero assist-hero--partner">
         <div className="assist-hero__copy">
           <h1>
-            <span className="assist-hero__lead">
-              <span className="assist-hero__logo">
-                <MosaicLogo />
-                <span className="assist-hero__sr">MOSAIC</span>
-              </span>
-              <span className="assist-hero__aside">is your</span>
-            </span>
-            <span className="assist-hero__rest">growth marketing partner.</span>
+            Meet your growth marketing <span className="carousel-hero__partner">partner.</span>
           </h1>
-          <p>
-            We help brands grow by building the system that plans the work, makes the
-            creative, and runs the media — then stays with it week to week.
-          </p>
+          <p>Ads. Creative. Reporting. AI.</p>
 
           <div className="assist-menus">
             <div className="assist-menu">

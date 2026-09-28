@@ -9522,6 +9522,12 @@ p {
   color: #fff;
 }
 
+.carousel-hero__partner {
+  display: inline-block;
+  transform: skewX(-12deg);
+  transform-origin: left center;
+}
+
 .carousel-hero__card .assist-hero__copy > p {
   color: rgba(255, 255, 255, 0.82);
 }
