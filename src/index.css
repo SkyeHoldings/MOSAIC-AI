@@ -9457,3 +9457,120 @@ p {
     transition: none;
   }
 }
+
+/* ---------- /test4 full-screen client carousel hero ---------- */
+.carousel-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100svh - var(--header-h));
+  background: #05070a;
+  overflow: hidden;
+}
+
+.carousel-hero__viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.carousel-hero__track {
+  display: flex;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.carousel-hero__panel {
+  flex: 0 0 var(--carousel-hero-w, 100%);
+  width: var(--carousel-hero-w, 100%);
+  height: 100%;
+}
+
+.carousel-hero__panel .shipped-panel__media {
+  height: 100%;
+  width: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.carousel-hero__card.assist-hero {
+  position: relative;
+  z-index: 2;
+  display: block;
+  grid-template-columns: none;
+  min-height: 0;
+  width: min(46rem, calc(100% - 2.5rem));
+  margin: 1.25rem;
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.carousel-hero__card .assist-hero__copy {
+  max-width: none;
+  gap: 1rem;
+  padding: 0;
+  color: #fff;
+}
+
+.carousel-hero__card .assist-hero__copy h1,
+.carousel-hero__card .assist-hero__copy > p {
+  color: #fff;
+}
+
+.carousel-hero__card .assist-hero__copy > p {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.carousel-hero__card .assist-trigger {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+.carousel-hero__card .assist-trigger:hover,
+.carousel-hero__card .assist-trigger[aria-expanded='true'] {
+  background: #fff;
+  border-color: #fff;
+  color: #111;
+}
+
+@media (max-width: 900px) {
+  .carousel-hero .shipped-panel__media--collage .phone-collage.phone-collage--columns {
+    display: grid;
+    grid-template-columns: repeat(var(--collage-cols, 4), minmax(0, 1fr));
+    gap: 0.35rem;
+    padding: 0.4rem;
+    overflow: hidden;
+  }
+
+  .carousel-hero .shipped-panel__media--collage .phone-collage__col {
+    display: flex;
+    flex: unset;
+    width: auto;
+    height: 100%;
+  }
+
+  .carousel-hero .shipped-panel__media--collage .phone-collage__col:first-child {
+    display: flex;
+  }
+
+  .carousel-hero
+    .shipped-panel__media--collage
+    .phone-collage.phone-collage--columns
+    .phone-collage__phone,
+  .carousel-hero
+    .shipped-panel__media--collage
+    .phone-collage__col:first-child
+    .phone-collage__phone:first-child {
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex: 1 1 0;
+    aspect-ratio: auto;
+  }
+}
