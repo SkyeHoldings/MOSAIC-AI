@@ -524,6 +524,62 @@ p {
   animation: assist-rise 700ms ease 80ms both;
 }
 
+.assist-hero--partner .assist-hero__copy {
+  max-width: 44rem;
+}
+
+.assist-hero--partner h1 {
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.assist-hero__lead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.14em 0.28em;
+}
+
+.assist-hero__aside {
+  white-space: nowrap;
+}
+
+.assist-hero__logo {
+  display: inline-flex;
+  flex: 0 0 auto;
+  line-height: 0;
+  color: inherit;
+}
+
+.assist-hero__logo .mosaic-logo {
+  width: 2.85em;
+  gap: 0.06em;
+}
+
+.assist-hero__logo .mosaic-barcode {
+  height: 0.48em;
+}
+
+.assist-hero__logo .mosaic-wordmark {
+  font-size: 0.46em;
+}
+
+.assist-hero__rest {
+  display: block;
+}
+
+.assist-hero__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .assist-menus {
   display: flex;
   flex-wrap: wrap;
