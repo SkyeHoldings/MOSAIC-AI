@@ -565,7 +565,11 @@ const scenes: Record<FeatureId, () => ReactNode> = {
   growth: GrowthScene,
 }
 
-export function FeatureShowcase() {
+export function FeatureShowcase({
+  heading = 'We build campaigns and content systems with AI and local artists — quietly, carefully, and with craft.',
+}: {
+  heading?: string
+} = {}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [animKey, setAnimKey] = useState(0)
   const tablistId = useId()
@@ -586,10 +590,7 @@ export function FeatureShowcase() {
     <section className="feature-showcase" aria-labelledby={tablistId}>
       <div className="feature-showcase__intro">
         <p className="feature-showcase__eyebrow">How we innovate</p>
-        <h2 id={tablistId}>
-          We build campaigns and content systems with AI and local artists —
-          quietly, carefully, and with craft.
-        </h2>
+        <h2 id={tablistId}>{heading}</h2>
       </div>
 
       <div className="feature-tabs" role="tablist" aria-label="Capabilities">

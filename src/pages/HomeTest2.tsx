@@ -28,7 +28,7 @@ export function HomeTest2() {
 
       <ShippedShowcase />
 
-      <FeatureShowcase />
+      <FeatureShowcase heading="We build campaigns and content systems for brands around the world — with AI and director-level strategists." />
 
       <nav className="spotlight" aria-label="Spotlight Achievements">
         <div className="spotlight-bar">
