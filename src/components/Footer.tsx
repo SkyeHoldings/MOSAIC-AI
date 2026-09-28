@@ -1,7 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { MosaicLogo } from './MosaicLogo'
 
 export function Footer() {
+  const { pathname } = useLocation()
+  const about =
+    pathname === '/test4'
+      ? 'Backed by years of enterprise experience, MOSAIC builds marketing and AI systems for brands around the world.'
+      : "Based in Coeur d'Alene, MOSAIC partners with Inland Northwest business owners to shape marketing and AI systems that feel grounded — practical, consistent, and built for the long haul."
   return (
     <footer className="site-footer">
       <div className="footer-grid">
@@ -24,11 +29,7 @@ export function Footer() {
 
         <div className="footer-col footer-about">
           <h4>About Us</h4>
-          <p>
-            Based in Coeur d&apos;Alene, MOSAIC partners with Inland Northwest
-            business owners to shape marketing and AI systems that feel grounded —
-            practical, consistent, and built for the long haul.
-          </p>
+          <p>{about}</p>
         </div>
 
         <div className="footer-col">
