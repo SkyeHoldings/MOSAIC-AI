@@ -362,6 +362,15 @@ p {
   border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
+.site-header--on-test4 {
+  background: #0a0a0a;
+}
+
+.site-header--on-test4 .logo,
+.site-header--on-test4 .slot-ticker__line {
+  color: #fff;
+}
+
 .site-header .header-inner {
   width: 100%;
   padding-inline: var(--page-pad);

@@ -81,7 +81,7 @@ function SlotTicker() {
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
-  const isDark = pathname === '/services'
+  const isDark = pathname === '/services' || pathname === '/test4'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -92,7 +92,7 @@ export function Header() {
 
   return (
     <header
-      className={`site-header${scrolled ? ' is-scrolled' : ''}${isDark ? ' site-header--dark' : ''}`}
+      className={`site-header${scrolled ? ' is-scrolled' : ''}${isDark ? ' site-header--dark' : ''}${pathname === '/test4' ? ' site-header--on-test4' : ''}`}
     >
       <div className="header-inner">
         <Link to="/" className="logo" aria-label="MOSAIC home">
