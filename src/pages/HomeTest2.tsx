@@ -22,7 +22,7 @@ export function HomeTest2() {
 
   return (
     <>
-      <AssistHero copy="partner" />
+      <AssistHero copy="partner" visual="trend" />
 
       <BrandMarquee />
 

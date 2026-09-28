@@ -3,6 +3,7 @@ import { expertise, industries } from '../data/work'
 import { DigitalEarthCanvas } from './DigitalEarthCanvas'
 import { GrowthTypeCanvas } from './GrowthTypeCanvas'
 import { MosaicLogo } from './MosaicLogo'
+import { TrendlineCanvas } from './TrendlineCanvas'
 
 type MenuKey = 'capabilities' | 'industries' | null
 
@@ -10,7 +11,7 @@ export function AssistHero({
   visual = 'earth',
   copy = 'default',
 }: {
-  visual?: 'earth' | 'growth'
+  visual?: 'earth' | 'growth' | 'trend'
   copy?: 'default' | 'partner'
 }) {
   const [open, setOpen] = useState<MenuKey>(null)
@@ -141,7 +142,13 @@ export function AssistHero({
       </div>
 
       <div className="assist-hero__visual" aria-hidden="true">
-        {visual === 'growth' ? <GrowthTypeCanvas /> : <DigitalEarthCanvas />}
+        {visual === 'growth' ? (
+          <GrowthTypeCanvas />
+        ) : visual === 'trend' ? (
+          <TrendlineCanvas />
+        ) : (
+          <DigitalEarthCanvas />
+        )}
       </div>
     </section>
   )
