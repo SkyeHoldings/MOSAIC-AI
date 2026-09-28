@@ -144,13 +144,57 @@
 }
 
 .ht-hero h1 {
-  max-width: 11em;
+  max-width: 12em;
   font-size: clamp(2.7rem, 5.6vw, 5.15rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
 }
 
-.ht-hero h1 span {
+.ht-hero__lead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.16em 0.32em;
+}
+
+.ht-hero__aside {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.ht-hero__logo {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: #fff;
+  line-height: 0;
+}
+
+.ht-hero__logo .mosaic-logo {
+  width: 5.15em;
+  gap: 0.1em;
+}
+
+.ht-hero__logo .mosaic-barcode {
+  height: 0.62em;
+}
+
+.ht-hero__logo .mosaic-wordmark {
+  font-size: 0.4em;
+}
+
+.ht-hero__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ht-hero__rest {
   display: block;
   font-family: var(--sans);
   font-style: normal;

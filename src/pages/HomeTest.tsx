@@ -218,8 +218,14 @@ export function HomeTest() {
       <section className="ht-hero" aria-labelledby="ht-hero-title">
         <div className="ht-hero__copy">
           <h1 id="ht-hero-title">
-            MOSAIC is your
-            <span>growth marketing partner.</span>
+            <span className="ht-hero__lead">
+              <span className="ht-hero__logo">
+                <MosaicLogo />
+                <span className="ht-hero__sr">MOSAIC</span>
+              </span>
+              <span className="ht-hero__aside">is your</span>
+            </span>
+            <span className="ht-hero__rest">growth marketing partner.</span>
           </h1>
           <p>
             We help brands grow by building the system that plans the work, makes
