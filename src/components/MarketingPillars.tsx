@@ -202,8 +202,10 @@ function StreamingText({
 
 export function MarketingPillars({
   answerTag = '@Inland Northwest',
+  ctaHref = '#contact',
 }: {
   answerTag?: string
+  ctaHref?: string
 } = {}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [cycleKey, setCycleKey] = useState(0)
@@ -349,7 +351,7 @@ export function MarketingPillars({
       </div>
 
       <div className="pillars__cta">
-        <a className="pillars__button" href="#contact">
+        <a className="pillars__button" href={ctaHref}>
           Get started
         </a>
       </div>

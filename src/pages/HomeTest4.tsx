@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { CarouselHero } from '../components/CarouselHero'
 import { BrandMarquee } from '../components/BrandMarquee'
 import { CalendlySection } from '../components/CalendlySection'
-import { ContactSection } from '../components/ContactSection'
 import { FeatureShowcase } from '../components/FeatureShowcase'
 import { MarketingPillars } from '../components/MarketingPillars'
 import { RecognitionStrip } from '../components/RecognitionStrip'
@@ -38,7 +37,7 @@ export function HomeTest4() {
 
       <RecognitionStrip />
 
-      <MarketingPillars answerTag="@MOSAIC" />
+      <MarketingPillars answerTag="@MOSAIC" ctaHref="#book" />
 
       <SafetyBuiltIn
         heading="From notice to return"
@@ -54,8 +53,6 @@ export function HomeTest4() {
       </section>
 
       <CalendlySection />
-
-      <ContactSection />
     </>
   )
 }
