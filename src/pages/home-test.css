@@ -159,9 +159,6 @@
 
 .ht-hero__aside {
   flex: 0 0 auto;
-  font-size: 0.46em;
-  line-height: 1;
-  letter-spacing: 0;
   white-space: nowrap;
 }
 
@@ -199,13 +196,9 @@
 
 .ht-hero__rest {
   display: block;
-  margin-top: 0.2em;
   font-family: var(--sans);
-  font-size: 0.46em;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: 0;
   color: #fff;
 }
 
