@@ -6,6 +6,7 @@ import { BusinessCard } from './pages/BusinessCard'
 import { GrowthPreview } from './pages/GrowthPreview'
 import { Home } from './pages/Home'
 import { HomeTest } from './pages/HomeTest'
+import { HomeTest2 } from './pages/HomeTest2'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
 import { OneSheet } from './pages/OneSheet'
 import { ProgramBrief } from './pages/ProgramBrief'
@@ -77,6 +78,7 @@ export default function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="test" element={<HomeTest />} />
+          <Route path="test2" element={<HomeTest2 />} />
           <Route path="growth" element={<GrowthPreview />} />
           <Route path="case-studies">
             <Route index element={<CaseStudies />} />
