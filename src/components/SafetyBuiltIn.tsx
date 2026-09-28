@@ -118,9 +118,11 @@ const illustrations = {
 } as const
 
 export function SafetyBuiltIn({
+  heading = 'Rooted in community',
   empathy = cards[0].body,
   awareness = cards[1].body,
 }: {
+  heading?: string
   empathy?: string
   awareness?: string
 } = {}) {
@@ -133,7 +135,7 @@ export function SafetyBuiltIn({
   return (
     <section className="safety" aria-labelledby="safety-heading">
       <div className="safety__header">
-        <h2 id="safety-heading">Rooted in community</h2>
+        <h2 id="safety-heading">{heading}</h2>
       </div>
 
       <div className="safety__grid">
