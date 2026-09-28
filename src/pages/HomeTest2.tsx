@@ -50,7 +50,7 @@ export function HomeTest2() {
       />
 
       <section className="ideas-cta" aria-labelledby="ideas-cta-heading">
-        <h2 id="ideas-cta-heading">Ideas no longer have to wait their turn</h2>
+        <h2 id="ideas-cta-heading">Sit down for coffee. We’ll bring the case studies.</h2>
         <a className="ideas-cta__button" href="#book">
           Get started
         </a>
