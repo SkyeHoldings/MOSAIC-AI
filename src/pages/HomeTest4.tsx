@@ -46,7 +46,7 @@ export function HomeTest4() {
       <SafetyBuiltIn
         heading="From notice to return"
         empathy="The work starts with people, not personas. Humans notice, decide, and come back for the same reasons."
-        awareness="We put brands in front of the right people at the right moment, across markets around the world."
+        awareness="We put brands in front of the right people at the right moment, across markets."
       />
 
       <section className="ideas-cta" aria-labelledby="ideas-cta-heading">
