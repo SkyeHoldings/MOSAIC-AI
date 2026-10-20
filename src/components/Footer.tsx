@@ -6,7 +6,7 @@ export function Footer() {
   const isTest4 = pathname === '/' || pathname === '/test4'
   const about =
     isTest4
-      ? 'Backed by years of enterprise experience, MOSAIC builds marketing and AI systems for brands around the world.'
+      ? 'Backed by years of enterprise experience, MOSAIC builds marketing and AI systems for brands.'
       : "Based in Coeur d'Alene, MOSAIC partners with Inland Northwest business owners to shape marketing and AI systems that feel grounded — practical, consistent, and built for the long haul."
   return (
     <footer className="site-footer">
