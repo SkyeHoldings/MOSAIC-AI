@@ -28,7 +28,7 @@ export function HomeTest4() {
 
       <BrandMarquee />
 
-      <FeatureShowcase heading="We build campaigns and content systems for brands around the world — with AI and director-level strategists." />
+      <FeatureShowcase heading="We build campaigns and content systems for brands — with AI and director-level strategists." />
 
       <nav className="spotlight" aria-label="Spotlight Achievements">
         <div className="spotlight-bar">
