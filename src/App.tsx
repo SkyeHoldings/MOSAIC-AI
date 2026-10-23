@@ -10,6 +10,7 @@ import { HomeTest3 } from './pages/HomeTest3'
 import { HomeTest4 } from './pages/HomeTest4'
 import { HomeTest5 } from './pages/HomeTest5'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
+import { MathOfInHouse } from './pages/MathOfInHouse'
 import { MathOfSales } from './pages/MathOfSales'
 import { OneSheet } from './pages/OneSheet'
 import { ProgramBrief } from './pages/ProgramBrief'
@@ -96,6 +97,7 @@ export default function App() {
           <Route path="sms-opt-in" element={<SmsOptIn />} />
           <Route path="lead-leak-check" element={<LeadLeakCheck />} />
           <Route path="math-of-sales" element={<MathOfSales />} />
+          <Route path="math-of-in-house" element={<MathOfInHouse />} />
           <Route path="free" element={<LeadLeakCheck />} />
           <Route path="brief" element={<ProgramBrief />} />
           <Route path="brief/review" element={<ProgramBrief />} />
