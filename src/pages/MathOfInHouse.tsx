@@ -67,6 +67,12 @@ function formatPct(value: number) {
   return `${rounded.toLocaleString('en-US', { maximumFractionDigits: 1 })}%`
 }
 
+function formatRoas(value: number) {
+  if (!Number.isFinite(value)) return '—'
+  const rounded = Math.round(value * 10) / 10
+  return `${rounded.toLocaleString('en-US', { maximumFractionDigits: 1 })}x`
+}
+
 function formatInput(value: number) {
   if (!Number.isFinite(value)) return ''
   return value.toLocaleString('en-US', { maximumFractionDigits: 2 })
@@ -144,9 +150,15 @@ export function MathOfInHouse() {
   const [spend, setSpend] = useState(PRESETS[1].spend)
   const [feePct, setFeePct] = useState(opening.feePct)
   const [inHouse, setInHouse] = useState(opening.inHouse)
+  const [roas, setRoas] = useState(4)
+  const [lift, setLift] = useState(20)
   const plan = planForSpend(spend)
   const result = compute(spend, feePct, inHouse)
   const ready = result != null
+  const revenue = ready ? spend * roas : 0
+  const extraRevenue = revenue * (lift / 100)
+  const incremental = ready ? result.savings + extraRevenue : 0
+  const nextRoas = roas * (1 + lift / 100)
   const saves = ready && result.savings >= 0
   const teamShare = ready && result.fee > 0 ? Math.min(100, Math.max(0, (inHouse / result.fee) * 100)) : 0
   const saveShare = ready && result.fee > 0 ? Math.min(100, Math.max(0, 100 - teamShare)) : 0
@@ -180,8 +192,8 @@ export function MathOfInHouse() {
         </h1>
         <p>
           The holding-company fee is a portion of media spend. An in-house team
-          is a cost that does not grow as fast. The gap is what the brand saves
-          by taking the buying in-house.
+          is a cost that does not grow as fast. Add the brand's ROAS and a lift
+          on the same spend. The total is that fee savings plus the extra revenue.
         </p>
       </header>
 
@@ -228,6 +240,22 @@ export function MathOfInHouse() {
             />
           </Group>
 
+          <Group title="Return on media">
+            <NumberField
+              label="Current ROAS"
+              suffix="x"
+              value={roas}
+              onChange={setRoas}
+            />
+            <NumberField
+              label="ROAS increase"
+              suffix="%"
+              max={200}
+              value={lift}
+              onChange={setLift}
+            />
+          </Group>
+
           <Group title="The in-house team">
             <NumberField
               label="Team cost, fully loaded"
@@ -245,7 +273,8 @@ export function MathOfInHouse() {
             {linked ? `${plan.team}.` : 'Custom fee or team. Pick a budget above to follow the spend again.'}{' '}
             The fee follows the budget until you edit it: 8% under $12M, 4%
             from a national account through the largest budgets.
-            Team cost is payroll plus tools.
+            Team cost is payroll plus tools. ROAS is revenue per media dollar.
+            A 20% increase is extra revenue on the same spend.
           </p>
         </form>
 
@@ -253,19 +282,48 @@ export function MathOfInHouse() {
           {ready && result ? (
             <>
               <p className="math-results__kicker">
-                {saves ? 'Saved by going in-house' : 'Extra cost of going in-house'}
+                {incremental >= 0 ? 'Incremental money' : 'Net cost after the lift'}
               </p>
-              <p className="math-results__dial">{formatMoney(result.savings)}</p>
+              <p className="math-results__dial">{formatMoney(incremental)}</p>
               <p className="math-results__sub">
-                {saves ? (
-                  <>
-                    <span>{formatPct(result.feePortion)} of the agency fee</span>
-                    <span>{formatPct(result.spendPortion)} of media spend</span>
-                  </>
-                ) : (
-                  <span>The fee is already below this team.</span>
-                )}
+                <span>
+                  {saves ? 'In-house savings' : 'In-house costs'} {formatMoney(result.savings)}
+                </span>
+                <span>Extra revenue {formatMoney(extraRevenue)}</span>
               </p>
+              <p className="math-results__sub">
+                <span>
+                  ROAS {formatRoas(roas)} to {formatRoas(nextRoas)}
+                </span>
+                <span>Revenue today {formatMoney(revenue)}</span>
+              </p>
+
+              <div className="math-funnel math-funnel--compare">
+                <p className="math-funnel__label">Savings plus the ROAS lift</p>
+                <ol>
+                  {(
+                    [
+                      { label: 'Extra revenue', value: extraRevenue },
+                      {
+                        label: saves ? 'In-house savings' : 'In-house cost',
+                        value: Math.abs(result.savings),
+                      },
+                      { label: 'Incremental', value: Math.abs(incremental), emphasis: true },
+                    ] as const
+                  ).map((line) => {
+                    const scale = Math.max(extraRevenue, Math.abs(result.savings), Math.abs(incremental), 1)
+                    return (
+                      <li key={line.label} className={'emphasis' in line && line.emphasis ? 'is-emphasis' : undefined}>
+                        <span>{line.label}</span>
+                        <span className="math-funnel__track" aria-hidden="true">
+                          <span style={{ width: `${(line.value / scale) * 100}%` }} />
+                        </span>
+                        <strong>{formatMoney(line.value)}</strong>
+                      </li>
+                    )
+                  })}
+                </ol>
+              </div>
 
               {result.fee > 0 && saves ? (
                 <div className="math-portion">
