@@ -146,12 +146,18 @@ export function MathOfInHouse() {
   const [inHouse, setInHouse] = useState(opening.inHouse)
   const [roas, setRoas] = useState(4)
   const [lift, setLift] = useState(20)
+  const [basePct, setBasePct] = useState(0.5)
+  const [sharePct, setSharePct] = useState(10)
   const plan = planForSpend(spend)
   const result = compute(spend, feePct, inHouse)
   const ready = result != null
   const revenue = ready ? spend * roas : 0
   const extraRevenue = revenue * (lift / 100)
   const incremental = ready ? result.savings + extraRevenue : 0
+  const baseFee = ready ? spend * (basePct / 100) : 0
+  const liftShare = extraRevenue * (sharePct / 100)
+  const charge = baseFee + liftShare
+  const brandKeeps = incremental - charge
   const nextRoas = roas * (1 + lift / 100)
   const saves = ready && result.savings >= 0
   const teamShare = ready && result.fee > 0 ? Math.min(100, Math.max(0, (inHouse / result.fee) * 100)) : 0
@@ -250,6 +256,23 @@ export function MathOfInHouse() {
             />
           </Group>
 
+          <Group title="What to charge">
+            <NumberField
+              label="Transfer base, of media spend"
+              suffix="%"
+              max={100}
+              value={basePct}
+              onChange={setBasePct}
+            />
+            <NumberField
+              label="Share of the first-year lift"
+              suffix="%"
+              max={100}
+              value={sharePct}
+              onChange={setSharePct}
+            />
+          </Group>
+
           <Group title="The in-house team">
             <NumberField
               label="Team cost, fully loaded"
@@ -268,7 +291,9 @@ export function MathOfInHouse() {
             The fee follows the budget until you edit it: 8% under $12M, 4%
             from a national account through the largest budgets.
             Team cost is payroll plus tools. ROAS is revenue per media dollar.
-            A 20% increase is extra revenue on the same spend.
+            A 20% increase is extra revenue on the same spend. The transfer
+            base starts at 0.5% of media spend. The first-year share starts at
+            10% of that extra revenue.
           </p>
         </form>
 
@@ -317,6 +342,18 @@ export function MathOfInHouse() {
                     )
                   })}
                 </ol>
+              </div>
+
+              <div className="math-reps">
+                <p>First-year charge</p>
+                <strong>{formatMoney(charge)}</strong>
+                <span>
+                  Base {formatMoney(baseFee)}. {formatInput(sharePct)}% of the lift is{' '}
+                  {formatMoney(liftShare)}.{' '}
+                  {brandKeeps >= 0
+                    ? `The brand keeps ${formatMoney(brandKeeps)}.`
+                    : `The charge is ${formatMoney(brandKeeps)} above the incremental.`}
+                </span>
               </div>
 
               {result.fee > 0 && saves ? (
