@@ -31,9 +31,9 @@ function planForSpend(spend: number): Plan {
     return { feePct: 4, inHouse: 625_000, team: 'A director, two channel leads, and tools' }
   }
   if (spend < 70_000_000) {
-    return { feePct: 3, inHouse: 1_190_000, team: 'A director, four specialists, and tools' }
+    return { feePct: 4, inHouse: 1_190_000, team: 'A director, four specialists, and tools' }
   }
-  return { feePct: 1.5, inHouse: 1_870_000, team: 'A full in-house desk and tools' }
+  return { feePct: 4, inHouse: 1_870_000, team: 'A full in-house desk and tools' }
 }
 
 type Result = {
@@ -244,7 +244,7 @@ export function MathOfInHouse() {
           <p className="math-note">
             {linked ? `${plan.team}.` : 'Custom fee or team. Pick a budget above to follow the spend again.'}{' '}
             The fee follows the budget until you edit it: 8% under $12M, 4%
-            around a national account, and under 2% on the largest budgets.
+            from a national account through the largest budgets.
             Team cost is payroll plus tools.
           </p>
         </form>
