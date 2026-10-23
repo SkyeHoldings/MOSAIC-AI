@@ -61,12 +61,6 @@ function formatMoney(value: number) {
   return `$${Math.round(Math.abs(value)).toLocaleString('en-US')}`
 }
 
-function formatPct(value: number) {
-  if (!Number.isFinite(value)) return '—'
-  const rounded = Math.round(Math.abs(value) * 10) / 10
-  return `${rounded.toLocaleString('en-US', { maximumFractionDigits: 1 })}%`
-}
-
 function formatRoas(value: number) {
   if (!Number.isFinite(value)) return '—'
   const rounded = Math.round(value * 10) / 10
