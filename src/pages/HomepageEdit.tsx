@@ -31,7 +31,7 @@ export function HomepageEdit() {
         copy={{
           lead: 'It’s time to bring paid media management ',
           emphasis: 'in-house.',
-          sub: 'Ads. Creative. Reporting. AI. We do it all.',
+          sub: 'AI is here. It’s time to bring your paid media management in-house.',
           label: 'It’s time to bring paid media management in-house',
         }}
       />

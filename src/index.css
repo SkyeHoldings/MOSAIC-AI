@@ -9570,6 +9570,10 @@ p {
   line-height: 1.08;
 }
 
+.carousel-hero--compact .carousel-hero__card .assist-hero__copy > p {
+  max-width: none;
+}
+
 .carousel-hero__partner {
   display: inline-block;
   transform: skewX(-12deg);
