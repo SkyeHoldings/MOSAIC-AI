@@ -35,17 +35,25 @@ export function HomepageEdit() {
           label: 'It’s time to bring paid media management in-house',
         }}
         capabilities={[
-          'AI Paid Media Management',
-          'Paid Media Consultancy',
-          'Agency to In-House Support',
           'Agency Audit',
+          'Agency to In-House Support',
+          'Paid Media Consultancy',
+          'AI Paid Media Management',
         ]}
         audienceLine="For brands managing $10M+ per year"
       />
 
       <BrandMarquee />
 
-      <FeatureShowcase heading="We build campaigns and content systems for brands — with AI and director-level strategists." />
+      <FeatureShowcase
+        heading="We build campaigns and content systems for brands — with AI and director-level strategists."
+        labels={[
+          'Agency Audit',
+          'Agency to In-House Support',
+          'Paid Media Consultancy',
+          'AI Paid Media Management',
+        ]}
+      />
 
       <nav className="spotlight" aria-label="Spotlight Achievements">
         <div className="spotlight-bar">

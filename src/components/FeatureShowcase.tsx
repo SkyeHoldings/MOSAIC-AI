@@ -567,34 +567,43 @@ const scenes: Record<FeatureId, () => ReactNode> = {
 
 export function FeatureShowcase({
   heading = 'We build campaigns and content systems with AI and local artists — quietly, carefully, and with craft.',
+  labels,
 }: {
   heading?: string
+  labels?: readonly string[]
 } = {}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [animKey, setAnimKey] = useState(0)
   const tablistId = useId()
   const panelId = useId()
   const touchX = useRef<number | null>(null)
+  const items = features.map((feature, index) => ({
+    ...feature,
+    label: labels?.[index] ?? feature.label,
+  }))
 
-  const active = features[activeIndex]
+  const active = items[activeIndex]
   const Scene = scenes[active.id]
 
   function goTo(index: number) {
-    const next = (index + features.length) % features.length
+    const next = (index + items.length) % items.length
     if (next === activeIndex) return
     setActiveIndex(next)
     setAnimKey((k) => k + 1)
   }
 
   return (
-    <section className="feature-showcase" aria-labelledby={tablistId}>
+    <section
+      className={`feature-showcase${labels ? ' feature-showcase--named' : ''}`}
+      aria-labelledby={tablistId}
+    >
       <div className="feature-showcase__intro">
         <p className="feature-showcase__eyebrow">How we innovate</p>
         <h2 id={tablistId}>{heading}</h2>
       </div>
 
       <div className="feature-tabs" role="tablist" aria-label="Capabilities">
-        {features.map((feature, index) => {
+        {items.map((feature, index) => {
           const Icon = icons[feature.id]
           const selected = index === activeIndex
           return (

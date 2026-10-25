@@ -1137,6 +1137,13 @@ p {
   white-space: nowrap;
 }
 
+.feature-showcase--named .feature-tab span:last-child {
+  font-size: 0.84rem;
+  line-height: 1.25;
+  text-align: left;
+  white-space: normal;
+}
+
 .feature-stage {
   position: relative;
   max-width: 68rem;
