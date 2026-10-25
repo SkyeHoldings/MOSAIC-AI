@@ -9,6 +9,7 @@ import { HomeTest2 } from './pages/HomeTest2'
 import { HomeTest3 } from './pages/HomeTest3'
 import { HomeTest4 } from './pages/HomeTest4'
 import { HomeTest5 } from './pages/HomeTest5'
+import { HomepageEdit } from './pages/HomepageEdit'
 import { LeadLeakCheck } from './pages/LeadLeakCheck'
 import { MathOfInHouse } from './pages/MathOfInHouse'
 import { MathOfSales } from './pages/MathOfSales'
@@ -86,6 +87,7 @@ export default function App() {
           <Route path="test3" element={<HomeTest3 />} />
           <Route path="test4" element={<HomeTest4 />} />
           <Route path="test5" element={<HomeTest5 />} />
+          <Route path="homepageedit" element={<HomepageEdit />} />
           <Route path="growth" element={<GrowthPreview />} />
           <Route path="case-studies">
             <Route index element={<CaseStudies />} />

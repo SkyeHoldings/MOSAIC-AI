@@ -87,7 +87,7 @@ function SlotTicker({ lines }: { lines: readonly string[] }) {
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
-  const isNewHome = pathname === '/' || pathname === '/test4'
+  const isNewHome = pathname === '/' || pathname === '/test4' || pathname === '/homepageedit'
   const isDark = pathname === '/services' || isNewHome
 
   useEffect(() => {
