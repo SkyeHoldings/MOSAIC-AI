@@ -27,6 +27,7 @@ export function HomepageEdit() {
   return (
     <>
       <CarouselHero
+        compact
         copy={{
           lead: 'It’s time to bring paid media management ',
           emphasis: 'in-house.',

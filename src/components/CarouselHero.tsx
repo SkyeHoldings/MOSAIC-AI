@@ -39,7 +39,10 @@ function CollageForVariant({ variant }: { variant: CollageVariant }) {
   }
 }
 
-export function CarouselHero({ copy = DEFAULT_HERO_COPY }: { copy?: HeroCopy } = {}) {
+export function CarouselHero({
+  copy = DEFAULT_HERO_COPY,
+  compact = false,
+}: { copy?: HeroCopy; compact?: boolean } = {}) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const rootRef = useRef<HTMLElement>(null)
@@ -120,7 +123,7 @@ export function CarouselHero({ copy = DEFAULT_HERO_COPY }: { copy?: HeroCopy } =
 
   return (
     <section
-      className="carousel-hero"
+      className={`carousel-hero${compact ? ' carousel-hero--compact' : ''}`}
       aria-label={copy.label}
       ref={rootRef}
     >
