@@ -42,7 +42,12 @@ function CollageForVariant({ variant }: { variant: CollageVariant }) {
 export function CarouselHero({
   copy = DEFAULT_HERO_COPY,
   compact = false,
-}: { copy?: HeroCopy; compact?: boolean } = {}) {
+  capabilities,
+}: {
+  copy?: HeroCopy
+  compact?: boolean
+  capabilities?: readonly string[]
+} = {}) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const rootRef = useRef<HTMLElement>(null)
@@ -50,6 +55,7 @@ export function CarouselHero({
   const capabilitiesId = useId()
   const industriesId = useId()
   const loopSlides = [...slides, ...slides]
+  const capabilityItems = capabilities ?? expertise.map((item) => item.title)
 
   useEffect(() => {
     function onPointerDown(event: MouseEvent) {
@@ -162,14 +168,18 @@ export function CarouselHero({
                 <span className="assist-chevron" aria-hidden="true" />
               </button>
               {open === 'capabilities' ? (
-                <ul id={capabilitiesId} className="assist-dropdown" role="list">
-                  {expertise.map((item) => (
-                    <li key={item.title}>
+                <ul
+                  id={capabilitiesId}
+                  className={`assist-dropdown${capabilities ? ' assist-dropdown--scroll' : ''}`}
+                  role="list"
+                >
+                  {capabilityItems.map((title) => (
+                    <li key={title}>
                       <a
-                        href={`/?capability=${encodeURIComponent(item.title)}#book`}
+                        href={`/?capability=${encodeURIComponent(title)}#book`}
                         onClick={() => setOpen(null)}
                       >
-                        {item.title}
+                        {title}
                       </a>
                     </li>
                   ))}

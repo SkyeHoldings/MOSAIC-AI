@@ -34,6 +34,12 @@ export function HomepageEdit() {
           sub: 'AI is here. It’s time to bring your paid media management in-house.',
           label: 'It’s time to bring paid media management in-house',
         }}
+        capabilities={[
+          'AI Paid Media Management',
+          'Paid Media Consultancy',
+          'Agency to In-House Support',
+          'Agency Audit',
+        ]}
       />
 
       <BrandMarquee />
