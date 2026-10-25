@@ -7,6 +7,20 @@ import { RedRobinCollage } from './RedRobinCollage'
 type CollageVariant = 'gucci' | 'red-robin' | 'bass-pro'
 type MenuKey = 'capabilities' | 'industries' | null
 
+type HeroCopy = {
+  lead: string
+  emphasis: string
+  sub: string
+  label: string
+}
+
+const DEFAULT_HERO_COPY: HeroCopy = {
+  lead: 'Meet your growth marketing ',
+  emphasis: 'partner.',
+  sub: 'Ads. Creative. Reporting. AI. We do it all.',
+  label: 'MOSAIC is your growth marketing partner',
+}
+
 const slides: { id: string; variant: CollageVariant }[] = [
   { id: 'gucci', variant: 'gucci' },
   { id: 'red-robin', variant: 'red-robin' },
@@ -25,7 +39,7 @@ function CollageForVariant({ variant }: { variant: CollageVariant }) {
   }
 }
 
-export function CarouselHero() {
+export function CarouselHero({ copy = DEFAULT_HERO_COPY }: { copy?: HeroCopy } = {}) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const rootRef = useRef<HTMLElement>(null)
@@ -107,7 +121,7 @@ export function CarouselHero() {
   return (
     <section
       className="carousel-hero"
-      aria-label="MOSAIC is your growth marketing partner"
+      aria-label={copy.label}
       ref={rootRef}
     >
       <div className="carousel-hero__viewport" ref={viewportRef} aria-hidden="true">
@@ -125,9 +139,10 @@ export function CarouselHero() {
       <div className="carousel-hero__card assist-hero assist-hero--partner">
         <div className="assist-hero__copy">
           <h1>
-            Meet your growth marketing <span className="carousel-hero__partner">partner.</span>
+            {copy.lead}
+            <span className="carousel-hero__partner">{copy.emphasis}</span>
           </h1>
-          <p>Ads. Creative. Reporting. AI. We do it all.</p>
+          <p>{copy.sub}</p>
 
           <div className="assist-menus">
             <div className="assist-menu">

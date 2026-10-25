@@ -26,7 +26,14 @@ export function HomepageEdit() {
 
   return (
     <>
-      <CarouselHero />
+      <CarouselHero
+        copy={{
+          lead: 'It’s time to bring paid media management ',
+          emphasis: 'in-house.',
+          sub: 'Ads. Creative. Reporting. AI. We do it all.',
+          label: 'It’s time to bring paid media management in-house',
+        }}
+      />
 
       <BrandMarquee />
 
