@@ -27,6 +27,52 @@ const slides: { id: string; variant: CollageVariant }[] = [
   { id: 'bass-pro-cabelas', variant: 'bass-pro' },
 ]
 
+function TypedAudience({ text }: { text: string }) {
+  const [count, setCount] = useState(0)
+  const [reduceMotion, setReduceMotion] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReduceMotion(media.matches)
+    update()
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setCount(text.length)
+      return
+    }
+
+    setCount(0)
+    let index = 0
+    let timeoutId = 0
+
+    const tick = () => {
+      index += 1
+      setCount(index)
+      if (index >= text.length) return
+      timeoutId = window.setTimeout(tick, 36)
+    }
+
+    timeoutId = window.setTimeout(tick, 500)
+    return () => window.clearTimeout(timeoutId)
+  }, [reduceMotion, text])
+
+  const done = count >= text.length
+
+  return (
+    <p className="carousel-hero__audience" aria-label={text}>
+      <span className="carousel-hero__audience-rule" aria-hidden="true" />
+      <span aria-hidden="true">
+        {text.slice(0, count)}
+        {done ? null : <span className="carousel-hero__audience-caret" />}
+      </span>
+    </p>
+  )
+}
+
 function CollageForVariant({ variant }: { variant: CollageVariant }) {
   const gucci = getCaseStudy('gucci')
   switch (variant) {
@@ -43,10 +89,12 @@ export function CarouselHero({
   copy = DEFAULT_HERO_COPY,
   compact = false,
   capabilities,
+  audienceLine,
 }: {
   copy?: HeroCopy
   compact?: boolean
   capabilities?: readonly string[]
+  audienceLine?: string
 } = {}) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -187,38 +235,42 @@ export function CarouselHero({
               ) : null}
             </div>
 
-            <div className="assist-menu">
-              <button
-                type="button"
-                className="assist-trigger"
-                aria-expanded={open === 'industries'}
-                aria-controls={industriesId}
-                onClick={() =>
-                  setOpen((current) => (current === 'industries' ? null : 'industries'))
-                }
-              >
-                Industries
-                <span className="assist-chevron" aria-hidden="true" />
-              </button>
-              {open === 'industries' ? (
-                <ul
-                  id={industriesId}
-                  className="assist-dropdown assist-dropdown--scroll"
-                  role="list"
+            {audienceLine ? (
+              <TypedAudience text={audienceLine} />
+            ) : (
+              <div className="assist-menu">
+                <button
+                  type="button"
+                  className="assist-trigger"
+                  aria-expanded={open === 'industries'}
+                  aria-controls={industriesId}
+                  onClick={() =>
+                    setOpen((current) => (current === 'industries' ? null : 'industries'))
+                  }
                 >
-                  {industries.map((label) => (
-                    <li key={label}>
-                      <a
-                        href={`/?industry=${encodeURIComponent(label)}#book`}
-                        onClick={() => setOpen(null)}
-                      >
-                        {label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
+                  Industries
+                  <span className="assist-chevron" aria-hidden="true" />
+                </button>
+                {open === 'industries' ? (
+                  <ul
+                    id={industriesId}
+                    className="assist-dropdown assist-dropdown--scroll"
+                    role="list"
+                  >
+                    {industries.map((label) => (
+                      <li key={label}>
+                        <a
+                          href={`/?industry=${encodeURIComponent(label)}#book`}
+                          onClick={() => setOpen(null)}
+                        >
+                          {label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            )}
           </div>
         </div>
       </div>

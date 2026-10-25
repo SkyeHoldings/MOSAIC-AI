@@ -40,6 +40,7 @@ export function HomepageEdit() {
           'Agency to In-House Support',
           'Agency Audit',
         ]}
+        audienceLine="For brands managing $10M+ per year"
       />
 
       <BrandMarquee />

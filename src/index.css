@@ -9574,6 +9574,34 @@ p {
   max-width: none;
 }
 
+.carousel-hero__audience {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  min-height: 3rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.carousel-hero__audience-rule {
+  width: 1.6rem;
+  height: 1px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.carousel-hero__audience-caret {
+  display: inline-block;
+  width: 0.08rem;
+  height: 1em;
+  margin-left: 0.08rem;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: pillars-caret 900ms steps(1) infinite;
+}
+
 .carousel-hero__partner {
   display: inline-block;
   transform: skewX(-12deg);
