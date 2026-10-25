@@ -64,11 +64,16 @@ function TypedAudience({ text }: { text: string }) {
 
   return (
     <p className="carousel-hero__audience" aria-label={text}>
-      <span className="carousel-hero__audience-rule" aria-hidden="true" />
-      <span aria-hidden="true">
-        {text.slice(0, count)}
-        {done ? null : <span className="carousel-hero__audience-caret" />}
+      <span className="carousel-hero__audience-copy">
+        <span className="carousel-hero__audience-sizer" aria-hidden="true">
+          {text}
+        </span>
+        <span className="carousel-hero__audience-live" aria-hidden="true">
+          {text.slice(0, count)}
+          {done ? null : <span className="carousel-hero__audience-caret" />}
+        </span>
       </span>
+      <span className="carousel-hero__audience-rule" aria-hidden="true" />
     </p>
   )
 }
