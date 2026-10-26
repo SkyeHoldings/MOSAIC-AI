@@ -46,7 +46,7 @@ export function HomepageEdit() {
       <BrandMarquee />
 
       <FeatureShowcase
-        heading="We build campaigns and content systems for brands — with AI and director-level strategists."
+        heading="From an agency audit to an in-house media team."
         labels={[
           'Agency Audit',
           'Agency to In-House Support',
