@@ -22,6 +22,7 @@ import { Terms } from './pages/Terms'
 import { CaseStudies } from './pages/CaseStudies'
 import { CaseStudy } from './pages/CaseStudy'
 import { WorkDetail } from './pages/WorkDetail'
+import { Keel } from './pages/Keel'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -72,7 +73,10 @@ function NotFound() {
 export default function App() {
   const { pathname } = useLocation()
   const isStandalonePage =
-    pathname === '/businesscard' || pathname === '/onesheet' || pathname === '/test'
+    pathname === '/businesscard' ||
+    pathname === '/onesheet' ||
+    pathname === '/test' ||
+    pathname === '/keel'
 
   return (
     <div className="site-shell">
@@ -107,6 +111,7 @@ export default function App() {
           <Route path="diagnostic/review" element={<ProgramBrief />} />
           <Route path="businesscard" element={<BusinessCard />} />
           <Route path="onesheet" element={<OneSheet />} />
+          <Route path="keel" element={<Keel />} />
           <Route path="work/:id" element={<WorkDetail />} />
           <Route path="expertise" element={<Navigate to={{ pathname: '/', hash: 'how-we-work' }} replace />} />
           <Route path="contact" element={<Navigate to={{ pathname: '/', hash: 'book' }} replace />} />

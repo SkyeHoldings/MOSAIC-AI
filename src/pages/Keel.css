@@ -1,0 +1,108 @@
+.keel {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.keel-nav {
+  padding: 20px 14px 32px;
+  border-right: 1px solid var(--line);
+}
+
+.keel-nav h1 {
+  font-size: 1rem;
+  margin: 0 0 4px;
+}
+
+.keel-nav p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.keel-group {
+  margin: 14px 8px 4px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.keel-nav button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.keel-nav button[aria-current='page'] {
+  background: #f4f4f1;
+}
+
+.keel-main {
+  padding: 28px 32px 64px;
+  max-width: 980px;
+}
+
+.keel-main h2 {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.keel-job,
+.keel-note {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.keel-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.keel-controls label,
+.keel-mode {
+  font-size: 0.9rem;
+}
+
+.keel-controls input,
+.keel-mode select {
+  margin-left: 8px;
+}
+
+.keel-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+}
+
+.keel-table th,
+.keel-table td {
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  padding: 8px;
+  font-size: 0.9rem;
+}
+
+.keel-flag {
+  color: #8a1f11;
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  .keel {
+    grid-template-columns: 1fr;
+  }
+
+  .keel-nav {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
