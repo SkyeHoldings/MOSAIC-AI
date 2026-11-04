@@ -1,26 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
+import { apiAddMember, apiAnalysis, apiApply, apiAudience, apiChangeMode, apiCreateCohort, apiDeleteCohort, apiDeploy, apiExclude, apiExtract, apiHealth, apiPreflight, apiRefresh, apiSaveBlueprint, apiUpdatePilot, auditJsonl, loadDb, type Check, type Member } from '../keel/api'
 import { BOARD_CHANNELS, MAP_LAYERS, PMAX_RADIUS_MILES, channelSummary, cpaBand, cpaStops, overlapPairs, paceReason, project, type MapLayer } from '../keel/board'
 import { PAGES, SAMPLE_ROWS, STORES } from '../keel/catalog'
 import {
-  addExclusion,
-  analysisRange,
-  applyBudgets,
-  audienceEdit,
-  changeMode,
-  createCohort,
   DEFAULT_URL_TAGS,
-  deleteCohort,
-  deployAssetGroup,
-  extractAssetGroup,
   filterRows,
   fingerprint,
-  healthCheck,
   matchStorePaste,
-  preflightAssetGroup,
-  refreshProposals,
-  saveBlueprint,
   sortRows,
-  updatePilot,
   withPace,
   type Blueprint,
   type Cohort,
@@ -71,24 +58,10 @@ const NAV = [
 ]
 
 const DIRECTORY = STORES.map((store) => ({ storeId: store.storeId, storeName: store.storeName }))
-const COHORT_KEY = 'hellomosaic-keel-cohorts'
 const CHANNEL_FILTERS: FilterName[] = ['All', 'Off-plan', 'Over-pacing', 'Under-pacing', 'No spend', 'Unfunded', 'Completed', 'Conv drop', 'Franchise']
 
 function money(value: number, digits = 0) {
   return value.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: digits, minimumFractionDigits: digits })
-}
-
-function loadCohorts(): Cohort[] {
-  try {
-    const saved = localStorage.getItem(COHORT_KEY)
-    return saved ? JSON.parse(saved) as Cohort[] : []
-  } catch {
-    return []
-  }
-}
-
-function resultText(result: { ok: boolean; error?: string }, okText: string) {
-  return result.ok ? okText : result.error || 'Request failed.'
 }
 
 export function Keel() {
@@ -97,9 +70,14 @@ export function Keel() {
   const [daysInPeriod, setDaysInPeriod] = useState(28)
   const [filter, setFilter] = useState<FilterName>('All')
   const [sortKey, setSortKey] = useState<SortKey>('pace')
-  const [mode, setMode] = useState<Mode>('OBSERVE')
-  const [pilotText, setPilotText] = useState('1')
-  const [cohorts, setCohorts] = useState<Cohort[]>(loadCohorts)
+  const [mode, setMode] = useState<Mode>(() => loadDb().mode)
+  const [pilotText, setPilotText] = useState(() => loadDb().pilot.join(', '))
+  const [cohorts, setCohorts] = useState<Cohort[]>(() => loadDb().cohorts)
+  const [audit, setAudit] = useState(() => loadDb().audit)
+  const [members, setMembers] = useState<Member[]>(() => loadDb().members)
+  const [checks, setChecks] = useState<Check[]>([])
+  const [auditFilter, setAuditFilter] = useState('')
+  const [memberEmail, setMemberEmail] = useState('')
   const [watchCohort, setWatchCohort] = useState<string | null>(null)
   const [boardChannel, setBoardChannel] = useState<(typeof BOARD_CHANNELS)[number]>('PMAX')
   const [boardFilter, setBoardFilter] = useState<FilterName>('All')
@@ -125,7 +103,7 @@ export function Keel() {
   const [savedBlueprint, setSavedBlueprint] = useState<Blueprint | null>(null)
   const [selected, setSelected] = useState<string[]>([])
   const [reviewedFor, setReviewedFor] = useState<string | null>(null)
-  const [exclusions, setExclusions] = useState<Exclusion[]>([])
+  const [exclusions, setExclusions] = useState<Exclusion[]>(() => loadDb().exclusions)
   const [reason, setReason] = useState('Franchise fence')
   const [runId, setRunId] = useState<string | null>(null)
   const [healthId, setHealthId] = useState<string | null>(null)
@@ -135,7 +113,7 @@ export function Keel() {
   const [reviewToken, setReviewToken] = useState<string | null>(null)
   const [assetGroup, setAssetGroup] = useState('Sample group')
   const [storeId, setStoreId] = useState('1')
-  const [log, setLog] = useState('Local only. These functions do not call the live Keel server.')
+  const [log, setLog] = useState('This browser is the Keel API. It keeps its own records and does not call keel.surfaceagency.co.')
 
   const page = PAGES.find((item) => item.path === path) ?? PAGES[0]
   const paced = useMemo(
@@ -185,9 +163,10 @@ export function Keel() {
   const visibleMapStores = showWatchlist ? mapStores.filter((store) => watchIds.has(store.storeId)) : mapStores
   const overlaps = overlapPairs(visibleMapStores.filter((store) => paced.some((row) => row.storeId === store.storeId && row.channel === 'PMAX')), PMAX_RADIUS_MILES)
 
-  useEffect(() => {
-    localStorage.setItem(COHORT_KEY, JSON.stringify(cohorts))
-  }, [cohorts])
+  function settle(result: { ok: boolean; error?: string }, okText: string) {
+    setAudit(loadDb().audit)
+    setLog(result.ok ? okText : result.error || 'Request failed.')
+  }
 
   function toggle(id: string) {
     const next = selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id]
@@ -443,9 +422,9 @@ export function Keel() {
         {page.path === '/actuation' ? (
           <div className="keel-panel keel-actions">
             <button type="button" className="keel-btn" onClick={() => {
-              const result = refreshProposals()
+              const result = apiRefresh()
               if (result.ok) setRunId(result.runId)
-              setLog(resultText(result, `Refresh started. runId ${result.ok ? result.runId : ''}`))
+              settle(result, `Refresh started. runId ${result.ok ? result.runId : ''}`)
             }}>Refresh proposals {runId ? `(${runId})` : ''}</button>
             {paced.map((row) => (
               <label key={row.id}>
@@ -455,21 +434,21 @@ export function Keel() {
             ))}
             <button type="button" className="keel-btn" onClick={() => {
               setReviewedFor(currentFingerprint)
-              const result = applyBudgets({ channel: 'PMAX', proposalIds: selected, dryRun: true, currentFingerprint, reviewedFingerprint: currentFingerprint })
-              setLog(resultText(result, result.ok ? result.log : ''))
+              const result = apiApply({ channel: 'PMAX', proposalIds: selected, dryRun: true, currentFingerprint, reviewedFingerprint: currentFingerprint })
+              settle(result, result.ok ? result.log : '')
             }}>Verify dry-run</button>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = applyBudgets({ channel: 'PMAX', proposalIds: selected, confirm: true, currentFingerprint, reviewedFingerprint: reviewedFor ?? undefined })
-              setLog(resultText(result, result.ok ? result.log : ''))
+              const result = apiApply({ channel: 'PMAX', proposalIds: selected, confirm: true, currentFingerprint, reviewedFingerprint: reviewedFor ?? undefined })
+              settle(result, result.ok ? result.log : '')
             }}>Apply</button>
             <label>
               Reason
               <input value={reason} onChange={(event) => setReason(event.target.value)} />
             </label>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = addExclusion({ storeId, channel: 'PMAX', reason })
-              if (result.ok) setExclusions((current) => [...current, result.exclusion])
-              setLog(resultText(result, `Exclusion added for store ${storeId}.`))
+              const result = apiExclude({ storeId, channel: 'PMAX', reason })
+              if (result.ok) setExclusions(result.db.exclusions)
+              settle(result, `Exclusion added for store ${storeId}.`)
             }}>Add exclusion</button>
             {exclusions.length > 0 ? <p className="keel-note">{exclusions.map((item) => `${item.storeId} ${item.channel}: ${item.reason}`).join(' · ')}</p> : null}
           </div>
@@ -481,9 +460,9 @@ export function Keel() {
               Mode
               <select value={mode} onChange={(event) => {
                 const next = event.target.value as Mode
-                const result = changeMode({ mode: next, confirm: next !== 'OBSERVE' })
+                const result = apiChangeMode({ mode: next, confirm: next !== 'OBSERVE' })
                 if (result.ok) setMode(result.mode)
-                setLog(resultText(result, `Mode is ${next}.`))
+                settle(result, `Mode is ${next}.`)
               }}>
                 <option value="OBSERVE">Observe-only</option>
                 <option value="PILOT">Pilot</option>
@@ -498,8 +477,8 @@ export function Keel() {
               <textarea value={pilotText} onChange={(event) => setPilotText(event.target.value)} />
             </label>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = updatePilot({ entries: pilotText.split(/[\s,]+/), channel: 'Meta', enabled: false, confirm: true })
-              setLog(resultText(result, result.ok ? `Allowlist has ${result.entries.length} store${result.entries.length === 1 ? '' : 's'}.` : ''))
+              const result = apiUpdatePilot({ entries: pilotText.split(/[\s,]+/), channel: 'Meta', enabled: false, confirm: true })
+              settle(result, result.ok ? `Allowlist has ${result.entries.length} store${result.entries.length === 1 ? '' : 's'}.` : '')
             }}>Save pilot allowlist</button>
           </div>
         ) : null}
@@ -529,9 +508,9 @@ export function Keel() {
               Duplicates {pasteMatch.duplicates.join(', ') || 'none'}.
             </p>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = createCohort({ name: cohortName, storeIds: pasteMatch.matched.map((item) => item.storeId), source: 'PASTE' })
-              if (result.ok) setCohorts((current) => [...current, result.cohort])
-              setLog(resultText(result, result.ok ? `Saved ${result.cohort.name}.` : ''))
+              const result = apiCreateCohort({ name: cohortName, storeIds: pasteMatch.matched.map((item) => item.storeId), source: 'PASTE' })
+              if (result.ok) setCohorts(result.db.cohorts)
+              settle(result, result.ok ? `Saved ${result.cohort.name}.` : '')
             }}>Save cohort ({pasteMatch.matched.length})</button>
             <p className="keel-note">Static snapshot · {pasteMatch.matched.length} stores matched from {DIRECTORY.length} available.</p>
             <ul>
@@ -551,10 +530,10 @@ export function Keel() {
                     setLog(`Queued ${ids.length} rows from ${cohort.name}. Review them before apply.`)
                   }}>Deploy</button>
                   <button type="button" className="keel-btn" onClick={() => {
-                    const result = deleteCohort(cohorts, cohort.id)
-                    if (result.ok) setCohorts(result.cohorts)
+                    const result = apiDeleteCohort(cohort.id)
+                    if (result.ok) setCohorts(result.db.cohorts)
                     if (watchCohort === cohort.id) setWatchCohort(null)
-                    setLog(resultText(result, `Deleted ${cohort.name}.`))
+                    settle(result, `Deleted ${cohort.name}.`)
                   }}>Delete</button>
                 </li>
               ))}
@@ -569,12 +548,12 @@ export function Keel() {
               <input value={audience} onChange={(event) => setAudience(event.target.value)} />
             </label>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = audienceEdit({ method: 'POST', audience, storeIds: ['1'] })
-              setLog(resultText(result, `Audience ${audience} saved for store 1.`))
+              const result = apiAudience({ method: 'POST', audience, storeIds: ['1'] })
+              settle(result, `Audience ${audience} saved for store 1.`)
             }}>Save edit</button>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = audienceEdit({ method: 'DELETE', audience, storeIds: ['1'] })
-              setLog(resultText(result, `Audience ${audience} removed.`))
+              const result = apiAudience({ method: 'DELETE', audience, storeIds: ['1'] })
+              settle(result, `Audience ${audience} removed.`)
             }}>Remove edit</button>
           </div>
         ) : null}
@@ -594,9 +573,9 @@ export function Keel() {
               <button type="button">Learn more</button>
             </div>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = saveBlueprint(blueprint)
+              const result = apiSaveBlueprint(blueprint)
               if (result.ok) setSavedBlueprint(result.blueprint)
-              setLog(resultText(result, result.ok ? `Blueprint saved as ${result.blueprint.name}.` : ''))
+              settle(result, result.ok ? `Blueprint saved as ${result.blueprint.name}.` : '')
             }}>Save blueprint</button>
             {savedBlueprint ? <p className="keel-note">Deploy status stays local. Tags: {savedBlueprint.urlTags}</p> : null}
           </div>
@@ -607,18 +586,18 @@ export function Keel() {
             <label>Store<input value={storeId} onChange={(event) => setStoreId(event.target.value)} /></label>
             <label>Asset group<input value={assetGroup} onChange={(event) => setAssetGroup(event.target.value)} /></label>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = extractAssetGroup({ storeId, assetGroup })
+              const result = apiExtract({ storeId, assetGroup })
               if (result.ok) setSeed(result.seed)
-              setLog(resultText(result, result.ok ? `Seed ${result.seed}` : ''))
+              settle(result, result.ok ? `Extracted ${assetGroup} for store ${storeId}.` : '')
             }}>Extract</button>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = preflightAssetGroup(seed)
+              const result = apiPreflight(seed)
               if (result.ok) setReviewToken(result.reviewToken)
-              setLog(resultText(result, 'Preflight froze this review.'))
+              settle(result, 'Preflight froze this review.')
             }}>Preflight</button>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = deployAssetGroup({ seed, reviewToken, confirm: true })
-              setLog(resultText(result, result.ok ? result.log : ''))
+              const result = apiDeploy({ seed, reviewToken, confirm: true })
+              settle(result, result.ok ? result.log : '')
             }}>Deploy</button>
           </div>
         ) : null}
@@ -628,15 +607,25 @@ export function Keel() {
             <label>Start<input type="date" value={range.start} onChange={(event) => setRange({ ...range, start: event.target.value })} /></label>
             <label>End<input type="date" value={range.end} onChange={(event) => setRange({ ...range, end: event.target.value })} /></label>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = analysisRange(range)
+              const result = apiAnalysis(range)
               if (result.ok) setLoadedRange(`${result.start} to ${result.end}`)
-              setLog(resultText(result, result.ok ? `Loaded ${result.start} to ${result.end}.` : ''))
+              settle(result, result.ok ? `Loaded ${result.start} to ${result.end}.` : '')
             }}>Load range</button>
-            {loadedRange ? <p className="keel-note">Export would be a JSON download for {loadedRange}. Nothing left this browser.</p> : null}
+            {loadedRange ? <button type="button" className="keel-btn" onClick={() => {
+              const result = apiAnalysis(range)
+              if (!result.ok) return settle(result, '')
+              const blob = new Blob([JSON.stringify({ range: loadedRange, rows: result.rows }, null, 2)], { type: 'application/json' })
+              const url = URL.createObjectURL(blob)
+              const link = document.createElement('a')
+              link.href = url
+              link.download = 'keel-analysis.json'
+              link.click()
+              URL.revokeObjectURL(url)
+            }}>Download {loadedRange}</button> : null}
             <button type="button" className="keel-btn" onClick={() => {
-              const result = createCohort({ name: 'From reporting', storeIds: ['1', '3'], source: 'ANALYSIS' })
-              if (result.ok) setCohorts((current) => [...current, result.cohort])
-              setLog(resultText(result, 'Saved the selected stores as a cohort.'))
+              const result = apiCreateCohort({ name: 'From reporting', storeIds: ['1', '3'], source: 'ANALYSIS' })
+              if (result.ok) setCohorts(result.db.cohorts)
+              settle(result, 'Saved the selected stores as a cohort.')
             }}>Save selection as cohort</button>
           </div>
         ) : null}
@@ -646,24 +635,63 @@ export function Keel() {
             <h3>Tool health</h3>
             <p className="keel-note">Checks BigQuery auth, source freshness, and the pacing-engine schema contract. Same job as npm run doctor, then npm run ingest.</p>
             <button type="button" className="keel-btn" onClick={() => {
-              const result = healthCheck()
-              if (result.ok) setHealthId(result.runId)
-              setLog(resultText(result, result.ok ? `Warehouse check started. runId ${result.runId}` : ''))
+              const result = apiHealth()
+              if (result.ok) {
+                setHealthId(result.runId)
+                setChecks(result.checks)
+              }
+              settle(result, result.ok ? `Warehouse check finished. runId ${result.runId}` : '')
             }}>Run warehouse check {healthId ? `(${healthId})` : ''}</button>
+            {checks.length > 0 ? <ul>{checks.map((check) => <li key={check.name}>{check.ok ? 'Pass' : 'Fail'} · {check.name}: {check.detail}</li>)}</ul> : null}
           </div>
         ) : null}
 
         {page.path === '/audit' ? (
           <div className="keel-panel">
             <h3>Audit log</h3>
-            <p className="keel-note">The live download is GET /api/audit?format=jsonl, filtered by action, result, and actor. This login is refused without audit-read, so the local page keeps the log on screen.</p>
+            <div className="keel-form">
+              <label>Filter<input value={auditFilter} onChange={(event) => setAuditFilter(event.target.value)} placeholder="action, result, or actor" /></label>
+              <button type="button" className="keel-btn" onClick={() => {
+                const rows = audit.filter((entry) => `${entry.action} ${entry.result} ${entry.actor} ${entry.detail}`.toLowerCase().includes(auditFilter.toLowerCase()))
+                const blob = new Blob([auditJsonl(rows)], { type: 'application/jsonl' })
+                const url = URL.createObjectURL(blob)
+                const link = document.createElement('a')
+                link.href = url
+                link.download = 'keel-audit.jsonl'
+                link.click()
+                URL.revokeObjectURL(url)
+              }}>Download JSONL</button>
+            </div>
+            <table className="keel-table">
+              <thead><tr><th>When</th><th>Action</th><th>Result</th><th>Actor</th><th>Detail</th></tr></thead>
+              <tbody>
+                {audit.filter((entry) => `${entry.action} ${entry.result} ${entry.actor} ${entry.detail}`.toLowerCase().includes(auditFilter.toLowerCase())).map((entry) => (
+                  <tr key={entry.id}>
+                    <td>{entry.at.slice(0, 19).replace('T', ' ')}</td>
+                    <td>{entry.action}</td>
+                    <td>{entry.result}</td>
+                    <td>{entry.actor}</td>
+                    <td>{entry.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         ) : null}
 
         {page.path === '/team' ? (
           <div className="keel-panel">
             <h3>Team</h3>
-            <p className="keel-note">Membership reads and patches need settings-manage. This page does not call that route.</p>
+            <p className="keel-note">You are {loadDb().actor}, admin of this copy.</p>
+            <ul>{members.map((member) => <li key={member.email}>{member.email} · {member.role}</li>)}</ul>
+            <div className="keel-form">
+              <label>Email<input value={memberEmail} onChange={(event) => setMemberEmail(event.target.value)} /></label>
+              <button type="button" className="keel-btn" onClick={() => {
+                const result = apiAddMember({ email: memberEmail, role: 'trader' })
+                if (result.ok) setMembers(result.db.members)
+                settle(result, `${memberEmail} added as trader.`)
+              }}>Add trader</button>
+            </div>
           </div>
         ) : null}
 
