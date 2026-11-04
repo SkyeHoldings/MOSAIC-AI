@@ -81,6 +81,7 @@ export type FilterName =
   | 'No spend'
   | 'Unfunded'
   | 'Completed'
+  | 'Conv drop'
   | 'Franchise'
 
 export function sortRows(rows: PacedAssignment[], key: SortKey, dir: 'asc' | 'desc') {
@@ -130,6 +131,8 @@ export function filterRows(rows: PacedAssignment[], filter: FilterName) {
         return row.status === 'NOT_FUNDED'
       case 'Completed':
         return row.status === 'BUDGET_SPENT'
+      case 'Conv drop':
+        return row.actual > 0 && row.conversions === 0 && !row.block
       case 'Franchise':
         return row.locationType === 'Franchise'
       default:

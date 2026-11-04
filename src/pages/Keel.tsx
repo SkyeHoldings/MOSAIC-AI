@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
-import { PAGES, SAMPLE_ROWS } from '../keel/catalog'
+import { useEffect, useMemo, useState } from 'react'
+import { BOARD_CHANNELS, MAP_LAYERS, PMAX_RADIUS_MILES, channelSummary, cpaBand, cpaStops, overlapPairs, paceReason, project, type MapLayer } from '../keel/board'
+import { PAGES, SAMPLE_ROWS, STORES } from '../keel/catalog'
 import {
   addExclusion,
   analysisRange,
@@ -69,11 +70,22 @@ const NAV = [
   ]},
 ]
 
-const DIRECTORY = [
-  { storeId: '1', storeName: 'Sample North' },
-  { storeId: '2', storeName: 'Sample South' },
-  { storeId: '3', storeName: 'Sample East' },
-]
+const DIRECTORY = STORES.map((store) => ({ storeId: store.storeId, storeName: store.storeName }))
+const COHORT_KEY = 'hellomosaic-keel-cohorts'
+const CHANNEL_FILTERS: FilterName[] = ['All', 'Off-plan', 'Over-pacing', 'Under-pacing', 'No spend', 'Unfunded', 'Completed', 'Conv drop', 'Franchise']
+
+function money(value: number, digits = 0) {
+  return value.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: digits, minimumFractionDigits: digits })
+}
+
+function loadCohorts(): Cohort[] {
+  try {
+    const saved = localStorage.getItem(COHORT_KEY)
+    return saved ? JSON.parse(saved) as Cohort[] : []
+  } catch {
+    return []
+  }
+}
 
 function resultText(result: { ok: boolean; error?: string }, okText: string) {
   return result.ok ? okText : result.error || 'Request failed.'
@@ -87,7 +99,16 @@ export function Keel() {
   const [sortKey, setSortKey] = useState<SortKey>('pace')
   const [mode, setMode] = useState<Mode>('OBSERVE')
   const [pilotText, setPilotText] = useState('1')
-  const [cohorts, setCohorts] = useState<Cohort[]>([])
+  const [cohorts, setCohorts] = useState<Cohort[]>(loadCohorts)
+  const [watchCohort, setWatchCohort] = useState<string | null>(null)
+  const [boardChannel, setBoardChannel] = useState<(typeof BOARD_CHANNELS)[number]>('PMAX')
+  const [boardFilter, setBoardFilter] = useState<FilterName>('All')
+  const [activeStore, setActiveStore] = useState('1')
+  const [mapLayer, setMapLayer] = useState<MapLayer>('PMAX CPA')
+  const [ownership, setOwnership] = useState<'All' | 'Corporate' | 'Franchise'>('All')
+  const [showWatchlist, setShowWatchlist] = useState(false)
+  const [showRadii, setShowRadii] = useState(false)
+  const [showOverlaps, setShowOverlaps] = useState(false)
   const [paste, setPaste] = useState('1, 2, 9')
   const [cohortName, setCohortName] = useState('Sample cohort')
   const [audience, setAudience] = useState('Sample audience')
@@ -144,6 +165,29 @@ export function Keel() {
   })
   const currentFingerprint = fingerprint('PMAX', selected)
   const pasteMatch = matchStorePaste(paste, DIRECTORY)
+  const watched = cohorts.find((cohort) => cohort.id === watchCohort) ?? null
+  const boardRows = sortRows(
+    filterRows(
+      paced.filter((row) => row.channel === boardChannel && (watched == null || watched.storeIds.includes(row.storeId))),
+      boardFilter,
+    ),
+    sortKey,
+    'desc',
+  )
+  const board = channelSummary(boardRows)
+  const storeList = [...STORES].sort((a, b) => a.guestDelta - b.guestDelta)
+  const storeRows = paced.filter((row) => row.storeId === activeStore)
+  const active = STORES.find((store) => store.storeId === activeStore) ?? STORES[0]
+  const mapStores = STORES.filter((store) => ownership === 'All' || store.locationType === ownership)
+  const watchIds = new Set(
+    STORES.filter((store) => store.guestDelta <= -5 || paced.some((row) => row.storeId === store.storeId && row.verdict === 'BLOCK')).map((store) => store.storeId),
+  )
+  const visibleMapStores = showWatchlist ? mapStores.filter((store) => watchIds.has(store.storeId)) : mapStores
+  const overlaps = overlapPairs(visibleMapStores.filter((store) => paced.some((row) => row.storeId === store.storeId && row.channel === 'PMAX')), PMAX_RADIUS_MILES)
+
+  useEffect(() => {
+    localStorage.setItem(COHORT_KEY, JSON.stringify(cohorts))
+  }, [cohorts])
 
   function toggle(id: string) {
     const next = selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id]
@@ -184,10 +228,8 @@ export function Keel() {
         <p className="keel-job">{page.job}</p>
         <p className="keel-log" role="status">{log}</p>
 
-        {page.path === '/' || page.path === '/channels' || page.path === '/stores' ? (
+        {page.path === '/' ? (
           <>
-            {page.path === '/' ? (
-              <>
                 <div className="keel-banner">Sample data in the warehouse pacing shape. The recommended daily budget is required-daily-spend-to-land-on-plan. This view is read-only (Shadow).</div>
                 <div className="keel-stats">
                   <article className="keel-card hot"><span>Needs attention</span><strong>{attention.length}</strong><small>store×channel rows</small></article>
@@ -207,8 +249,6 @@ export function Keel() {
                     </article>
                   ))}
                 </div>
-              </>
-            ) : null}
             <div className="keel-controls">
               <label>
                 Day
@@ -252,6 +292,152 @@ export function Keel() {
               </tbody>
             </table>
           </>
+        ) : null}
+
+        {page.path === '/channels' ? (
+          <>
+            <p className="keel-job">Per-store pacing by channel · day {dayOfPeriod} of {daysInPeriod}. Adjust queues a row for Actuation.</p>
+            <div className="keel-filters">
+              {BOARD_CHANNELS.map((channel) => {
+                const rows = paced.filter((row) => row.channel === channel)
+                const summary = channelSummary(rows)
+                return (
+                  <button key={channel} type="button" aria-pressed={boardChannel === channel} onClick={() => setBoardChannel(channel)}>
+                    {channel} {summary.stores} stores · {money(summary.actual)}/{money(summary.budget)} {summary.attention || ''}
+                  </button>
+                )
+              })}
+            </div>
+            {watched ? <p className="keel-note">Watching {watched.name} · {watched.storeIds.length} stores. <button type="button" className="keel-btn" onClick={() => setWatchCohort(null)}>Clear</button></p> : null}
+            <div className="keel-stats">
+              <article className="keel-card"><span>Stores</span><strong>{board.stores}</strong></article>
+              <article className="keel-card"><span>Budget (period)</span><strong>{money(board.budget)}</strong></article>
+              <article className="keel-card"><span>Spent to date</span><strong>{money(board.actual)}</strong></article>
+              <article className="keel-card"><span>Pace vs plan</span><strong>{board.pace == null ? '—' : `${Math.round(board.pace * 100)}%`}</strong></article>
+              <article className="keel-card"><span>CPA</span><strong>{board.cpa == null ? '—' : money(board.cpa, 2)}</strong></article>
+            </div>
+            <div className="keel-filters">
+              {CHANNEL_FILTERS.map((item) => (
+                <button key={item} type="button" aria-pressed={boardFilter === item} onClick={() => setBoardFilter(item)}>{item}</button>
+              ))}
+            </div>
+            <table className="keel-table">
+              <thead>
+                <tr>
+                  <th>Store</th><th>Cluster</th><th>Type</th><th>Budget</th><th>Spent</th><th>Pace</th><th>CPA</th><th>Conv</th><th>Status</th><th>Rec $/day</th><th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {boardRows.map((row) => (
+                  <tr key={row.id}>
+                    <td>#{row.storeId} {row.storeName}</td>
+                    <td>{row.clusterName}</td>
+                    <td>{row.locationType === 'Franchise' ? 'Franch' : 'Corp'}</td>
+                    <td>{money(row.budget)}</td>
+                    <td>{money(row.actual)}</td>
+                    <td>{row.pacingRatio == null ? '—' : `${Math.round(row.pacingRatio * 100)}%`}</td>
+                    <td>{row.cpa == null ? '—' : money(row.cpa, 2)}</td>
+                    <td>{row.conversions}</td>
+                    <td className={row.verdict === 'BLOCK' ? 'keel-flag' : row.verdict === 'WARN' ? 'keel-warn' : undefined}>{row.verdict}<small>{paceReason(row)}</small></td>
+                    <td>{row.requiredDaily == null ? '—' : money(row.requiredDaily, 2)}</td>
+                    <td><button type="button" className="keel-btn" onClick={() => {
+                      if (!selected.includes(row.id)) toggle(row.id)
+                      setLog(`Queued #${row.storeId} ${row.channel} at ${row.requiredDaily == null ? 'the run rate' : money(row.requiredDaily, 2)} / day. Open Actuation to review it.`)
+                    }}>Adjust</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        ) : null}
+
+        {page.path === '/stores' ? (
+          <div className="keel-split">
+            <div className="keel-panel">
+              <h3>Sort by guest trend</h3>
+              {storeList.map((store) => (
+                <button key={store.storeId} type="button" className="keel-store" aria-pressed={store.storeId === activeStore} onClick={() => setActiveStore(store.storeId)}>
+                  <strong>#{store.storeId} {store.storeName}</strong>
+                  <span>{store.locationType === 'Franchise' ? 'Franch' : 'Corp'} · {store.clusterName}</span>
+                  <em className={store.guestDelta < 0 ? 'keel-flag' : 'keel-ok'}>{store.guestDelta < 0 ? '▼' : '▲'} {Math.abs(store.guestDelta)}%</em>
+                </button>
+              ))}
+            </div>
+            <div>
+              <h3>#{active.storeId} {active.storeName}</h3>
+              <p className="keel-note">{active.locationType === 'Franchise' ? 'Franch' : 'Corp'} · {active.clusterName} · guest {active.guestDelta < 0 ? '▼' : '▲'} {Math.abs(active.guestDelta)}%</p>
+              <table className="keel-table">
+                <thead>
+                  <tr><th>Channel</th><th>Budget</th><th>Spent</th><th>Pace</th><th>CPA</th><th>Status</th><th>Rec $/day</th></tr>
+                </thead>
+                <tbody>
+                  {storeRows.map((row) => (
+                    <tr key={row.id}>
+                      <td>{row.channel}</td>
+                      <td>{money(row.budget)}</td>
+                      <td>{money(row.actual)}</td>
+                      <td>{row.pacingRatio == null ? '—' : `${Math.round(row.pacingRatio * 100)}%`}</td>
+                      <td>{row.cpa == null ? '—' : money(row.cpa, 2)}</td>
+                      <td className={row.verdict === 'BLOCK' ? 'keel-flag' : row.verdict === 'WARN' ? 'keel-warn' : undefined}>{row.verdict}<small>{paceReason(row)}</small></td>
+                      <td>{row.requiredDaily == null ? '—' : money(row.requiredDaily, 2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : null}
+
+        {page.path === '/map' ? (
+          <div className="keel-panel">
+            <div className="keel-filters">
+              {MAP_LAYERS.map((layer) => (
+                <button key={layer} type="button" aria-pressed={mapLayer === layer} onClick={() => setMapLayer(layer)}>{layer}</button>
+              ))}
+            </div>
+            <div className="keel-filters">
+              {(['All', 'Corporate', 'Franchise'] as const).map((item) => (
+                <button key={item} type="button" aria-pressed={ownership === item} onClick={() => setOwnership(item)}>{item}</button>
+              ))}
+              <button type="button" aria-pressed={showWatchlist} onClick={() => setShowWatchlist((value) => !value)}>Watchlist ({watchIds.size})</button>
+              <button type="button" aria-pressed={showRadii} onClick={() => setShowRadii((value) => !value)}>PMAX radii</button>
+              <button type="button" aria-pressed={showOverlaps} onClick={() => setShowOverlaps((value) => !value)}>Overlaps ({overlaps.length})</button>
+            </div>
+            <svg className="keel-map" viewBox="0 0 800 500" role="img" aria-label="Sample fleet">
+              <rect width="800" height="500" rx="16" fill="#efe8dc" />
+              {showRadii ? visibleMapStores.filter((store) => paced.some((row) => row.storeId === store.storeId && row.channel === 'PMAX')).map((store) => {
+                const point = project(store.lat, store.lng)
+                return <circle key={`r-${store.storeId}`} cx={point.x} cy={point.y} r="46" fill="rgba(255, 51, 0, 0.12)" stroke="#ff3300" />
+              }) : null}
+              {showOverlaps ? overlaps.map(([left, right]) => {
+                const a = project(left.lat, left.lng)
+                const b = project(right.lat, right.lng)
+                return <line key={`${left.storeId}-${right.storeId}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#c0392b" strokeWidth="2" />
+              }) : null}
+              {visibleMapStores.map((store) => {
+                const point = project(store.lat, store.lng)
+                const channel = mapLayer.endsWith('CPA') ? mapLayer.replace(' CPA', '') : null
+                const row = channel ? paced.find((item) => item.storeId === store.storeId && item.channel === channel) : null
+                let color = '#262626'
+                if (channel) color = cpaBand(row?.cpa ?? null).color
+                else if (mapLayer === 'Guest Δ %') color = store.guestDelta < 0 ? '#c0392b' : '#1f7a4d'
+                else if (mapLayer === 'Ownership') color = store.locationType === 'Franchise' ? '#e67e22' : '#1d4e89'
+                else if (mapLayer === 'Off-plan') color = paced.some((item) => item.storeId === store.storeId && item.verdict !== 'OK') ? '#c0392b' : '#1f7a4d'
+                else if (mapLayer === 'Spend') color = '#1d4e89'
+                return (
+                  <g key={store.storeId}>
+                    <circle cx={point.x} cy={point.y} r={mapLayer === 'Spend' ? 8 + Math.min(18, paced.filter((item) => item.storeId === store.storeId).reduce((sum, item) => sum + item.actual, 0) / 20) : 9} fill={color} />
+                    <text x={point.x + 12} y={point.y + 4} fontSize="13" fill="#292929">#{store.storeId} {store.storeName}</text>
+                  </g>
+                )
+              })}
+            </svg>
+            <ul className="keel-legend">
+              {mapLayer.endsWith('CPA') ? cpaStops().map((stop) => <li key={stop.label}><i style={{ background: stop.color }} />{stop.label}</li>) : null}
+              <li><i style={{ background: '#b7b1a8' }} />no data</li>
+              <li>{visibleMapStores.length} stores shown · PMAX radius {PMAX_RADIUS_MILES} mi</li>
+            </ul>
+          </div>
         ) : null}
 
         {page.path === '/actuation' ? (
@@ -328,6 +514,15 @@ export function Keel() {
               Paste store ids
               <textarea value={paste} onChange={(event) => setPaste(event.target.value)} />
             </label>
+            <label>
+              Upload .csv/.txt
+              <input type="file" accept=".csv,.txt,text/plain" onChange={async (event) => {
+                const file = event.target.files?.[0]
+                if (!file) return
+                setPaste(await file.text())
+                setLog(`Loaded ${file.name}.`)
+              }} />
+            </label>
             <p className="keel-note">
               Matched {pasteMatch.matched.map((item) => item.storeId).join(', ') || 'none'}.
               Unmatched {pasteMatch.unmatched.join(', ') || 'none'}.
@@ -337,14 +532,28 @@ export function Keel() {
               const result = createCohort({ name: cohortName, storeIds: pasteMatch.matched.map((item) => item.storeId), source: 'PASTE' })
               if (result.ok) setCohorts((current) => [...current, result.cohort])
               setLog(resultText(result, result.ok ? `Saved ${result.cohort.name}.` : ''))
-            }}>Create cohort</button>
+            }}>Save cohort ({pasteMatch.matched.length})</button>
+            <p className="keel-note">Static snapshot · {pasteMatch.matched.length} stores matched from {DIRECTORY.length} available.</p>
             <ul>
               {cohorts.map((cohort) => (
                 <li key={cohort.id}>
-                  {cohort.name} ({cohort.storeIds.join(', ')})
+                  {cohort.name} · {cohort.source} · {cohort.storeIds.length} stores
+                  <button type="button" className="keel-btn" onClick={() => {
+                    setWatchCohort(cohort.id)
+                    setPath('/channels')
+                    setLog(`Monitoring ${cohort.name} on the channel board.`)
+                  }}>Monitor</button>
+                  <button type="button" className="keel-btn" onClick={() => {
+                    const ids = paced.filter((row) => cohort.storeIds.includes(row.storeId)).map((row) => row.id)
+                    setSelected(ids)
+                    setReviewedFor(null)
+                    setPath('/actuation')
+                    setLog(`Queued ${ids.length} rows from ${cohort.name}. Review them before apply.`)
+                  }}>Deploy</button>
                   <button type="button" className="keel-btn" onClick={() => {
                     const result = deleteCohort(cohorts, cohort.id)
                     if (result.ok) setCohorts(result.cohorts)
+                    if (watchCohort === cohort.id) setWatchCohort(null)
                     setLog(resultText(result, `Deleted ${cohort.name}.`))
                   }}>Delete</button>
                 </li>
@@ -458,7 +667,7 @@ export function Keel() {
           </div>
         ) : null}
 
-        {page.path === '/pmax-review' || page.path === '/lost-is' || page.path === '/meta-frequency' || page.path === '/geo' || page.path === '/map' ? (
+        {page.path === '/pmax-review' || page.path === '/lost-is' || page.path === '/meta-frequency' || page.path === '/geo' ? (
           <div className="keel-panel">
             <h3>{page.name}</h3>
             <p className="keel-note">{page.job} The live screen reads figures the server already prepared. Opening it here does not call that server.</p>

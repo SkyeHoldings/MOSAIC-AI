@@ -201,7 +201,29 @@
 .keel-panel ul { margin: 8px 0 0; padding-left: 18px; }
 .keel-panel li { margin: 6px 0; }
 
+.keel-table small { display: block; font-weight: 400; color: var(--k-muted); }
+.keel-ok { color: var(--k-ok); font-style: normal; font-weight: 650; }
+.keel-split { display: grid; grid-template-columns: 280px 1fr; gap: 16px; align-items: start; }
+.keel-store {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--k-line);
+  background: transparent;
+  padding: 10px 4px;
+  cursor: pointer;
+}
+.keel-store strong, .keel-store span { display: block; }
+.keel-store span { color: var(--k-muted); font-size: 12px; }
+.keel-store[aria-pressed='true'] { background: var(--k-info-soft); }
+.keel-map { width: 100%; height: auto; border-radius: 14px; }
+.keel-legend { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; padding: 10px 0 0; margin: 0; font-size: 13px; }
+.keel-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 99px; margin-right: 6px; }
+
 @media (max-width: 860px) {
   .keel { grid-template-columns: 1fr; }
   .keel-side { min-height: 0; }
+  .keel-split { grid-template-columns: 1fr; }
 }

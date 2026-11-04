@@ -39,9 +39,18 @@ export const MODES = [
   { id: 'live', name: 'Live', writes: 'All units.' },
 ] as const
 
+export const STORES = [
+  { storeId: '1', storeName: 'Sample North', locationType: 'Corporate', clusterName: 'Core', guestDelta: -3, lat: 47.61, lng: -122.33 },
+  { storeId: '2', storeName: 'Sample South', locationType: 'Franchise', clusterName: 'Value', guestDelta: 1, lat: 33.45, lng: -112.07 },
+  { storeId: '3', storeName: 'Sample East', locationType: 'Corporate', clusterName: 'Core', guestDelta: -8, lat: 40.71, lng: -74.01 },
+]
+
 export const SAMPLE_ROWS = [
   { id: 'p1', storeId: '1', storeName: 'Sample North', channel: 'PMAX', locationType: 'Corporate', clusterName: 'Core', budget: 2800, actual: 140, conversions: 4 },
   { id: 'p2', storeId: '1', storeName: 'Sample North', channel: 'Meta', locationType: 'Corporate', clusterName: 'Core', budget: 900, actual: 10, conversions: 0 },
+  { id: 'p5', storeId: '1', storeName: 'Sample North', channel: 'SEM', locationType: 'Corporate', clusterName: 'Core', budget: 500, actual: 12, conversions: 1 },
   { id: 'p3', storeId: '2', storeName: 'Sample South', channel: 'TTD', locationType: 'Franchise', clusterName: 'Value', budget: 0, actual: 25, conversions: 0 },
+  { id: 'p6', storeId: '2', storeName: 'Sample South', channel: 'Meta', locationType: 'Franchise', clusterName: 'Value', budget: 200, actual: 40, conversions: 1 },
   { id: 'p4', storeId: '3', storeName: 'Sample East', channel: 'YouTube', locationType: 'Corporate', clusterName: 'Core', budget: 1200, actual: 20, conversions: 1 },
+  { id: 'p7', storeId: '3', storeName: 'Sample East', channel: 'PMAX', locationType: 'Corporate', clusterName: 'Core', budget: 600, actual: 5, conversions: 0 },
 ]
