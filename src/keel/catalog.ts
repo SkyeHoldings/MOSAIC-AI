@@ -40,7 +40,8 @@ export const MODES = [
 ] as const
 
 export const SAMPLE_ROWS = [
-  { storeId: '1', storeName: 'Sample North', channel: 'PMAX', budget: 2800, actual: 140, conversions: 4 },
-  { storeId: '1', storeName: 'Sample North', channel: 'Meta', budget: 900, actual: 10, conversions: 0 },
-  { storeId: '2', storeName: 'Sample South', channel: 'TTD', budget: 0, actual: 25, conversions: 0 },
+  { id: 'p1', storeId: '1', storeName: 'Sample North', channel: 'PMAX', locationType: 'Corporate', clusterName: 'Core', budget: 2800, actual: 140, conversions: 4 },
+  { id: 'p2', storeId: '1', storeName: 'Sample North', channel: 'Meta', locationType: 'Corporate', clusterName: 'Core', budget: 900, actual: 10, conversions: 0 },
+  { id: 'p3', storeId: '2', storeName: 'Sample South', channel: 'TTD', locationType: 'Franchise', clusterName: 'Value', budget: 0, actual: 25, conversions: 0 },
+  { id: 'p4', storeId: '3', storeName: 'Sample East', channel: 'YouTube', locationType: 'Corporate', clusterName: 'Core', budget: 1200, actual: 20, conversions: 1 },
 ]

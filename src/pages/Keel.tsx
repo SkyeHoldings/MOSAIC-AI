@@ -1,51 +1,123 @@
 import { useMemo, useState } from 'react'
-import { APIS, MODES, PAGES, SAMPLE_ROWS } from '../keel/catalog'
-import { paceRow, writeAllowed } from '../keel/pacing'
+import { PAGES, SAMPLE_ROWS } from '../keel/catalog'
+import {
+  addExclusion,
+  analysisRange,
+  applyBudgets,
+  audienceEdit,
+  changeMode,
+  createCohort,
+  DEFAULT_URL_TAGS,
+  deleteCohort,
+  deployAssetGroup,
+  extractAssetGroup,
+  filterRows,
+  fingerprint,
+  healthCheck,
+  matchStorePaste,
+  preflightAssetGroup,
+  refreshProposals,
+  saveBlueprint,
+  sortRows,
+  updatePilot,
+  withPace,
+  type Blueprint,
+  type Cohort,
+  type Exclusion,
+  type FilterName,
+  type Mode,
+  type SortKey,
+} from '../keel/client'
 import './Keel.css'
 
-const ALLOWLIST = [{ storeId: '1', channel: 'Meta' }]
+const FILTERS: FilterName[] = ['All', 'BLOCK only', 'Over-pacing', 'Under-pacing', 'Off-plan', 'No spend', 'Unfunded', 'Completed', 'Franchise']
+const SORTS: { id: SortKey; label: string }[] = [
+  { id: 'store', label: 'Store' },
+  { id: 'channel', label: 'Channel' },
+  { id: 'budget', label: 'Budget' },
+  { id: 'spent', label: 'Actual' },
+  { id: 'pace', label: 'Pace' },
+  { id: 'rec', label: 'Required / day' },
+]
+
+const DIRECTORY = [
+  { storeId: '1', storeName: 'Sample North' },
+  { storeId: '2', storeName: 'Sample South' },
+  { storeId: '3', storeName: 'Sample East' },
+]
+
+function resultText(result: { ok: boolean; error?: string }, okText: string) {
+  return result.ok ? okText : result.error || 'Request failed.'
+}
 
 export function Keel() {
   const [path, setPath] = useState<string>(PAGES[0].path)
   const [dayOfPeriod, setDayOfPeriod] = useState(1)
   const [daysInPeriod, setDaysInPeriod] = useState(28)
-  const [mode, setMode] = useState<(typeof MODES)[number]['id']>('observe')
-  const page = PAGES.find((item) => item.path === path) ?? PAGES[0]
+  const [filter, setFilter] = useState<FilterName>('All')
+  const [sortKey, setSortKey] = useState<SortKey>('pace')
+  const [mode, setMode] = useState<Mode>('OBSERVE')
+  const [pilotText, setPilotText] = useState('1')
+  const [cohorts, setCohorts] = useState<Cohort[]>([])
+  const [paste, setPaste] = useState('1, 2, 9')
+  const [cohortName, setCohortName] = useState('Sample cohort')
+  const [audience, setAudience] = useState('Sample audience')
+  const [blueprint, setBlueprint] = useState<Blueprint>({
+    name: '',
+    assets: '',
+    bodies: '',
+    titles: '',
+    cta: 'Learn more',
+    linkUrl: 'https://example.com',
+    urlTags: DEFAULT_URL_TAGS,
+    startDate: '',
+  })
+  const [savedBlueprint, setSavedBlueprint] = useState<Blueprint | null>(null)
+  const [selected, setSelected] = useState<string[]>([])
+  const [reviewedFor, setReviewedFor] = useState<string | null>(null)
+  const [exclusions, setExclusions] = useState<Exclusion[]>([])
+  const [reason, setReason] = useState('Franchise fence')
+  const [runId, setRunId] = useState<string | null>(null)
+  const [healthId, setHealthId] = useState<string | null>(null)
+  const [range, setRange] = useState({ start: '2026-11-01', end: '2026-11-02' })
+  const [loadedRange, setLoadedRange] = useState<string | null>(null)
+  const [seed, setSeed] = useState<string | null>(null)
+  const [reviewToken, setReviewToken] = useState<string | null>(null)
+  const [assetGroup, setAssetGroup] = useState('Sample group')
+  const [storeId, setStoreId] = useState('1')
+  const [log, setLog] = useState('Local only. These functions do not call the live Keel server.')
 
-  const rows = useMemo(
-    () =>
-      SAMPLE_ROWS.map((row) => ({
-        ...row,
-        paced: paceRow({ ...row, dayOfPeriod, daysInPeriod }),
-      })),
+  const page = PAGES.find((item) => item.path === path) ?? PAGES[0]
+  const paced = useMemo(
+    () => SAMPLE_ROWS.map((row) => withPace(row, { dayOfPeriod, daysInPeriod })),
     [dayOfPeriod, daysInPeriod],
   )
-
-  const sampleWrite = writeAllowed({
-    mode,
-    storeId: '1',
-    channel: 'Meta',
-    allowlist: ALLOWLIST,
-  })
+  const visible = sortRows(filterRows(paced, filter), sortKey, 'desc')
+  const currentFingerprint = fingerprint('PMAX', selected)
+  const pasteMatch = matchStorePaste(paste, DIRECTORY)
 
   let group = ''
+
+  function toggle(id: string) {
+    const next = selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id]
+    setSelected(next)
+    if (reviewedFor && reviewedFor !== fingerprint('PMAX', next)) {
+      setLog('the diff changed since you reviewed it — re-review the current selection before applying')
+    }
+  }
 
   return (
     <div className="keel">
       <nav className="keel-nav" aria-label="Keel sections">
         <h1>Keel</h1>
-        <p>Bones on hellomosaic.ai</p>
+        <p>Client functions, local data</p>
         {PAGES.map((item) => {
           const showGroup = item.group !== group
           group = item.group
           return (
             <div key={item.path}>
               {showGroup ? <div className="keel-group">{item.group}</div> : null}
-              <button
-                type="button"
-                aria-current={item.path === page.path ? 'page' : undefined}
-                onClick={() => setPath(item.path)}
-              >
+              <button type="button" aria-current={item.path === page.path ? 'page' : undefined} onClick={() => setPath(item.path)}>
                 {item.name}
               </button>
             </div>
@@ -55,63 +127,48 @@ export function Keel() {
       <main className="keel-main">
         <h2>{page.name}</h2>
         <p className="keel-job">{page.job}</p>
+        <p className="keel-log" role="status">{log}</p>
 
-        {page.path === '/' ? (
+        {page.path === '/' || page.path === '/channels' || page.path === '/stores' ? (
           <>
-            <p className="keel-note">
-              Sample stores. Change the day and the pace identities recalculate.
-            </p>
             <div className="keel-controls">
               <label>
-                Day of period
-                <input
-                  type="number"
-                  min={1}
-                  max={daysInPeriod}
-                  value={dayOfPeriod}
-                  onChange={(event) => setDayOfPeriod(Number(event.target.value))}
-                />
+                Day
+                <input type="number" min={1} max={daysInPeriod} value={dayOfPeriod} onChange={(event) => setDayOfPeriod(Number(event.target.value))} />
               </label>
               <label>
                 Days in period
-                <input
-                  type="number"
-                  min={1}
-                  value={daysInPeriod}
-                  onChange={(event) => setDaysInPeriod(Number(event.target.value))}
-                />
+                <input type="number" min={1} value={daysInPeriod} onChange={(event) => setDaysInPeriod(Number(event.target.value))} />
               </label>
+              <label>
+                Sort
+                <select value={sortKey} onChange={(event) => setSortKey(event.target.value as SortKey)}>
+                  {SORTS.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
+                </select>
+              </label>
+            </div>
+            <div className="keel-filters">
+              {FILTERS.map((item) => (
+                <button key={item} type="button" className="keel-btn" aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}</button>
+              ))}
             </div>
             <table className="keel-table">
               <thead>
                 <tr>
-                  <th>Store</th>
-                  <th>Channel</th>
-                  <th>Budget</th>
-                  <th>Actual</th>
-                  <th>Expected</th>
-                  <th>Pace</th>
-                  <th>Required / day</th>
-                  <th>Flag</th>
+                  <th>Store</th><th>Channel</th><th>Type</th><th>Budget</th><th>Actual</th><th>Pace</th><th>Required / day</th><th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row) => (
-                  <tr key={`${row.storeId}-${row.channel}`}>
+                {visible.map((row) => (
+                  <tr key={row.id}>
                     <td>{row.storeName}</td>
                     <td>{row.channel}</td>
+                    <td>{row.locationType}</td>
                     <td>{row.budget.toFixed(2)}</td>
                     <td>{row.actual.toFixed(2)}</td>
-                    <td>{row.paced.expected ?? '—'}</td>
-                    <td>
-                      {row.paced.pacingRatio == null
-                        ? '—'
-                        : `${Math.round(row.paced.pacingRatio * 100)}%`}
-                    </td>
-                    <td>{row.paced.requiredDaily ?? '—'}</td>
-                    <td className={row.paced.block ? 'keel-flag' : undefined}>
-                      {row.paced.block ? 'BLOCK' : ''}
-                    </td>
+                    <td>{row.pacingRatio == null ? '—' : `${Math.round(row.pacingRatio * 100)}%`}</td>
+                    <td>{row.requiredDaily ?? row.runRateDaily ?? '—'}</td>
+                    <td className={row.verdict === 'BLOCK' ? 'keel-flag' : undefined}>{row.verdict === 'BLOCK' ? 'BLOCK' : row.status}</td>
                   </tr>
                 ))}
               </tbody>
@@ -119,47 +176,193 @@ export function Keel() {
           </>
         ) : null}
 
+        {page.path === '/actuation' ? (
+          <div className="keel-actions">
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = refreshProposals()
+              if (result.ok) setRunId(result.runId)
+              setLog(resultText(result, `Refresh started. runId ${result.ok ? result.runId : ''}`))
+            }}>Refresh proposals {runId ? `(${runId})` : ''}</button>
+            {paced.map((row) => (
+              <label key={row.id}>
+                <input type="checkbox" checked={selected.includes(row.id)} onChange={() => toggle(row.id)} />
+                {row.storeId} {row.channel}
+              </label>
+            ))}
+            <button type="button" className="keel-btn" onClick={() => {
+              setReviewedFor(currentFingerprint)
+              const result = applyBudgets({ channel: 'PMAX', proposalIds: selected, dryRun: true, currentFingerprint, reviewedFingerprint: currentFingerprint })
+              setLog(resultText(result, result.ok ? result.log : ''))
+            }}>Verify dry-run</button>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = applyBudgets({ channel: 'PMAX', proposalIds: selected, confirm: true, currentFingerprint, reviewedFingerprint: reviewedFor ?? undefined })
+              setLog(resultText(result, result.ok ? result.log : ''))
+            }}>Apply</button>
+            <label>
+              Reason
+              <input value={reason} onChange={(event) => setReason(event.target.value)} />
+            </label>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = addExclusion({ storeId, channel: 'PMAX', reason })
+              if (result.ok) setExclusions((current) => [...current, result.exclusion])
+              setLog(resultText(result, `Exclusion added for store ${storeId}.`))
+            }}>Add exclusion</button>
+            {exclusions.length > 0 ? <p className="keel-note">{exclusions.map((item) => `${item.storeId} ${item.channel}: ${item.reason}`).join(' · ')}</p> : null}
+          </div>
+        ) : null}
+
         {page.path === '/settings' ? (
-          <>
-            <label className="keel-mode">
+          <div className="keel-form">
+            <label>
               Mode
-              <select
-                value={mode}
-                onChange={(event) =>
-                  setMode(event.target.value as (typeof MODES)[number]['id'])
-                }
-              >
-                {MODES.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.name} — {item.writes}
-                  </option>
-                ))}
+              <select value={mode} onChange={(event) => {
+                const next = event.target.value as Mode
+                const result = changeMode({ mode: next, confirm: next !== 'OBSERVE' })
+                if (result.ok) setMode(result.mode)
+                setLog(resultText(result, `Mode is ${next}.`))
+              }}>
+                <option value="OBSERVE">Observe-only</option>
+                <option value="PILOT">Pilot</option>
+                <option value="LIVE">Live</option>
               </select>
             </label>
+            <label>
+              Pilot store ids
+              <textarea value={pilotText} onChange={(event) => setPilotText(event.target.value)} />
+            </label>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = updatePilot({ entries: pilotText.split(/[\s,]+/), channel: 'Meta', enabled: false, confirm: true })
+              setLog(resultText(result, result.ok ? `Allowlist has ${result.entries.length} store${result.entries.length === 1 ? '' : 's'}.` : ''))
+            }}>Save pilot allowlist</button>
+          </div>
+        ) : null}
+
+        {page.path === '/cohorts' ? (
+          <div className="keel-form">
+            <label>
+              Name
+              <input value={cohortName} onChange={(event) => setCohortName(event.target.value)} />
+            </label>
+            <label>
+              Paste store ids
+              <textarea value={paste} onChange={(event) => setPaste(event.target.value)} />
+            </label>
             <p className="keel-note">
-              Sample store 1 / Meta would {sampleWrite ? 'be writable' : 'stay read-only'} in {mode}.
+              Matched {pasteMatch.matched.map((item) => item.storeId).join(', ') || 'none'}.
+              Unmatched {pasteMatch.unmatched.join(', ') || 'none'}.
+              Duplicates {pasteMatch.duplicates.join(', ') || 'none'}.
             </p>
-            <table className="keel-table">
-              <thead>
-                <tr>
-                  <th>Route</th>
-                  <th>Kind</th>
-                  <th>Role</th>
-                  <th>What we saw</th>
-                </tr>
-              </thead>
-              <tbody>
-                {APIS.map((api) => (
-                  <tr key={api.path}>
-                    <td>{api.path}</td>
-                    <td>{api.kind}</td>
-                    <td>{api.role}</td>
-                    <td>{api.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = createCohort({ name: cohortName, storeIds: pasteMatch.matched.map((item) => item.storeId), source: 'PASTE' })
+              if (result.ok) setCohorts((current) => [...current, result.cohort])
+              setLog(resultText(result, result.ok ? `Saved ${result.cohort.name}.` : ''))
+            }}>Create cohort</button>
+            <ul>
+              {cohorts.map((cohort) => (
+                <li key={cohort.id}>
+                  {cohort.name} ({cohort.storeIds.join(', ')})
+                  <button type="button" className="keel-btn" onClick={() => {
+                    const result = deleteCohort(cohorts, cohort.id)
+                    if (result.ok) setCohorts(result.cohorts)
+                    setLog(resultText(result, `Deleted ${cohort.name}.`))
+                  }}>Delete</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {page.path === '/audiences' ? (
+          <div className="keel-actions">
+            <label>
+              Audience
+              <input value={audience} onChange={(event) => setAudience(event.target.value)} />
+            </label>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = audienceEdit({ method: 'POST', audience, storeIds: ['1'] })
+              setLog(resultText(result, `Audience ${audience} saved for store 1.`))
+            }}>Save edit</button>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = audienceEdit({ method: 'DELETE', audience, storeIds: ['1'] })
+              setLog(resultText(result, `Audience ${audience} removed.`))
+            }}>Remove edit</button>
+          </div>
+        ) : null}
+
+        {page.path === '/creative' ? (
+          <div className="keel-form">
+            <label>Name<input value={blueprint.name} onChange={(event) => setBlueprint({ ...blueprint, name: event.target.value })} /></label>
+            <label>Assets<input value={blueprint.assets} onChange={(event) => setBlueprint({ ...blueprint, assets: event.target.value })} /></label>
+            <label>Bodies<input value={blueprint.bodies} onChange={(event) => setBlueprint({ ...blueprint, bodies: event.target.value })} /></label>
+            <label>Titles<input value={blueprint.titles} onChange={(event) => setBlueprint({ ...blueprint, titles: event.target.value })} /></label>
+            <label>Link<input value={blueprint.linkUrl} onChange={(event) => setBlueprint({ ...blueprint, linkUrl: event.target.value })} /></label>
+            <label>URL tags<input value={blueprint.urlTags} onChange={(event) => setBlueprint({ ...blueprint, urlTags: event.target.value })} /></label>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = saveBlueprint(blueprint)
+              if (result.ok) setSavedBlueprint(result.blueprint)
+              setLog(resultText(result, result.ok ? `Blueprint saved as ${result.blueprint.name}.` : ''))
+            }}>Save blueprint</button>
+            {savedBlueprint ? <p className="keel-note">Deploy status stays local. Tags: {savedBlueprint.urlTags}</p> : null}
+          </div>
+        ) : null}
+
+        {page.path === '/assetgroups' ? (
+          <div className="keel-form">
+            <label>Store<input value={storeId} onChange={(event) => setStoreId(event.target.value)} /></label>
+            <label>Asset group<input value={assetGroup} onChange={(event) => setAssetGroup(event.target.value)} /></label>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = extractAssetGroup({ storeId, assetGroup })
+              if (result.ok) setSeed(result.seed)
+              setLog(resultText(result, result.ok ? `Seed ${result.seed}` : ''))
+            }}>Extract</button>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = preflightAssetGroup(seed)
+              if (result.ok) setReviewToken(result.reviewToken)
+              setLog(resultText(result, 'Preflight froze this review.'))
+            }}>Preflight</button>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = deployAssetGroup({ seed, reviewToken, confirm: true })
+              setLog(resultText(result, result.ok ? result.log : ''))
+            }}>Deploy</button>
+          </div>
+        ) : null}
+
+        {page.path === '/analysis' ? (
+          <div className="keel-form">
+            <label>Start<input type="date" value={range.start} onChange={(event) => setRange({ ...range, start: event.target.value })} /></label>
+            <label>End<input type="date" value={range.end} onChange={(event) => setRange({ ...range, end: event.target.value })} /></label>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = analysisRange(range)
+              if (result.ok) setLoadedRange(`${result.start} to ${result.end}`)
+              setLog(resultText(result, result.ok ? `Loaded ${result.start} to ${result.end}.` : ''))
+            }}>Load range</button>
+            {loadedRange ? <p className="keel-note">Export would be a JSON download for {loadedRange}. Nothing left this browser.</p> : null}
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = createCohort({ name: 'From reporting', storeIds: ['1', '3'], source: 'ANALYSIS' })
+              if (result.ok) setCohorts((current) => [...current, result.cohort])
+              setLog(resultText(result, 'Saved the selected stores as a cohort.'))
+            }}>Save selection as cohort</button>
+          </div>
+        ) : null}
+
+        {page.path === '/health' ? (
+          <button type="button" className="keel-btn" onClick={() => {
+            const result = healthCheck()
+            if (result.ok) setHealthId(result.runId)
+            setLog(resultText(result, result.ok ? `Warehouse check started. runId ${result.runId}` : ''))
+          }}>Run warehouse check {healthId ? `(${healthId})` : ''}</button>
+        ) : null}
+
+        {page.path === '/audit' ? (
+          <p className="keel-note">The audit download is GET /api/audit?format=jsonl. This login would be refused without audit-read, so the local page keeps the log on screen instead of calling that route.</p>
+        ) : null}
+
+        {page.path === '/team' ? (
+          <p className="keel-note">Team membership reads and patches need settings-manage. This page does not call that route.</p>
+        ) : null}
+
+        {page.path === '/pmax-review' || page.path === '/lost-is' || page.path === '/meta-frequency' || page.path === '/geo' || page.path === '/map' ? (
+          <p className="keel-note">This screen reads figures the server already prepared. There is no extra client function beyond opening it.</p>
         ) : null}
       </main>
     </div>
