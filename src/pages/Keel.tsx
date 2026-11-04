@@ -40,6 +40,35 @@ const SORTS: { id: SortKey; label: string }[] = [
   { id: 'rec', label: 'Required / day' },
 ]
 
+const NAV = [
+  { group: 'Action', items: [
+    { path: '/actuation', name: 'Actuation' },
+    { path: '/creative', name: 'Creative' },
+    { path: '/audiences', name: 'Audiences' },
+    { path: '/assetgroups', name: 'Asset Groups' },
+  ]},
+  { group: 'Pacing', items: [
+    { path: '/', name: 'Command Center' },
+    { path: '/channels', name: 'Channels' },
+    { path: '/stores', name: 'Stores' },
+    { path: '/pmax-review', name: 'PMAX Read/Action' },
+    { path: '/lost-is', name: 'PMAX Lost-IS' },
+    { path: '/meta-frequency', name: 'Meta Frequency' },
+    { path: '/geo', name: 'Geo targeting' },
+    { path: '/cohorts', name: 'Cohorts' },
+    { path: '/settings', name: 'Pacing Settings' },
+  ]},
+  { group: 'Analysis', items: [
+    { path: '/analysis', name: 'Reporting' },
+    { path: '/map', name: 'Fleet Map' },
+  ]},
+  { group: 'Settings', items: [
+    { path: '/health', name: 'Health' },
+    { path: '/team', name: 'Team' },
+    { path: '/audit', name: 'Audit Log' },
+  ]},
+]
+
 const DIRECTORY = [
   { storeId: '1', storeName: 'Sample North' },
   { storeId: '2', storeName: 'Sample South' },
@@ -93,10 +122,28 @@ export function Keel() {
     [dayOfPeriod, daysInPeriod],
   )
   const visible = sortRows(filterRows(paced, filter), sortKey, 'desc')
+  const attention = paced.filter((row) => row.verdict !== 'OK')
+  const blocks = paced.filter((row) => row.verdict === 'BLOCK')
+  const spent = paced.reduce((sum, row) => sum + row.actual, 0)
+  const planned = paced.reduce((sum, row) => sum + (row.expected ?? 0), 0)
+  const remaining = paced.reduce((sum, row) => sum + row.remaining, 0)
+  const budgeted = paced.reduce((sum, row) => sum + row.budget, 0)
+  const channels = [...new Set(paced.map((row) => row.channel))].map((channel) => {
+    const rows = paced.filter((row) => row.channel === channel)
+    const actual = rows.reduce((sum, row) => sum + row.actual, 0)
+    const budget = rows.reduce((sum, row) => sum + row.budget, 0)
+    const expected = rows.reduce((sum, row) => sum + (row.expected ?? 0), 0)
+    return {
+      channel,
+      actual,
+      budget,
+      pace: expected === 0 ? null : Math.round((actual / expected) * 100),
+      stores: new Set(rows.map((row) => row.storeId)).size,
+      attention: rows.filter((row) => row.verdict !== 'OK').length,
+    }
+  })
   const currentFingerprint = fingerprint('PMAX', selected)
   const pasteMatch = matchStorePaste(paste, DIRECTORY)
-
-  let group = ''
 
   function toggle(id: string) {
     const next = selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id]
@@ -108,29 +155,60 @@ export function Keel() {
 
   return (
     <div className="keel">
-      <nav className="keel-nav" aria-label="Keel sections">
-        <h1>Keel</h1>
-        <p>Client functions, local data</p>
-        {PAGES.map((item) => {
-          const showGroup = item.group !== group
-          group = item.group
-          return (
-            <div key={item.path}>
-              {showGroup ? <div className="keel-group">{item.group}</div> : null}
-              <button type="button" aria-current={item.path === page.path ? 'page' : undefined} onClick={() => setPath(item.path)}>
+      <aside className="keel-side">
+        <div className="keel-brand">
+          <div className="keel-mark">K</div>
+          <div>
+            <strong>Keel</strong>
+            <span>Media Activation Platform</span>
+          </div>
+        </div>
+        {NAV.map((section) => (
+          <div key={section.group}>
+            <p>{section.group.toUpperCase()}</p>
+            {section.items.map((item) => (
+              <button key={item.path} type="button" aria-current={item.path === page.path ? 'page' : undefined} onClick={() => setPath(item.path)}>
                 {item.name}
               </button>
-            </div>
-          )
-        })}
-      </nav>
+            ))}
+          </div>
+        ))}
+      </aside>
       <main className="keel-main">
+        <div className="keel-top">
+          <span className="keel-chip"><i>SK</i> Sample</span>
+          <span className="keel-chip"><span className="keel-dot" /> Period 12 · day {dayOfPeriod}/{daysInPeriod}</span>
+          <span className="keel-chip">{mode === 'OBSERVE' ? 'Observe-only' : mode === 'PILOT' ? 'Pilot' : 'Live'}</span>
+        </div>
         <h2>{page.name}</h2>
         <p className="keel-job">{page.job}</p>
         <p className="keel-log" role="status">{log}</p>
 
         {page.path === '/' || page.path === '/channels' || page.path === '/stores' ? (
           <>
+            {page.path === '/' ? (
+              <>
+                <div className="keel-banner">Sample data in the warehouse pacing shape. The recommended daily budget is required-daily-spend-to-land-on-plan. This view is read-only (Shadow).</div>
+                <div className="keel-stats">
+                  <article className="keel-card hot"><span>Needs attention</span><strong>{attention.length}</strong><small>store×channel rows</small></article>
+                  <article className="keel-card"><span>Hard flags (BLOCK)</span><strong className="bad">{blocks.length}</strong><small>spend without matching budget</small></article>
+                  <article className="keel-card"><span>Spend vs plan to date</span><strong className="good">{planned ? `${Math.round((spent / planned) * 100)}%` : '—'}</strong><small>${spent.toFixed(0)} spent vs ${planned.toFixed(0)} planned</small></article>
+                  <article className="keel-card"><span>Budget remaining</span><strong>${remaining.toFixed(0)}</strong><small>of ${budgeted.toFixed(0)} planned</small></article>
+                </div>
+                <h3>Channel pacing</h3>
+                <div className="keel-channels">
+                  {channels.map((item) => (
+                    <article className="keel-card" key={item.channel}>
+                      <span className="tag">Shadow</span>
+                      <span>{item.channel}</span>
+                      <b>{item.pace == null ? '—' : `${item.pace}%`}</b> <em>of plan to-date</em>
+                      <small>${item.actual.toFixed(0)} / ${item.budget.toFixed(0)}</small>
+                      <small>{item.stores} stores · {item.attention} need attention</small>
+                    </article>
+                  ))}
+                </div>
+              </>
+            ) : null}
             <div className="keel-controls">
               <label>
                 Day
@@ -177,7 +255,7 @@ export function Keel() {
         ) : null}
 
         {page.path === '/actuation' ? (
-          <div className="keel-actions">
+          <div className="keel-panel keel-actions">
             <button type="button" className="keel-btn" onClick={() => {
               const result = refreshProposals()
               if (result.ok) setRunId(result.runId)
@@ -212,7 +290,7 @@ export function Keel() {
         ) : null}
 
         {page.path === '/settings' ? (
-          <div className="keel-form">
+          <div className="keel-panel keel-form">
             <label>
               Mode
               <select value={mode} onChange={(event) => {
@@ -226,6 +304,9 @@ export function Keel() {
                 <option value="LIVE">Live</option>
               </select>
             </label>
+            <p className="keel-note">
+              {mode === 'OBSERVE' ? 'Observe writes nothing.' : mode === 'PILOT' ? 'Pilot writes only the allowlist, up to 1,000 stores.' : 'Live writes every unit. Full Adplorer cutover.'}
+            </p>
             <label>
               Pilot store ids
               <textarea value={pilotText} onChange={(event) => setPilotText(event.target.value)} />
@@ -238,7 +319,7 @@ export function Keel() {
         ) : null}
 
         {page.path === '/cohorts' ? (
-          <div className="keel-form">
+          <div className="keel-panel keel-form">
             <label>
               Name
               <input value={cohortName} onChange={(event) => setCohortName(event.target.value)} />
@@ -273,7 +354,7 @@ export function Keel() {
         ) : null}
 
         {page.path === '/audiences' ? (
-          <div className="keel-actions">
+          <div className="keel-panel keel-actions">
             <label>
               Audience
               <input value={audience} onChange={(event) => setAudience(event.target.value)} />
@@ -290,13 +371,19 @@ export function Keel() {
         ) : null}
 
         {page.path === '/creative' ? (
-          <div className="keel-form">
+          <div className="keel-panel keel-form">
             <label>Name<input value={blueprint.name} onChange={(event) => setBlueprint({ ...blueprint, name: event.target.value })} /></label>
             <label>Assets<input value={blueprint.assets} onChange={(event) => setBlueprint({ ...blueprint, assets: event.target.value })} /></label>
             <label>Bodies<input value={blueprint.bodies} onChange={(event) => setBlueprint({ ...blueprint, bodies: event.target.value })} /></label>
             <label>Titles<input value={blueprint.titles} onChange={(event) => setBlueprint({ ...blueprint, titles: event.target.value })} /></label>
             <label>Link<input value={blueprint.linkUrl} onChange={(event) => setBlueprint({ ...blueprint, linkUrl: event.target.value })} /></label>
             <label>URL tags<input value={blueprint.urlTags} onChange={(event) => setBlueprint({ ...blueprint, urlTags: event.target.value })} /></label>
+            <div className="keel-filters" aria-label="Placements">
+              <button type="button" aria-pressed="true">9:16</button>
+              <button type="button" aria-pressed="true">4:5</button>
+              <button type="button" aria-pressed="true">1:1</button>
+              <button type="button">Learn more</button>
+            </div>
             <button type="button" className="keel-btn" onClick={() => {
               const result = saveBlueprint(blueprint)
               if (result.ok) setSavedBlueprint(result.blueprint)
@@ -307,7 +394,7 @@ export function Keel() {
         ) : null}
 
         {page.path === '/assetgroups' ? (
-          <div className="keel-form">
+          <div className="keel-panel keel-form">
             <label>Store<input value={storeId} onChange={(event) => setStoreId(event.target.value)} /></label>
             <label>Asset group<input value={assetGroup} onChange={(event) => setAssetGroup(event.target.value)} /></label>
             <button type="button" className="keel-btn" onClick={() => {
@@ -328,7 +415,7 @@ export function Keel() {
         ) : null}
 
         {page.path === '/analysis' ? (
-          <div className="keel-form">
+          <div className="keel-panel keel-form">
             <label>Start<input type="date" value={range.start} onChange={(event) => setRange({ ...range, start: event.target.value })} /></label>
             <label>End<input type="date" value={range.end} onChange={(event) => setRange({ ...range, end: event.target.value })} /></label>
             <button type="button" className="keel-btn" onClick={() => {
@@ -346,23 +433,36 @@ export function Keel() {
         ) : null}
 
         {page.path === '/health' ? (
-          <button type="button" className="keel-btn" onClick={() => {
-            const result = healthCheck()
-            if (result.ok) setHealthId(result.runId)
-            setLog(resultText(result, result.ok ? `Warehouse check started. runId ${result.runId}` : ''))
-          }}>Run warehouse check {healthId ? `(${healthId})` : ''}</button>
+          <div className="keel-panel">
+            <h3>Tool health</h3>
+            <p className="keel-note">Checks BigQuery auth, source freshness, and the pacing-engine schema contract. Same job as npm run doctor, then npm run ingest.</p>
+            <button type="button" className="keel-btn" onClick={() => {
+              const result = healthCheck()
+              if (result.ok) setHealthId(result.runId)
+              setLog(resultText(result, result.ok ? `Warehouse check started. runId ${result.runId}` : ''))
+            }}>Run warehouse check {healthId ? `(${healthId})` : ''}</button>
+          </div>
         ) : null}
 
         {page.path === '/audit' ? (
-          <p className="keel-note">The audit download is GET /api/audit?format=jsonl. This login would be refused without audit-read, so the local page keeps the log on screen instead of calling that route.</p>
+          <div className="keel-panel">
+            <h3>Audit log</h3>
+            <p className="keel-note">The live download is GET /api/audit?format=jsonl, filtered by action, result, and actor. This login is refused without audit-read, so the local page keeps the log on screen.</p>
+          </div>
         ) : null}
 
         {page.path === '/team' ? (
-          <p className="keel-note">Team membership reads and patches need settings-manage. This page does not call that route.</p>
+          <div className="keel-panel">
+            <h3>Team</h3>
+            <p className="keel-note">Membership reads and patches need settings-manage. This page does not call that route.</p>
+          </div>
         ) : null}
 
         {page.path === '/pmax-review' || page.path === '/lost-is' || page.path === '/meta-frequency' || page.path === '/geo' || page.path === '/map' ? (
-          <p className="keel-note">This screen reads figures the server already prepared. There is no extra client function beyond opening it.</p>
+          <div className="keel-panel">
+            <h3>{page.name}</h3>
+            <p className="keel-note">{page.job} The live screen reads figures the server already prepared. Opening it here does not call that server.</p>
+          </div>
         ) : null}
       </main>
     </div>
