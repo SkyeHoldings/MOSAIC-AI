@@ -3593,7 +3593,7 @@ p {
 
 /* ---------- Case study preview (under the award banner) ---------- */
 .home-cases {
-  padding: clamp(2.25rem, 5vw, 3.75rem) var(--page-pad) clamp(2.5rem, 6vw, 4.25rem);
+  padding: clamp(1.6rem, 3.2vw, 2.4rem) var(--page-pad) clamp(1.85rem, 4vw, 2.75rem);
   background: #f4f4f4;
   color: var(--ink);
 }
@@ -3603,12 +3603,12 @@ p {
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  max-width: 76rem;
-  margin: 0 auto 1.25rem;
+  max-width: 62rem;
+  margin: 0 auto 0.85rem;
 }
 
 .home-cases__head h2 {
-  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
   letter-spacing: -0.03em;
 }
 
@@ -3626,8 +3626,8 @@ p {
 .home-cases__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
-  max-width: 76rem;
+  gap: 0.85rem;
+  max-width: 62rem;
   margin-inline: auto;
 }
 
@@ -3637,12 +3637,12 @@ p {
   min-width: 0;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 1.5rem;
+  border-radius: 1.1rem;
   overflow: hidden;
 }
 
 .home-cases__media {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2.05 / 1;
   background: #111;
   overflow: hidden;
 }
@@ -3656,8 +3656,8 @@ p {
 .home-cases__copy {
   display: grid;
   align-content: start;
-  gap: 0.65rem;
-  padding: 1.15rem 1.25rem 1.3rem;
+  gap: 0.4rem;
+  padding: 0.8rem 0.95rem 0.95rem;
 }
 
 .home-cases__client {
@@ -3668,15 +3668,15 @@ p {
 }
 
 .home-cases__copy h3 {
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-size: clamp(1.02rem, 1.35vw, 1.22rem);
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .home-cases__copy > p {
   color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.84rem;
+  line-height: 1.45;
 }
 
 .home-cases__stats {
@@ -3688,7 +3688,7 @@ p {
 
 .home-cases__stats strong {
   display: block;
-  font-size: 1.35rem;
+  font-size: 1.12rem;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
@@ -3714,6 +3714,15 @@ p {
 @media (max-width: 800px) {
   .home-cases__grid {
     grid-template-columns: 1fr;
+  }
+
+  .home-cases__media {
+    aspect-ratio: 2.35 / 1;
+    max-height: 10.5rem;
+  }
+
+  .home-cases__copy h3 {
+    font-size: 1.08rem;
   }
 }
 
