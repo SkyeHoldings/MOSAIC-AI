@@ -3591,6 +3591,132 @@ p {
   }
 }
 
+/* ---------- Case study preview (under the award banner) ---------- */
+.home-cases {
+  padding: clamp(2.25rem, 5vw, 3.75rem) var(--page-pad) clamp(2.5rem, 6vw, 4.25rem);
+  background: #f4f4f4;
+  color: var(--ink);
+}
+
+.home-cases__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 76rem;
+  margin: 0 auto 1.25rem;
+}
+
+.home-cases__head h2 {
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  letter-spacing: -0.03em;
+}
+
+.home-cases__head a {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--ink);
+}
+
+.home-cases__head a:hover {
+  opacity: 0.55;
+}
+
+.home-cases__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  max-width: 76rem;
+  margin-inline: auto;
+}
+
+.home-cases__card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.home-cases__media {
+  aspect-ratio: 16 / 10;
+  background: #111;
+  overflow: hidden;
+}
+
+.home-cases__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-cases__copy {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+  padding: 1.15rem 1.25rem 1.3rem;
+}
+
+.home-cases__client {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.home-cases__copy h3 {
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.home-cases__copy > p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.home-cases__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.15rem 1.5rem;
+  margin-top: 0.2rem;
+}
+
+.home-cases__stats strong {
+  display: block;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.home-cases__stats span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.home-cases__cta {
+  margin-top: 0.15rem;
+  width: fit-content;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--ink);
+}
+
+.home-cases__card:hover .home-cases__cta {
+  opacity: 0.55;
+}
+
+@media (max-width: 800px) {
+  .home-cases__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- Marketing pillars (Notion-style AI process) ---------- */
 .pillars {
   --pillars-blue: #2383e2;
@@ -6323,6 +6449,8 @@ p {
 }
 
 .cs-index-list {
+  display: grid;
+  gap: 1.25rem;
   padding: 0 var(--page-pad) clamp(2rem, 5vw, 4rem);
 }
 
@@ -6646,9 +6774,32 @@ p {
 
 .cs-impact-stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
   gap: 1.5rem;
   padding: 0.5rem 0 0.75rem;
+}
+
+.cs-section .cs-quote {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 40rem;
+  margin: 0.35rem 0 0;
+  padding: 0.15rem 0 0.15rem 1.1rem;
+  border-left: 2px solid var(--ink);
+}
+
+.cs-section .cs-quote p {
+  margin: 0;
+  max-width: none;
+  color: var(--ink);
+  font-size: 1.12rem;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.cs-quote footer {
+  font-size: 0.82rem;
+  color: var(--muted);
 }
 
 .cs-impact-stats strong {

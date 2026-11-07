@@ -9,11 +9,18 @@ export type CaseStudySolution = {
   body: string[]
 }
 
+export type CaseStudyQuote = {
+  text: string
+  attribution: string
+}
+
 export type CaseStudyStory = {
   date: string
   seoTitle: string
   heroImage: string
   heroImageAlt: string
+  /** CSS object-position for the hero crop. Defaults to center. */
+  heroObjectPosition?: string
   results: CaseStudyStat[]
   services: string[]
   startingPoint: string[]
@@ -21,6 +28,7 @@ export type CaseStudyStory = {
   impact: CaseStudyStat[]
   impactBody: string[]
   methodNote: string
+  quote?: CaseStudyQuote
 }
 
 export type CaseStudy = {
@@ -156,6 +164,69 @@ export const caseStudies: CaseStudy[] = [
       ],
       methodNote:
         'Comparable stores only. YouTube = Demand Gen with $50+ spend in the period. Guest count and net sales versus year-ago POS. Operating periods P7–P9, FY2026.',
+    },
+  },
+  {
+    id: 'bass-pro-high-margin',
+    client: 'Bass Pro Shops',
+    title: 'High-margin products, up 38% with Performance Max',
+    summary:
+      'A daily margin label in the feed let clothing and fishing Performance Max campaigns cover the most profitable SKUs. Those products grew revenue 38% year over year, with ROAS up 30%.',
+    tags: ['Paid Media', 'Performance Max', 'Retail'],
+    tileBg:
+      'radial-gradient(120% 100% at 30% 20%, #3d5a3a 0%, transparent 55%), radial-gradient(100% 90% at 80% 80%, #1a2a1c 0%, transparent 55%), #121812',
+    tileImage: '/work/bass-pro/high-margin-boat.png',
+    published: true,
+    story: {
+      date: '2025',
+      seoTitle:
+        'How Bass Pro Shops grew high-margin revenue 38% with Performance Max',
+      heroImage: '/work/bass-pro/high-margin-boat.png',
+      heroImageAlt:
+        'An angler on a Nitro bass boat holding a fish along a tree-lined river',
+      heroObjectPosition: '68% 42%',
+      results: [
+        { value: '+38%', label: 'Revenue' },
+        { value: '+30%', label: 'ROAS' },
+        { value: '+25%', label: 'Conversions' },
+      ],
+      services: ['Paid Media', 'Performance Max', 'Product feed', 'Retail'],
+      startingPoint: [
+        'Bass Pro Shops wanted incremental revenue from the products that actually carry margin. Performance Max could already spend against the catalog. What it could not see was profitability. The feed had no way to mark the most profitable SKUs, so those products could not be pulled into campaigns built to give them more coverage.',
+        'The goal was specific: label the highest-margin products in the feed, then use that label inside dedicated Performance Max campaigns — and keep the profitability target when items moved on and off sale.',
+      ],
+      solution: [
+        {
+          eyebrow: 'Product feed',
+          heading: 'A margin tier that refreshes daily',
+          body: [
+            'Bass Pro Shops added a dynamic margin rule in the product feed and labeled each SKU low, medium, or high. The labels refreshed every day. During a sale, a product could move tiers, and the campaigns could keep the profitability percentage they were built to hold.',
+          ],
+        },
+        {
+          eyebrow: 'Performance Max',
+          heading: 'Clothing and fishing, built for the high-margin set',
+          body: [
+            'iProspect then stood up clothing and fishing Performance Max campaigns dedicated to high-margin support. Volume on those SKUs went up by raising campaign budgets and setting lower ROAS targets — more coverage, still aimed at the profitable products.',
+            'Bass Pro Shops and iProspect built the margin label together. Once the high-margin products were marked, the media plan put more budget behind them instead of treating every SKU in the catalog the same.',
+          ],
+        },
+      ],
+      impact: [
+        { value: '+38%', label: 'Revenue YoY' },
+        { value: '+30%', label: 'ROAS YoY' },
+        { value: '+25%', label: 'Conversions YoY' },
+      ],
+      impactBody: [
+        'Products in the high-margin custom label picked up additional support year over year, because they finally had Performance Max campaigns built around that label. Revenue on those SKUs rose 38%, with ROAS up 30% and conversions up 25%.',
+        'More revenue and a higher return, together, is the signal that the extra coverage was reaching buyers. Bass Pro Shops and iProspect then looked at other categories where the same margin label could run.',
+      ],
+      quote: {
+        text: "Performance Max and dynamic feed rules have allowed us to amplify coverage for our most profitable products and as a result, generate more revenue. Our client couldn't be happier.",
+        attribution: 'Skye Smith, Paid Search Manager, iProspect',
+      },
+      methodNote:
+        'Year-over-year results for SKUs in the high-margin custom label, in clothing and fishing Performance Max. Prepared for the Google + dentsu 2025 Case Study Competition.',
     },
   },
   {

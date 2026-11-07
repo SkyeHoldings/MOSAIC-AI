@@ -19,9 +19,11 @@ export function CaseStudies() {
         <p className="cs-badge">Case studies</p>
         <h1>Work that moved the number</h1>
         <p>
-          Same-market reads on media mix — not last-click stories. The first
-          write-up is Red Robin: YouTube on top of Performance Max, measured
-          against PMax-only units in the same markets.
+          Reads on media mix and product economics — not last-click stories.
+          Red Robin: YouTube on top of Performance Max, measured against
+          PMax-only units in the same markets. Bass Pro Shops: a daily margin
+          label in the feed, then Performance Max coverage for the most
+          profitable SKUs.
         </p>
       </header>
 

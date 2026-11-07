@@ -5,6 +5,7 @@ import { BrandMarquee } from '../components/BrandMarquee'
 import { CalendlySection } from '../components/CalendlySection'
 import { FeatureShowcase } from '../components/FeatureShowcase'
 import { MarketingPillars } from '../components/MarketingPillars'
+import { CaseStudyPreview } from '../components/CaseStudyPreview'
 import { RecognitionStrip } from '../components/RecognitionStrip'
 import { SafetyBuiltIn } from '../components/SafetyBuiltIn'
 
@@ -40,6 +41,8 @@ export function HomeTest4() {
       </nav>
 
       <RecognitionStrip />
+
+      <CaseStudyPreview />
 
       <MarketingPillars answerTag="@MOSAIC" ctaHref="#book" />
 

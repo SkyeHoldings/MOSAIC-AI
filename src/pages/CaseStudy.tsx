@@ -104,7 +104,15 @@ export function CaseStudy() {
         </div>
 
         <div className="cs-hero__media">
-          <img src={story.heroImage} alt={story.heroImageAlt} />
+          <img
+            src={story.heroImage}
+            alt={story.heroImageAlt}
+            style={
+              story.heroObjectPosition
+                ? { objectPosition: story.heroObjectPosition }
+                : undefined
+            }
+          />
         </div>
       </section>
 
@@ -159,6 +167,12 @@ export function CaseStudy() {
             {story.impactBody.map((paragraph) => (
               <p key={paragraph.slice(0, 48)}>{paragraph}</p>
             ))}
+            {story.quote ? (
+              <blockquote className="cs-quote">
+                <p>{story.quote.text}</p>
+                <footer>{story.quote.attribution}</footer>
+              </blockquote>
+            ) : null}
             <p className="cs-method">{story.methodNote}</p>
           </section>
         </div>
