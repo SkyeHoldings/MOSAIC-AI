@@ -319,7 +319,7 @@ export function HomeTest() {
           </p>
           <a
             className="ht-pill ht-pill--ghost"
-            href="https://calendly.com/skye-hellomosaic/30min?hide_gdpr_banner=1"
+            href="https://calendly.com/skye-hellomosaic/15min?hide_gdpr_banner=1"
             target="_blank"
             rel="noopener noreferrer"
           >

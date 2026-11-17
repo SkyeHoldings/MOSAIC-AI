@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 const CALENDLY_EVENT_URL =
-  'https://calendly.com/skye-hellomosaic/30min?hide_gdpr_banner=1'
+  'https://calendly.com/skye-hellomosaic/15min?hide_gdpr_banner=1'
 
 const WIDGET_JS = 'https://assets.calendly.com/assets/external/widget.js'
 const WIDGET_CSS = 'https://assets.calendly.com/assets/external/widget.css'
