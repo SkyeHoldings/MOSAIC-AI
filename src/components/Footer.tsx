@@ -4,9 +4,11 @@ import { MosaicLogo } from './MosaicLogo'
 export function Footer() {
   const { pathname } = useLocation()
   const isTest4 =
-    pathname === '/' || pathname === '/test4' || pathname === '/homepageedit' || pathname === '/oldhomepage'
-  const about =
-    isTest4
+    pathname === '/test4' || pathname === '/homepageedit' || pathname === '/oldhomepage'
+  const isInsurance = pathname === '/' || pathname === '/insurancebuild'
+  const about = isInsurance
+    ? 'MOSAIC builds marketing for insurance agencies: the website, the content, and the media the agency keeps.'
+    : isTest4
       ? 'Backed by years of enterprise experience, MOSAIC builds marketing and AI systems for brands.'
       : "Based in Coeur d'Alene, MOSAIC partners with Inland Northwest business owners to shape marketing and AI systems that feel grounded — practical, consistent, and built for the long haul."
   return (

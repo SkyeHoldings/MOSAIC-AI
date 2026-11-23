@@ -121,14 +121,17 @@ export function SafetyBuiltIn({
   heading = 'Rooted in community',
   empathy = cards[0].body,
   awareness = cards[1].body,
+  conversion = cards[2].body,
 }: {
   heading?: string
   empathy?: string
   awareness?: string
+  conversion?: string
 } = {}) {
   const items = cards.map((card) => {
     if (card.id === 'moderation') return { ...card, body: empathy }
     if (card.id === 'accountability') return { ...card, body: awareness }
+    if (card.id === 'provenance') return { ...card, body: conversion }
     return card
   })
 

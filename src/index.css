@@ -338,7 +338,10 @@ p {
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
-  transition: border-color 200ms ease;
+  transition:
+    border-color 200ms ease,
+    background 200ms ease,
+    color 200ms ease;
 }
 
 .site-header.is-scrolled {

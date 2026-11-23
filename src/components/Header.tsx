@@ -14,6 +14,12 @@ const TEST4_TICKER_LINES = [
   'Managed +$200M of Ad Spend',
 ] as const
 
+const INSURANCE_TICKER_LINES = [
+  'Built for Insurance Agents',
+  'Women-Owned & Operated',
+  'Managed +$200M of Ad Spend',
+] as const
+
 const HOLD_MS = 3200
 const SPIN_MS = 650
 
@@ -86,17 +92,30 @@ function SlotTicker({ lines }: { lines: readonly string[] }) {
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const [overHero, setOverHero] = useState(true)
   const { pathname } = useLocation()
   const isNewHome =
-    pathname === '/' || pathname === '/test4' || pathname === '/homepageedit' || pathname === '/oldhomepage'
-  const isDark = pathname === '/services' || isNewHome
+    pathname === '/test4' || pathname === '/homepageedit' || pathname === '/oldhomepage'
+  const isInsurance = pathname === '/' || pathname === '/insurancebuild'
+  const isDark = pathname === '/services' || isNewHome || (isInsurance && overHero)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8)
+      if (pathname === '/' || pathname === '/insurancebuild') {
+        setOverHero(window.scrollY < window.innerHeight * 0.62)
+      }
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [pathname])
+
+  const tickerLines = isInsurance
+    ? INSURANCE_TICKER_LINES
+    : isNewHome
+      ? TEST4_TICKER_LINES
+      : TICKER_LINES
 
   return (
     <header
@@ -108,8 +127,8 @@ export function Header() {
         </Link>
 
         <SlotTicker
-          key={isNewHome ? 'test4' : 'default'}
-          lines={isNewHome ? TEST4_TICKER_LINES : TICKER_LINES}
+          key={isInsurance ? 'insurance' : isNewHome ? 'test4' : 'default'}
+          lines={tickerLines}
         />
       </div>
     </header>
