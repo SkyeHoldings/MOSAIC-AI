@@ -86,6 +86,7 @@ export default function App() {
       <main className={`site-main${isStandalonePage ? ' site-main--flush' : ''}`}>
         <Routes>
           <Route index element={<HomeTest4 />} />
+          <Route path="oldhomepage" element={<HomeTest4 />} />
           <Route path="test" element={<HomeTest />} />
           <Route path="test2" element={<HomeTest2 />} />
           <Route path="test3" element={<HomeTest3 />} />

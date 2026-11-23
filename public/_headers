@@ -1,6 +1,9 @@
 /test
   X-Robots-Tag: noindex, nofollow
 
+/oldhomepage
+  X-Robots-Tag: noindex, nofollow
+
 /test2
   X-Robots-Tag: noindex, nofollow
 
