@@ -95,14 +95,14 @@ export function Header() {
   const [overHero, setOverHero] = useState(true)
   const { pathname } = useLocation()
   const isNewHome =
-    pathname === '/test4' || pathname === '/homepageedit' || pathname === '/oldhomepage'
-  const isInsurance = pathname === '/' || pathname === '/insurancebuild'
+    pathname === '/' || pathname === '/test4' || pathname === '/homepageedit' || pathname === '/oldhomepage'
+  const isInsurance = pathname === '/insurancebuild'
   const isDark = pathname === '/services' || isNewHome || (isInsurance && overHero)
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 8)
-      if (pathname === '/' || pathname === '/insurancebuild') {
+      if (pathname === '/insurancebuild') {
         setOverHero(window.scrollY < window.innerHeight * 0.62)
       }
     }

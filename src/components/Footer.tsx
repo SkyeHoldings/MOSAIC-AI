@@ -4,8 +4,8 @@ import { MosaicLogo } from './MosaicLogo'
 export function Footer() {
   const { pathname } = useLocation()
   const isTest4 =
-    pathname === '/test4' || pathname === '/homepageedit' || pathname === '/oldhomepage'
-  const isInsurance = pathname === '/' || pathname === '/insurancebuild'
+    pathname === '/' || pathname === '/test4' || pathname === '/homepageedit' || pathname === '/oldhomepage'
+  const isInsurance = pathname === '/insurancebuild'
   const about = isInsurance
     ? 'MOSAIC builds marketing for insurance agencies: the website, the content, and the media the agency keeps.'
     : isTest4

@@ -86,7 +86,7 @@ export default function App() {
       {!isStandalonePage && <Header />}
       <main className={`site-main${isStandalonePage ? ' site-main--flush' : ''}`}>
         <Routes>
-          <Route index element={<InsuranceBuild />} />
+          <Route index element={<HomeTest4 />} />
           <Route path="oldhomepage" element={<HomeTest4 />} />
           <Route path="test" element={<HomeTest />} />
           <Route path="test2" element={<HomeTest2 />} />
@@ -94,7 +94,7 @@ export default function App() {
           <Route path="test4" element={<HomeTest4 />} />
           <Route path="test5" element={<HomeTest5 />} />
           <Route path="homepageedit" element={<HomepageEdit />} />
-          <Route path="insurancebuild" element={<Navigate to="/" replace />} />
+          <Route path="insurancebuild" element={<InsuranceBuild />} />
           <Route path="growth" element={<GrowthPreview />} />
           <Route path="case-studies">
             <Route index element={<CaseStudies />} />
