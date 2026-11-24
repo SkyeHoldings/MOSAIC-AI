@@ -39,6 +39,20 @@ const logos: BrandLogo[] = [
     widthRem: 8.6,
     heightRem: 2.45,
   },
+  {
+    id: 'state-farm',
+    label: 'State Farm',
+    src: '/brands/state-farm.svg',
+    widthRem: 15.4,
+    heightRem: 2.15,
+  },
+  {
+    id: 'nationwide',
+    label: 'Nationwide',
+    src: '/brands/nationwide.svg',
+    widthRem: 14.2,
+    heightRem: 2.15,
+  },
 ]
 
 function BrandBarcode({ brand }: { brand: BrandLogo }) {
